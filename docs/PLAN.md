@@ -99,6 +99,15 @@ How this changes the plan:
 
 Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting context only, not something we replicate. Because its abstract gives no time base for "3.32 m", we cite it as "a UAEU study measured dune migration here with Sentinel-2 in 2018–2020" and make no numeric comparison. The independent quantitative check is the HLS repeat. If a numeric comparison is wanted later, Sultan will supply the PDF (into `docs/research/papers/`, gitignored).
 
+## Decisions log (confirmed by Sultan, 2026-11-14)
+- Boxes: `seih_al_hama` race-track box; `sweihan` town box (S 24.42, W 55.29, N 24.51, E 55.39); `liwa` eastern-crescent box (S 23.00, W 54.08, N 23.09, E 54.18).
+- Scene month: **November** at all three sites, one Landsat scene per year, lists as proposed in each `pipeline/outputs/<site>/scenes_selected.json`.
+  - Seih Al Hama and Sweihan: the same 14 dates (2000, 2001, 2013–2017, 2019–2025).
+  - Liwa: 14 dates (2000, 2001, 2013–2015, 2017–2025).
+  - No off-month fill-in scenes for the missing years.
+  - Sweihan 2022-11-08 has a ~300 m cloud shadow to mask.
+- Thesis: context only, no numeric comparison.
+
 ## Standing rules for every phase
 - NASA data is the measurement source; snapshots are display only.
 - No invented coordinates, dates or scene IDs; every number carries dataset, date, place and link.

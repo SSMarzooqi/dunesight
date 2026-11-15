@@ -1,0 +1,230 @@
+{
+ "type": "FeatureCollection",
+ "note": "Hand-drawn non-dune areas for this site (WGS84). Drawn by eye on the Landsat 15 m pan images of 2000-11-27 and 2025-11-08 where human change (farms, track, plots, levelling) is obvious but not caught by the automatic layers (NDVI, ESA WorldCover, OpenStreetMap). Used only to EXCLUDE areas from dune-motion statistics. Each polygon states why.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M1",
+    "reason": "Farm-plot grid (rows of trees/fences, partly abandoned and partly buried by sand) in the west-centre; visible in 2013-2025, fainter in 2000. Stationary man-made texture would pull dune speeds toward zero.",
+    "drawn_on": "Landsat pan B8 2000-11-27 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.459405,
+       24.078958
+      ],
+      [
+       55.533731,
+       24.094588
+      ],
+      [
+       55.533859,
+       24.083347
+      ],
+      [
+       55.508838,
+       24.078093
+      ],
+      [
+       55.508885,
+       24.07403
+      ],
+      [
+       55.45956,
+       24.065956
+      ],
+      [
+       55.459405,
+       24.078958
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M2",
+    "reason": "Camel race track, its flat and the plots/settlement built around it: a dark flat in 2000, track and plots built by 2013, settlement east of the track built between 2001 and 2024. Non-dune surface and non-dune change.",
+    "drawn_on": "Landsat pan B8 2000-11-27 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.459774,
+       24.048079
+      ],
+      [
+       55.477391,
+       24.055028
+      ],
+      [
+       55.503798,
+       24.067479
+      ],
+      [
+       55.52583,
+       24.07582
+      ],
+      [
+       55.550923,
+       24.074705
+      ],
+      [
+       55.56575,
+       24.068072
+      ],
+      [
+       55.565886,
+       24.055883
+      ],
+      [
+       55.549661,
+       24.05573
+      ],
+      [
+       55.542394,
+       24.046179
+      ],
+      [
+       55.524727,
+       24.043301
+      ],
+      [
+       55.50408,
+       24.0431
+      ],
+      [
+       55.477663,
+       24.032004
+      ],
+      [
+       55.459968,
+       24.031827
+      ],
+      [
+       55.459774,
+       24.048079
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M3",
+    "reason": "Levelled rectangular plots south of the flat (sand graded flat and fenced after 2013).",
+    "drawn_on": "Landsat pan B8 2000-11-27 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.474738,
+       24.029943
+      ],
+      [
+       55.499068,
+       24.030183
+      ],
+      [
+       55.499241,
+       24.015285
+      ],
+      [
+       55.474913,
+       24.015045
+      ],
+      [
+       55.474738,
+       24.029943
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M5",
+    "reason": "Fenced plots built between 2013 and 2025 on the sand strip between the flat and the E40 (smooth sand with low ripples in 2013, plots and structures in 2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.499042,
+       24.032486
+      ],
+      [
+       55.529567,
+       24.032782
+      ],
+      [
+       55.529659,
+       24.024655
+      ],
+      [
+       55.49923,
+       24.016233
+      ],
+      [
+       55.499042,
+       24.032486
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M4",
+    "reason": "Bright smooth patch on the western edge of the flat whose appearance changes between 2000, 2013 and 2025 (graded surface or vehicle track), not dune bedforms.",
+    "drawn_on": "Landsat pan B8 2000-11-27 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.485614,
+       24.045628
+      ],
+      [
+       55.499625,
+       24.045766
+      ],
+      [
+       55.499782,
+       24.032222
+      ],
+      [
+       55.485797,
+       24.030053
+      ],
+      [
+       55.485614,
+       24.045628
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

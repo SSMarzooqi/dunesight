@@ -1,6 +1,6 @@
 {
  "site": "seih_al_hama",
- "generated_utc": "2026-11-15T03:12:00Z",
+ "generated_utc": "2026-11-15T03:24:13Z",
  "parameters": {
   "grid_margin_m": 1500,
   "win": 32,
@@ -1102,6 +1102,22 @@
    "10": 0.169,
    "15": 0.2
   }
+ },
+ "velocity_field_table": {
+  "file": "pipeline/outputs/seih_al_hama/02_velocity_field.csv",
+  "n_windows": 2417,
+  "window_px": 32,
+  "step_px": 8,
+  "res_m": 15.0,
+  "grid": {
+   "crs": "EPSG:32640",
+   "x0": 343387.5,
+   "y0": 2668207.5,
+   "res": 15.0,
+   "width": 886,
+   "height": 874
+  },
+  "columns_note": "x_m/y_m = window centre in the site CRS; sigma_myr = calibrated per-component 1-sigma; detected = speed > detection_limit_myr (= 2.45 sigma); speeds/headings blank where not valid"
  },
  "scenes": [
   {

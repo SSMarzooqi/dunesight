@@ -1,0 +1,26 @@
+{
+ "_about": "Site-specific interpretive text for notebook 03's summary.json. Every string is a Python format template filled from this run's numbers: vs = notebook 02 velocity_summary, nd = noise_and_detection, ph = physics, s30/l30 = hls_second_dataset entries, ws = wind_summary.json, qc = the whole notebook 02 QC summary, n_dunes = dunes in dunes.geojson, pct_below = % of valid windows below the detection limit, tt = target counts (n_targets, n_reached_by_2050, n_reached_by_2100, n_at_edge). Written after looking at this site's results; check the numbers against the run.",
+ "published": {
+  "reference": "Fareaa 2025 UAEU thesis",
+  "their_value": "3.32 m average migration, peaking in 2019 (abstract; Sentinel-2, COSI-Corr, 2018-2020); time base not stated",
+  "our_value": "no numeric comparison",
+  "note": "Context only. The abstract gives '3.32 m' with no time base (per year, per month or per image pair), no area and no statistic, and the full text could not be read, so the number cannot be compared with a rate in m/yr (the two readings differ about 12-fold). It is also not confirmed that the thesis field ('Seih Al-Lahma' in its Arabic abstract) is this box. https://scholarworks.uaeu.ac.ae/all_theses/1432"
+ },
+ "wind_agreement_note": "mean |heading - RDD| over detected windows, RDD {ws[RDD_deg]} deg (MERRA-2 2000-2024). The wind regime is bimodal (RDP/DP {ws[RDP_DP]}): the field-median heading {ph[field_median_heading_deg]} deg is {ph[field_heading_minus_modes_deg][1]} deg from the northward (southerly-wind) mode and {ph[field_heading_minus_RDD_deg]} deg from RDD; per-window median difference {ph[per_window_abs_heading_minus_RDD_median_deg]} deg.",
+ "second_dataset_note": "The independent Sentinel-2 check agrees only weakly: speeds about half of Landsat's and headings {s30[heading_difference_deg]} deg apart at field level, per-window r {s30[corr_E]}/{s30[corr_N]}. At 30 m its detection limit ({s30[hls_detection_limit_median_myr]} m/yr) is above most measured speeds, so it can confirm little; where Landsat speeds exceed twice the detection limit ({s30[windows_where_landsat_speed_gt_2x_detection_limit][n]} windows) headings differ by a median {s30[windows_where_landsat_speed_gt_2x_detection_limit][median_heading_diff_deg]} deg. HLS L30 agrees better (heading within {l30[heading_difference_deg]} deg, speed {l30[field_median_speed_hls_myr]} vs {l30[field_median_speed_landsat_myr]} m/yr) but uses the same Landsat instruments, so it only shows the result survives a different band, resolution and processing.",
+ "limits": [
+  "Speeds are slow: detected dune windows move a median {vs[detected_speed_median_myr]:.2f} m/yr (10-90 %: {vs[detected_speed_p10_p90_myr][0]:.2f}-{vs[detected_speed_p10_p90_myr][1]:.2f}, max {vs[detected_speed_range_myr][1]:.2f}), i.e. roughly 10-30 m in 25 years; {pct_below:.0f} % of valid dune windows move below the detection limit (median {nd[detection_limit_median_myr]:.2f} m/yr) and have no measured direction.",
+  "Reach years forecast the migration of dune forms (slip-face advance), not wind-blown sand crossing a road, which happens wherever a road borders loose sand, whatever the dunes do (see borders_free_sand in targets.geojson).",
+  "At these speeds the position of the sand edge matters as much as the speed: a 15 m pixel is about 20 years of motion at 0.7 m/yr, so reach years for targets near the sand carry an edge uncertainty of +-7.5 m plus the outline uncertainty of the target.",
+  "Most targets are not reached by {P[projection_end]}; targets flagged 'sand at edge now' already have migrating sand within that edge uncertainty.",
+  "The projection is advection along the measured 2013-2025 motion, assuming those conditions continue; it does not model dune deformation, merging, splitting or growth.",
+  "Vegetation, windbreaks, sand fences, levelling, construction and climate change alter the outcome.",
+  "Motion is measured in 480 m windows: it is the motion of the small dunes (spacing ~70-90 m) and sand sheets inside, not of a single dune body.",
+  "Only {n_dunes} large dunes (14-72 m high) are outlined, from NASADEM (February 2000) shifted to 2025; the small dunes that carry most of the motion are represented by the velocity grid, not by polygons.",
+  "The independent Sentinel-2 (HLS S30) check agrees only weakly; HLS L30 agrees better but uses the same Landsat instruments.",
+  "The published UAEU study is context only: its '3.32 m' has no stated time base, so no numeric comparison is made.",
+  "MERRA-2 wind is a ~0.5 x 0.625 deg reanalysis of hourly means; absolute drift potential is approximate and the regime is bimodal.",
+  "Farms are vegetated plots (HLS NDVI, last year) and built-up targets come from OpenStreetMap, where few buildings are mapped here; unmapped or abandoned plots are not targets.",
+  "Results are valid for this box and 2013-2025 only; nothing outside the box is assessed."
+ ]
+}

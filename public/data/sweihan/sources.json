@@ -1,72 +1,228 @@
 [
  {
-  "name": "Landsat 7 ETM+ Collection 2 Level-1",
+  "name": "Landsat 7 ETM+ Collection 2 Level-1 (Tier 1)",
   "provider": "NASA / USGS",
-  "used_for": "dune motion (B8, 15 m) - PLACEHOLDER",
+  "version": "Collection 2",
+  "used_for": "observed timeline frames and the long-baseline motion check (B8 panchromatic); vegetation mask (B3/B4 TOA NDVI)",
   "dates": [
-   "2001-05-01"
+   "2000-11-27",
+   "2001-11-30"
   ],
-  "place": "Sweihan dune field, NW of Al Ain box (PLACEHOLDER entry)",
-  "pixel": "15 m",
+  "scene_ids": [
+   "LE07_L1TP_160043_20001127_20200918_02_T1",
+   "LE07_L1TP_160043_20011130_20200917_02_T1"
+  ],
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51); WRS-2 path 160 row 43",
+  "pixel": "15 m (B8), 30 m (QA_PIXEL, B3/B4)",
+  "access": "Google Earth Engine LANDSAT/LE07/C02/T1",
   "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
   "doi": "https://doi.org/10.5066/P9TU80IG",
-  "placeholder": true,
-  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+  "doi_checked": "resolves to 'Landsat 7 Enhanced Thematic Mapper Plus Collection 2 Level-1 Data' (USGS EROS)"
  },
  {
-  "name": "Landsat 8-9 OLI/TIRS Collection 2 Level-1",
+  "name": "Landsat 8-9 OLI/TIRS Collection 2 Level-1 (Tier 1)",
   "provider": "NASA / USGS",
-  "used_for": "dune motion (B8, 15 m) - PLACEHOLDER",
+  "version": "Collection 2",
+  "used_for": "dune motion (B8 panchromatic, velocity network), observed timeline frames, projected frames (from the latest scene), illumination test, vegetation mask (B4/B5 TOA NDVI)",
   "dates": [
-   "2013-05-01",
-   "2019-05-01",
-   "2025-05-01"
+   "2013-11-07",
+   "2014-11-10",
+   "2015-11-13",
+   "2016-11-15",
+   "2017-11-02",
+   "2019-11-08",
+   "2020-11-10",
+   "2021-11-13",
+   "2022-11-08",
+   "2023-11-19",
+   "2024-11-13",
+   "2025-11-08"
   ],
-  "place": "Sweihan dune field, NW of Al Ain box (PLACEHOLDER entry)",
-  "pixel": "15 m",
+  "scene_ids": [
+   "LC08_L1TP_160043_20131107_20200912_02_T1",
+   "LC08_L1TP_160043_20141110_20200910_02_T1",
+   "LC08_L1TP_160043_20151113_20200908_02_T1",
+   "LC08_L1TP_160043_20161115_20200905_02_T1",
+   "LC08_L1TP_160043_20171102_20200902_02_T1",
+   "LC08_L1TP_160043_20191108_20200825_02_T1",
+   "LC08_L1TP_160043_20201110_20210316_02_T1",
+   "LC08_L1TP_160043_20211113_20211125_02_T1",
+   "LC09_L1TP_160043_20221108_20230322_02_T1",
+   "LC08_L1TP_160043_20231119_20231122_02_T1",
+   "LC09_L1TP_160043_20241113_20241113_02_T1",
+   "LC08_L1TP_160043_20251108_20251128_02_T1"
+  ],
+  "illumination_test_dates": [
+   "2013-12-09",
+   "2014-10-09",
+   "2014-11-26",
+   "2015-10-12",
+   "2015-10-28",
+   "2016-10-14",
+   "2016-12-01",
+   "2017-10-01",
+   "2017-12-04",
+   "2019-10-23",
+   "2019-11-24",
+   "2020-10-09",
+   "2020-11-26",
+   "2021-10-12",
+   "2021-11-29",
+   "2022-09-29",
+   "2022-12-18",
+   "2023-10-10",
+   "2023-12-13",
+   "2024-10-04",
+   "2024-12-15",
+   "2025-09-29",
+   "2025-12-02"
+  ],
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51); WRS-2 path 160 row 43",
+  "pixel": "15 m (B8), 30 m (QA_PIXEL, B4/B5)",
+  "access": "Google Earth Engine LANDSAT/LC08/C02/T1, LANDSAT/LC09/C02/T1",
   "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
   "doi": "https://doi.org/10.5066/P975CC9B",
-  "placeholder": true,
-  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+  "doi_checked": "resolves to 'Landsat 8-9 Operational Land Imager and Thermal Infrared Sensor Collection 2 Level-1 Data' (USGS EROS)"
  },
  {
-  "name": "Harmonized Landsat Sentinel-2 (HLSL30/HLSS30) v2.0",
+  "name": "HLS Sentinel-2 MSI Surface Reflectance (HLSS30) v2.0",
   "provider": "NASA LP DAAC",
-  "used_for": "second-dataset check - PLACEHOLDER",
-  "dates": [],
-  "place": "Sweihan dune field, NW of Al Ain box (PLACEHOLDER entry)",
+  "version": "2.0",
+  "used_for": "independent second-dataset motion check (B4 red, Fmask); farm/plantation NDVI (B8A, B4) over the last year",
+  "dates": [
+   "2016-11-15",
+   "2017-11-05",
+   "2018-11-20",
+   "2019-11-10",
+   "2020-11-09",
+   "2021-11-04",
+   "2022-11-09",
+   "2023-11-09",
+   "2024-11-08",
+   "2025-11-13"
+  ],
+  "farm_composite_period": "2024-11-01 to 2025-12-01 (end exclusive), 90 granules",
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51); MGRS tile T40RCN",
   "pixel": "30 m",
-  "link": "https://lpdaac.usgs.gov/products/hlsl30v002/",
-  "doi": "https://doi.org/10.5067/HLS/HLSL30.002",
-  "placeholder": true,
-  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+  "access": "Google Earth Engine NASA/HLS/HLSS30/v002",
+  "link": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-hlss30-2.0",
+  "doi": "https://doi.org/10.5067/HLS/HLSS30.002",
+  "doi_checked": "resolves to 'HLS Sentinel-2 Multi-spectral Instrument Surface Reflectance Daily Global 30m v2.0' (NASA Earthdata)"
  },
  {
-  "name": "MERRA-2 tavg1_2d_slv_Nx (U10M, V10M)",
+  "name": "HLS Landsat OLI Surface Reflectance and TOA Brightness (HLSL30) v2.0",
+  "provider": "NASA LP DAAC",
+  "version": "2.0",
+  "used_for": "same-instrument motion check (B4 red, Fmask); farm/plantation NDVI (B5, B4) over the last year",
+  "dates": [
+   "2013-11-07",
+   "2014-11-10",
+   "2015-11-13",
+   "2016-11-15",
+   "2017-11-02",
+   "2019-11-08",
+   "2020-11-10",
+   "2021-11-13",
+   "2022-11-08",
+   "2023-11-19",
+   "2024-11-13",
+   "2025-11-08"
+  ],
+  "farm_composite_period": "2024-11-01 to 2025-12-01 (end exclusive), 49 granules",
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51); MGRS tile T40RCN",
+  "pixel": "30 m",
+  "access": "Google Earth Engine NASA/HLS/HLSL30/v002",
+  "link": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-hlsl30-2.0",
+  "doi": "https://doi.org/10.5067/HLS/HLSL30.002",
+  "doi_checked": "resolves to 'HLS Landsat Operational Land Imager Surface Reflectance and TOA Brightness Daily Global 30m v2.0' (NASA Earthdata)"
+ },
+ {
+  "name": "MERRA-2 tavg1_2d_slv_Nx (M2T1NXSLV) U10M, V10M",
   "provider": "NASA GMAO / GES DISC",
-  "used_for": "wind drift potential - PLACEHOLDER",
+  "version": "5.12.4",
+  "used_for": "wind drift potential (Fryberger DP, RDP, RDD) and the interannual wind check",
   "dates": [
    "2000-01-01/2024-12-31"
   ],
-  "place": "Sweihan dune field, NW of Al Ain box centroid (PLACEHOLDER entry)",
+  "place": "MERRA-2 grid cell nearest the box centre (24.465 N, 55.34 E)",
   "pixel": "0.5 x 0.625 deg",
+  "access": "Google Earth Engine NASA/GSFC/MERRA/slv/2",
   "link": "https://disc.gsfc.nasa.gov/datasets/M2T1NXSLV_5.12.4/summary",
   "doi": "https://doi.org/10.5067/VJAFPLI1CSIV",
-  "placeholder": true,
-  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+  "doi_checked": "resolves to 'MERRA-2 tavg1_2d_slv_Nx ... V5.12.4 (M2T1NXSLV)' (NASA Earthdata)"
  },
  {
-  "name": "NASADEM Merged DEM Global 1 arc second",
-  "provider": "NASA JPL / LP DAAC",
-  "used_for": "dune outlines and heights - PLACEHOLDER",
+  "name": "MERRA-2 tavg1_2d_aer_Nx (M2T1NXAER) TOTEXTTAU, DUEXTTAU",
+  "provider": "NASA GMAO / GES DISC",
+  "version": "5.12.4",
+  "used_for": "haze indicator for scene screening (aerosol optical depth at the acquisition hour)",
   "dates": [
-   "2000-02"
+   "acquisition hours of the candidate scenes, 2000-2025"
   ],
-  "place": "Sweihan dune field, NW of Al Ain box (PLACEHOLDER entry)",
-  "pixel": "30 m",
-  "link": "https://lpdaac.usgs.gov/products/nasadem_hgtv001/",
+  "place": "MERRA-2 grid cell of the box",
+  "pixel": "0.5 x 0.625 deg",
+  "access": "Google Earth Engine NASA/GSFC/MERRA/aer/2",
+  "link": "https://disc.gsfc.nasa.gov/datasets/M2T1NXAER_5.12.4/summary",
+  "doi": "https://doi.org/10.5067/KLICLTZ8EM9D",
+  "doi_checked": "resolves to 'MERRA-2 tavg1_2d_aer_Nx ... V5.12.4 (M2T1NXAER)' (NASA Earthdata)"
+ },
+ {
+  "name": "NASA POWER hourly (MERRA-2 based) WS10M/WD10M, U10M/V10M",
+  "provider": "NASA Langley Research Center (POWER project)",
+  "version": "POWER API v2 (as served 2026-11)",
+  "used_for": "processing cross-check of the MERRA-2 wind numbers",
+  "dates": [
+   "2001-01-01/2024-12-31"
+  ],
+  "place": "box centroid",
+  "pixel": "0.5 x 0.625 deg (MERRA-2 source)",
+  "link": "https://power.larc.nasa.gov/",
+  "doi": null,
+  "doi_checked": "NASA POWER has no dataset DOI; the link (project home) was checked"
+ },
+ {
+  "name": "NASADEM Merged DEM Global 1 arc second (NASADEM_HGT) V001",
+  "provider": "NASA JPL / LP DAAC",
+  "version": "001",
+  "used_for": "dune outlines and heights (SRTM radar, February 2000)",
+  "dates": [
+   "2000-02-11/2000-02-22"
+  ],
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51)",
+  "pixel": "1 arc-second (~30 m)",
+  "access": "Google Earth Engine NASA/NASADEM_HGT/001",
+  "link": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001",
   "doi": "https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001",
-  "placeholder": true,
-  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+  "doi_checked": "resolves to 'NASADEM Merged DEM Global 1 arc second V001' (NASA Earthdata)"
+ },
+ {
+  "name": "ESA WorldCover 10 m 2021 v200",
+  "provider": "European Space Agency (not NASA)",
+  "version": "v200",
+  "used_for": "non-dune mask (tree cover, cropland, built-up, water) and the farm cross-check",
+  "dates": [
+   "2021"
+  ],
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51)",
+  "pixel": "10 m",
+  "access": "Google Earth Engine ESA/WorldCover/v200",
+  "link": "https://esa-worldcover.org/",
+  "doi": "https://doi.org/10.5281/zenodo.7254221",
+  "doi_checked": "resolves to 'ESA WorldCover 10 m 2021 v200' (Zenodo)"
+ },
+ {
+  "name": "OpenStreetMap",
+  "provider": "OpenStreetMap contributors (ODbL 1.0)",
+  "version": "database timestamp 2026-11-15T04:10:14Z",
+  "used_for": "targets: roads and built-up areas (Overpass API); non-dune mask (notebook 02)",
+  "dates": [
+   "2026-11-15"
+  ],
+  "retrieved": "2026-11-15T04:11:20Z",
+  "place": "Sweihan dune field, NW of Al Ain box (W 55.29, S 24.42, E 55.39, N 24.51)",
+  "pixel": "vector",
+  "link": "https://www.openstreetmap.org/copyright",
+  "doi": null,
+  "doi_checked": "no DOI; licence page checked. Query recorded in targets.geojson"
  }
 ]

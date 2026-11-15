@@ -1,0 +1,2245 @@
+{
+ "site": "sweihan",
+ "generated_utc": "2026-11-15T04:14:30Z",
+ "parameters": {
+  "grid_margin_m": 1500,
+  "win": 32,
+  "step": 8,
+  "margin_px": 24,
+  "upsample": 100,
+  "null_pctl": 99.0,
+  "max_disp_px": 4.0,
+  "stable_min_frac": 0.75,
+  "stable_min_med_peak": 0.5,
+  "stable_min_valid": 0.9,
+  "dune_max_nondune": 0.25,
+  "dune_min_valid": 0.6,
+  "aux_days": 40,
+  "ndvi_margin": 0.07,
+  "vector_thin": 2,
+  "dem_smooth_px": 1.0,
+  "dem_k_sigma": 3.0,
+  "dem_corr_px": 9,
+  "dem_min_px": 4,
+  "dem_base_radius_m": 300,
+  "hls_win": 24,
+  "hls_step": 4,
+  "draa_base_radius_m": 1500,
+  "draa_min_area_km2": 0.25,
+  "draa_win": 64,
+  "min_unvegetated_stable": 20,
+  "seed": 20261114
+ },
+ "masks": {
+  "vegetated_ndvi_threshold": 0.199,
+  "inbox_pct_vegetated": 10.3,
+  "inbox_pct_worldcover": 11.1,
+  "inbox_pct_osm": 39.7,
+  "inbox_pct_manual": 52.8,
+  "inbox_pct_nondune_total": 63.4,
+  "osm_feature_counts": {
+   "highway": 684,
+   "landuse": 54,
+   "building": 95,
+   "amenity": 19,
+   "leisure": 14,
+   "man_made": 2
+  },
+  "manual_polygons": [
+   {
+    "id": "M1",
+    "reason": "NW settlement west of the E20: scattered plots in 2000, a dense block of compounds, walls and plots by 2013 that keeps growing to 2025. Built-up change, not dune motion."
+   },
+   {
+    "id": "M2",
+    "reason": "E20 (Sweihan Road) corridor in the NW: a single carriageway in 2000, realigned and dualled by 2013 (the 2000 and 2013 alignments differ by up to ~50 m), with an interchange at 24.480 N. OSM buffers only the current line."
+   },
+   {
+    "id": "M3",
+    "reason": "Levelled and fenced area north of the E16 (a diamond-shaped enclosure with a pushed-up sand pile inside, and fenced plots south-east of it): dunes in 2000 and 2013, graded by 2025."
+   },
+   {
+    "id": "M4",
+    "reason": "Elongated flat inside the northern dune belt (WNW-ESE, ~1.8 x 0.4 km): a graded strip already in 2013, excavated and brighter by 2022-2025. Non-dune surface with non-dune change."
+   },
+   {
+    "id": "M5",
+    "reason": "Housing grid west of the junction (absent in 2013, street grid by 2019-2025) on a long flat strip parallel to the E16 that was dark in 2000 and pale in 2013 (graded ground)."
+   },
+   {
+    "id": "M6",
+    "reason": "Military compound north of the E16 and the fenced plots added beside it after 2013 (new buildings and walls 2013-2025)."
+   },
+   {
+    "id": "M7",
+    "reason": "New fenced compound in the NE corner, absent in 2013, present in 2025."
+   },
+   {
+    "id": "M8",
+    "reason": "Farm corridor east of the town between the E16 and the southern dunes: plots added, abandoned and re-fenced between 2000 and 2025 (unvegetated plots are missed by NDVI/WorldCover)."
+   },
+   {
+    "id": "M9",
+    "reason": "Abandoned farm grid in the SE: irrigated plots in 2000, faded to a grid of tracks/walls by 2013 and being covered by sand from the north-west by 2025. A sand-encroachment target for notebook 03, not a tracking area: its static grid would pull dune speeds toward zero."
+   },
+   {
+    "id": "M10",
+    "reason": "Water tanks/pond built south of the town between 2000 and 2013."
+   },
+   {
+    "id": "M11",
+    "reason": "Compound at the southern edge of the SW dune belt that grew between 2000 and 2025, with a new fenced enclosure to its south (2025)."
+   },
+   {
+    "id": "M12",
+    "reason": "Fenced plots and compounds on the gravel flat south-east of the road (new fence lines 2013-2025)."
+   },
+   {
+    "id": "M13",
+    "reason": "Graded bright patches, tracks, a camp and a dark structure added on the gravel flat along the toe of the SW dune belt between 2013 and 2025 (55.286-55.320 E). Found after the first runs: windows centred on this flat showed 2-8 m/yr toward the NE with low match quality (0.2-0.3), out of line with the belt (about 1 m/yr toward the east)."
+   }
+  ],
+  "manual_polygons_allowed_as_stable_ground": [],
+  "scene_masks": [
+   {
+    "id": "S1",
+    "dates": [
+     "2022-11-08"
+    ],
+    "reason": "Cluster of small cumulus shadows over the northern dune belt on 2022-11-08 (largest ~300 m at 55.336 E 24.505 N, four to five smaller ones down to 24.489 N), dark in B8 and slightly cool in thermal, flagged in only 0.001 % of the box by QA_PIXEL. Seen by comparing with 2021-11-13 and 2023-11-19 at full resolution.",
+    "inbox_pct": 3.282
+   }
+  ],
+  "n_stable_windows": 316
+ },
+ "synthetic_tests": {
+  "table": [
+   {
+    "shift_row_px": 0,
+    "shift_col_px": 0,
+    "degraded": false,
+    "bias_row_px": 0.0,
+    "bias_col_px": 0.0,
+    "nmad_row_px": 0.0,
+    "nmad_col_px": 0.0,
+    "p95_error_m": 0.0,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 1.0
+   },
+   {
+    "shift_row_px": 0,
+    "shift_col_px": 0,
+    "degraded": true,
+    "bias_row_px": 0.0,
+    "bias_col_px": 0.0,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.148,
+    "p95_error_m": 41.75,
+    "pct_error_gt_1px": 7.5,
+    "median_peak": 0.42
+   },
+   {
+    "shift_row_px": 0.1,
+    "shift_col_px": -0.2,
+    "degraded": false,
+    "bias_row_px": 0.0,
+    "bias_col_px": 0.0,
+    "nmad_row_px": 0.0,
+    "nmad_col_px": 0.0,
+    "p95_error_m": 0.15,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 1.0
+   },
+   {
+    "shift_row_px": 0.1,
+    "shift_col_px": -0.2,
+    "degraded": true,
+    "bias_row_px": 0.0,
+    "bias_col_px": 0.01,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.163,
+    "p95_error_m": 42.49,
+    "pct_error_gt_1px": 7.8,
+    "median_peak": 0.41
+   },
+   {
+    "shift_row_px": 0.25,
+    "shift_col_px": 0.4,
+    "degraded": false,
+    "bias_row_px": 0.0,
+    "bias_col_px": 0.0,
+    "nmad_row_px": 0.0,
+    "nmad_col_px": 0.0,
+    "p95_error_m": 0.21,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.99
+   },
+   {
+    "shift_row_px": 0.25,
+    "shift_col_px": 0.4,
+    "degraded": true,
+    "bias_row_px": 0.0,
+    "bias_col_px": -0.01,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.163,
+    "p95_error_m": 45.87,
+    "pct_error_gt_1px": 8.1,
+    "median_peak": 0.41
+   },
+   {
+    "shift_row_px": -0.5,
+    "shift_col_px": 0.5,
+    "degraded": false,
+    "bias_row_px": 0.0,
+    "bias_col_px": -0.01,
+    "nmad_row_px": 0.0,
+    "nmad_col_px": 0.0,
+    "p95_error_m": 0.21,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.99
+   },
+   {
+    "shift_row_px": -0.5,
+    "shift_col_px": 0.5,
+    "degraded": true,
+    "bias_row_px": 0.01,
+    "bias_col_px": -0.01,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.163,
+    "p95_error_m": 46.93,
+    "pct_error_gt_1px": 8.1,
+    "median_peak": 0.41
+   },
+   {
+    "shift_row_px": 1.3,
+    "shift_col_px": -0.7,
+    "degraded": false,
+    "bias_row_px": -0.01,
+    "bias_col_px": 0.01,
+    "nmad_row_px": 0.015,
+    "nmad_col_px": 0.0,
+    "p95_error_m": 0.45,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.96
+   },
+   {
+    "shift_row_px": 1.3,
+    "shift_col_px": -0.7,
+    "degraded": true,
+    "bias_row_px": -0.02,
+    "bias_col_px": 0.01,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.163,
+    "p95_error_m": 50.04,
+    "pct_error_gt_1px": 8.8,
+    "median_peak": 0.41
+   },
+   {
+    "shift_row_px": 3.0,
+    "shift_col_px": 2.0,
+    "degraded": false,
+    "bias_row_px": -0.02,
+    "bias_col_px": -0.02,
+    "nmad_row_px": 0.015,
+    "nmad_col_px": 0.015,
+    "p95_error_m": 0.87,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.85
+   },
+   {
+    "shift_row_px": 3.0,
+    "shift_col_px": 2.0,
+    "degraded": true,
+    "bias_row_px": -0.04,
+    "bias_col_px": -0.03,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.163,
+    "p95_error_m": 68.89,
+    "pct_error_gt_1px": 9.2,
+    "median_peak": 0.38
+   },
+   {
+    "shift_row_px": -5.7,
+    "shift_col_px": 4.2,
+    "degraded": false,
+    "bias_row_px": 0.05,
+    "bias_col_px": -0.05,
+    "nmad_row_px": 0.03,
+    "nmad_col_px": 0.03,
+    "p95_error_m": 1.81,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.62
+   },
+   {
+    "shift_row_px": -5.7,
+    "shift_col_px": 4.2,
+    "degraded": true,
+    "bias_row_px": 0.1,
+    "bias_col_px": -0.1,
+    "nmad_row_px": 0.163,
+    "nmad_col_px": 0.208,
+    "p95_error_m": 180.38,
+    "pct_error_gt_1px": 20.1,
+    "median_peak": 0.29
+   },
+   {
+    "shift_row_px": 8.0,
+    "shift_col_px": -8.0,
+    "degraded": false,
+    "bias_row_px": -0.07,
+    "bias_col_px": 0.1,
+    "nmad_row_px": 0.044,
+    "nmad_col_px": 0.044,
+    "p95_error_m": 3.63,
+    "pct_error_gt_1px": 2.2,
+    "median_peak": 0.36
+   },
+   {
+    "shift_row_px": 8.0,
+    "shift_col_px": -8.0,
+    "degraded": true,
+    "bias_row_px": -0.24,
+    "bias_col_px": 0.34,
+    "nmad_row_px": 0.445,
+    "nmad_col_px": 0.623,
+    "p95_error_m": 272.56,
+    "pct_error_gt_1px": 44.3,
+    "median_peak": 0.2
+   },
+   {
+    "shift_row_px": 0.25,
+    "shift_col_px": 0.4,
+    "degraded": false,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": 0.0,
+    "bias_col_px": -0.01,
+    "nmad_row_px": 0.0,
+    "nmad_col_px": 0.015,
+    "p95_error_m": 1.09,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.99
+   },
+   {
+    "shift_row_px": 0.25,
+    "shift_col_px": 0.4,
+    "degraded": true,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": -0.01,
+    "bias_col_px": -0.04,
+    "nmad_row_px": 0.119,
+    "nmad_col_px": 0.208,
+    "p95_error_m": 16.2,
+    "pct_error_gt_1px": 5.2,
+    "median_peak": 0.4
+   },
+   {
+    "shift_row_px": 1.3,
+    "shift_col_px": -0.7,
+    "degraded": false,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": -0.01,
+    "bias_col_px": 0.01,
+    "nmad_row_px": 0.015,
+    "nmad_col_px": 0.015,
+    "p95_error_m": 2.41,
+    "pct_error_gt_1px": 0.0,
+    "median_peak": 0.94
+   },
+   {
+    "shift_row_px": 1.3,
+    "shift_col_px": -0.7,
+    "degraded": true,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": -0.04,
+    "bias_col_px": 0.0,
+    "nmad_row_px": 0.148,
+    "nmad_col_px": 0.222,
+    "p95_error_m": 32.11,
+    "pct_error_gt_1px": 8.1,
+    "median_peak": 0.38
+   },
+   {
+    "shift_row_px": 3.0,
+    "shift_col_px": 2.0,
+    "degraded": false,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": -0.02,
+    "bias_col_px": -0.02,
+    "nmad_row_px": 0.015,
+    "nmad_col_px": 0.015,
+    "p95_error_m": 1.88,
+    "pct_error_gt_1px": 0.2,
+    "median_peak": 0.8
+   },
+   {
+    "shift_row_px": 3.0,
+    "shift_col_px": 2.0,
+    "degraded": true,
+    "masked": "482 partly masked dune windows",
+    "bias_row_px": -0.05,
+    "bias_col_px": -0.04,
+    "nmad_row_px": 0.163,
+    "nmad_col_px": 0.222,
+    "p95_error_m": 73.73,
+    "pct_error_gt_1px": 9.3,
+    "median_peak": 0.34
+   }
+  ],
+  "direction_tests": [
+   {
+    "case": "east",
+    "east_m": 14.85,
+    "north_m": -0.0,
+    "heading_deg": 90.0,
+    "expected": 90.0,
+    "ok": true
+   },
+   {
+    "case": "north",
+    "east_m": 0.0,
+    "north_m": 14.85,
+    "heading_deg": 0.0,
+    "expected": 0.0,
+    "ok": true
+   },
+   {
+    "case": "south-east",
+    "east_m": 14.85,
+    "north_m": -15.0,
+    "heading_deg": 135.3,
+    "expected": 135.0,
+    "ok": true
+   },
+   {
+    "case": "west",
+    "east_m": -14.85,
+    "north_m": -0.0,
+    "heading_deg": 270.0,
+    "expected": 270.0,
+    "ok": true
+   }
+  ],
+  "summary": "clean shifts up to 8 px recovered with |bias| <= 0.1 px; with noise+contrast+brightness+gamma changes, bias <= 0.05 px for shifts <= 3 px and 44 % failures for shifts > 3 px; with non-dune pixels masked, bias <= 0.05 px"
+ },
+ "match_quality_threshold": {
+  "peak_min_full_images": 0.2879,
+  "peak_min_dune_windows_masked": 0.2703,
+  "definition": "99th percentile of phase-correlation peak heights for windows matched against unrelated windows 40 px away",
+  "n_null": [
+   95159,
+   13577
+  ]
+ },
+ "stable_ground_pairwise": {
+  "pairs": 66,
+  "n_residuals": 20769,
+  "nmad_E_m": 1.263,
+  "nmad_N_m": 1.033,
+  "p95_radial_m": 3.78,
+  "median_E_m": -0.032,
+  "median_N_m": -0.011,
+  "plane_gradient_median_abs_m_per_km": 0.038,
+  "plane_gradient_max_abs_m_per_km": 0.207,
+  "per_image_offset_closure_rms_m": [
+   0.255,
+   0.244
+  ],
+  "per_image_offset_range_E_m": [
+   -1.74,
+   4.06
+  ],
+  "per_image_offset_range_N_m": [
+   -0.7,
+   1.45
+  ],
+  "n_stable_windows": 316,
+  "registration_trend_oli_E_N_myr": [
+   -0.063,
+   0.066
+  ]
+ },
+ "registration_check": {
+  "rule": "if >= 20 stable windows have vegetation fraction <= 0.25, their registration trend is compared with the trend of all stable windows (nothing added); otherwise the full trend of all stable windows is added as a systematic velocity uncertainty",
+  "n_stable": 316,
+  "n_unvegetated_stable": 271,
+  "trend_all_E_N_myr": [
+   -0.063,
+   0.066
+  ],
+  "trend_all_speed_myr": 0.091,
+  "trend_all_toward_deg": 316.3,
+  "anti_sun_azimuth_deg": 334.2,
+  "checked": true,
+  "trend_unvegetated_E_N_myr": [
+   -0.074,
+   0.063
+  ],
+  "difference_myr": 0.011,
+  "systematic_added_per_component_myr": 0.0
+ },
+ "noise_and_detection": {
+  "held_out_stable_windows": 316,
+  "held_out_stable_speed_median_myr": 0.119,
+  "held_out_stable_speed_p90_myr": 0.257,
+  "held_out_stable_speed_p95_myr": 0.344,
+  "held_out_stable_vE_nmad_myr": 0.103,
+  "held_out_stable_vN_nmad_myr": 0.103,
+  "formal_error_inflation_factor": 2.38,
+  "inflation_factor_nmad_only": 2.13,
+  "systematic_registration_myr": 0.0023,
+  "false_detection_rate_on_held_out_stable": 0.051,
+  "detection_limit_definition": "speed > 2.45 x calibrated per-component sigma (95 % for a 2-D null)",
+  "detection_limit_median_myr": 0.365,
+  "detection_limit_p5_p95_myr": [
+   0.242,
+   0.605
+  ],
+  "closure_rms_median_m": [
+   1.36,
+   0.53
+  ]
+ },
+ "rejections": {
+  "observations": {
+   "no data (QA cloud/shadow/fill, or > 40 % masked)": {
+    "count": 1573,
+    "pct": 1.14
+   },
+   "weak match (peak < threshold)": {
+    "count": 3273,
+    "pct": 2.36
+   },
+   "displacement > max unguided range": {
+    "count": 71,
+    "pct": 0.05
+   },
+   "network outlier": {
+    "count": 3065,
+    "pct": 2.21
+   },
+   "used": {
+    "count": 130486,
+    "pct": 94.24
+   }
+  },
+  "windows": {
+   "all windows on the grid": 10100,
+   "centre outside the box": 3081,
+   "inside box, > 25 % non-dune mask": 4921,
+   "dune window, too few valid pairs/epochs": 53,
+   "dune window, valid": 2045,
+   "  of which motion detected": 1762,
+   "  of which below detection limit": 283
+  },
+  "pct_dune_windows_rejected": 2.53,
+  "pct_observations_rejected": 5.76
+ },
+ "linearity_aliasing": {
+  "short_pairs_max_dt_yr": 3.5,
+  "long_pairs_min_dt_yr": 8.0,
+  "n_short_pairs": 27,
+  "n_long_pairs": 13,
+  "windows_compared": 1761,
+  "corr_short_vs_long_E_N": [
+   0.866,
+   0.918
+  ],
+  "median_diff_long_minus_short_myr_E_N": [
+   -0.118,
+   -0.003
+  ],
+  "nmad_diff_myr_E_N": [
+   0.237,
+   0.1
+  ],
+  "along_motion_slope_myr": 1.112,
+  "along_motion_intercept_m": 0.41,
+  "stable_ground_slope_myr": -0.021,
+  "dune_spacing_spectral_peak_m": 99,
+  "dune_spacing_25pct_variance_below_m": 73,
+  "p99_speed_times_baseline_m": 31.6,
+  "long_pair_residual_vs_short_prediction_median_m": 2.67,
+  "long_pair_residual_p99_m": 13.75,
+  "long_pair_residual_share_gt_half_small_spacing_pct": 0.018
+ },
+ "illumination": {
+  "n_test_pairs": 23,
+  "d_sun_el_range_deg": [
+   -11.51,
+   -3.41
+  ],
+  "field_slope_m_per_deg_E_N": [
+   0.0247,
+   0.0312
+  ],
+  "field_slope_95ci_E": [
+   -0.0024,
+   0.0478
+  ],
+  "field_slope_95ci_N": [
+   0.0197,
+   0.0408
+  ],
+  "per_window_slope_nmad_dunes_m_per_deg": [
+   0.039,
+   0.027
+  ],
+  "per_window_slope_nmad_stable_m_per_deg": 0.025,
+  "oli_sun_el_trend_deg_per_yr": -0.075,
+  "velocity_bias_field_myr": 0.003,
+  "velocity_bias_per_window_p95_myr": 0.0083,
+  "l7_minus_oli_sun_el_deg": -5.28,
+  "joint_regression_oli_pairs": {
+   "dt_coef_myr": 1.0846,
+   "dt_coef_se": 0.0231,
+   "d_el_coef_m_per_deg": -0.1179,
+   "d_el_coef_se": 0.0802
+  },
+  "table": [
+   {
+    "a": "2013-11-07",
+    "b": "2013-12-09",
+    "dt_days": 32,
+    "d_sun_el": -6.78,
+    "d_sun_az": 1.05,
+    "dune_med_E_m": 0.46,
+    "dune_med_N_m": 0.014,
+    "dune_nmad_E_m": 1.572,
+    "dune_nmad_N_m": 0.726
+   },
+   {
+    "a": "2014-10-09",
+    "b": "2014-11-10",
+    "dt_days": 32,
+    "d_sun_el": -9.23,
+    "d_sun_az": 8.92,
+    "dune_med_E_m": -1.464,
+    "dune_med_N_m": -0.6,
+    "dune_nmad_E_m": 1.481,
+    "dune_nmad_N_m": 0.886
+   },
+   {
+    "a": "2014-11-10",
+    "b": "2014-11-26",
+    "dt_days": 16,
+    "d_sun_el": -3.79,
+    "d_sun_az": 1.14,
+    "dune_med_E_m": -0.806,
+    "dune_med_N_m": -0.308,
+    "dune_nmad_E_m": 1.349,
+    "dune_nmad_N_m": 0.449
+   },
+   {
+    "a": "2015-10-12",
+    "b": "2015-11-13",
+    "dt_days": 32,
+    "d_sun_el": -9.14,
+    "d_sun_az": 8.13,
+    "dune_med_E_m": -0.221,
+    "dune_med_N_m": 0.145,
+    "dune_nmad_E_m": 0.858,
+    "dune_nmad_N_m": 0.688
+   },
+   {
+    "a": "2015-10-28",
+    "b": "2015-11-13",
+    "dt_days": 16,
+    "d_sun_el": -4.43,
+    "d_sun_az": 2.88,
+    "dune_med_E_m": 0.087,
+    "dune_med_N_m": -0.012,
+    "dune_nmad_E_m": 0.693,
+    "dune_nmad_N_m": 0.7
+   },
+   {
+    "a": "2016-10-14",
+    "b": "2016-11-15",
+    "dt_days": 32,
+    "d_sun_el": -9.04,
+    "d_sun_az": 7.29,
+    "dune_med_E_m": -0.482,
+    "dune_med_N_m": -0.583,
+    "dune_nmad_E_m": 0.514,
+    "dune_nmad_N_m": 0.418
+   },
+   {
+    "a": "2016-11-15",
+    "b": "2016-12-01",
+    "dt_days": 16,
+    "d_sun_el": -3.41,
+    "d_sun_az": 0.5,
+    "dune_med_E_m": -0.472,
+    "dune_med_N_m": -0.018,
+    "dune_nmad_E_m": 1.062,
+    "dune_nmad_N_m": 0.427
+   },
+   {
+    "a": "2017-10-01",
+    "b": "2017-11-02",
+    "dt_days": 32,
+    "d_sun_el": -9.28,
+    "d_sun_az": 11.27,
+    "dune_med_E_m": -0.245,
+    "dune_med_N_m": -0.297,
+    "dune_nmad_E_m": 0.796,
+    "dune_nmad_N_m": 0.652
+   },
+   {
+    "a": "2017-11-02",
+    "b": "2017-12-04",
+    "dt_days": 32,
+    "d_sun_el": -7.41,
+    "d_sun_az": 2.32,
+    "dune_med_E_m": -0.425,
+    "dune_med_N_m": -0.145,
+    "dune_nmad_E_m": 1.418,
+    "dune_nmad_N_m": 0.648
+   },
+   {
+    "a": "2019-10-23",
+    "b": "2019-11-08",
+    "dt_days": 16,
+    "d_sun_el": -4.58,
+    "d_sun_az": 3.57,
+    "dune_med_E_m": 0.532,
+    "dune_med_N_m": 0.01,
+    "dune_nmad_E_m": 1.356,
+    "dune_nmad_N_m": 0.619
+   },
+   {
+    "a": "2019-11-08",
+    "b": "2019-11-24",
+    "dt_days": 16,
+    "d_sun_el": -3.92,
+    "d_sun_az": 1.42,
+    "dune_med_E_m": 1.003,
+    "dune_med_N_m": -0.152,
+    "dune_nmad_E_m": 1.575,
+    "dune_nmad_N_m": 0.652
+   },
+   {
+    "a": "2020-10-09",
+    "b": "2020-11-10",
+    "dt_days": 32,
+    "d_sun_el": -9.21,
+    "d_sun_az": 8.76,
+    "dune_med_E_m": 0.13,
+    "dune_med_N_m": -0.143,
+    "dune_nmad_E_m": 1.526,
+    "dune_nmad_N_m": 0.838
+   },
+   {
+    "a": "2020-11-10",
+    "b": "2020-11-26",
+    "dt_days": 16,
+    "d_sun_el": -3.75,
+    "d_sun_az": 1.08,
+    "dune_med_E_m": 0.316,
+    "dune_med_N_m": -0.014,
+    "dune_nmad_E_m": 1.28,
+    "dune_nmad_N_m": 0.466
+   },
+   {
+    "a": "2021-10-12",
+    "b": "2021-11-13",
+    "dt_days": 32,
+    "d_sun_el": -9.13,
+    "d_sun_az": 7.94,
+    "dune_med_E_m": 0.357,
+    "dune_med_N_m": -0.17,
+    "dune_nmad_E_m": 1.326,
+    "dune_nmad_N_m": 0.693
+   },
+   {
+    "a": "2021-11-13",
+    "b": "2021-11-29",
+    "dt_days": 16,
+    "d_sun_el": -3.57,
+    "d_sun_az": 0.76,
+    "dune_med_E_m": 0.862,
+    "dune_med_N_m": -0.002,
+    "dune_nmad_E_m": 0.821,
+    "dune_nmad_N_m": 0.461
+   },
+   {
+    "a": "2022-09-29",
+    "b": "2022-11-08",
+    "dt_days": 40,
+    "d_sun_el": -11.51,
+    "d_sun_az": 13.36,
+    "dune_med_E_m": -0.593,
+    "dune_med_N_m": -0.281,
+    "dune_nmad_E_m": 1.554,
+    "dune_nmad_N_m": 0.945
+   },
+   {
+    "a": "2022-11-08",
+    "b": "2022-12-18",
+    "dt_days": 40,
+    "d_sun_el": -7.43,
+    "d_sun_az": 0.26,
+    "dune_med_E_m": -0.211,
+    "dune_med_N_m": -0.47,
+    "dune_nmad_E_m": 1.404,
+    "dune_nmad_N_m": 0.715
+   },
+   {
+    "a": "2023-10-10",
+    "b": "2023-11-19",
+    "dt_days": 40,
+    "d_sun_el": -11.19,
+    "d_sun_az": 9.47,
+    "dune_med_E_m": -0.424,
+    "dune_med_N_m": -0.464,
+    "dune_nmad_E_m": 0.928,
+    "dune_nmad_N_m": 0.683
+   },
+   {
+    "a": "2023-11-19",
+    "b": "2023-12-13",
+    "dt_days": 24,
+    "d_sun_el": -4.22,
+    "d_sun_az": -0.36,
+    "dune_med_E_m": -0.233,
+    "dune_med_N_m": -0.004,
+    "dune_nmad_E_m": 1.658,
+    "dune_nmad_N_m": 1.064
+   },
+   {
+    "a": "2024-10-04",
+    "b": "2024-11-13",
+    "dt_days": 40,
+    "d_sun_el": -11.4,
+    "d_sun_az": 11.4,
+    "dune_med_E_m": -0.45,
+    "dune_med_N_m": -0.613,
+    "dune_nmad_E_m": 0.82,
+    "dune_nmad_N_m": 0.62
+   },
+   {
+    "a": "2024-11-13",
+    "b": "2024-12-15",
+    "dt_days": 32,
+    "d_sun_el": -5.77,
+    "d_sun_az": -0.17,
+    "dune_med_E_m": 0.655,
+    "dune_med_N_m": 0.011,
+    "dune_nmad_E_m": 1.489,
+    "dune_nmad_N_m": 0.628
+   },
+   {
+    "a": "2025-09-29",
+    "b": "2025-11-08",
+    "dt_days": 40,
+    "d_sun_el": -11.48,
+    "d_sun_az": 13.33,
+    "dune_med_E_m": -0.517,
+    "dune_med_N_m": -0.507,
+    "dune_nmad_E_m": 1.395,
+    "dune_nmad_N_m": 0.722
+   },
+   {
+    "a": "2025-11-08",
+    "b": "2025-12-02",
+    "dt_days": 24,
+    "d_sun_el": -5.41,
+    "d_sun_az": 1.36,
+    "dune_med_E_m": -0.197,
+    "dune_med_N_m": -0.006,
+    "dune_nmad_E_m": 0.783,
+    "dune_nmad_N_m": 0.44
+   }
+  ]
+ },
+ "interannual": {
+  "intervals": [
+   {
+    "start": "2013-11-07",
+    "end": "2014-11-10",
+    "years": 1.01,
+    "dune_median_myr": 1.42,
+    "stable_median_myr": -0.0367,
+    "d_sun_el": -0.8897,
+    "dune_median_illum_corrected_myr": 1.445,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2226
+   },
+   {
+    "start": "2014-11-10",
+    "end": "2015-11-13",
+    "years": 1.01,
+    "dune_median_myr": 1.7361,
+    "stable_median_myr": 0.0093,
+    "d_sun_el": -0.7268,
+    "dune_median_illum_corrected_myr": 1.7565,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.4025
+   },
+   {
+    "start": "2015-11-13",
+    "end": "2016-11-15",
+    "years": 1.01,
+    "dune_median_myr": 1.0257,
+    "stable_median_myr": -0.0876,
+    "d_sun_el": -0.6758,
+    "dune_median_illum_corrected_myr": 1.0447,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3206
+   },
+   {
+    "start": "2016-11-15",
+    "end": "2017-11-02",
+    "years": 0.96,
+    "dune_median_myr": 0.527,
+    "stable_median_myr": 0.0002,
+    "d_sun_el": 3.5291,
+    "dune_median_illum_corrected_myr": 0.4227,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3183
+   },
+   {
+    "start": "2017-11-02",
+    "end": "2019-11-08",
+    "years": 2.02,
+    "dune_median_myr": 1.8176,
+    "stable_median_myr": -0.0192,
+    "d_sun_el": -1.5114,
+    "dune_median_illum_corrected_myr": 1.8388,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3498
+   },
+   {
+    "start": "2019-11-08",
+    "end": "2020-11-10",
+    "years": 1.01,
+    "dune_median_myr": 0.336,
+    "stable_median_myr": -0.1554,
+    "d_sun_el": -0.7415,
+    "dune_median_illum_corrected_myr": 0.3568,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2552
+   },
+   {
+    "start": "2020-11-10",
+    "end": "2021-11-13",
+    "years": 1.01,
+    "dune_median_myr": 0.6668,
+    "stable_median_myr": 0.2333,
+    "d_sun_el": -0.7147,
+    "dune_median_illum_corrected_myr": 0.6869,
+    "wind_drift_along_dune_dir_VU_per_yr": -0.0391
+   },
+   {
+    "start": "2021-11-13",
+    "end": "2022-11-08",
+    "years": 0.99,
+    "dune_median_myr": 1.243,
+    "stable_median_myr": -0.1685,
+    "d_sun_el": 1.3801,
+    "dune_median_illum_corrected_myr": 1.2034,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3788
+   },
+   {
+    "start": "2022-11-08",
+    "end": "2023-11-19",
+    "years": 1.03,
+    "dune_median_myr": 1.2477,
+    "stable_median_myr": -0.1254,
+    "d_sun_el": -2.7541,
+    "dune_median_illum_corrected_myr": 1.3236,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.337
+   },
+   {
+    "start": "2023-11-19",
+    "end": "2024-11-13",
+    "years": 0.98,
+    "dune_median_myr": 0.6808,
+    "stable_median_myr": 0.2151,
+    "d_sun_el": 1.2701,
+    "dune_median_illum_corrected_myr": 0.644,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.1689
+   },
+   {
+    "start": "2024-11-13",
+    "end": "2025-11-08",
+    "years": 0.99,
+    "dune_median_myr": 0.6873,
+    "stable_median_myr": -0.0464,
+    "d_sun_el": 1.3918,
+    "dune_median_illum_corrected_myr": 0.6474,
+    "wind_drift_along_dune_dir_VU_per_yr": null
+   }
+  ],
+  "dune_sd_myr": 0.5202,
+  "stable_sd_myr": 0.1333,
+  "variance_ratio_vs_stable": 15.24,
+  "p_value_vs_stable": 0.0001,
+  "dune_pair_noise_sd_m": 0.558,
+  "chi2_vs_dune_noise": 13.59,
+  "p_value_vs_dune_noise": 0.1924,
+  "above_noise": false,
+  "field_median_velocity_common_error_myr": 0.0293,
+  "decision": "judged against the dune-specific noise from the illumination-test pairs (the stable-ground spread is a lower bound)",
+  "illumination_slope_along_dune_dir_m_per_deg": 0.0284,
+  "dune_interval_median_range_myr_illum_corrected": [
+   0.357,
+   1.839
+  ],
+  "wind_correlation": {
+   "pearson_r": 0.489,
+   "pearson_p": 0.1512,
+   "spearman_r": 0.588,
+   "spearman_p": 0.0739,
+   "n_intervals": 10,
+   "note": "MERRA-2 hourly 10 m wind, Fryberger weighting, resultant drift per interval projected on the field-mean dune direction"
+  }
+ },
+ "landsat7_long_baseline": {
+  "per_epoch": [
+   {
+    "scene": "2000-11-27",
+    "n_valid_windows": 1752,
+    "share_of_valid_dune_windows": 0.857,
+    "n_stable_windows_for_offset": 60,
+    "offset_E_m": 3.62,
+    "offset_N_m": -0.31,
+    "median_misfit_E_m": 0.06,
+    "median_misfit_N_m": -0.9,
+    "nmad_misfit_E_m": 5.44,
+    "nmad_misfit_N_m": 3.38,
+    "misfit_p95_m": 14.77,
+    "share_misfit_gt_half_small_spacing": 0.0029,
+    "median_misfit_as_velocity_myr": 0.047
+   },
+   {
+    "scene": "2001-11-30",
+    "n_valid_windows": 1732,
+    "share_of_valid_dune_windows": 0.847,
+    "n_stable_windows_for_offset": 56,
+    "offset_E_m": 4.06,
+    "offset_N_m": -0.1,
+    "median_misfit_E_m": -0.56,
+    "median_misfit_N_m": -1.4,
+    "nmad_misfit_E_m": 5.4,
+    "nmad_misfit_N_m": 3.12,
+    "misfit_p95_m": 14.94,
+    "share_misfit_gt_half_small_spacing": 0.0029,
+    "median_misfit_as_velocity_myr": 0.084
+   }
+  ],
+  "windows_with_2000_position": 1752,
+  "detected_windows_with_2000_position": 1603,
+  "corr_2000_2025_vs_2013_2025_E_N": [
+   0.867,
+   0.891
+  ],
+  "median_speed_2000_2025_detected_myr": 1.182,
+  "median_speed_2013_2025_same_windows_myr": 1.152,
+  "median_diff_E_N_myr": [
+   0.006,
+   0.044
+  ]
+ },
+ "hls_second_dataset": {
+  "HLSS30": {
+   "years": "2016-11-15 to 2025-11-13",
+   "n_scenes": 10,
+   "n_windows_compared": 1862,
+   "corr_E": 0.433,
+   "corr_N": 0.368,
+   "median_diff_E_myr": -0.376,
+   "median_diff_N_myr": -0.128,
+   "rms_diff_myr": 0.742,
+   "field_median_velocity_hls_E_N": [
+    0.56,
+    0.04
+   ],
+   "field_median_velocity_landsat_E_N": [
+    0.998,
+    0.173
+   ],
+   "field_median_speed_hls_myr": 0.562,
+   "field_median_speed_landsat_myr": 1.013,
+   "field_median_heading_hls_deg": 85.9,
+   "field_median_heading_landsat_deg": 80.2,
+   "heading_difference_deg": 5.7,
+   "hls_detection_limit_median_myr": 0.913,
+   "hls_pct_valid_windows_detected": 30.6,
+   "hls_stable_residual_nmad_m": 1.9,
+   "hls_stable_residual_p95_m": 8.24,
+   "hls_peak_threshold": 0.359,
+   "hls_n_stable_windows": 115,
+   "hls_error_inflation": 2.8,
+   "hls_heldout_stable_median_velocity_E_N": [
+    0.018,
+    -0.026
+   ],
+   "hls_registration_systematic_myr": 0.065,
+   "landsat_detected_share_in_compared_windows": 0.897,
+   "windows_where_landsat_speed_gt_2x_detection_limit": {
+    "n": 1348,
+    "corr_E": 0.155,
+    "corr_N": 0.325,
+    "median_speed_hls": 0.751,
+    "median_speed_landsat": 1.149,
+    "median_heading_diff_deg": 14.7
+   },
+   "independence": "independent satellite and sensor (Sentinel-2 MSI), independent geolocation (AROP_NCP = 0), red band at 30 m; shares place, season, masks and code"
+  },
+  "HLSL30": {
+   "years": "2013-11-07 to 2025-11-08",
+   "n_scenes": 12,
+   "n_windows_compared": 1860,
+   "corr_E": 0.736,
+   "corr_N": 0.553,
+   "median_diff_E_myr": -0.128,
+   "median_diff_N_myr": 0.045,
+   "rms_diff_myr": 0.407,
+   "field_median_velocity_hls_E_N": [
+    0.926,
+    0.177
+   ],
+   "field_median_velocity_landsat_E_N": [
+    1.072,
+    0.119
+   ],
+   "field_median_speed_hls_myr": 0.942,
+   "field_median_speed_landsat_myr": 1.079,
+   "field_median_heading_hls_deg": 79.2,
+   "field_median_heading_landsat_deg": 83.6,
+   "heading_difference_deg": 4.5,
+   "hls_detection_limit_median_myr": 0.632,
+   "hls_pct_valid_windows_detected": 74.5,
+   "hls_stable_residual_nmad_m": 1.96,
+   "hls_stable_residual_p95_m": 8.36,
+   "hls_peak_threshold": 0.362,
+   "hls_n_stable_windows": 104,
+   "hls_error_inflation": 2.34,
+   "hls_heldout_stable_median_velocity_E_N": [
+    -0.007,
+    -0.004
+   ],
+   "hls_registration_systematic_myr": 0.0458,
+   "landsat_detected_share_in_compared_windows": 0.913,
+   "windows_where_landsat_speed_gt_2x_detection_limit": {
+    "n": 1398,
+    "corr_E": 0.525,
+    "corr_N": 0.601,
+    "median_speed_hls": 1.068,
+    "median_speed_landsat": 1.191,
+    "median_heading_diff_deg": 6.1
+   },
+   "independence": "NOT independent: same Landsat 8/9 OLI instruments as the primary data; tests band (red vs pan), 30 m resolution and HLS processing only"
+  }
+ },
+ "physics": {
+  "wind_RDD_deg": 87.2,
+  "wind_RDP_DP": 0.432,
+  "wind_mode_toward_deg": [
+   112.5,
+   0.0
+  ],
+  "field_median_velocity_E_N_myr": [
+   1.092,
+   0.136
+  ],
+  "field_median_heading_deg": 82.9,
+  "speed_weighted_mean_heading_deg": 82.0,
+  "heading_circular_sd_deg": 17.6,
+  "field_heading_minus_RDD_deg": 4.3,
+  "field_heading_minus_modes_deg": [
+   29.6,
+   82.9
+  ],
+  "per_window_abs_heading_minus_RDD_median_deg": 10.9,
+  "share_within_45deg_of_RDD_pct": 95.5,
+  "detected_speed_median_myr": 1.154,
+  "detected_speed_p10_p90_myr": [
+   0.547,
+   1.818
+  ],
+  "detected_speed_max_myr": 3.865,
+  "n_detected_gt_3myr": 4,
+  "n_detected_gt_10myr": 0
+ },
+ "nasadem": {
+  "date": "2000-02-11/22 (SRTM)",
+  "noise_sigma_m": 2.29,
+  "h_min_m": 6.86,
+  "dune_area_highpass_std_m": 3.89,
+  "shading_corr_median_dune_area": 0.102,
+  "shading_corr_null_p95": 0.403,
+  "n_candidates": 113,
+  "n_resolved": 12,
+  "resolved_share_by_min_height": {
+   "2": 0.106,
+   "4": 0.106,
+   "6": 0.106,
+   "8": 0.106,
+   "10": 0.106,
+   "15": 0.107
+  }
+ },
+ "velocity_field_table": {
+  "file": "pipeline/outputs/sweihan/02_velocity_field.csv",
+  "n_windows": 2098,
+  "window_px": 32,
+  "step_px": 8,
+  "res_m": 15.0,
+  "grid": {
+   "crs": "EPSG:32640",
+   "x0": 325117.5,
+   "y0": 2713267.5,
+   "res": 15.0,
+   "width": 886,
+   "height": 874
+  },
+  "columns_note": "x_m/y_m = window centre in the site CRS; sigma_myr = calibrated per-component 1-sigma; detected = speed > detection_limit_myr (= 2.45 sigma); speeds/headings blank where not valid"
+ },
+ "draa_bodies": {
+  "definition": "NASADEM crests >= 6.9 m above the DEM opened with a 1500 m disk, outline (upper half) >= 0.25 km2, DEM shading matching the image; body motion from 960 m windows on images low-passed with sigma = half the bedform spacing, 2000-2025 (Landsat 7 + 8/9), noise calibrated on held-out stable ground at the same scale",
+  "n_candidates": 181,
+  "n_bodies": 13,
+  "shading_test_highpass_m": 360,
+  "shading_test_null_p95": 0.136,
+  "height_note": "relief above the DEM opened with the base disk; on a regional slope or escarpment it includes part of that step",
+  "lowpass_sigma_m": 49.4,
+  "window_m": 960.0,
+  "match_threshold": 0.2372,
+  "error_inflation": 3.67,
+  "registration_systematic_myr": 0.0007,
+  "heldout_stable_speed_median_myr": 0.072,
+  "heldout_stable_speed_p95_myr": 0.218,
+  "false_detection_rate_heldout": 0.051,
+  "n_valid": 8,
+  "n_detected": 4,
+  "detection_limit_median_myr": 0.219,
+  "detected_speeds_myr": [
+   0.214,
+   0.276,
+   0.266,
+   0.249
+  ],
+  "table": [
+   {
+    "draa": "B08",
+    "lon": 55.35058,
+    "lat": 24.4504,
+    "height_m": 76.8,
+    "area_km2": 0.366,
+    "dem_image_corr": 0.284,
+    "body_valid": false,
+    "body_n_epochs": 0,
+    "body_speed_myr": null,
+    "body_estimate_east_north_myr": null,
+    "body_estimate_heading_deg": null,
+    "body_detection_limit_myr": null,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 37,
+    "bedform_share_detected": 0.676,
+    "bedform_detected_speed_median_myr": 0.783
+   },
+   {
+    "draa": "B13",
+    "lon": 55.29955,
+    "lat": 24.42815,
+    "height_m": 62.6,
+    "area_km2": 0.259,
+    "dem_image_corr": 0.221,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.249,
+    "body_estimate_east_north_myr": [
+     0.244,
+     -0.049
+    ],
+    "body_estimate_heading_deg": 101.4,
+    "body_detection_limit_myr": 0.187,
+    "body_detected": true,
+    "body_heading_deg": 101.4,
+    "bedform_windows_on_outline": 29,
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.028
+   },
+   {
+    "draa": "B06",
+    "lon": 55.35503,
+    "lat": 24.45481,
+    "height_m": 59.6,
+    "area_km2": 0.253,
+    "dem_image_corr": 0.188,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.214,
+    "body_estimate_east_north_myr": [
+     0.208,
+     -0.048
+    ],
+    "body_estimate_heading_deg": 103.1,
+    "body_detection_limit_myr": 0.203,
+    "body_detected": true,
+    "body_heading_deg": 103.1,
+    "bedform_windows_on_outline": 32,
+    "bedform_share_detected": 0.812,
+    "bedform_detected_speed_median_myr": 0.588
+   },
+   {
+    "draa": "B07",
+    "lon": 55.36097,
+    "lat": 24.4551,
+    "height_m": 56.2,
+    "area_km2": 0.427,
+    "dem_image_corr": 0.179,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.186,
+    "body_estimate_east_north_myr": [
+     0.181,
+     -0.045
+    ],
+    "body_estimate_heading_deg": 104.0,
+    "body_detection_limit_myr": 0.238,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 55,
+    "bedform_share_detected": 0.909,
+    "bedform_detected_speed_median_myr": 1.065
+   },
+   {
+    "draa": "B12",
+    "lon": 55.3174,
+    "lat": 24.43268,
+    "height_m": 53.3,
+    "area_km2": 0.458,
+    "dem_image_corr": 0.178,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.266,
+    "body_estimate_east_north_myr": [
+     0.26,
+     -0.056
+    ],
+    "body_estimate_heading_deg": 102.1,
+    "body_detection_limit_myr": 0.222,
+    "body_detected": true,
+    "body_heading_deg": 102.1,
+    "bedform_windows_on_outline": 64,
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.25
+   },
+   {
+    "draa": "B11",
+    "lon": 55.33064,
+    "lat": 24.43954,
+    "height_m": 51.7,
+    "area_km2": 0.407,
+    "dem_image_corr": 0.22,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.276,
+    "body_estimate_east_north_myr": [
+     0.276,
+     -0.003
+    ],
+    "body_estimate_heading_deg": 90.7,
+    "body_detection_limit_myr": 0.217,
+    "body_detected": true,
+    "body_heading_deg": 90.7,
+    "bedform_windows_on_outline": 67,
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.174
+   },
+   {
+    "draa": "B09",
+    "lon": 55.33803,
+    "lat": 24.4498,
+    "height_m": 38.9,
+    "area_km2": 0.339,
+    "dem_image_corr": 0.139,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.227,
+    "body_estimate_east_north_myr": [
+     0.215,
+     -0.07
+    ],
+    "body_estimate_heading_deg": 108.0,
+    "body_detection_limit_myr": 0.419,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 41,
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 0.742
+   },
+   {
+    "draa": "B02",
+    "lon": 55.3157,
+    "lat": 24.5005,
+    "height_m": 38.4,
+    "area_km2": 0.292,
+    "dem_image_corr": 0.323,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.194,
+    "body_estimate_east_north_myr": [
+     0.188,
+     -0.051
+    ],
+    "body_estimate_heading_deg": 105.2,
+    "body_detection_limit_myr": 0.214,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 46,
+    "bedform_share_detected": 0.565,
+    "bedform_detected_speed_median_myr": 0.614
+   },
+   {
+    "draa": "B01",
+    "lon": 55.32604,
+    "lat": 24.5045,
+    "height_m": 34.1,
+    "area_km2": 0.833,
+    "dem_image_corr": 0.236,
+    "body_valid": true,
+    "body_n_epochs": 14,
+    "body_speed_myr": 0.236,
+    "body_estimate_east_north_myr": [
+     0.232,
+     -0.045
+    ],
+    "body_estimate_heading_deg": 100.9,
+    "body_detection_limit_myr": 0.347,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 76,
+    "bedform_share_detected": 0.855,
+    "bedform_detected_speed_median_myr": 1.031
+   },
+   {
+    "draa": "B04",
+    "lon": 55.30724,
+    "lat": 24.49549,
+    "height_m": 28.6,
+    "area_km2": 0.514,
+    "dem_image_corr": 0.236,
+    "body_valid": false,
+    "body_n_epochs": 0,
+    "body_speed_myr": null,
+    "body_estimate_east_north_myr": null,
+    "body_estimate_heading_deg": null,
+    "body_detection_limit_myr": null,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 0,
+    "bedform_share_detected": null,
+    "bedform_detected_speed_median_myr": null
+   },
+   {
+    "draa": "B03",
+    "lon": 55.33255,
+    "lat": 24.49833,
+    "height_m": 28.5,
+    "area_km2": 0.398,
+    "dem_image_corr": 0.14,
+    "body_valid": false,
+    "body_n_epochs": 0,
+    "body_speed_myr": null,
+    "body_estimate_east_north_myr": null,
+    "body_estimate_heading_deg": null,
+    "body_detection_limit_myr": null,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 13,
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.151
+   },
+   {
+    "draa": "B05",
+    "lon": 55.30097,
+    "lat": 24.47875,
+    "height_m": 25.0,
+    "area_km2": 0.494,
+    "dem_image_corr": 0.142,
+    "body_valid": false,
+    "body_n_epochs": 0,
+    "body_speed_myr": null,
+    "body_estimate_east_north_myr": null,
+    "body_estimate_heading_deg": null,
+    "body_detection_limit_myr": null,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 0,
+    "bedform_share_detected": null,
+    "bedform_detected_speed_median_myr": null
+   },
+   {
+    "draa": "B10",
+    "lon": 55.3611,
+    "lat": 24.44409,
+    "height_m": 20.6,
+    "area_km2": 0.252,
+    "dem_image_corr": 0.139,
+    "body_valid": false,
+    "body_n_epochs": 0,
+    "body_speed_myr": null,
+    "body_estimate_east_north_myr": null,
+    "body_estimate_heading_deg": null,
+    "body_detection_limit_myr": null,
+    "body_detected": false,
+    "body_heading_deg": null,
+    "bedform_windows_on_outline": 16,
+    "bedform_share_detected": 0.75,
+    "bedform_detected_speed_median_myr": 0.387
+   }
+  ],
+  "note": "A QC/interpretation product: these bodies are not added to dunes.geojson, whose outlines stay at the bedform scale (the same at every site)."
+ },
+ "scenes": [
+  {
+   "scene_id": "LE07_L1TP_160043_20001127_20200918_02_T1",
+   "role": "confirmed",
+   "date": "2000-11-27",
+   "time_utc": "06:36:56",
+   "t": 2000.9051,
+   "spacecraft": "LANDSAT_7",
+   "sensor": "ETM+",
+   "sun_el": 39.2954,
+   "sun_az": 152.5425,
+   "cloud_scene": 1.0,
+   "geometric_rmse_model_m": 4.972,
+   "gcp_model": 524,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.2567,
+   "reg_offset_E_m": 3.6161,
+   "reg_offset_N_m": -0.3107
+  },
+  {
+   "scene_id": "LE07_L1TP_160043_20011130_20200917_02_T1",
+   "role": "confirmed",
+   "date": "2001-11-30",
+   "time_utc": "06:35:06",
+   "t": 2001.9131,
+   "spacecraft": "LANDSAT_7",
+   "sensor": "ETM+",
+   "sun_el": 38.5741,
+   "sun_az": 152.054,
+   "cloud_scene": 1.0,
+   "geometric_rmse_model_m": 4.835,
+   "gcp_model": 502,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.3157,
+   "reg_offset_E_m": 4.0607,
+   "reg_offset_N_m": -0.0964
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20131107_20200912_02_T1",
+   "role": "confirmed",
+   "date": "2013-11-07",
+   "time_utc": "06:48:19",
+   "t": 2013.8501,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 45.245,
+   "sun_az": 154.1735,
+   "cloud_scene": 0.33,
+   "geometric_rmse_model_m": 5.392,
+   "gcp_model": 779,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": 0.0,
+   "reg_offset_N_m": 0.0
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20131209_20200912_02_T1",
+   "role": "illumination_test",
+   "date": "2013-12-09",
+   "time_utc": "06:48:10",
+   "t": 2013.9378,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 38.4692,
+   "sun_az": 155.2243,
+   "cloud_scene": 0.64,
+   "geometric_rmse_model_m": 5.772,
+   "gcp_model": 746,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0142,
+   "reg_offset_E_m": 0.15,
+   "reg_offset_N_m": -0.3
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20141009_20200910_02_T1",
+   "role": "illumination_test",
+   "date": "2014-10-09",
+   "time_utc": "06:46:46",
+   "t": 2014.7706,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 53.5818,
+   "sun_az": 145.1944,
+   "cloud_scene": 0.86,
+   "geometric_rmse_model_m": 4.208,
+   "gcp_model": 772,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.2196,
+   "reg_offset_N_m": 0.0696
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20141110_20200910_02_T1",
+   "role": "confirmed",
+   "date": "2014-11-10",
+   "time_utc": "06:46:48",
+   "t": 2014.8583,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 44.3553,
+   "sun_az": 154.112,
+   "cloud_scene": 0.45,
+   "geometric_rmse_model_m": 5.364,
+   "gcp_model": 790,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": 0.6804,
+   "reg_offset_N_m": 0.0696
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20141126_20200910_02_T1",
+   "role": "illumination_test",
+   "date": "2014-11-26",
+   "time_utc": "06:46:45",
+   "t": 2014.9021,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 40.5684,
+   "sun_az": 155.2546,
+   "cloud_scene": 1.62,
+   "geometric_rmse_model_m": 5.504,
+   "gcp_model": 783,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.326,
+   "reg_offset_E_m": -0.2196,
+   "reg_offset_N_m": 0.2196
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20151012_20200908_02_T1",
+   "role": "illumination_test",
+   "date": "2015-10-12",
+   "time_utc": "06:46:34",
+   "t": 2015.7789,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 52.7655,
+   "sun_az": 146.2991,
+   "cloud_scene": 0.01,
+   "geometric_rmse_model_m": 3.54,
+   "gcp_model": 810,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.4768,
+   "reg_offset_N_m": -0.2464
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20151028_20200908_02_T1",
+   "role": "illumination_test",
+   "date": "2015-10-28",
+   "time_utc": "06:46:40",
+   "t": 2015.8227,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 48.0573,
+   "sun_az": 151.5462,
+   "cloud_scene": 1.51,
+   "geometric_rmse_model_m": 4.253,
+   "gcp_model": 788,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.3268,
+   "reg_offset_N_m": 0.3536
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20151113_20200908_02_T1",
+   "role": "confirmed",
+   "date": "2015-11-13",
+   "time_utc": "06:46:40",
+   "t": 2015.8665,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 43.6284,
+   "sun_az": 154.427,
+   "cloud_scene": 2.23,
+   "geometric_rmse_model_m": 5.168,
+   "gcp_model": 724,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.1089,
+   "reg_offset_E_m": -0.3268,
+   "reg_offset_N_m": -0.6964
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20161014_20200905_02_T1",
+   "role": "illumination_test",
+   "date": "2016-10-14",
+   "time_utc": "06:46:53",
+   "t": 2016.7849,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 51.9896,
+   "sun_az": 147.4671,
+   "cloud_scene": 0.0,
+   "geometric_rmse_model_m": 4.696,
+   "gcp_model": 785,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.4393,
+   "reg_offset_N_m": 0.4339
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20161115_20200905_02_T1",
+   "role": "confirmed",
+   "date": "2016-11-15",
+   "time_utc": "06:46:54",
+   "t": 2016.8724,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 42.9526,
+   "sun_az": 154.7615,
+   "cloud_scene": 1.55,
+   "geometric_rmse_model_m": 5.88,
+   "gcp_model": 773,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.7393,
+   "reg_offset_N_m": 0.7339
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20161201_20200905_02_T1",
+   "role": "illumination_test",
+   "date": "2016-12-01",
+   "time_utc": "06:46:54",
+   "t": 2016.9161,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 39.5378,
+   "sun_az": 155.2588,
+   "cloud_scene": 1.11,
+   "geometric_rmse_model_m": 5.994,
+   "gcp_model": 758,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.5893,
+   "reg_offset_N_m": 0.7339
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20171001_20200903_02_T1",
+   "role": "illumination_test",
+   "date": "2017-10-01",
+   "time_utc": "06:46:48",
+   "t": 2017.7487,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 55.7605,
+   "sun_az": 141.5601,
+   "cloud_scene": 0.0,
+   "geometric_rmse_model_m": 4.542,
+   "gcp_model": 795,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.8679,
+   "reg_offset_N_m": 0.6107
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20171102_20200902_02_T1",
+   "role": "confirmed",
+   "date": "2017-11-02",
+   "time_utc": "06:46:51",
+   "t": 2017.8364,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 46.4817,
+   "sun_az": 152.8272,
+   "cloud_scene": 0.24,
+   "geometric_rmse_model_m": 5.578,
+   "gcp_model": 783,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.4929,
+   "reg_offset_N_m": 0.6107
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20171204_20200902_02_T1",
+   "role": "illumination_test",
+   "date": "2017-12-04",
+   "time_utc": "06:46:43",
+   "t": 2017.9241,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 39.0668,
+   "sun_az": 155.1449,
+   "cloud_scene": 1.87,
+   "geometric_rmse_model_m": 6.193,
+   "gcp_model": 772,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.1136,
+   "reg_offset_E_m": -0.0429,
+   "reg_offset_N_m": 0.7607
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20191023_20200825_02_T1",
+   "role": "illumination_test",
+   "date": "2019-10-23",
+   "time_utc": "06:46:58",
+   "t": 2019.809,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 49.5547,
+   "sun_az": 150.2864,
+   "cloud_scene": 0.1,
+   "geometric_rmse_model_m": 5.842,
+   "gcp_model": 736,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.6929,
+   "reg_offset_N_m": 0.7714
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20191108_20200825_02_T1",
+   "role": "confirmed",
+   "date": "2019-11-08",
+   "time_utc": "06:46:56",
+   "t": 2019.8528,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 44.9703,
+   "sun_az": 153.8564,
+   "cloud_scene": 0.19,
+   "geometric_rmse_model_m": 6.301,
+   "gcp_model": 728,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.5429,
+   "reg_offset_N_m": 1.3714
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20191124_20200825_02_T1",
+   "role": "illumination_test",
+   "date": "2019-11-24",
+   "time_utc": "06:46:53",
+   "t": 2019.8967,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 41.052,
+   "sun_az": 155.2732,
+   "cloud_scene": 6.87,
+   "geometric_rmse_model_m": 6.697,
+   "gcp_model": 601,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.1478,
+   "reg_offset_E_m": -0.3429,
+   "reg_offset_N_m": 0.6214
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20201009_20201016_02_T1",
+   "role": "illumination_test",
+   "date": "2020-10-09",
+   "time_utc": "06:46:54",
+   "t": 2020.7713,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 53.4434,
+   "sun_az": 145.472,
+   "cloud_scene": 0.0,
+   "geometric_rmse_model_m": 5.512,
+   "gcp_model": 761,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.5857,
+   "reg_offset_N_m": 0.3589
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20201110_20210316_02_T1",
+   "role": "confirmed",
+   "date": "2020-11-10",
+   "time_utc": "06:46:51",
+   "t": 2020.8587,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 44.2288,
+   "sun_az": 154.2346,
+   "cloud_scene": 0.02,
+   "geometric_rmse_model_m": 6.706,
+   "gcp_model": 731,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.3857,
+   "reg_offset_N_m": 1.1089
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20201126_20210316_02_T1",
+   "role": "illumination_test",
+   "date": "2020-11-26",
+   "time_utc": "06:46:54",
+   "t": 2020.9024,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 40.4757,
+   "sun_az": 155.3138,
+   "cloud_scene": 2.44,
+   "geometric_rmse_model_m": 6.877,
+   "gcp_model": 697,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0448,
+   "reg_offset_E_m": -0.6107,
+   "reg_offset_N_m": 1.1089
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20211012_20211019_02_T1",
+   "role": "illumination_test",
+   "date": "2021-10-12",
+   "time_utc": "06:46:59",
+   "t": 2021.7789,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 52.6437,
+   "sun_az": 146.6266,
+   "cloud_scene": 0.0,
+   "geometric_rmse_model_m": 6.114,
+   "gcp_model": 738,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.7357,
+   "reg_offset_N_m": 0.825
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20211113_20211125_02_T1",
+   "role": "confirmed",
+   "date": "2021-11-13",
+   "time_utc": "06:46:56",
+   "t": 2021.8665,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 43.5141,
+   "sun_az": 154.5677,
+   "cloud_scene": 0.29,
+   "geometric_rmse_model_m": 6.448,
+   "gcp_model": 733,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.3857,
+   "reg_offset_N_m": 0.225
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20211129_20211208_02_T1",
+   "role": "illumination_test",
+   "date": "2021-11-29",
+   "time_utc": "06:46:55",
+   "t": 2021.9104,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 39.9463,
+   "sun_az": 155.3256,
+   "cloud_scene": 7.67,
+   "geometric_rmse_model_m": 6.931,
+   "gcp_model": 622,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0218,
+   "reg_offset_E_m": -0.5357,
+   "reg_offset_N_m": 0.525
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20220929_20221005_02_T1",
+   "role": "illumination_test",
+   "date": "2022-09-29",
+   "time_utc": "06:47:12",
+   "t": 2022.7432,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 56.4062,
+   "sun_az": 140.535,
+   "cloud_scene": 0.58,
+   "geometric_rmse_model_m": 5.577,
+   "gcp_model": 714,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.2321,
+   "reg_offset_N_m": 0.4821
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20221108_20230322_02_T1",
+   "role": "confirmed",
+   "date": "2022-11-08",
+   "time_utc": "06:47:00",
+   "t": 2022.8528,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 44.8942,
+   "sun_az": 153.8996,
+   "cloud_scene": 0.94,
+   "geometric_rmse_model_m": 6.497,
+   "gcp_model": 690,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 3.2845,
+   "reg_offset_E_m": -0.1821,
+   "reg_offset_N_m": 0.1821
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20221218_20221227_02_T1",
+   "role": "illumination_test",
+   "date": "2022-12-18",
+   "time_utc": "06:47:00",
+   "t": 2022.9624,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 37.4674,
+   "sun_az": 154.1569,
+   "cloud_scene": 5.94,
+   "geometric_rmse_model_m": 6.829,
+   "gcp_model": 646,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.4798,
+   "reg_offset_E_m": -1.0821,
+   "reg_offset_N_m": 0.1821
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20231010_20231010_02_T1",
+   "role": "illumination_test",
+   "date": "2023-10-10",
+   "time_utc": "06:46:44",
+   "t": 2023.7734,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 53.3322,
+   "sun_az": 145.5062,
+   "cloud_scene": 0.21,
+   "geometric_rmse_model_m": 5.663,
+   "gcp_model": 715,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.6429,
+   "reg_offset_N_m": 0.7018
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20231119_20231122_02_T1",
+   "role": "confirmed",
+   "date": "2023-11-19",
+   "time_utc": "06:46:48",
+   "t": 2023.883,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 42.1401,
+   "sun_az": 154.9762,
+   "cloud_scene": 1.59,
+   "geometric_rmse_model_m": 6.843,
+   "gcp_model": 616,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.7929,
+   "reg_offset_N_m": 1.4518
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20231213_20231213_02_T1",
+   "role": "illumination_test",
+   "date": "2023-12-13",
+   "time_utc": "06:46:51",
+   "t": 2023.9487,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 37.9211,
+   "sun_az": 154.6155,
+   "cloud_scene": 12.95,
+   "geometric_rmse_model_m": 6.92,
+   "gcp_model": 680,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0018,
+   "reg_offset_E_m": -0.1929,
+   "reg_offset_N_m": 0.8518
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20241004_20241008_02_T1",
+   "role": "illumination_test",
+   "date": "2024-10-04",
+   "time_utc": "06:46:26",
+   "t": 2024.7576,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 54.8068,
+   "sun_az": 143.0903,
+   "cloud_scene": 0.05,
+   "geometric_rmse_model_m": 6.928,
+   "gcp_model": 596,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.7018,
+   "reg_offset_N_m": 0.4286
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20241113_20241113_02_T1",
+   "role": "confirmed",
+   "date": "2024-11-13",
+   "time_utc": "06:46:35",
+   "t": 2024.8669,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 43.4101,
+   "sun_az": 154.4948,
+   "cloud_scene": 0.25,
+   "geometric_rmse_model_m": 6.669,
+   "gcp_model": 695,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.4018,
+   "reg_offset_N_m": 0.7286
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20241215_20241215_02_T1",
+   "role": "illumination_test",
+   "date": "2024-12-15",
+   "time_utc": "06:46:42",
+   "t": 2024.9543,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 37.636,
+   "sun_az": 154.3268,
+   "cloud_scene": 16.27,
+   "geometric_rmse_model_m": 6.935,
+   "gcp_model": 591,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 1.1315,
+   "reg_offset_E_m": -0.4018,
+   "reg_offset_N_m": 1.0286
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20250929_20250929_02_T1",
+   "role": "illumination_test",
+   "date": "2025-09-29",
+   "time_utc": "06:46:50",
+   "t": 2025.7432,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 56.282,
+   "sun_az": 140.5586,
+   "cloud_scene": 0.09,
+   "geometric_rmse_model_m": 5.943,
+   "gcp_model": 716,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.4071,
+   "reg_offset_N_m": 0.0214
+  },
+  {
+   "scene_id": "LC08_L1TP_160043_20251108_20251128_02_T1",
+   "role": "confirmed",
+   "date": "2025-11-08",
+   "time_utc": "06:46:51",
+   "t": 2025.8528,
+   "spacecraft": "LANDSAT_8",
+   "sensor": "OLI",
+   "sun_el": 44.8019,
+   "sun_az": 153.8886,
+   "cloud_scene": 0.73,
+   "geometric_rmse_model_m": 7.06,
+   "gcp_model": 660,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -1.0071,
+   "reg_offset_N_m": 0.3214
+  },
+  {
+   "scene_id": "LC09_L1TP_160043_20251202_20251202_02_T1",
+   "role": "illumination_test",
+   "date": "2025-12-02",
+   "time_utc": "06:46:56",
+   "t": 2025.9186,
+   "spacecraft": "LANDSAT_9",
+   "sensor": "OLI",
+   "sun_el": 39.3966,
+   "sun_az": 155.2503,
+   "cloud_scene": 13.07,
+   "geometric_rmse_model_m": 7.135,
+   "gcp_model": 629,
+   "b8_grid_phase_ok": true,
+   "inbox_masked_pct": 0.0,
+   "reg_offset_E_m": -0.1821,
+   "reg_offset_N_m": -0.1286
+  }
+ ],
+ "velocity_summary": {
+  "period": "2013-11-07 to 2025-11-08",
+  "n_oli_scenes": 12,
+  "n_oli_pairs": 66,
+  "n_windows_grid": 10100,
+  "n_dune_windows": 2098,
+  "n_valid_dune_windows": 2045,
+  "n_detected": 1762,
+  "pct_detected_of_valid": 86.2,
+  "detected_speed_median_myr": 1.154,
+  "detected_speed_p10_p90_myr": [
+   0.547,
+   1.818
+  ],
+  "detected_speed_range_myr": [
+   0.226,
+   3.865
+  ],
+  "detected_heading_quartiles_deg": [
+   71.3,
+   84.0,
+   93.8
+  ],
+  "field_median_heading_deg": 82.9
+ },
+ "dunes": {
+  "n_resolved_nasadem": 12,
+  "n_exported": 12,
+  "counts_by_class": {
+   "slow": 7,
+   "active": 3,
+   "stable": 2
+  },
+  "class_cutoffs_myr": {
+   "stable": "below detection limit",
+   "slow": "< 1.15",
+   "active": "1.15-1.80",
+   "fast": ">= 1.80"
+  },
+  "height_model": {
+   "n_dunes": 10,
+   "used": false,
+   "spearman_rho": -0.358,
+   "p_value": 0.3104,
+   "k_m2_per_yr": 19.39,
+   "flux_equivalent_note": "k = speed x height ~ bulk sand flux per unit crest length (m^2/yr)",
+   "window_level": {
+    "spearman_rho": 0.194,
+    "p_value": 7.285743327137447e-19,
+    "terciles": [
+     {
+      "relief_m": "4.6-13.1",
+      "n": 681,
+      "median_speed_myr": 0.767,
+      "share_detected": 0.715
+     },
+     {
+      "relief_m": "13.1-18.8",
+      "n": 683,
+      "median_speed_myr": 1.176,
+      "share_detected": 0.943
+     },
+     {
+      "relief_m": "18.8-40.1",
+      "n": 681,
+      "median_speed_myr": 1.094,
+      "share_detected": 0.927
+     }
+    ],
+    "note": "relief = 95th percentile of (NASADEM - local base) in each 480 m window; NASADEM noise 2.3 m, so low-relief terciles are partly noise"
+   }
+  },
+  "n_untracked_resolved": 0,
+  "min_resolvable": {
+   "height_m": 13.4,
+   "area_ha": 1.6,
+   "rule": "crest >= 6.9 m (3 x NASADEM noise) and DEM shading matching the image"
+  },
+  "threat_fields": "not computed (notebook 03): threat=false, nearest_target/distance/reach years = null"
+ },
+ "vectors": {
+  "n_points": 443,
+  "spacing_m": 240.0,
+  "content": "detected windows only"
+ }
+}

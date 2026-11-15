@@ -1,0 +1,13 @@
+level,reason,count,pct
+window-pair observation (dune windows x OLI pairs),"no data (QA cloud/shadow/fill, or > 40 % masked)",1573,1.14
+window-pair observation (dune windows x OLI pairs),weak match (peak < threshold),3273,2.36
+window-pair observation (dune windows x OLI pairs),displacement > max unguided range,71,0.05
+window-pair observation (dune windows x OLI pairs),network outlier,3065,2.21
+window-pair observation (dune windows x OLI pairs),used,130486,94.24
+window,all windows on the grid,10100,100.0
+window,centre outside the box,3081,30.5
+window,"inside box, > 25 % non-dune mask",4921,48.72
+window,"dune window, too few valid pairs/epochs",53,0.52
+window,"dune window, valid",2045,20.25
+window,  of which motion detected,1762,17.45
+window,  of which below detection limit,283,2.8

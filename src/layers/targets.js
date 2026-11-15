@@ -1,10 +1,12 @@
-// Target layer: road segments, farms and built-up areas from targets.geojson, batched into a few ground primitives and coloured by threat status at the timeline year.
+// Target layer: road segments, farms and built-up areas from targets.geojson, batched into a few ground primitives, styled per threat status like the legend (dark casing, the "possible" class dashed), coloured by the timeline year and shown or hidden per status class.
 import * as Cesium from 'cesium';
 import { polygonsOf, representativePoint } from '../geo.js';
 import { isNum } from '../format.js';
-import { C, STATUS_COLORS, whenReady, setInstanceColor, lineInstance, polygonInstance, linePrimitive, fillPrimitive, dashedLinePrimitive, destroyPrimitive } from './util.js';
+import { MAP_STYLE, STATUS_KEY } from '../ui/ui.js';
+import { C, CASING, whenReady, setInstanceColor, setInstanceShow, lineInstance, polygonInstance, linePrimitive, fillPrimitive, dashedLinePrimitive, destroyPrimitive } from './util.js';
 
 const HIT_CAPABLE = new Set(['sand_at_edge_now', 'reached_by_2050', 'reached_2051_2100']);
+export const CLASSES = ['now', 'by2050', 'by2100', 'possible', 'none'];
 
 /**
  * Display state of a target at a timeline year.
@@ -29,96 +31,127 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
   const prims = scene.primitives;
   const feats = (bundle.targets?.features || []).filter((f) => f.geometry && f.properties?.id);
   const byId = new Map();
-  const lineIds = new Map(); // target id -> [instance ids in the line primitive]
-  const fillIds = new Map(); // target id -> [instance ids in the fill primitive]
+  const ids = new Map(); // target id -> { cls, line: [], dash: [], casing: [], fill: [], exposed: [] }
 
-  const lineInstances = [];
-  const fillInstances = [];
-  const exposedInstances = [];
+  const lineInst = [];
+  const dashInst = [];
+  const casingInst = [];
+  const fillInst = [];
+  const exposedInst = [];
+  const [exColor, exWidth, exDash] = MAP_STYLE.exposed;
   for (const f of feats) {
     const p = f.properties;
     const tid = p.id;
+    const cls = STATUS_KEY[p.threat_status] || 'none';
+    if (!STATUS_KEY[p.threat_status]) console.warn(`[targets] unknown threat_status "${p.threat_status}" on ${tid}: drawn as not reached`);
+    const [hex, width] = MAP_STYLE.threat[cls];
+    const dashed = cls === 'possible';
     byId.set(tid, { kind: 'target', id: tid, props: p, geometry: f.geometry, lonlat: representativePoint(f.geometry) });
-    const width = HIT_CAPABLE.has(p.threat_status) || p.threat_status === 'possible_within_direction_uncertainty' ? 4 : 2;
-    const lids = [];
-    const fids = [];
+    const rec = { cls, line: [], dash: [], casing: [], fill: [], exposed: [] };
     const g = f.geometry;
-    const lines = g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
-    lines.forEach((coords, k) => {
+    const rings = [];
+    (g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : []).forEach((c) => rings.push(c));
+    polygonsOf(g).forEach((poly, k) => {
+      const fid = `t:${tid}#f${k}`;
+      fillInst.push(polygonInstance(fid, poly[0], C(hex, 0.12), poly.slice(1)));
+      rec.fill.push(fid);
+      poly.forEach((ring) => rings.push(ring));
+    });
+    rings.forEach((coords, k) => {
       if (coords.length < 2) return;
       const id = `t:${tid}#l${k}`;
-      lineInstances.push(lineInstance(id, coords, width, Cesium.Color.WHITE));
-      lids.push(id);
-      if (p.borders_free_sand) exposedInstances.push(lineInstance(`tx:${tid}#l${k}`, coords, width + 7, Cesium.Color.WHITE));
+      casingInst.push(lineInstance(`tc:${tid}#l${k}`, coords, width + 2, C(CASING)));
+      rec.casing.push(`tc:${tid}#l${k}`);
+      if (dashed) {
+        dashInst.push(lineInstance(id, coords, width, Cesium.Color.WHITE));
+        rec.dash.push(id);
+      } else {
+        lineInst.push(lineInstance(id, coords, width, C(hex)));
+        rec.line.push(id);
+      }
+      if (p.borders_free_sand) {
+        exposedInst.push(lineInstance(`tx:${tid}#l${k}`, coords, exWidth, Cesium.Color.WHITE));
+        rec.exposed.push(`tx:${tid}#l${k}`);
+      }
     });
-    polygonsOf(g).forEach((rings, k) => {
-      const fid = `t:${tid}#f${k}`;
-      fillInstances.push(polygonInstance(fid, rings[0], Cesium.Color.WHITE, rings.slice(1)));
-      fids.push(fid);
-      rings.forEach((ring, r) => {
-        const id = `t:${tid}#r${k}_${r}`;
-        lineInstances.push(lineInstance(id, ring, width === 4 ? 3 : 2, Cesium.Color.WHITE));
-        lids.push(id);
-        if (p.borders_free_sand) exposedInstances.push(lineInstance(`tx:${tid}#r${k}_${r}`, ring, 9, Cesium.Color.WHITE));
-      });
-    });
-    lineIds.set(tid, lids);
-    fillIds.set(tid, fids);
+    ids.set(tid, rec);
   }
 
-  // Order matters for ground polylines: the exposed halo goes underneath the status lines.
-  const exposed = exposedInstances.length ? dashedLinePrimitive(exposedInstances, C('#e8f4ff', 0.75), 14) : null;
-  if (exposed) {
-    exposed.show = false;
-    prims.add(exposed);
-  }
-  const fills = fillInstances.length ? fillPrimitive(fillInstances) : null;
-  const lines = lineInstances.length ? linePrimitive(lineInstances) : null;
-  if (fills) prims.add(fills);
-  if (lines) prims.add(lines);
+  // Draw order for ground polylines follows the primitive order: exposed halo, fills, casing, then the coloured lines.
+  const exposed = exposedInst.length ? dashedLinePrimitive(exposedInst, C(exColor, 0.8), exDash) : null;
+  const fills = fillInst.length ? fillPrimitive(fillInst) : null;
+  const casing = casingInst.length ? linePrimitive(casingInst) : null;
+  const lines = lineInst.length ? linePrimitive(lineInst) : null;
+  const possibleStyle = MAP_STYLE.threat.possible;
+  const dashes = dashInst.length ? dashedLinePrimitive(dashInst, C(possibleStyle[0]), possibleStyle[2]) : null;
+  for (const p of [exposed, fills, casing, lines, dashes]) if (p) prims.add(p);
+  if (exposed) exposed.show = false;
 
   let visible = true;
   let modeDim = 1;
   let year = latestObservedYear;
   let rule = 'min';
   let ready = false;
+  let exposedOn = false;
+  const classOn = Object.fromEntries(CLASSES.map((k) => [k, true]));
   const states = new Map();
   let pulseTimer = null;
   let pulsePhase = 0;
 
-  function baseColor(p, st, pulse = 1) {
+  function alphaFor(st, pulse = 1) {
     switch (st) {
       case 'hit':
-        return [STATUS_COLORS[p.threat_status] || '#f85149', (0.55 + 0.45 * pulse) * Math.max(modeDim, 0.5)];
+        return (0.55 + 0.45 * pulse) * Math.max(modeDim, 0.5);
       case 'pending':
-        return [STATUS_COLORS[p.threat_status] || '#f0883e', 0.32 * modeDim];
+        return 0.32 * modeDim;
       case 'possible':
-        return [STATUS_COLORS.possible_within_direction_uncertainty, 0.85 * modeDim];
+        return 0.9 * modeDim;
       default:
-        return [STATUS_COLORS.not_reached_by_2100, 0.6 * modeDim];
+        return 0.75 * modeDim;
     }
   }
 
   function paint(tid, pulse = 1) {
-    const t = byId.get(tid);
+    const rec = ids.get(tid);
     const st = states.get(tid);
-    const [css, a] = baseColor(t.props, st, pulse);
-    const lineColor = C(css, Math.min(1, a));
-    const fillColor = C(css, Math.min(1, a) * (st === 'hit' ? 0.2 : 0.1));
-    for (const id of lineIds.get(tid)) setInstanceColor(lines, id, lineColor);
-    for (const id of fillIds.get(tid)) setInstanceColor(fills, id, fillColor);
+    const [hex] = MAP_STYLE.threat[rec.cls];
+    const a = Math.min(1, alphaFor(st, pulse));
+    const lineColor = C(hex, a);
+    const casingColor = C(CASING, Math.min(1, 0.4 + a * 0.6));
+    const fillColor = C(hex, a * (st === 'hit' ? 0.22 : 0.1));
+    for (const id of rec.line) setInstanceColor(lines, id, lineColor);
+    for (const id of rec.casing) setInstanceColor(casing, id, casingColor);
+    for (const id of rec.fill) setInstanceColor(fills, id, fillColor);
+  }
+
+  function applyShow() {
+    if (!ready) return;
+    // per-instance flags follow the class toggles only; the primitives' own show follows the layer's visibility
+    for (const rec of ids.values()) {
+      const on = classOn[rec.cls];
+      for (const id of rec.line) setInstanceShow(lines, id, on);
+      for (const id of rec.dash) setInstanceShow(dashes, id, on);
+      for (const id of rec.casing) setInstanceShow(casing, id, on);
+      for (const id of rec.fill) setInstanceShow(fills, id, on);
+      for (const id of rec.exposed) setInstanceShow(exposed, id, on);
+    }
+    if (exposed) exposed.show = exposedOn;
+    if (dashes) dashes.appearance.material.uniforms.color = C(possibleStyle[0], Math.min(1, alphaFor('possible')));
+    scene.requestRender();
+    syncPulse();
   }
 
   function recompute() {
     for (const [tid, t] of byId) states.set(tid, targetState(t.props, year, rule, latestObservedYear));
     if (!ready) return;
     for (const tid of byId.keys()) paint(tid);
+    if (dashes) dashes.appearance.material.uniforms.color = C(possibleStyle[0], Math.min(1, alphaFor('possible')));
     scene.requestRender();
     syncPulse();
   }
 
   function syncPulse() {
-    const anyHit = [...states.values()].some((s) => s === 'hit');
+    const anyHit = [...states].some(([tid, s]) => s === 'hit' && classOn[ids.get(tid).cls]);
     const want = visible && anyHit && ready;
     if (want && !pulseTimer) {
       pulseTimer = setInterval(() => {
@@ -133,14 +166,15 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
     }
   }
 
-  const readyPromise = Promise.all([lines && whenReady(scene, lines), fills && whenReady(scene, fills)]).then(() => {
+  const readyPromise = Promise.all([lines, fills, casing, dashes, exposed].filter(Boolean).map((p) => whenReady(scene, p))).then(() => {
     ready = true;
     recompute();
+    applyShow();
   });
 
   const resolve = (id) => {
     if (typeof id !== 'string') return null;
-    const m = id.match(/^tx?:(.*?)#/);
+    const m = id.match(/^t[xc]?:(.*?)#/);
     return m ? byId.get(m[1]) || null : byId.get(id) || null;
   };
 
@@ -153,16 +187,34 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
     get count() {
       return byId.size;
     },
-    owns: (id) => typeof id === 'string' && (id.startsWith('t:') || id.startsWith('tx:')),
+    owns: (id) => typeof id === 'string' && /^t[xc]?:/.test(id),
     getFeature: resolve,
     get: (tid) => byId.get(tid) || null,
     stateOf: (tid) => states.get(tid) || null,
+    classOf: (tid) => ids.get(tid)?.cls || null,
+    /** Colour actually painted on a target's first line instance, as [r, g, b, a] 0-255 (dashed "possible" targets: the material colour). */
     paintedColor(tid) {
-      const id = lineIds.get(tid)?.[0];
+      const rec = ids.get(tid);
+      if (!rec) return null;
+      if (rec.dash.length) {
+        const c = dashes?.appearance.material.uniforms.color;
+        return c ? [c.red, c.green, c.blue, c.alpha].map((v) => Math.round(v * 255)) : null;
+      }
+      const id = rec.line[0];
       if (!id || !lines?.ready) return null;
       const c = lines.getGeometryInstanceAttributes(id)?.color;
       return c ? Array.from(c) : null;
     },
+    /** Whether a target's lines are currently drawn (layer visible and its status class switched on). */
+    isShown(tid) {
+      const rec = ids.get(tid);
+      if (!rec || !ready) return false;
+      const prim = rec.dash.length ? dashes : lines;
+      const id = rec.dash[0] || rec.line[0];
+      const attrs = id && prim.getGeometryInstanceAttributes(id);
+      return !!(visible && prim.show && attrs && attrs.show[0] === 1);
+    },
+    exposedShown: () => !!(exposed && exposed.show),
     setYear(y) {
       year = y;
       recompute();
@@ -175,15 +227,20 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
       modeDim = d;
       if (ready) recompute();
     },
+    /** Show or hide one status class ('now', 'by2050', 'by2100', 'possible', 'none'). */
+    setClassVisible(cls, v) {
+      if (classOn[cls] === v) return;
+      classOn[cls] = v;
+      applyShow();
+    },
     setExposed(v) {
-      if (exposed) exposed.show = v && visible;
+      exposedOn = v; // the halo can be shown without the status lines (True view: "exposed" without "targets")
+      if (exposed) exposed.show = v;
       scene.requestRender();
     },
     setVisible(v) {
       visible = v;
-      if (lines) lines.show = v;
-      if (fills) fills.show = v;
-      if (!v && exposed) exposed.show = false;
+      for (const p of [lines, fills, casing, dashes]) if (p) p.show = v;
       syncPulse();
       scene.requestRender();
     },
@@ -194,9 +251,7 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
     },
     dispose() {
       if (pulseTimer) clearInterval(pulseTimer);
-      destroyPrimitive(prims, lines);
-      destroyPrimitive(prims, fills);
-      destroyPrimitive(prims, exposed);
+      for (const p of [lines, fills, casing, dashes, exposed]) destroyPrimitive(prims, p);
     },
   };
 }

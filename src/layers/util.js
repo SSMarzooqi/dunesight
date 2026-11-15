@@ -1,7 +1,29 @@
-// Shared helpers for the batched ground primitives: colour attributes, readiness, line/polygon instances and colour ramps.
+// Shared helpers for the batched ground primitives: colour and show attributes, readiness, line/polygon instances, dash patterns and the map colours (from the UI's MAP_STYLE, so map and legend match).
 import * as Cesium from 'cesium';
+import { MAP_STYLE, STATUS_KEY } from '../ui/ui.js';
 
-export const C = (css, alpha = 1) => Cesium.Color.fromCssColorString(css).withAlpha(alpha);
+export const C = (css, alpha = 1) => {
+  const c = Cesium.Color.fromCssColorString(css);
+  return c.withAlpha(c.alpha * alpha);
+};
+
+/** Status value -> [colour, width, dash?] from MAP_STYLE.threat. */
+export const statusStyle = (status) => MAP_STYLE.threat[STATUS_KEY[status] || 'none'];
+/** Dune class -> [colour, width] from MAP_STYLE.dune. */
+export const classStyle = (cls) => MAP_STYLE.dune[cls] || MAP_STYLE.dune.stable;
+export const CASING = MAP_STYLE.casing;
+
+/**
+ * 16-bit Cesium dash pattern and dash length (px) for an SVG-style dasharray "on off" in pixels, so the map uses
+ * the same dash as the legend sample. One period is repeated to fill 16 pixels.
+ */
+export function dashFor(dash) {
+  const [on, off] = String(dash).split(/\s+/).map(Number);
+  const period = on + off;
+  let bits = 0;
+  for (let i = 0; i < 16; i++) if (i % period < on) bits |= 1 << (15 - i);
+  return { dashLength: 16, dashPattern: bits };
+}
 
 /** Resolves when a primitive has finished building (GroundPrimitive / GroundPolylinePrimitive build asynchronously). */
 export function whenReady(scene, primitive) {
@@ -43,7 +65,7 @@ export function lineInstance(id, coords, width, color) {
       positions: Cesium.Cartesian3.fromDegreesArray(coords.flat()),
       width,
     }),
-    attributes: { color: Cesium.ColorGeometryInstanceAttribute.fromColor(color) },
+    attributes: { color: Cesium.ColorGeometryInstanceAttribute.fromColor(color), show: new Cesium.ShowGeometryInstanceAttribute(true) },
   });
 }
 
@@ -56,7 +78,7 @@ export function polygonInstance(id, ring, color, holes = []) {
         holes.map((h) => new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray(h.flat()))),
       ),
     }),
-    attributes: { color: Cesium.ColorGeometryInstanceAttribute.fromColor(color) },
+    attributes: { color: Cesium.ColorGeometryInstanceAttribute.fromColor(color), show: new Cesium.ShowGeometryInstanceAttribute(true) },
   });
 }
 
@@ -69,13 +91,16 @@ export function linePrimitive(instances, { translucent = true } = {}) {
   });
 }
 
-export function dashedLinePrimitive(instances, color, dashLength = 16) {
+/** Ground polylines drawn with one dashed material (single colour for the whole primitive). */
+export function dashedLinePrimitive(instances, color, dash = '8 8') {
+  const { dashLength, dashPattern } = dashFor(dash);
   return new Cesium.GroundPolylinePrimitive({
     geometryInstances: instances,
     appearance: new Cesium.PolylineMaterialAppearance({
-      material: Cesium.Material.fromType('PolylineDash', { color, gapColor: Cesium.Color.TRANSPARENT, dashLength }),
+      material: Cesium.Material.fromType('PolylineDash', { color, gapColor: Cesium.Color.TRANSPARENT, dashLength, dashPattern }),
     }),
     asynchronous: true,
+    releaseGeometryInstances: false,
   });
 }
 
@@ -89,55 +114,11 @@ export function fillPrimitive(instances) {
   });
 }
 
-// Perceptually ordered cool ramp for speed (lightness rises monotonically), chosen so it never
-// looks like the warm threat colours of the target layer.
-// Fixed domain for all sites so colours compare across sites; values above the top clamp to it.
-export const SPEED_DOMAIN = [0, 4];
-export const SPEED_STOPS = [
-  [0.0, '#2b3f99'],
-  [0.5, '#2563c9'],
-  [1.0, '#1b8fe0'],
-  [1.5, '#1fb8d6'],
-  [2.0, '#43d9b8'],
-  [3.0, '#94ef9c'],
-  [4.0, '#eefcc0'],
-];
-
 /** Opacity from match quality (0-1): weak matches are fainter but never invisible. */
 export function qualityAlpha(q) {
   if (!Number.isFinite(q)) return 0.6;
   return 0.45 + 0.55 * Math.max(0, Math.min(1, (q - 0.2) / 0.5));
 }
-
-export function speedColor(v, alpha = 1) {
-  const x = Math.max(SPEED_DOMAIN[0], Math.min(SPEED_DOMAIN[1], v));
-  for (let i = 1; i < SPEED_STOPS.length; i++) {
-    const [x1, c1] = SPEED_STOPS[i];
-    const [x0, c0] = SPEED_STOPS[i - 1];
-    if (x <= x1) {
-      const t = (x - x0) / (x1 - x0 || 1);
-      const a = Cesium.Color.fromCssColorString(c0);
-      const b = Cesium.Color.fromCssColorString(c1);
-      return Cesium.Color.lerp(a, b, t, new Cesium.Color()).withAlpha(alpha);
-    }
-  }
-  return C(SPEED_STOPS[SPEED_STOPS.length - 1][1], alpha);
-}
-
-export const STATUS_COLORS = {
-  sand_at_edge_now: '#f85149',
-  reached_by_2050: '#f0883e',
-  reached_2051_2100: '#d29922',
-  possible_within_direction_uncertainty: '#a371f7',
-  not_reached_by_2100: '#4b6a88',
-};
-
-export const CLASS_COLORS = {
-  stable: '#3fb950',
-  slow: '#d29922',
-  active: '#f0883e',
-  fast: '#f85149',
-};
 
 export function destroyPrimitive(collection, p) {
   if (p && !p.isDestroyed?.()) collection.remove(p);

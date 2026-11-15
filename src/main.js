@@ -1,24 +1,28 @@
-// Boots DuneSight: creates the globe, loads the site index, runs the fly-in, builds each site's layers on first visit and wires state, timeline, picking and HUD together.
+// Boots DuneSight: creates the globe, loads the site index, mounts the UI (src/ui/ui.js) with each site's data, runs the fly-in, builds each site's layers on first visit and wires the UI's callbacks to layers, timeline, picking, camera and the dossier.
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import './ui/tokens.css';
+import './ui/ui.css';
 import './style.css';
 
-import { state, set, on } from './state.js';
-import { loadIndex, loadSite } from './data.js';
+import { state, set } from './state.js';
+import { loadIndex, loadSite, shortName } from './data.js';
 import { createViewer } from './basemap.js';
 import { createFramesLayer } from './layers/frames.js';
 import { createVectorsLayer, arrowOutline, ARROW_YEARS, defaultArrowFactor } from './layers/vectors.js';
-import { createTargetsLayer } from './layers/targets.js';
+import { createTargetsLayer, CLASSES } from './layers/targets.js';
 import { createDunesLayer } from './layers/dunes.js';
-import { lineInstance, linePrimitive, dashedLinePrimitive, whenReady, destroyPrimitive, C } from './layers/util.js';
-import { createTimeline } from './timeline.js';
-import { createHeader } from './hud/header.js';
-import { panelFrame, renderHeadline, renderThreatList } from './hud/panels.js';
-import { duneCard, targetCard, arrowCard, renderCard } from './hud/card.js';
-import { renderCompass } from './hud/compass.js';
-import { renderLegend } from './hud/legend.js';
+import { lineInstance, linePrimitive, dashedLinePrimitive, whenReady, destroyPrimitive, C, CASING } from './layers/util.js';
+import { buildStops } from './timeline.js';
+import { mountDuneSightUI, MAP_STYLE } from './ui/ui.js';
+import { buildSiteData } from './ui/site-data.js';
+import { duneCard, targetCard, arrowCard } from './hud/card.js';
 import { renderDossier } from './hud/dossier.js';
-import { renderCredits } from './hud/credits.js';
+import { CREDIT_LINE } from './hud/credits.js';
 import { polygonsOf, bboxOf } from './geo.js';
 import { esc } from './format.js';
 
@@ -29,6 +33,7 @@ const mark = (k) => (marks[k] = Math.round(performance.now())); // ms since navi
 // ---------------------------------------------------------------------------------------------
 // Viewer and basemap status
 let basemap = {};
+let ui = null;
 const viewer = createViewer($('#globe'), {
   onStatus(s) {
     basemap = s;
@@ -38,7 +43,7 @@ const viewer = createViewer($('#globe'), {
     else if (s.note) msgs.push(`Cesium ion unavailable: using ${s.basemap} and flat terrain.`);
     note.hidden = msgs.length === 0;
     note.textContent = msgs.join(' ');
-    if (state.site) renderCredits($('#credits'), state.site.sources, basemap);
+    ui?.setBasemap(s.basemap);
   },
 });
 const scene = viewer.scene;
@@ -46,43 +51,46 @@ const camera = viewer.camera;
 camera.setView({ destination: Cesium.Cartesian3.fromDegrees(54.4, 22.5, 2.3e7) });
 
 // ---------------------------------------------------------------------------------------------
-// HUD panels
-const headlineBody = panelFrame($('#panel-headline'), 'headline', 'Site measurement', { source: true });
-const threatsBody = panelFrame($('#panel-threats'), 'threats', 'Reached targets · earliest first');
-const legendBody = panelFrame($('#legend'), 'legend', 'Legend');
-const windBody = panelFrame($('#panel-wind'), 'wind', 'Wind vs dune motion', { source: true });
-const cardBody = panelFrame($('#panel-card'), 'card', 'Selection');
-$('#panel-card .panel-head').insertAdjacentHTML('beforeend', '<button class="collapse card-close" aria-label="Clear selection" title="Clear selection (Esc)">✕</button>');
-$('#panel-card .card-close').addEventListener('click', () => clearSelection());
-
-const timeline = createTimeline($('#timeline'), { onStop: (s) => set('stop', s) });
-
-// ---------------------------------------------------------------------------------------------
 // Sites and layers
 const siteLayers = new Map(); // id -> layers
+const siteData = new Map(); // id -> UI data object
 let index = null;
-let header = null;
 let flying = false;
 
-function buildLayers(bundle) {
-  const latestObservedYear = bundle.derived.latestObserved?.year;
-  const frames = createFramesLayer(viewer, bundle);
-  const b = bundle.bbox;
-  const boxRing = [
+function boxRing(b) {
+  return [
     [b.west, b.south],
     [b.east, b.south],
     [b.east, b.north],
     [b.west, b.north],
     [b.west, b.south],
   ];
-  const box = linePrimitive([lineInstance(`box:${bundle.id}`, boxRing, 2, C('#39d0ff', 0.9))]);
-  scene.primitives.add(box);
+}
+
+function buildLayers(bundle) {
+  const latestObservedYear = bundle.derived.latestObserved?.year;
+  const frames = createFramesLayer(viewer, bundle);
+  const ring = boxRing(bundle.bbox);
+  const [boxHex, boxW] = MAP_STYLE.box;
+  const [pHex, pW, pDash] = MAP_STYLE.boxProjected;
+  const boxCasing = linePrimitive([lineInstance(`boxc:${bundle.id}`, ring, Math.max(boxW, pW) + 2, C(CASING))]);
+  const box = linePrimitive([lineInstance(`box:${bundle.id}`, ring, boxW, C(boxHex))]);
+  const boxProjected = dashedLinePrimitive([lineInstance(`boxp:${bundle.id}`, ring, pW, Cesium.Color.WHITE)], C(pHex), pDash);
+  boxProjected.show = false;
+  for (const p of [boxCasing, box, boxProjected]) scene.primitives.add(p);
   const targets = createTargetsLayer(viewer, bundle, { latestObservedYear });
   const dunes = createDunesLayer(viewer, bundle);
   const vectors = createVectorsLayer(viewer, bundle);
   const boxReady = whenReady(scene, box).then(() => mark(`box:${bundle.id}`));
   const ready = Promise.all([boxReady, targets.readyPromise, dunes.readyPromise, vectors.readyPromise]);
-  return { frames, box, targets, dunes, vectors, ready };
+  const model = buildStops(bundle.manifest);
+  // threat-mode emphasis: arrows within reach of a hit target
+  const threatPoints = [];
+  for (const f of bundle.targets?.features || []) {
+    const p = f.properties;
+    if (Number.isFinite(p?.hit_year_min) && Array.isArray(p.approach?.window_lonlat)) threatPoints.push(p.approach.window_lonlat);
+  }
+  return { frames, box, boxCasing, boxProjected, targets, dunes, vectors, ready, model, threatPoints, boxOn: true };
 }
 
 function layers() {
@@ -93,27 +101,50 @@ function setSiteVisible(id, v) {
   const L = siteLayers.get(id);
   if (!L) return;
   L.frames.setVisible(v);
-  L.box.show = v;
-  L.targets.setVisible(v);
-  L.dunes.setVisible(v);
-  L.vectors.setVisible(v);
+  if (v) return; // applyLayers() and applyStop() decide what of the active site is drawn
+  L.box.show = false;
+  L.boxCasing.show = false;
+  L.boxProjected.show = false;
+  L.targets.setVisible(false);
+  L.targets.setExposed(false);
+  L.dunes.setVisible(false);
+  L.dunes.setThen(false);
+  L.vectors.setVisible(false);
 }
+
+// The PROJECTED tag on the map, at the north-west corner of the site box.
+const mapTags = new Cesium.LabelCollection({ scene });
+scene.primitives.add(mapTags);
+const projectedTag = mapTags.add({
+  text: 'PROJECTED',
+  font: '600 13px "IBM Plex Sans", system-ui, sans-serif',
+  fillColor: C(MAP_STYLE.projected),
+  showBackground: true,
+  backgroundColor: C('#15130F', 0.82),
+  backgroundPadding: new Cesium.Cartesian2(7, 4),
+  horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
+  verticalOrigin: Cesium.VerticalOrigin.TOP,
+  pixelOffset: new Cesium.Cartesian2(6, 6),
+  heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+  disableDepthTestDistance: Number.POSITIVE_INFINITY,
+  show: false,
+});
 
 let switchToken = 0;
 async function activateSite(id, { fly = true } = {}) {
   const entry = index.sites.find((s) => s.id === id);
   if (!entry) return;
   const my = ++switchToken;
-  header.setLoading(id, true);
+  ui?.setLoading(id, true);
   let bundle;
   try {
     bundle = await loadSite(entry);
   } catch (err) {
     showError(`Could not load ${entry.name}: ${err.message}`);
-    header.setLoading(id, false);
+    ui?.setLoading(id, false);
     return;
   }
-  header.setLoading(id, false);
+  ui?.setLoading(id, false);
   if (my !== switchToken) return;
   mark(`data:${id}`);
   clearSelection();
@@ -121,77 +152,95 @@ async function activateSite(id, { fly = true } = {}) {
   if (!siteLayers.has(id)) siteLayers.set(id, buildLayers(bundle));
   state.site = bundle;
   state.arrowFactor = defaultArrowFactor(bundle);
+  if (!siteData.has(id)) siteData.set(id, buildSiteData(bundle, { arrowFactor: state.arrowFactor, arrowYears: ARROW_YEARS }));
+  const data = siteData.get(id);
   set('siteId', id);
+  if (!ui) mountUI(data);
+  else ui.setData(data);
+  ui.setBasemap(basemap.basemap);
   setSiteVisible(id, true);
-  header.setPlaceholder(bundle);
-
-  const s1 = renderHeadline(headlineBody, bundle);
-  $('#panel-headline .panel-src').innerHTML = `Source: ${s1}`;
-  const s2 = renderCompass(windBody, bundle);
-  $('#panel-wind .panel-src').innerHTML = `Source: ${s2}`;
-  renderThreatList(threatsBody, bundle, { onPick: (tid) => selectById('target', tid, { fly: true }) });
-  renderCredits($('#credits'), bundle.sources, basemap);
+  projectedTag.position = Cesium.Cartesian3.fromDegrees(bundle.bbox.west, bundle.bbox.north);
   if (!$('#dossier').hidden) openDossier();
-
-  timeline.setSite(bundle);
-  applyMode();
+  applyLayers();
+  applyYear(ui.getState().year);
   if (fly && !flying) flyHome(2.2);
   siteLayers.get(id).ready.then(() => mark(`layers:${id}`));
 }
 
 // ---------------------------------------------------------------------------------------------
-// Modes and timeline
-function threatPoints(bundle) {
-  const pts = [];
-  for (const f of bundle.targets?.features || []) {
-    const p = f.properties;
-    if (Number.isFinite(p?.hit_year_min) && Array.isArray(p.approach?.window_lonlat)) pts.push(p.approach.window_lonlat);
+// Layers, modes and the timeline (all driven by the UI's state)
+function applyLayers() {
+  const L = layers();
+  if (!L || !ui) return;
+  const { mode, layers: on, settings } = ui.getState();
+  state.mode = mode;
+  document.body.dataset.mode = mode;
+  L.frames.setVisible(true);
+  // arrows
+  L.vectors.setVisible(!!on.vectors);
+  L.vectors.setDim(1);
+  L.vectors.emphasiseNear(mode === 'threat' ? L.threatPoints : null, 250);
+  if (settings.arrowFactor !== state.arrowFactor) set('arrowFactor', settings.arrowFactor);
+  L.vectors.setFactor(state.arrowFactor);
+  // dunes
+  L.dunes.setVisible(!!on.dunes);
+  L.dunes.setDim(mode === 'threat' ? 0.55 : 1);
+  L.dunes.setThen(!!on.dunes2000);
+  // targets: per status class in Threat, all together in True view, none in Motion
+  if (mode === 'threat') {
+    L.targets.setVisible(true);
+    for (const k of CLASSES) L.targets.setClassVisible(k, !!on[`t_${k}`]);
+    L.targets.setDim(1);
+  } else if (mode === 'true') {
+    L.targets.setVisible(!!on.targets);
+    for (const k of CLASSES) L.targets.setClassVisible(k, true);
+    L.targets.setDim(0.7);
+  } else {
+    L.targets.setVisible(false);
   }
-  return pts;
+  L.targets.setExposed(!!on.exposed);
+  // study box and projected imagery
+  L.boxOn = on.box !== false;
+  state.projectedOn = on.projected !== false;
+  L.vectors.setTracksVisible(state.projectedOn);
+  applyStop(state.stop);
 }
 
-function applyMode() {
-  const L = layers();
-  const b = state.site;
-  if (!L || !b) return;
-  const mode = state.mode;
-  L.frames.setVisible(true);
-  if (mode === 'true') {
-    L.vectors.setVisible(false);
-    L.vectors.emphasiseNear(null);
-    L.dunes.setThin(false);
-    L.dunes.setDim(1);
-    L.targets.setDim(0.5);
-  } else if (mode === 'motion') {
-    L.vectors.setVisible(true);
-    L.vectors.setDim(1);
-    L.vectors.emphasiseNear(null);
-    L.dunes.setThin(true);
-    L.dunes.setDim(0.8);
-    L.targets.setDim(0.4);
-  } else {
-    L.vectors.setVisible(true);
-    L.vectors.setDim(1);
-    L.vectors.emphasiseNear(threatPoints(b), 250);
-    L.dunes.setThin(false);
-    L.dunes.setDim(0.75);
-    L.targets.setDim(1);
+function applySettings(key, value) {
+  if (key === 'reachCase') {
+    state.hitRule = value === 'median' ? 'med' : 'min';
+    layers()?.targets.setRule(state.hitRule);
+    if (state.selection) showCard(state.selection);
+  } else if (key === 'fastCaseFrame') {
+    state.showFast = !!value;
+    applyStop(state.stop);
+  } else if (key === 'changedPixels') {
+    state.showChange = !!value;
+    applyStop(state.stop);
+  } else if (key === 'arrowFactor') {
+    set('arrowFactor', value);
+    layers()?.vectors.setFactor(value);
+    if (state.selection?.kind === 'arrow') highlight(state.selection);
   }
-  $('#panel-threats').hidden = mode !== 'threat';
-  document.body.dataset.mode = mode;
-  L.targets.setExposed(state.exposed);
-  L.dunes.setThenNow(state.thenNow);
-  L.vectors.setFactor(state.arrowFactor);
-  L.targets.setRule(state.hitRule);
-  renderLegend(legendBody, b, { projected: state.stop?.kind === 'projected' });
+}
+
+function applyYear(year) {
+  const L = layers();
+  if (!L) return;
+  const stop = L.model.stops.find((s) => s.year === year) || L.model.stops.find((s) => s.year === L.model.latest?.year);
+  set('stop', stop);
+  applyStop(stop);
 }
 
 function applyStop(stop) {
   const L = layers();
   if (!L || !stop) return;
-  header.setStop(stop);
-  if (stop.kind === 'observed') {
+  const projected = stop.kind === 'projected';
+  const showProjected = projected && state.projectedOn !== false;
+  if (!projected) {
     L.frames.show({ base: stop.frame, med: null, fast: null, change: false });
+  } else if (!showProjected) {
+    L.frames.show({ base: stop.base, med: null, fast: null, change: false });
   } else {
     L.frames.show({
       base: stop.base,
@@ -202,28 +251,17 @@ function applyStop(stop) {
       change: state.showChange,
     });
   }
+  L.box.show = L.boxOn && !projected;
+  L.boxProjected.show = L.boxOn && projected;
+  L.boxCasing.show = L.boxOn;
+  projectedTag.show = showProjected;
+  projectedTag.text = `PROJECTED ${stop.year}${stop.med ? ` · median case, ${stop.med.year} frame` : ''}`;
   L.targets.setYear(stop.year);
-  L.vectors.setTrackYears(stop.kind === 'projected' ? stop.yearsSince : 0);
+  L.vectors.setTrackYears(projected ? stop.yearsSince : 0);
   document.body.dataset.timekind = stop.kind;
-  renderLegend(legendBody, state.site, { projected: stop.kind === 'projected' });
   if (state.selection) showCard(state.selection);
+  scene.requestRender();
 }
-
-on('mode', applyMode);
-on('stop', applyStop);
-on('hitRule', (r) => {
-  layers()?.targets.setRule(r);
-  if (state.selection) showCard(state.selection);
-});
-on('showFast', () => applyStop(state.stop));
-on('showChange', () => applyStop(state.stop));
-on('exposed', (v) => layers()?.targets.setExposed(v));
-on('thenNow', (v) => layers()?.dunes.setThenNow(v));
-on('arrowFactor', (f) => {
-  layers()?.vectors.setFactor(f);
-  renderLegend(legendBody, state.site, { projected: state.stop?.kind === 'projected' });
-  if (state.selection?.kind === 'arrow') highlight(state.selection);
-});
 
 // ---------------------------------------------------------------------------------------------
 // Camera
@@ -238,10 +276,13 @@ function siteSphere(b) {
 function flyHome(duration = 2, done) {
   const b = state.site?.bbox;
   if (!b) return;
-  const sphere = siteSphere(b);
+  // On a phone the bottom sheet covers the lower half of the globe: aim south of the box so it sits in the visible top part.
+  const phone = window.innerWidth <= 760 && window.innerHeight > window.innerWidth;
+  const aim = phone ? { ...b, south: b.south - (b.north - b.south) * 0.9, north: b.north - (b.north - b.south) * 0.9 } : b;
+  const sphere = siteSphere(aim);
   const topDown = state.topDown;
   const pitch = Cesium.Math.toRadians(topDown ? -90 : -52);
-  const range = sphere.radius * (topDown ? 2.45 : 2.55);
+  const range = sphere.radius * (topDown ? 2.45 : 2.55) * (phone ? 1.6 : 1);
   camera.flyToBoundingSphere(sphere, {
     offset: new Cesium.HeadingPitchRange(0, pitch, range),
     duration,
@@ -252,6 +293,7 @@ function flyHome(duration = 2, done) {
 
 function setTopDown(v) {
   set('topDown', v);
+  ui?.setTopDown(v);
   flyHome(1.2);
 }
 
@@ -307,22 +349,27 @@ const reticleImage = (() => {
   const c = document.createElement('canvas');
   c.width = c.height = 64;
   const g = c.getContext('2d');
-  g.strokeStyle = '#39d0ff';
-  g.lineWidth = 2.5;
-  const L = 14;
-  for (const [x, y, dx, dy] of [
+  const corners = [
     [4, 4, 1, 1],
     [60, 4, -1, 1],
     [4, 60, 1, -1],
     [60, 60, -1, -1],
+  ];
+  for (const [color, width] of [
+    ['rgba(21,19,15,0.75)', 5],
+    [MAP_STYLE.text, 2.5],
   ]) {
-    g.beginPath();
-    g.moveTo(x, y + dy * L);
-    g.lineTo(x, y);
-    g.lineTo(x + dx * L, y);
-    g.stroke();
+    g.strokeStyle = color;
+    g.lineWidth = width;
+    for (const [x, y, dx, dy] of corners) {
+      g.beginPath();
+      g.moveTo(x, y + dy * 14);
+      g.lineTo(x, y);
+      g.lineTo(x + dx * 14, y);
+      g.stroke();
+    }
   }
-  g.strokeStyle = '#ffffff';
+  g.strokeStyle = MAP_STYLE.text;
   g.lineWidth = 1.5;
   g.beginPath();
   g.moveTo(32, 22);
@@ -346,35 +393,49 @@ function highlight(sel) {
     scene.requestRender();
     return;
   }
+  const casing = [];
   const inst = [];
   const g = sel.geometry;
+  const hl = C(MAP_STYLE.text);
   if (sel.kind === 'arrow') {
     const p = sel.props;
     const ring = arrowOutline(sel.lonlat[0], sel.lonlat[1], p.heading_deg, p.speed_myr * ARROW_YEARS * state.arrowFactor);
-    inst.push(lineInstance('hl:a', [...ring, ring[0]], 3, C('#ffffff', 1)));
+    casing.push(lineInstance('hlc:a', [...ring, ring[0]], 5, C(CASING)));
+    inst.push(lineInstance('hl:a', [...ring, ring[0]], 3, hl));
   } else if (g) {
     const lines = g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
-    lines.forEach((c, i) => inst.push(lineInstance(`hl:l${i}`, c, 9, C('#ffffff', 0.85))));
-    polygonsOf(g).forEach((rings, k) => rings.forEach((r, i) => inst.push(lineInstance(`hl:r${k}_${i}`, r, 5, C('#ffffff', 0.95)))));
+    lines.forEach((c, i) => {
+      casing.push(lineInstance(`hlc:l${i}`, c, 11, C(CASING)));
+      inst.push(lineInstance(`hl:l${i}`, c, 9, C(MAP_STYLE.text, 0.85)));
+    });
+    polygonsOf(g).forEach((rings, k) =>
+      rings.forEach((r, i) => {
+        casing.push(lineInstance(`hlc:r${k}_${i}`, r, 6, C(CASING)));
+        inst.push(lineInstance(`hl:r${k}_${i}`, r, 4, hl));
+      }),
+    );
   }
-  if (inst.length) {
-    const p = linePrimitive(inst);
+  for (const set2 of [casing, inst]) {
+    if (!set2.length) continue;
+    const p = linePrimitive(set2);
     scene.primitives.add(p);
     highlightPrims.push(p);
   }
   const a = sel.props?.approach;
   if (sel.kind === 'target' && Array.isArray(a?.hit_point_lonlat)) {
-    // Reach ray: from the migrating sand edge along the measured heading to the target footprint
-    // (solid amber), plus a faint dashed link back to the 480 m window where the motion was measured.
+    // Reach ray: from the migrating sand edge along the measured heading to the target footprint (stone: a projection),
+    // plus a faint dashed link back to the 480 m window where the motion was measured.
     if (Array.isArray(a.window_lonlat) && Array.isArray(a.sand_edge_lonlat)) {
-      const link = dashedLinePrimitive([lineInstance('hl:window', [a.window_lonlat, a.sand_edge_lonlat], 2, Cesium.Color.WHITE)], C('#ffffff', 0.6), 10);
+      const link = dashedLinePrimitive([lineInstance('hl:window', [a.window_lonlat, a.sand_edge_lonlat], 2, Cesium.Color.WHITE)], C(MAP_STYLE.text, 0.7), '4 4');
       scene.primitives.add(link);
       highlightPrims.push(link);
     }
     if (Array.isArray(a.sand_edge_lonlat)) {
-      const ray = linePrimitive([lineInstance('hl:ray', [a.sand_edge_lonlat, a.hit_point_lonlat], 5, C('#ffd166', 1))]);
+      const rc = linePrimitive([lineInstance('hlc:ray', [a.sand_edge_lonlat, a.hit_point_lonlat], 7, C(CASING))]);
+      const ray = linePrimitive([lineInstance('hl:ray', [a.sand_edge_lonlat, a.hit_point_lonlat], 5, C(MAP_STYLE.projected))]);
+      scene.primitives.add(rc);
       scene.primitives.add(ray);
-      highlightPrims.push(ray);
+      highlightPrims.push(rc, ray);
     }
   }
   const pos = sel.kind === 'target' && Array.isArray(a?.hit_point_lonlat) ? a.hit_point_lonlat : sel.lonlat;
@@ -399,11 +460,7 @@ function showCard(sel) {
     const L = layers();
     card = targetCard(sel, b, { state: L?.targets.stateOf(sel.id), year: state.stop?.year, rule: state.hitRule });
   } else card = arrowCard(sel, b);
-  renderCard(cardBody, card);
-  const panel = $('#panel-card');
-  panel.hidden = false;
-  panel.classList.remove('collapsed');
-  panel.dataset.kind = sel.kind;
+  ui.setCard({ ...card, kind: sel.kind });
 }
 
 function select(sel) {
@@ -416,7 +473,7 @@ function select(sel) {
 function clearSelection() {
   if (!state.selection) return;
   state.selection = null;
-  $('#panel-card').hidden = true;
+  ui?.setCard(null);
   highlight(null);
   set('selectionId', null);
 }
@@ -449,7 +506,7 @@ handler.setInputAction((click) => {
 handler.setInputAction((move) => {
   const picked = scene.pick(move.endPosition);
   const id = typeof picked?.id === 'string' ? picked.id : '';
-  scene.canvas.style.cursor = /^(t|tx|d|v|vt):/.test(id) ? 'pointer' : '';
+  scene.canvas.style.cursor = /^(t|tx|tc|d|dc|v|vh|vt|vtc):/.test(id) ? 'pointer' : '';
 }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
 // ---------------------------------------------------------------------------------------------
@@ -460,6 +517,10 @@ function openDossier(anchor) {
   renderDossier(el, state.site, { basemap });
   el.hidden = false;
   el.querySelector('[data-close]').addEventListener('click', closeDossier);
+  el.querySelector('[data-guide]')?.addEventListener('click', () => {
+    closeDossier();
+    ui?.showGuide();
+  });
   el.querySelectorAll('[data-jump]').forEach((a) =>
     a.addEventListener('click', (e) => {
       e.preventDefault();
@@ -489,23 +550,57 @@ function showError(msg) {
   console.error(`[DuneSight] ${msg}`);
 }
 
+// Space and the arrow keys are handled by the UI (timeline); Escape closes the dossier or clears the selection.
 document.addEventListener('keydown', (e) => {
   if (e.target.closest('input, select, textarea')) return;
   if (e.key === 'Escape') {
     if (!$('#dossier').hidden) closeDossier();
     else clearSelection();
-  } else if (e.key === ' ' && !e.target.closest('button')) {
-    e.preventDefault();
-    timeline.toggle();
-  } else if (e.key === 'ArrowLeft' && !e.target.closest('.tl-bar')) timeline.step(-1);
-  else if (e.key === 'ArrowRight' && !e.target.closest('.tl-bar')) timeline.step(1);
+  }
 });
+
+// ---------------------------------------------------------------------------------------------
+// UI
+function mountUI(data) {
+  ui = mountDuneSightUI($('#app'), {
+    data,
+    sites: index.sites.map((s) => ({ id: s.id, name: shortName(s.name || s.id) })),
+    siteId: data.id,
+    mode: state.mode,
+    credit: CREDIT_LINE,
+    creditNode: $('#cesium-credits'),
+    keyGuard: () => !$('#dossier').hidden,
+    onSiteChange: (id) => activateSite(id),
+    onModeChange: () => applyLayers(),
+    onLayerToggle: () => applyLayers(),
+    onTimeChange: (year) => applyYear(year),
+    onSettingChange: applySettings,
+    onHome: () => flyHome(1.4),
+    onTopDown: () => setTopDown(!state.topDown),
+    onHowWeKnow: () => openDossier(),
+    onMethod: () => openDossier('method'),
+    onReadingNote: () => openDossier('frames'),
+    onCredits: () => openDossier('credits'),
+    onPickTarget: (tid) => selectById('target', tid, { fly: true }),
+    onClearSelection: () => clearSelection(),
+  });
+  mark('hud');
+}
+
+/** Wait (briefly) for the self-hosted IBM Plex faces, so canvas labels and the first paint use them and they are cached before any network loss. */
+function fontsReady() {
+  if (!document.fonts?.load) return Promise.resolve();
+  const sample = 'DuneSight 0123456789 m/yr ° σ – · → ≥ ×';
+  const loads = ['400', '500', '600'].map((w) => document.fonts.load(`${w} 14px "IBM Plex Sans"`, sample));
+  loads.push(document.fonts.load('400 12px "IBM Plex Mono"', 'LC08_L1TP_0123456789'));
+  return Promise.race([Promise.all(loads), new Promise((r) => setTimeout(r, 2500))]).catch(() => {});
+}
 
 // ---------------------------------------------------------------------------------------------
 // Boot
 async function boot() {
   try {
-    index = await loadIndex();
+    [index] = await Promise.all([loadIndex(), fontsReady()]);
   } catch (err) {
     $('#boot').remove();
     showError(`Could not load data/sites.json: ${err.message}`);
@@ -513,14 +608,6 @@ async function boot() {
   }
   const sites = (index.sites || []).filter((s) => s.data_dir);
   index.sites = sites;
-  header = createHeader($('#hud-header'), {
-    sites,
-    onSite: (id) => activateSite(id),
-    onHome: () => flyHome(1.4),
-    onTopDown: setTopDown,
-    onDossier: () => openDossier(),
-  });
-  mark('hud');
   const first = sites.find((s) => s.id === index.default_site) || sites[0];
   await activateSite(first.id, { fly: false });
   $('#boot').classList.add('gone');
@@ -540,11 +627,25 @@ window.__ds = {
   marks,
   ready: readyPromise,
   layers,
-  timeline,
+  get ui() {
+    return ui;
+  },
+  timeline: {
+    get stop() {
+      return state.stop;
+    },
+    get playing() {
+      return !!ui?.getState().playing;
+    },
+    get model() {
+      return layers()?.model;
+    },
+  },
+  siteData: () => siteData.get(state.siteId),
   setSite: (id) => activateSite(id),
   siteReady: () => layers()?.ready,
-  setMode: (m) => set('mode', m),
-  goYear: (y) => timeline.goYear(y),
+  setMode: (m) => ui.root.querySelector(`[data-mode="${m}"]`).click(),
+  goYear: (y) => ui.goYear(y),
   targetState: (tid) => layers()?.targets.stateOf(tid),
   select: (kind, id) => !!selectById(kind, id),
   clear: () => clearSelection(),
@@ -552,6 +653,32 @@ window.__ds = {
   basemap: () => ({ ...basemap }),
   /** Colour actually painted on a target's first line instance, as [r, g, b, a] 0-255. */
   targetColor: (tid) => layers()?.targets.paintedColor(tid) || null,
+  /** What the map is drawing right now, per legend layer id. */
+  shown() {
+    const L = layers();
+    if (!L) return null;
+    const anyOf = (cls) => {
+      for (const f of state.site.targets.features) if (L.targets.classOf(f.properties.id) === cls) return L.targets.isShown(f.properties.id);
+      return null;
+    };
+    const roles = L.frames.roles();
+    return {
+      vectors: L.vectors.visible,
+      dunes: L.dunes.visible,
+      dunes2000: L.dunes.thenShown,
+      box: L.box.show || L.boxProjected.show,
+      boxProjected: L.boxProjected.show,
+      projected: !!roles.med || L.vectors.tracksShown,
+      projectedTag: projectedTag.show,
+      t_now: anyOf('now'),
+      t_by2050: anyOf('by2050'),
+      t_by2100: anyOf('by2100'),
+      t_possible: anyOf('possible'),
+      t_none: anyOf('none'),
+      exposed: L.targets.exposedShown(),
+      frames: roles,
+    };
+  },
   /** Window coordinates of an arrow's tail (window centre) and tip at the current camera. */
   arrowEnds(id) {
     const f = layers()?.vectors.getFeature(id);

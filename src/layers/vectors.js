@@ -1,7 +1,8 @@
-// Motion-vector layer: one ground-clamped arrow per detected 480 m window, pointing along heading_deg, coloured by speed, length on a stated time scale, plus true-scale displacement tracks in projected years.
+// Motion-vector layer: one ground-clamped arrow per detected 480 m window, pointing along heading_deg, in the measured-blue accent (fainter = weaker match) with a dark casing, length on a stated time scale, plus true-scale displacement tracks in projected years (stone, the projected colour).
 import * as Cesium from 'cesium';
 import { offset, dir, distanceM } from '../geo.js';
-import { speedColor, qualityAlpha, whenReady, setInstanceColor, fillPrimitive, lineInstance, linePrimitive, destroyPrimitive, C } from './util.js';
+import { MAP_STYLE } from '../ui/ui.js';
+import { qualityAlpha, whenReady, setInstanceColor, fillPrimitive, lineInstance, linePrimitive, destroyPrimitive, C, CASING } from './util.js';
 
 /** Arrow length in metres per 1 m/yr of speed at factor 1: the arrow shows 100 years of motion. */
 export const ARROW_YEARS = 100;
@@ -42,6 +43,8 @@ export function createVectorsLayer(viewer, bundle) {
   let arrows = null;
   let halo = null;
   let tracks = null;
+  let trackCasing = null;
+  let tracksOn = true; // the 'projected' legend layer
   let visible = true;
   let dimAll = 1; // overall opacity multiplier set by the mode
   let emphasis = null; // Set of ids emphasised in threat mode (others dimmed)
@@ -52,12 +55,12 @@ export function createVectorsLayer(viewer, bundle) {
     const { props } = byId.get(id);
     let a = qualityAlpha(props.quality) * dimAll;
     if (emphasis) a *= emphasis.has(id) ? 1 : 0.18;
-    return speedColor(props.speed_myr, a);
+    return C(MAP_STYLE.measured, a);
   }
 
   function haloColor(id) {
     const a = colorFor(id).alpha;
-    return C('#05080c', Math.min(0.75, a * a * 1.1)); // fades faster than the fill, so dimmed arrows leave no dark specks
+    return C(CASING, Math.min(1, a * a * 1.2)); // fades faster than the fill, so dimmed arrows leave no dark specks
   }
 
   async function build() {
@@ -66,7 +69,7 @@ export function createVectorsLayer(viewer, bundle) {
       const [lon, lat] = f.geometry.coordinates;
       const p = f.properties;
       const ring = arrowOutline(lon, lat, p.heading_deg, p.speed_myr * ARROW_YEARS * factor);
-      haloInst.push(lineInstance(`vh:${i}`, [...ring, ring[0]], 1.6, haloColor(`v:${i}`)));
+      haloInst.push(lineInstance(`vh:${i}`, [...ring, ring[0]], 2, haloColor(`v:${i}`)));
       return new Cesium.GeometryInstance({
         id: `v:${i}`,
         geometry: new Cesium.PolygonGeometry({ polygonHierarchy: new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray(ring.flat())) }),
@@ -100,10 +103,14 @@ export function createVectorsLayer(viewer, bundle) {
 
   function buildTracks(years) {
     destroyPrimitive(prims, tracks);
+    destroyPrimitive(prims, trackCasing);
     tracks = null;
+    trackCasing = null;
     trackYears = years;
     if (!(years > 0)) return;
+    const [hex, width] = MAP_STYLE.track;
     const instances = [];
+    const casingInst = [];
     for (const [id, { props, lonlat }] of byId) {
       const len = props.speed_myr * years;
       if (len < 0.5) continue;
@@ -111,10 +118,14 @@ export function createVectorsLayer(viewer, bundle) {
       const end = offset(lonlat[0], lonlat[1], ux * len, uy * len);
       let a = dimAll;
       if (emphasis && !emphasis.has(id)) a *= 0.25;
-      instances.push(lineInstance(`vt:${id.slice(2)}`, [lonlat, end], 4, C('#ffd166', Math.max(0.25, a))));
+      casingInst.push(lineInstance(`vtc:${id.slice(2)}`, [lonlat, end], width + 2, C(CASING, Math.max(0.2, a))));
+      instances.push(lineInstance(`vt:${id.slice(2)}`, [lonlat, end], width, C(hex, Math.max(0.25, a))));
     }
+    trackCasing = linePrimitive(casingInst);
     tracks = linePrimitive(instances);
-    tracks.show = visible;
+    trackCasing.show = visible && tracksOn;
+    tracks.show = visible && tracksOn;
+    prims.add(trackCasing);
     prims.add(tracks);
   }
 
@@ -129,14 +140,28 @@ export function createVectorsLayer(viewer, bundle) {
     get count() {
       return feats.length;
     },
-    getFeature: (id) => byId.get(/^v[th]:/.test(id) ? `v:${id.slice(3)}` : id) || null,
-    owns: (id) => typeof id === 'string' && /^v[th]?:/.test(id),
+    getFeature: (id) => byId.get(/^v(h|t|tc):/.test(id) ? `v:${id.replace(/^v(h|t|tc):/, '')}` : id) || null,
+    owns: (id) => typeof id === 'string' && /^v(h|t|tc)?:/.test(id),
     setVisible(v) {
       visible = v;
       if (arrows) arrows.show = v;
       if (halo) halo.show = v;
-      if (tracks) tracks.show = v;
+      if (tracks) tracks.show = v && tracksOn;
+      if (trackCasing) trackCasing.show = v && tracksOn;
       scene.requestRender();
+    },
+    /** Show or hide the projected displacement tracks (part of the 'projected' legend layer). */
+    setTracksVisible(v) {
+      tracksOn = v;
+      if (tracks) tracks.show = visible && v;
+      if (trackCasing) trackCasing.show = visible && v;
+      scene.requestRender();
+    },
+    get visible() {
+      return visible && !!arrows?.show;
+    },
+    get tracksShown() {
+      return !!tracks?.show;
     },
     setFactor(f) {
       if (f === factor) return;
@@ -176,6 +201,7 @@ export function createVectorsLayer(viewer, bundle) {
       destroyPrimitive(prims, arrows);
       destroyPrimitive(prims, halo);
       destroyPrimitive(prims, tracks);
+      destroyPrimitive(prims, trackCasing);
     },
   };
 }

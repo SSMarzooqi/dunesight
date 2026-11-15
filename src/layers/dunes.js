@@ -1,7 +1,8 @@
-// Large-dune layer: NASADEM-resolved dune outlines (2025 positions) coloured by class with id labels (decluttered on screen), threat pulse, and the year-2000 outlines dotted for then-vs-now.
+// Large-dune layer: NASADEM-resolved dune outlines (Nov 2025 positions) styled by class like the legend (colour, width, dark casing) with id labels (decluttered on screen), threat pulse, and the Feb 2000 outlines dotted for then-vs-now.
 import * as Cesium from 'cesium';
 import { polygonsOf, interiorPoint } from '../geo.js';
-import { C, CLASS_COLORS, whenReady, setInstanceColor, lineInstance, polygonInstance, linePrimitive, fillPrimitive, dashedLinePrimitive, destroyPrimitive } from './util.js';
+import { MAP_STYLE } from '../ui/ui.js';
+import { C, CASING, classStyle, whenReady, setInstanceColor, lineInstance, polygonInstance, linePrimitive, fillPrimitive, dashedLinePrimitive, destroyPrimitive } from './util.js';
 
 const LABEL_MAX_DIST = 45000;
 const LABEL_FONT_PX = 13;
@@ -13,8 +14,10 @@ export function createDunesLayer(viewer, bundle) {
   const feats = (bundle.dunes?.features || []).filter((f) => f.properties?.id);
   const byId = new Map();
   const lineIds = new Map();
+  const casingIds = new Map();
   const fillIds = new Map();
   const lineInst = [];
+  const casingInst = [];
   const fillInst = [];
 
   const labels = new Cesium.LabelCollection({ scene });
@@ -23,22 +26,26 @@ export function createDunesLayer(viewer, bundle) {
   for (const f of feats) {
     const p = f.properties;
     const did = p.id;
-    const color = CLASS_COLORS[p.class] || '#c9d6df';
+    const [color, width] = classStyle(p.class);
     const pt = interiorPoint(f.geometry);
     byId.set(did, { kind: 'dune', id: did, props: p, geometry: f.geometry, lonlat: pt });
     const lids = [];
+    const cids = [];
     const fids = [];
     polygonsOf(f.geometry).forEach((rings, k) => {
       const fid = `d:${did}#f${k}`;
-      fillInst.push(polygonInstance(fid, rings[0], C(color, 0.12), rings.slice(1)));
+      fillInst.push(polygonInstance(fid, rings[0], C(color, 0.1), rings.slice(1)));
       fids.push(fid);
       rings.forEach((ring, r) => {
         const id = `d:${did}#r${k}_${r}`;
-        lineInst.push(lineInstance(id, ring, 3, C(color, 1)));
+        casingInst.push(lineInstance(`dc:${did}#r${k}_${r}`, ring, width + 2, C(CASING)));
+        cids.push(`dc:${did}#r${k}_${r}`);
+        lineInst.push(lineInstance(id, ring, width, C(color)));
         lids.push(id);
       });
     });
     lineIds.set(did, lids);
+    casingIds.set(did, cids);
     fillIds.set(did, fids);
     if (pt) {
       const label = labels.add({
@@ -46,9 +53,9 @@ export function createDunesLayer(viewer, bundle) {
         position: Cesium.Cartesian3.fromDegrees(pt[0], pt[1]),
         heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
         text: did,
-        font: '600 13px ui-monospace, Menlo, Consolas, monospace',
-        fillColor: C(color, 1),
-        outlineColor: C('#000000', 0.9),
+        font: `600 ${LABEL_FONT_PX}px "IBM Plex Sans", system-ui, sans-serif`,
+        fillColor: C(color),
+        outlineColor: C('#15130F', 0.9),
         outlineWidth: 3,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -61,31 +68,34 @@ export function createDunesLayer(viewer, bundle) {
     }
   }
 
-  // Year-2000 outlines (same ids), dotted.
+  // Feb 2000 outlines (same ids), dotted like the legend sample, over a dark casing.
+  const [thenColor, thenWidth, thenDash] = MAP_STYLE.dune2000;
   const thenInst = [];
+  const thenCasingInst = [];
   for (const f of bundle.dunes2000?.features || []) {
     const did = f.properties?.id;
     if (!did) continue;
     polygonsOf(f.geometry).forEach((rings, k) =>
-      rings.forEach((ring, r) => thenInst.push(lineInstance(`d0:${did}#r${k}_${r}`, ring, 2.5, Cesium.Color.WHITE))),
+      rings.forEach((ring, r) => {
+        thenInst.push(lineInstance(`d0:${did}#r${k}_${r}`, ring, thenWidth, Cesium.Color.WHITE));
+        thenCasingInst.push(lineInstance(`d0c:${did}#r${k}_${r}`, ring, thenWidth + 2, C(CASING)));
+      }),
     );
   }
 
   const fills = fillInst.length ? fillPrimitive(fillInst) : null;
-  const then = thenInst.length ? dashedLinePrimitive(thenInst, C('#e6edf3', 0.95), 10) : null;
+  const casing = casingInst.length ? linePrimitive(casingInst) : null;
   const lines = lineInst.length ? linePrimitive(lineInst) : null;
-  if (fills) prims.add(fills);
-  if (then) {
-    then.show = false;
-    prims.add(then);
-  }
-  if (lines) prims.add(lines);
+  const thenCasing = thenCasingInst.length ? linePrimitive(thenCasingInst) : null;
+  const then = thenInst.length ? dashedLinePrimitive(thenInst, C(thenColor), thenDash) : null;
+  for (const p of [fills, casing, lines, thenCasing, then]) if (p) prims.add(p);
+  if (then) then.show = false;
+  if (thenCasing) thenCasing.show = false;
   prims.add(labels);
 
   let visible = true;
-  let thin = false;
   let dim = 1;
-  let thenNow = 'now';
+  let thenOn = false;
   let ready = false;
   let pulseTimer = null;
   let phase = 0;
@@ -93,19 +103,21 @@ export function createDunesLayer(viewer, bundle) {
 
   function paint(did, pulse = 1) {
     const d = byId.get(did);
-    const color = CLASS_COLORS[d.props.class] || '#c9d6df';
-    let a = dim * (thin ? 0.7 : 1);
+    const [color] = classStyle(d.props.class);
+    let a = dim;
     if (d.props.threat === true) a *= 0.5 + 0.5 * pulse;
     for (const id of lineIds.get(did)) setInstanceColor(lines, id, C(color, a));
-    for (const id of fillIds.get(did)) setInstanceColor(fills, id, C(color, (thin ? 0.05 : 0.14) * dim));
+    for (const id of casingIds.get(did)) setInstanceColor(casing, id, C(CASING, Math.min(1, 0.3 + 0.7 * a)));
+    for (const id of fillIds.get(did)) setInstanceColor(fills, id, C(color, 0.1 * dim));
   }
   function repaint() {
     if (!ready) return;
     for (const did of byId.keys()) paint(did);
+    for (const L of labelList) L.label.fillColor = C(classStyle(byId.get(L.text).props.class)[0], Math.max(0.6, dim));
     scene.requestRender();
   }
 
-  const readyPromise = Promise.all([lines && whenReady(scene, lines), fills && whenReady(scene, fills)]).then(() => {
+  const readyPromise = Promise.all([lines, fills, casing].filter(Boolean).map((p) => whenReady(scene, p))).then(() => {
     ready = true;
     repaint();
     if (threatIds.length) {
@@ -157,10 +169,10 @@ export function createDunesLayer(viewer, bundle) {
   const removePostRender = scene.postRender.addEventListener(() => declutter());
 
   function applyShow() {
-    if (lines) lines.show = visible;
-    if (fills) fills.show = visible;
+    for (const p of [lines, fills, casing]) if (p) p.show = visible;
     labels.show = visible;
-    if (then) then.show = visible && thenNow === 'overlay';
+    if (then) then.show = thenOn;
+    if (thenCasing) thenCasing.show = thenOn;
     scene.requestRender();
   }
 
@@ -173,27 +185,30 @@ export function createDunesLayer(viewer, bundle) {
     get count() {
       return byId.size;
     },
-    owns: (id) => typeof id === 'string' && (id.startsWith('d:') || id.startsWith('d0:')),
+    owns: (id) => typeof id === 'string' && /^d(0?c?):/.test(id),
     getFeature(id) {
       if (typeof id !== 'string') return null;
-      const m = id.match(/^d0?:(.*?)#/);
+      const m = id.match(/^d0?c?:(.*?)#/);
       return byId.get(m ? m[1] : id) || null;
     },
     get: (did) => byId.get(did) || null,
+    get visible() {
+      return visible && !!lines?.show;
+    },
+    get thenShown() {
+      return !!then?.show;
+    },
     setVisible(v) {
       visible = v;
       applyShow();
-    },
-    setThin(v) {
-      thin = v;
-      repaint();
     },
     setDim(d) {
       dim = d;
       repaint();
     },
-    setThenNow(v) {
-      thenNow = v;
+    /** Show or hide the Feb 2000 outlines (dotted), independently of the 2025 outlines. */
+    setThen(v) {
+      thenOn = v;
       applyShow();
     },
     /** Screen boxes of the dune labels currently shown (after declutter), for tests. */
@@ -204,9 +219,7 @@ export function createDunesLayer(viewer, bundle) {
     dispose() {
       if (pulseTimer) clearInterval(pulseTimer);
       removePostRender();
-      destroyPrimitive(prims, lines);
-      destroyPrimitive(prims, fills);
-      destroyPrimitive(prims, then);
+      for (const p of [lines, fills, casing, then, thenCasing]) destroyPrimitive(prims, p);
       if (!labels.isDestroyed()) prims.remove(labels);
     },
   };

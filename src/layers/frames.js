@@ -1,9 +1,12 @@
-// Imagery-frame layer: drapes the manifest's observed Landsat frames and amber-tinted projected frames on the globe inside the exact frame bounds, with cross-fades and an optional changed-pixel overlay.
+// Imagery-frame layer: drapes the manifest's observed Landsat frames and stone-tinted projected frames (the projected colour) on the globe inside the exact frame bounds, with cross-fades and an optional changed-pixel overlay.
 import * as Cesium from 'cesium';
 import { dataUrl } from '../data.js';
+import { MAP_STYLE } from '../ui/ui.js';
 
 const FADE_MS = 320;
-const AMBER = [255, 184, 64];
+const hexRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+const STONE = hexRgb(MAP_STYLE.projected); // projected = stone, as in the legend and the timeline
+const DARK = [21, 19, 15];
 
 export function createFramesLayer(viewer, bundle) {
   const scene = viewer.scene;
@@ -47,7 +50,7 @@ export function createFramesLayer(viewer, bundle) {
     return { canvas: c, ctx, data: ctx.getImageData(0, 0, c.width, c.height) };
   }
 
-  /** Amber-tinted copy of a projected grey+alpha PNG (tint only: geometry and grey levels untouched). */
+  /** Stone-tinted copy of a projected grey+alpha PNG (tint only: geometry and grey levels untouched). */
   function tinted(file) {
     const key = `tint:${file}`;
     if (!variants.has(key)) {
@@ -57,9 +60,9 @@ export function createFramesLayer(viewer, bundle) {
           const d = data.data;
           for (let i = 0; i < d.length; i += 4) {
             const g = d[i] / 255;
-            d[i] = AMBER[0] * g;
-            d[i + 1] = AMBER[1] * g;
-            d[i + 2] = AMBER[2] * g;
+            d[i] = STONE[0] * g;
+            d[i + 1] = STONE[1] * g;
+            d[i + 2] = STONE[2] * g;
           }
           ctx.putImageData(data, 0, 0);
           return new Promise((res) => canvas.toBlob((bl) => res(URL.createObjectURL(bl)), 'image/png'));
@@ -106,11 +109,35 @@ export function createFramesLayer(viewer, bundle) {
                 }
               }
               if (nb >= 3) {
-                o[j * 4] = 255;
-                o[j * 4 + 1] = 209;
-                o[j * 4 + 2] = 102;
-                o[j * 4 + 3] = 235;
+                o[j * 4] = STONE[0];
+                o[j * 4 + 1] = STONE[1];
+                o[j * 4 + 2] = STONE[2];
+                o[j * 4 + 3] = 240;
                 n += 1;
+              }
+            }
+          }
+          // dark edge around the changed patches so the stone reads on bright sand (the map's casing rule)
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const j = y * w + x;
+              if (o[j * 4 + 3]) continue;
+              let edge = false;
+              for (let dy = -1; dy <= 1 && !edge; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                  const yy = y + dy;
+                  const xx = x + dx;
+                  if (yy >= 0 && yy < h && xx >= 0 && xx < w && o[(yy * w + xx) * 4 + 3] === 240) {
+                    edge = true;
+                    break;
+                  }
+                }
+              }
+              if (edge) {
+                o[j * 4] = DARK[0];
+                o[j * 4 + 1] = DARK[1];
+                o[j * 4 + 2] = DARK[2];
+                o[j * 4 + 3] = 170;
               }
             }
           }
@@ -242,6 +269,8 @@ export function createFramesLayer(viewer, bundle) {
       scene.requestRender();
     },
     changeStats: () => lastChangeStats,
+    /** What each role (base, med, fast, change) is showing now: the layer key or null. */
+    roles: () => Object.fromEntries(Object.entries(current).map(([k, v]) => [k, v ? v.key : null])),
     dispose() {
       for (const layer of layerCache.values()) layers.remove(layer, true);
       for (const p of [...blobUrls.values(), ...variants.values()]) p.then((u) => URL.revokeObjectURL(u)).catch(() => {});

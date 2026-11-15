@@ -2,6 +2,7 @@
 import { esc, num, date, isNum, int, pct } from '../format.js';
 import { CREDIT_LINE, isNasa } from './credits.js';
 import howWeKnowMd from '../../docs/how-we-know.md?raw';
+import { fieldHeading } from '../ui/site-data.js';
 
 /** The "How we know" panel text: the block between the panel markers in docs/how-we-know.md (single source). */
 export const PANEL_TEXT = (() => {
@@ -53,6 +54,17 @@ function stationSection(st) {
 }
 
 const REPO = 'https://github.com/SSMarzooqi/dunesight';
+
+/** The one heading shown for the site, and the arrows' own average where it differs, each labelled for what it is. */
+function headingItem(b) {
+  const h = fieldHeading(b);
+  if (!h) return '';
+  const mean = b.derived?.fieldHeading;
+  const other = h.source === 'pipeline' && isNum(mean) && Math.round(mean) !== Math.round(h.deg)
+    ? ` The ${int(b.derived.nVectors)} arrows drawn on the map (one per 240 m) have a vector mean of ${num(mean, 0)}°: a different average of the same field, not a second measurement.`
+    : '';
+  return `<li>Heading of motion: ${num(h.deg, 1)}°, the ${esc(h.label)} (the value the pipeline uses).${other}</li>`;
+}
 
 const safeUrl = (u) => (typeof u === 'string' && /^https?:\/\//.test(u) ? u : null);
 const link = (u, text) => (safeUrl(u) ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(text || u)}</a>` : '');
@@ -127,7 +139,7 @@ export function renderDossier(root, b, { basemap }) {
     <header class="dossier-head">
       <h2 id="dossier-title">How we know · ${esc(b.name)}</h2>
       <nav>${['method', 'crosschecks', 'station', 'sources', 'handling', 'uncertainty', 'validation', 'threat', 'limits', 'frames', 'links', 'credits'].map((a) => `<a href="#" data-jump="${a}">${a}</a>`).join('')}</nav>
-      <button class="btn" data-close aria-label="Close">Close ✕</button>
+      <div class="dossier-btns"><button type="button" class="ds-ghost" data-guide>Show the three-step guide</button><button type="button" class="ds-ghost" data-close aria-label="Close">Close ✕</button></div>
     </header>
     <div class="dossier-body">
       <section id="ds-method"><h3>How we know</h3>
@@ -170,7 +182,8 @@ export function renderDossier(root, b, { basemap }) {
           ${isNum(s.detection_limit_myr) ? `<li>Detection limit (median over windows): ${num(s.detection_limit_myr, 2)} m/yr. Slower motion is shown as “below detection limit”, never as a number.</li>` : ''}
           ${isNum(s.uncertainty_myr) ? `<li>Uncertainty: ± ${num(s.uncertainty_myr, 2)} m/yr (median calibrated 1σ per component).</li>` : ''}
           ${isNum(s.speed_median_myr) ? `<li>Median detected speed ${num(s.speed_median_myr, 2)} m/yr (10–90 %: ${num(s.speed_p10_myr, 2)}–${num(s.speed_p90_myr, 2)} m/yr).</li>` : ''}
-          ${isNum(s.mean_wind_agreement_deg) ? `<li>Mean |heading − RDD|: ${num(s.mean_wind_agreement_deg, 1)}°.</li>` : ''}
+          ${headingItem(b)}
+          ${isNum(s.mean_wind_agreement_deg) ? `<li>Mean |heading − RDD| over the detected windows, window by window: ${num(s.mean_wind_agreement_deg, 1)}°.</li>` : ''}
         </ul>
         ${para('Wind agreement', s.wind_agreement_note)}
         ${b.station?.note ? para('Ground station check', b.station.note) : ''}
@@ -194,7 +207,7 @@ export function renderDossier(root, b, { basemap }) {
       <section id="ds-threat"><h3>Threat: what “reached” means</h3>
         ${para('Definition', t.reach_definition)}
         ${para('Speeds', t.speeds)}
-        ${para('Years', t.years)}
+        ${para('Years', typeof t.years === 'string' ? t.years.replace(/\bnull\b/g, 'no year') : t.years)}
         ${Array.isArray(t.excludes) && t.excludes.length ? `<p><b>Excludes:</b></p><ul>${t.excludes.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
         ${threatCounts ? `<p><b>Counts:</b></p><ul>${threatCounts}</ul>` : ''}
       </section>
@@ -206,7 +219,7 @@ export function renderDossier(root, b, { basemap }) {
         ${para('Bounds', m.bounds_note)}
         ${para('Brightness', m.stretch?.rule)}
         ${para('Stretch quantity', m.stretch?.quantity)}
-        <p class="dim">Observed frames: ${esc(m.observed_format || '')}. Projected frames: ${esc(m.projected_format || '')}. On screen, projected frames are tinted amber; the tint changes colour only, never position.</p>
+        <p class="dim">Observed frames: ${esc(m.observed_format || '')}. Projected frames: ${esc(m.projected_format || '')}. On screen, projected frames are tinted stone (the projected colour) over the latest observed scene, with a dashed study-area edge and a PROJECTED tag on the map; the tint changes colour only, never position.</p>
       </section>
       <section id="ds-links"><h3>Notebooks and docs</h3>
         <ul>
@@ -222,6 +235,7 @@ export function renderDossier(root, b, { basemap }) {
         <p>Data and imagery courtesy of NASA: ${b.sources.filter(isNasa).map((x) => esc(x.name)).join('; ')}. This project is not endorsed by NASA.</p>
         <p>Also used: ${b.sources.filter((x) => !isNasa(x)).map((x) => `${esc(x.name)} (${esc(x.provider || '')})`).join('; ')}. © OpenStreetMap contributors.</p>
         <p>Basemap and terrain for display: ${esc(basemap?.basemap || '')}${basemap?.terrain ? `; ${esc(basemap.terrain)}` : ''}. Globe: CesiumJS.</p>
+        <p>Typeface: IBM Plex Sans and IBM Plex Mono (© IBM Corp.), SIL Open Font License 1.1, served with the app (no font is requested from a third party).</p>
       </section>
     </div>
   </div>`;

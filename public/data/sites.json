@@ -12,17 +12,17 @@
     "north": 24.105
    },
    "verified": true,
-   "status": "partial",
+   "status": "real",
    "data_dir": "seih_al_hama/",
    "files": {
-    "summary.json": "placeholder",
+    "summary.json": "real",
     "dunes.geojson": "real",
     "dunes_2000.geojson": "real",
     "vectors.geojson": "real",
-    "targets.geojson": "placeholder",
+    "targets.geojson": "real",
     "wind_summary.json": "real",
-    "sources.json": "placeholder",
-    "frames/manifest.json": "placeholder"
+    "sources.json": "real",
+    "frames/manifest.json": "real"
    }
   },
   {

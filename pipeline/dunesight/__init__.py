@@ -12,6 +12,9 @@ Modules:
     network     pair network -> per-date positions -> velocity, with closure and outlier tests  (notebook 02)
     motion      glue: track all pairs, stable-ground registration, held-out null calibration   (notebook 02)
     dunes       NASADEM hillshade check, crest segmentation, polygons                           (notebook 02)
+    targets     OSM roads/built-up via Overpass, road segments, HLS-NDVI farm polygons         (notebook 03)
+    threat      source sand -> window motion, ray casting to targets, reach years             (notebook 03)
+    frames      observed-frame stretch, exact-bounds WGS84 resampling, semi-Lagrangian advection (notebook 03)
 
 `config` and `site_index` use only the standard library, so make_placeholders.py and run_pipeline.py
 work without the venv. `wind` needs numpy; `landsat` needs earthengine-api; the notebook-02 modules need

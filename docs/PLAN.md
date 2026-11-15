@@ -86,7 +86,7 @@ Sultan asked for the same analysis at three deserts, not one:
 |---|---|---|
 | `seih_al_hama` | Seih Al Hama, SW of Al Ain | Box chosen: S 24.015, W 55.475, N 24.105, E 55.575 (see `docs/research/aoi-verification.md`). Runs first. |
 | `sweihan` | Sweihan dune field, NW of Al Ain | Box to be located and verified (Phase 1b). |
-| `liwa` | Liwa, southern Abu Dhabi | Box to be located and verified (Phase 1b). Megadunes are expected to move below the detection limit; if so the app says exactly that. |
+| `liwa` | Liwa, southern Abu Dhabi | Box located and verified (Phase 1b). Megadunes were expected to move below the detection limit; in the end their motion is not measured at all (see the decisions log, 2026-11-15). |
 
 How this changes the plan:
 - **One box per site, about 10 × 10 km, placed where dunes meet roads, farms and buildings**, because the tool's question is where the next windbreak goes. A whole desert is not tracked; the box is a config value and can be enlarged later.
@@ -116,7 +116,36 @@ Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting cont
 - Secrets only in `.env` (gitignored). Never in chat, code, or anything `VITE_` except the URL-restricted Cesium token.
 - Commit after each milestone; raw rasters stay in `pipeline/raw/` (ignored).
 
-## What blocks on Sultan
+## Status by phase (2026-11-15)
+
+| Phase | Status | Evidence |
+|---|---|---|
+| 0 Environment and scaffold | done | repo `SSMarzooqi/dunesight`, Pages deploy via Actions, `npm run build` passes |
+| 1 / 1b Target areas | done | `docs/research/aoi-verification.md`, `docs/research/aoi-sweihan-liwa.md`; boxes confirmed by Sultan 2026-11-14 |
+| 2 Notebook 01 (scenes, MERRA-2 wind) | done, all three sites | `pipeline/runs/<site>/01_scenes_and_wind.ipynb`; scene lists confirmed by Sultan |
+| 2b Notebook 01b (station wind) | done; published for Seih Al Hama only | `public/data/seih_al_hama/station_wind.json`; decision per site in `pipeline/outputs/<site>/station_wind_check.json` |
+| 3 Notebook 02 (tracking, QC, HLS, NASADEM) | done, all three sites; Liwa re-measured 2026-11-15 | `pipeline/outputs/<site>/02_qc_summary.json`, site notes |
+| 4 Notebook 03 (threats, frames, summary, sources) | done, all three sites | `public/data/<site>/`, contract checks in the notebook |
+| 5 Science review and docs | done | `docs/how-we-know.md`, `docs/data-and-credits.md`; cross-check status in `summary.confirmation` |
+| 6 Build spec and app | done | `docs/build-spec.md` (with "As built"), Playwright suite on dev and prod |
+| 7 Deploy and done | done | https://ssmarzooqi.github.io/dunesight/ ; README screenshot current; `environment.md` filled except the team names |
+
+## Decisions log (2026-11-15)
+- **Liwa re-measured.** The date-palm canopy used as stable ground drifts toward the anti-sun direction (about 0.5 m/yr), so it was dropped. Speeds are now relative to the mean of two canopy-free references (roads/buildings outside the farms; bare ground inside the farms), with half their difference (0.10 m/yr per component) added to the uncertainty. Result: median 1.41 m/yr (10-90 %: 0.79-2.25) toward 166°, detection limit 0.49 m/yr (previously 1.79 m/yr and 0.97 m/yr, withdrawn). Heading confirmed by HLS S30; speed magnitude not confirmed (HLS gives 0.47-0.57 m/yr; cause unknown).
+- **Body motion withdrawn at every site.** Earlier statements that megadune or ridge bodies move at a measured speed (e.g. "0.68-0.83 m/yr toward ~138°" at Liwa, "0.2-0.3 m/yr" at Sweihan, "below the detection limit, 0.04-0.17 m/yr" at Seih Al Hama) are withdrawn: the body-scale matcher failed a known-shift test. Bodies are outlined but their motion is "not measured".
+- **Station wind published only where defensible** (rule in notebook 01b): Seih Al Hama yes (Al Ain International, 24 km; Buraimi agrees); Sweihan no (Al Ain and the coastal Al Maktoum disagree by 97°, and MERRA-2 already matches the dunes within 4°); Liwa no (no usable station within 100 km). MERRA-2 stays the primary wind figure.
+- **Cross-check status on screen.** `summary.confirmation` (notebook 03, from notebook 02's QC) states for speed and heading whether an independent check agrees: tolerance 15 % (speed) and 20° (heading); HLS S30 = independent, Landsat 7 long baseline = partly independent, HLS L30 = context only. Seih Al Hama: speed and heading partly confirmed; Sweihan: speed partly, heading confirmed; Liwa: speed not confirmed, heading confirmed. The tolerances were fixed after the QC numbers were known; the numbers are shown with the status.
+
+## Still open
+- **Liwa speed magnitude.** Why HLS (both S30 and L30) gives about a third to two fifths of the Landsat pan speed at Liwa, while L30 agrees within ~0.1 m/yr at the other sites, is not understood. Until it is, Liwa's reach years carry an extra, unquantified uncertainty.
+- **Sentinel-2 speeds at the Al Ain sites** are about half of Landsat's; at 30 m their detection limit is close to or above most measured speeds, so this may be a resolution effect, but it is not shown to be.
+- **Southern belt of Seih Al Hama** moves east, which neither MERRA-2's resultant nor the station explains.
+- **Fareaa (2025) thesis:** context only until the full text is available.
+- **Team names** in `environment.md` (Sultan to fill in).
+- **Cesium ion token allowed-URL restriction** not yet confirmed in the ion dashboard.
+- **Stale local dev servers** from an earlier worktree were found on ports 5173/5174 on 2026-11-15; stopping them was not permitted to the agent, so the e2e runs used other ports (`E2E_DEV_PORT` etc.). Sultan can stop them (`lsof -iTCP:5173`).
+
+## What blocked on Sultan (all resolved by 2026-11-14)
 1. Earth Engine: a registered Cloud project ID, then one browser login (`earthengine authenticate`). Blocks Phases 2–4.
 2. NASA Earthdata Login in `.env`. Blocks the HLS check in Phase 3.
 3. Cesium ion token in `.env`. Needed for ion terrain/imagery; the scaffold runs without it.

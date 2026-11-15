@@ -14,16 +14,20 @@ The handoff imagined fast dunes, every dune outlined, and a dramatic forecast. T
 
 | | Seih Al Hama | Sweihan | Liwa (eastern crescent) |
 |---|---|---|---|
-| Detected speed, median (p10–p90), m/yr | 0.67 (0.44–1.14) | 1.15 (0.55–1.82) | being re-measured; treat as provisional |
-| Share of dune windows with detected motion | 58% | 86% | provisional |
-| Heading of motion | N to NE in the north, E in the south | E (83°) | SSE |
-| Detection limit, m/yr | 0.45 | 0.36 | provisional |
+| Detected speed, median (p10–p90), m/yr | 0.67 (0.44–1.14) | 1.15 (0.55–1.82) | 1.41 (0.79–2.25) |
+| Share of dune windows with detected motion | 58% | 86% | 93% |
+| Heading of motion (field median) | 29°: N to NE in the north, E in the south | 83° (E) | 166° (SSE) |
+| Detection limit (median), m/yr | 0.45 | 0.36 | 0.49 |
+| Per-window uncertainty (median 1σ), m/yr | 0.19 | 0.15 | 0.20 |
+| Speed cross-check (`summary.confirmation`) | partly confirmed: Landsat 7 +5 %, Sentinel-2 0.52× | partly confirmed: Landsat 7 +3 %, Sentinel-2 0.56× | not confirmed: Landsat 7 −19 %, Sentinel-2 0.35× |
+| Heading cross-check | partly confirmed: Sentinel-2 41° off, Landsat 7 r 0.88/0.91 | confirmed: Sentinel-2 within 6° | confirmed: Sentinel-2 within 8° |
 | Large dunes outlined (NASADEM) | 21 | 12 | 17 |
 | Targets (roads/farms/built-up) | 1,158 | 873 | 754 |
-| Sand at a target edge now / reached by 2050 | 76 / 97 | 18 / 24 | provisional |
-| Median shift of moving sand by 2050 | ~14 m | ~27 m | provisional |
+| Sand at a target edge now / reached by 2050 | 76 / 97 | 18 / 24 | 14 / 35 |
+| Median shift of moving sand by 2050 | ~14 m | ~27 m | ~34 m |
+| Ground-station wind file | `station_wind.json` (Al Ain Intl, 24 km) | none (stations disagree) | none (no station within 100 km) |
 
-Read every number from the data files at run time; never hard-code values from this table. Liwa's files will be regenerated (a registration bias is being fixed), with the same formats.
+Values read from `public/data/<site>/summary.json` and `pipeline/outputs/<site>/02_qc_summary.json` on 2026-11-15. Read every number from the data files at run time; never hard-code values from this table. Liwa was re-measured on 2026-11-15 against canopy-free registration references (`pipeline/site_notes/liwa/02_registration_reference.md`); its speed magnitude is not independently confirmed. The motion of large dune bodies (megadunes, ridges) is not measured at any site.
 
 Consequences for the design:
 
@@ -32,7 +36,7 @@ Consequences for the design:
 3. **The forecast is subtle and must be labelled as such.** Projected frames differ from the 2025 image by a pixel or two. Each manifest entry carries displacement statistics; show them ("By 2050: moving sand shifts a median 27 m") so nobody thinks the animation is broken, and never exaggerate motion in imagery. An exaggeration control is allowed only for the arrow layer, and only if it is labelled with its factor (see 4.4).
 4. **"Below detection limit" is a first-class state.** Dunes and areas that move slower than the limit show "< 0.45 m/yr" (the limit from the data), no heading, no arrow. Never display 0 m/yr as a measurement.
 5. **Wind and dunes disagree at Seih Al Hama, and the app says why.** NASA MERRA-2 gives the net drift direction; a ground-station check (NOAA ISD, Al Ain airport) shows MERRA-2 underestimates the southerly winds there. Show MERRA-2 as the NASA wind product and the station result as the explanation, in the wind panel and the dossier.
-6. **The independent cross-check is only partial.** Sentinel-2 (HLS S30) agrees on heading at Sweihan and broadly at the others, but gives lower speeds and weak per-window agreement. The dossier states this exactly as `summary.json` words it.
+6. **The independent cross-check is only partial.** Sentinel-2 (HLS S30) agrees on heading at Sweihan and Liwa but not at Seih Al Hama, and gives a third to a half of the Landsat speed everywhere. `summary.confirmation` states the status for speed and heading; the dossier states the detail exactly as `summary.json` words it.
 
 ## 3. Data contract
 
@@ -151,3 +155,17 @@ Automate what can be automated (Playwright with a headless Chromium is fine as a
 - Don't change anything under `pipeline/` or `public/data/`; if a data problem blocks you, report it.
 - Don't present projections as observations, or motion below the detection limit as measured.
 - Don't round away uncertainty: ranges stay ranges.
+
+## As built (2026-11-15)
+
+Where the app deliberately differs from this spec, and why:
+
+- **Station wind file.** `station_wind.json` is richer than section 3 describes (`station {name, id, wmo, icao, lat, lon, elevation_m, distance_km, bearing_from_site_deg, years, hours_reported_pct_min/max, DP, RDP, RDD_deg, RDP_DP, dp_class, …}`, `merra2_site_cell`, `merra2_station_cell`, `secondary[]`, `limits[]`, `note`, `role`, `representative`). It is published only where notebook 01b's fixed rule says the station is a defensible comparison (Seih Al Hama) and is listed in `sites.json` `files` only there, so the app never requests a missing file. A `representative: false` flag, if ever published, hides the station arrow.
+- **Cross-check line.** Not in the spec: the headline panel shows, under the speed, whether speed and heading are confirmed by an independent check (`summary.confirmation`, written by notebook 03 from notebook 02's QC), and the dossier has a "Cross-checks" table. Requested after the Liwa re-measurement.
+- **Dossier opening.** The dossier opens with the panel text of `docs/how-we-know.md` (imported from that file at build time, so the two cannot drift), then a per-site plain-language method composed from the data, then cross-checks and the ground-station section.
+- **Dune labels.** Labels are decluttered in screen space: where outlines cluster (e.g. Seih Al Hama D008–D011), the lower-priority label (non-threat, lower dune) is hidden until the view is close enough for it to fit.
+- **Arrow scale.** Sites with a median speed under 1.5 m/yr open at ×2 (arrow = 200 years of motion); the legend always states the factor.
+- **Timeline.** Stops at every observed frame and every year from the latest scene to 2050 (so a reach year can be shown exactly); between projected frames the latest projected frame stays on screen and the label says which.
+- **Credits.** The footer separates NASA datasets from others by provider (ESA WorldCover and NOAA ISD are not listed as NASA).
+- **Not built:** the Leaflet 2D fallback (Cesium renders the data reliably) and the optional items of section 7 (orbit track, wind streaks, swipe).
+- **Tests.** Playwright e2e against the dev server and the production build under `/dunesight/`; ports can be moved with `E2E_DEV_PORT`, `E2E_NOTOKEN_PORT`, `E2E_PROD_PORT`.

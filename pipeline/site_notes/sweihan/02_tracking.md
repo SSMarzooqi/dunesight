@@ -1,6 +1,6 @@
 ## Sweihan: what the tracking shows (written after looking at this run)
 
-**Result.** The dunes move, clearly and coherently. Motion is detected in 1,762 of 2,045 valid 480 m windows (86 %). The median detection limit is 0.37 m/yr. Detected speeds have a median of 1.15 m/yr (10-90 %: 0.55-1.82; max 3.9). The field moves toward **83°, i.e. east**, with a circular SD of 18°. No published rate exists for Sweihan, so this is the first number for this field. Treat it as 2013-2025 bedform migration, not a long-term rate for the large ridges.
+**Result.** The dunes move, clearly and coherently. Motion is detected in 1,762 of 2,045 valid 480 m windows (86 %). The median detection limit is 0.365 m/yr (0.36 in summary.json). Detected speeds have a median of 1.15 m/yr (10-90 %: 0.55-1.82; max 3.9). The field moves toward **83°, i.e. east**, with a circular SD of 18°. No published rate exists for Sweihan, so this is the first number for this field. Treat it as 2013-2025 bedform migration, not a long-term rate for the large ridges.
 
 **Masks.** The masked share of the box is 63 %: hand-drawn 53 %, OSM 40 %, NDVI 10 %, WorldCover 11 %, with overlaps. The 13 hand-drawn polygons, each with its reason, are in `site_config/sweihan/manual_masks.geojson`. They cover:
 - the NW settlement and the realigned E20;

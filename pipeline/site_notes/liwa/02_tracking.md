@@ -1,7 +1,7 @@
 ## Liwa: what the tracking shows (rewritten 2026-11-15 for the registration-reference test)
 
 **Headline.**
-- **Small dunes and bedforms move toward the SSE; the speed is known to about ±0.1 m/yr from the reference.**
+- **Small dunes and bedforms move toward the SSE. The choice of registration reference moves the speed by about ±0.1 m/yr, but the speed magnitude itself is not independently confirmed (HLS gives about a third to two fifths of it; see Second datasets below). The direction is confirmed.**
   - Motion is detected in 3,521 of 3,782 valid 480 m windows (93 %). The median detection limit is 0.49 m/yr.
   - Detected speeds have a median of **1.41 m/yr** (10-90 %: 0.79-2.25, max 5.4) toward **166°**, with a circular SD of 11°.
   - The speeds are relative to the mean of two canopy-free references (below). Against either one alone, the median is **1.33 m/yr** (bare ground in farms) or **1.50 m/yr** (roads and buildings outside the farms). The heading is 164-167° under either.

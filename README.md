@@ -2,7 +2,7 @@
 
 A "spy satellite for sand dunes": a 3D globe app that shows where dune sand is measurably moving at three UAE sites (Seih Al Hama and Sweihan near Al Ain, and the eastern Liwa crescent), how fast, in which direction and how sure we are, and which roads, farms and built-up areas that moving sand reaches and when. It is built for planners and farm owners deciding where the next windbreak should go.
 
-The measured motion is slow (around a metre per year), so the app shows it honestly: a motion-vector field on a stated time scale, "below detection limit" instead of zero, ranges instead of single numbers, and projections clearly labelled as projections. A weather-radar-style timeline plays the observed November Landsat scenes (with the 2002–2012 gap shown as a gap) and then the projected frames to 2050.
+The measured motion is slow (medians of 0.67 to 1.41 m/yr at the three sites), so the app shows it honestly: a motion-vector field on a stated time scale, "below detection limit" instead of zero, ranges instead of single numbers, a line under each site's speed saying which independent checks confirm it (at Liwa the speed magnitude is not confirmed), and projections clearly labelled as projections. A weather-radar-style timeline plays the observed November Landsat scenes (with the 2002–2012 gap shown as a gap) and then the projected frames to 2050.
 
 ![DuneSight: Seih Al Hama in Motion mode](docs/screenshots/seih-motion-1080p.jpg)
 
@@ -32,14 +32,14 @@ Needs Python 3.11+ (tested on 3.14).
 python3 -m venv pipeline/.venv
 pipeline/.venv/bin/pip install -r pipeline/requirements.txt
 npm run placeholders   # write PLACEHOLDER files for every verified site (never overwrites real results)
-npm run pipeline       # run notebooks 01 -> 02 -> 03 headless for every verified site
+npm run pipeline       # run notebooks 01 -> 01b -> 02 -> 03 headless for every verified site
 ```
 
-**Sites.** Site boxes live only in `pipeline/sites.json` (id, name, bbox, EPSG, WRS-2 path/row, `verified`, source note). Each notebook reads its site from the `DUNESIGHT_SITE` environment variable (default `seih_al_hama`); `npm run pipeline` (`pipeline/run_pipeline.py`) loops over the verified sites, and `--site <id>` / `--only 01` narrow it. Shared code is in `pipeline/dunesight/`.
+**Sites.** Site boxes live only in `pipeline/sites.json` (id, name, bbox, EPSG, WRS-2 path/row, `verified`, source note). Each notebook reads its site from the `DUNESIGHT_SITE` environment variable (default `seih_al_hama`); `npm run pipeline` (`pipeline/run_pipeline.py`) loops over the verified sites, and `--site <id>` / `--only 01` narrow it (`--only 01` also matches 01b, the ground-station wind check). Shared code is in `pipeline/dunesight/`.
 
 **Where things go.**
 - `public/data/sites.json`: the site list for the app, with each site's status and which of its files are `real` or `placeholder`.
-- `public/data/<site_id>/`: the handoff §4 data files for that site (`summary.json`, `dunes.geojson`, `dunes_2000.geojson`, `vectors.geojson`, `targets.geojson`, `wind_summary.json`, `sources.json`, `frames/`).
+- `public/data/<site_id>/`: the handoff §4 data files for that site (`summary.json`, `dunes.geojson`, `dunes_2000.geojson`, `vectors.geojson`, `targets.geojson`, `wind_summary.json`, `sources.json`, `frames/`), plus `station_wind.json` where notebook 01b publishes a ground-station comparison (Seih Al Hama only).
 - `pipeline/runs/<site_id>/`: executed copies of the notebooks, with outputs, as documentation. The source notebooks in `pipeline/` are kept without outputs.
 - `pipeline/outputs/<site_id>/`: small working outputs (candidate-scene tables, rejection logs, the proposed scene list, wind tables, figures).
 - `pipeline/raw/<site_id>/`: downloads and caches (ignored by git). Set `DUNESIGHT_REFRESH=1` to re-query instead of using the cache.
@@ -53,13 +53,13 @@ Earth Engine (`EE_PROJECT`) and NASA Earthdata (`EARTHDATA_USERNAME`, `EARTHDATA
 - MERRA-2 hourly 10 m wind (U10M, V10M), with NASA POWER as a cross-check: sand drift potential
 - NASADEM (30 m, February 2000): dune outlines and heights
 
-Full citations (versions, dates, DOIs) will be in [docs/data-and-credits.md](docs/data-and-credits.md). Also used: OpenStreetMap (roads and farms, © OpenStreetMap contributors) and Esri / Cesium basemaps for display.
+Full citations (versions, dates, places, pixel sizes, DOIs) are in [docs/data-and-credits.md](docs/data-and-credits.md); what the numbers mean, their limits and how each site's speed is cross-checked are in [docs/how-we-know.md](docs/how-we-know.md). Also used: NOAA ISD station wind (Seih Al Hama check only), ESA WorldCover, OpenStreetMap (roads and built-up areas, © OpenStreetMap contributors) and Esri / Cesium basemaps for display.
 
 ## Credits
 
 Supported by the Michigan Space Grant Consortium, NASA grant 80NSSC20M0124.
 
-Data and imagery courtesy of NASA and USGS (datasets listed above). This project is not endorsed by NASA.
+Data and imagery courtesy of NASA and USGS (datasets listed above); station wind data from NOAA NCEI. This project is not endorsed by NASA.
 
 ## License
 

@@ -29,4 +29,7 @@ Status checked 2026-11-14.
 - Data lead: `________`
 - App lead: `________`
 - Design/story lead: `________`
-- Target area: Sieh Al Hama dune field, west of Al Ain (verification in progress, see `docs/research/aoi-verification.md`)
+- Target areas (three sites, boxes in `pipeline/sites.json`, verified and confirmed 2026-11-14):
+  - Seih Al Hama, SW of Al Ain: W 55.475, S 24.015, E 55.575, N 24.105 (`docs/research/aoi-verification.md`)
+  - Sweihan dune field, NW of Al Ain: W 55.29, S 24.42, E 55.39, N 24.51 (`docs/research/aoi-sweihan-liwa.md`)
+  - Liwa, eastern crescent (Wadhil / Mawsil): W 54.08, S 23.00, E 54.18, N 23.09 (`docs/research/aoi-sweihan-liwa.md`)

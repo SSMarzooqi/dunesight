@@ -14,7 +14,7 @@ One line per module, copied from the comment at the top of each file.
 | `src/layers/frames.js` | Imagery-frame layer: drapes the manifest's observed Landsat frames and amber-tinted projected frames on the globe inside the exact frame bounds, with cross-fades and an optional changed-pixel overlay. |
 | `src/layers/vectors.js` | Motion-vector layer: one ground-clamped arrow per detected 480 m window, pointing along heading_deg, coloured by speed, length on a stated time scale, plus true-scale displacement tracks in projected years. |
 | `src/layers/targets.js` | Target layer: road segments, farms and built-up areas from targets.geojson, batched into a few ground primitives and coloured by threat status at the timeline year. |
-| `src/layers/dunes.js` | Large-dune layer: NASADEM-resolved dune outlines (2025 positions) coloured by class with id labels, threat pulse, and the year-2000 outlines dotted for then-vs-now. |
+| `src/layers/dunes.js` | Large-dune layer: NASADEM-resolved dune outlines (2025 positions) coloured by class with id labels (decluttered on screen), threat pulse, and the year-2000 outlines dotted for then-vs-now. |
 | `src/layers/util.js` | Shared helpers for the batched ground primitives: colour attributes, readiness, line/polygon instances and colour ramps. |
 | `src/hud/header.js` | HUD header: DuneSight brand, site switcher, mode buttons, OBSERVED/PROJECTED badge with year, view buttons and the dossier button. |
 | `src/hud/panels.js` | HUD panels: collapsible panel frame (state kept per session), the headline numbers from summary.json, and the ranked list of reached targets in Threat mode. |
@@ -26,6 +26,7 @@ One line per module, copied from the comment at the top of each file.
 | `src/style.css` | DuneSight HUD: dark satellite-intelligence styling, layout of panels around the globe, timeline and credits. |
 | `tests/e2e/acceptance.spec.js` | Acceptance tests from docs/build-spec.md section 8 (the automatable ones), run against the real data files. |
 | `tests/e2e/helpers.js` | Shared e2e helpers: read the real data files, boot the app and wait for a site, collect console errors. |
+| `tests/tools/screens.mjs` | Dev helper: retakes the screenshots in docs/screenshots/ from a running server, one scripted view each. |
 | `playwright.config.js` | Playwright e2e config: dev server or production build under /dunesight/, plus a token-less dev server for the fallback test. |
 
 ## Design choices the spec left open
@@ -36,4 +37,7 @@ One line per module, copied from the comment at the top of each file.
 - **Target colouring.** A target with a reach year is faint in its status colour before that year and bright (pulsing) from it on, under the fast-case rule (hit_year_min) or the median rule (hit_year_med). “Sand at edge now” targets are bright from the latest observed frame on. “Possible within direction uncertainty” has no year and is always purple; “not reached by 2100” is slate.
 - **Reach ray.** A selected target shows the reach ray from the migrating sand edge to the footprint (solid amber), with a faint dashed link to the 480 m window whose motion was used.
 - **Changed pixels.** An optional overlay marks pixels of the median projection that differ from the latest observed frame by more than 10 grey levels (the manifest's own change statistic), keeping only pixels with at least three such neighbours so JPEG noise in the observed frame is not shown as change.
-- **Optional station file.** `station_wind.json` is requested only when the site's data refers to it (listed in `sites.json` files, or mentioned in `summary.json`/`wind_summary.json`), so a missing file never logs a 404.
+- **Optional station file.** `station_wind.json` is requested only when the site's data refers to it (listed in `sites.json` files, or mentioned in `summary.json`/`wind_summary.json`), so a missing file never logs a 404. Notebook 01b publishes it only where the station is a defensible comparison (Seih Al Hama); the wind panel then shows the station drift as a dashed white arrow, with its distance, record and own DP class, and the dossier has a "Ground-station wind check" section with the station's limits. MERRA-2 stays the main wind figure.
+- **Cross-check line.** Under the headline speed, two short rows say whether speed and heading are confirmed, partly confirmed or not confirmed by an independent check, driven only by `summary.confirmation` (no site ids in the code); "cross-checks" opens the dossier table with every check's numbers.
+- **Dossier opening.** The panel text is imported at build time from `docs/how-we-know.md` (between `<!-- panel:start -->` and `<!-- panel:end -->`), so the doc and the app say the same thing.
+- **Dune labels.** After each camera move the labels are placed in screen space by priority (threatened, then taller dunes); a label that would overlap one already placed is hidden until the view is close enough.

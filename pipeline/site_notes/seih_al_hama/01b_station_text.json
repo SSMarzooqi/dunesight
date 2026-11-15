@@ -1,0 +1,6 @@
+{
+ "_about": "Site-specific limits appended to public/data/seih_al_hama/station_wind.json by notebook 01b. Written after reading the 01b run (see 01b_station_wind.md); qualitative only, the numbers are in the notebook output.",
+ "extra_limits": [
+  "It does not explain the southern belt of the box moving east: at the station only a few months (late spring and autumn) and the midday hours have an eastward-to-south-eastward resultant, and they are outweighed over the year. Local steering in the south of the box is possible but untested."
+ ]
+}

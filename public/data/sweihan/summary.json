@@ -246,5 +246,77 @@
    "share_of_box_moved_ge_1px_pct": 27.45
   }
  },
- "generated_by": "pipeline/03_threats_and_frames.ipynb (from notebook 02's pipeline/outputs/sweihan/02_qc_summary.json and 02_velocity_field.csv)"
+ "generated_by": "pipeline/03_threats_and_frames.ipynb (from notebook 02's pipeline/outputs/sweihan/02_qc_summary.json and 02_velocity_field.csv)",
+ "confirmation": {
+  "rule": "speed agrees if a check's field-median speed is within 15% of Landsat's over the same windows and years; heading agrees if the field-median headings differ by <= 20 deg (Landsat 7: per-window east and north correlations both >= 0.8). confirmed = the independent Sentinel-2 check (HLS S30) agrees; partly_confirmed = only the partly independent Landsat 7 long baseline agrees; not_confirmed = neither. HLS L30 uses the same Landsat 8/9 instruments and is shown for context only.",
+  "speed": {
+   "status": "partly_confirmed",
+   "short": "Landsat 7 2000-2025 agrees (+3 %); Sentinel-2 gives 0.56\u00d7"
+  },
+  "heading": {
+   "status": "confirmed",
+   "short": "Sentinel-2 within 6\u00b0"
+  },
+  "checks": [
+   {
+    "id": "hls_s30",
+    "name": "HLS S30 (Sentinel-2 MSI, 30 m red)",
+    "independence": "independent: another satellite, sensor and geolocation",
+    "period": "2016-11-15 to 2025-11-13",
+    "speed_check_myr": 0.562,
+    "speed_landsat_myr": 1.013,
+    "speed_ratio": 0.555,
+    "heading_check_deg": 85.9,
+    "heading_landsat_deg": 80.2,
+    "heading_diff_deg": 5.7,
+    "corr_E": 0.433,
+    "corr_N": 0.368,
+    "detection_limit_myr": 0.913,
+    "pct_windows_detected": 30.6,
+    "speed_agrees": false,
+    "heading_agrees": true
+   },
+   {
+    "id": "landsat7",
+    "name": "Landsat 7 ETM+ long baseline (2000/2001 to 2025)",
+    "independence": "partly independent: another instrument and 12-13 more years, but the same Landsat processing, registration reference and end scenes",
+    "period": "2000-11 to 2025-11 vs 2013-11 to 2025-11, same windows",
+    "speed_check_myr": 1.182,
+    "speed_landsat_myr": 1.152,
+    "speed_ratio": 1.026,
+    "heading_check_deg": null,
+    "heading_landsat_deg": null,
+    "heading_diff_deg": null,
+    "corr_E": 0.867,
+    "corr_N": 0.891,
+    "median_diff_E_N_myr": [
+     0.006,
+     0.044
+    ],
+    "n_windows": 1603,
+    "speed_agrees": true,
+    "heading_agrees": true
+   },
+   {
+    "id": "hls_l30",
+    "name": "HLS L30 (Landsat 8/9 OLI, 30 m red)",
+    "independence": "not independent: the same Landsat 8/9 instruments",
+    "period": "2013-11-07 to 2025-11-08",
+    "speed_check_myr": 0.942,
+    "speed_landsat_myr": 1.079,
+    "speed_ratio": 0.873,
+    "heading_check_deg": 79.2,
+    "heading_landsat_deg": 83.6,
+    "heading_diff_deg": 4.4,
+    "corr_E": 0.736,
+    "corr_N": 0.553,
+    "detection_limit_myr": 0.632,
+    "pct_windows_detected": 74.5,
+    "speed_agrees": true,
+    "heading_agrees": true,
+    "context_only": true
+   }
+  ],
+  "generated_from": "notebook 02 QC summary: hls_second_dataset, landsat7_long_baseline"
+ }
 }

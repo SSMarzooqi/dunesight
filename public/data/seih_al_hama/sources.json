@@ -224,5 +224,22 @@
   "link": "https://www.openstreetmap.org/copyright",
   "doi": null,
   "doi_checked": "no DOI; licence page checked. Query recorded in targets.geojson"
+ },
+ {
+  "name": "NOAA Integrated Surface Database (ISD, Global Hourly)",
+  "provider": "NOAA National Centers for Environmental Information (not NASA)",
+  "version": "ISD as served via the NOAA Open Data Dissemination bucket (noaa-global-hourly-pds), retrieved 2026-11",
+  "used_for": "ground-station wind check of the MERRA-2 drift direction (notebook 01b); explanation of the heading difference only, MERRA-2 stays the primary wind figure",
+  "dates": [
+   "2000-01-01/2024-12-31"
+  ],
+  "place": "Al Ain International (OMAL), ISD 41218099999, 24.2617 N 55.6092 E, 265 m, 24 km from the box centre; secondary BURAIMI AUT, MU, ISD 41244099999, 32 km",
+  "pixel": "point (one station); hourly reports",
+  "access": "https://noaa-global-hourly-pds.s3.amazonaws.com/<year>/<station>.csv",
+  "link": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+  "doi": null,
+  "reference": "Smith, A., N. Lott and R. Vose, 2011: The Integrated Surface Database: Recent Developments and Partnerships. Bull. Amer. Meteor. Soc., 92, 704-708",
+  "reference_doi": "https://doi.org/10.1175/2011BAMS3015.1",
+  "doi_checked": "no dataset DOI is given on the NCEI ISD page (checked 2026-11-15); the reference paper's DOI is listed there and resolves to journals.ametsoc.org"
  }
 ]

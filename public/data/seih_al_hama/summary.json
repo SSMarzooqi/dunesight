@@ -246,5 +246,81 @@
    "share_of_box_moved_ge_1px_pct": 20.04
   }
  },
- "generated_by": "pipeline/03_threats_and_frames.ipynb (from notebook 02's pipeline/outputs/seih_al_hama/02_qc_summary.json and 02_velocity_field.csv)"
+ "generated_by": "pipeline/03_threats_and_frames.ipynb (from notebook 02's pipeline/outputs/seih_al_hama/02_qc_summary.json and 02_velocity_field.csv)",
+ "confirmation": {
+  "rule": "speed agrees if a check's field-median speed is within 15% of Landsat's over the same windows and years; heading agrees if the field-median headings differ by <= 20 deg (Landsat 7: per-window east and north correlations both >= 0.8). confirmed = the independent Sentinel-2 check (HLS S30) agrees; partly_confirmed = only the partly independent Landsat 7 long baseline agrees; not_confirmed = neither. HLS L30 uses the same Landsat 8/9 instruments and is shown for context only.",
+  "speed": {
+   "status": "partly_confirmed",
+   "short": "Landsat 7 2000-2025 agrees (+5 %); Sentinel-2 gives 0.52\u00d7"
+  },
+  "heading": {
+   "status": "partly_confirmed",
+   "short": "Sentinel-2 41\u00b0 off; Landsat 7 per-window r 0.88 E / 0.91 N"
+  },
+  "checks": [
+   {
+    "id": "hls_s30",
+    "name": "HLS S30 (Sentinel-2 MSI, 30 m red)",
+    "independence": "independent: another satellite, sensor and geolocation",
+    "period": "2016-11-15 to 2025-11-08",
+    "speed_check_myr": 0.215,
+    "speed_landsat_myr": 0.412,
+    "speed_ratio": 0.522,
+    "heading_check_deg": 340.1,
+    "heading_landsat_deg": 21.1,
+    "heading_diff_deg": 41.0,
+    "corr_E": 0.373,
+    "corr_N": 0.304,
+    "detection_limit_myr": 0.852,
+    "pct_windows_detected": 16.7,
+    "speed_agrees": false,
+    "heading_agrees": false
+   },
+   {
+    "id": "landsat7",
+    "name": "Landsat 7 ETM+ long baseline (2000/2001 to 2025)",
+    "independence": "partly independent: another instrument and 12-13 more years, but the same Landsat processing, registration reference and end scenes",
+    "period": "2000-11 to 2025-11 vs 2013-11 to 2025-11, same windows",
+    "speed_check_myr": 0.681,
+    "speed_landsat_myr": 0.649,
+    "speed_ratio": 1.049,
+    "heading_check_deg": null,
+    "heading_landsat_deg": null,
+    "heading_diff_deg": null,
+    "corr_E": 0.875,
+    "corr_N": 0.909,
+    "median_diff_E_N_myr": [
+     0.061,
+     0.019
+    ],
+    "n_windows": 1260,
+    "speed_agrees": true,
+    "heading_agrees": true
+   },
+   {
+    "id": "hls_l30",
+    "name": "HLS L30 (Landsat 8/9 OLI, 30 m red)",
+    "independence": "not independent: the same Landsat 8/9 instruments",
+    "period": "2013-11-07 to 2025-11-08",
+    "speed_check_myr": 0.294,
+    "speed_landsat_myr": 0.403,
+    "speed_ratio": 0.73,
+    "heading_check_deg": 20.4,
+    "heading_landsat_deg": 21.7,
+    "heading_diff_deg": 1.3,
+    "corr_E": 0.691,
+    "corr_N": 0.68,
+    "detection_limit_myr": 0.664,
+    "pct_windows_detected": 20.8,
+    "speed_agrees": false,
+    "heading_agrees": true,
+    "context_only": true
+   }
+  ],
+  "generated_from": "notebook 02 QC summary: hls_second_dataset, landsat7_long_baseline"
+ },
+ "station_wind": {
+  "file": "station_wind.json",
+  "role": "Explanation of the difference between the measured dune heading and the MERRA-2 drift direction. MERRA-2 remains the primary wind figure; the station is evidence about the regional wind, not a measurement inside the dune field."
+ }
 }

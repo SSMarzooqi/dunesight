@@ -1,6 +1,6 @@
 {
  "site": "seih_al_hama",
- "generated_utc": "2026-11-15T03:35:35Z",
+ "generated_utc": "2026-11-15T05:47:27Z",
  "site_centre": {
   "lat": 24.06,
   "lon": 55.525
@@ -1786,5 +1786,22 @@
   "angle_station_RDD_to_dune_deg": 20.0685,
   "angle_merra2_site_RDD_to_dune_deg": 71.0933,
   "angle_merra2_station_cell_RDD_to_dune_deg": 58.3915
+ },
+ "publish_decision": {
+  "publish": true,
+  "rule": "published only if (1) a usable hourly station exists within the screen radius, (2) notebook 02 has measured a dune heading for the site, and (3) every other usable station within the radius gives a resultant drift direction within 45 deg of the primary station's at the synoptic hours they share, i.e. the stations agree on the regional regime",
+  "reasons": [],
+  "secondary_agreement": [
+   {
+    "id": "41244099999",
+    "name": "BURAIMI AUT, MU",
+    "distance_km": 32.5,
+    "years": "2000-2024 (24 usable)",
+    "RDD_deg": 341.0938,
+    "primary_RDD_same_hours_deg": 6.9541,
+    "angle_deg": 25.8603,
+    "agrees": true
+   }
+  ]
  }
 }

@@ -1,6 +1,6 @@
 {
  "site": "sweihan",
- "generated_utc": "2026-11-15T03:35:45Z",
+ "generated_utc": "2026-11-15T05:47:38Z",
  "site_centre": {
   "lat": 24.465,
   "lon": 55.34
@@ -1864,7 +1864,12 @@
    "calm_pct": 0.5048
   }
  ],
- "dune_motion_from_02": null,
+ "dune_motion_from_02": {
+  "field_median_heading_deg": 82.9,
+  "speed_weighted_mean_heading_deg": 82.0,
+  "heading_circular_sd_deg": 17.6,
+  "merra2_RDD_deg_used_in_02": 87.2
+ },
  "answers": {
   "station_RDD_deg": 8.7315,
   "merra2_station_cell_RDD_deg": 87.1915,
@@ -1884,6 +1889,39 @@
    "S (157.5-202.5)": 1.3548,
    "NW (292.5-315)": 0.9953
   },
-  "station_RDD_with_speeds_scaled_to_merra2_mean_deg": 2.8071
+  "station_RDD_with_speeds_scaled_to_merra2_mean_deg": 2.8071,
+  "dune_field_median_heading_deg": 82.9,
+  "angle_station_RDD_to_dune_deg": 74.1685,
+  "angle_merra2_site_RDD_to_dune_deg": 4.2915,
+  "angle_merra2_station_cell_RDD_to_dune_deg": 4.2915
+ },
+ "publish_decision": {
+  "publish": false,
+  "rule": "published only if (1) a usable hourly station exists within the screen radius, (2) notebook 02 has measured a dune heading for the site, and (3) every other usable station within the radius gives a resultant drift direction within 45 deg of the primary station's at the synoptic hours they share, i.e. the stations agree on the regional regime",
+  "reasons": [
+   "AL MAKTOUM INTERNATIONAL AIRPORT, AE (50 km) gives RDD 99 deg against 2 deg for AL AIN INTERNATIONAL, AE at the same hours (97 deg apart): the stations disagree on the regime, so neither can stand for the site"
+  ],
+  "secondary_agreement": [
+   {
+    "id": "41194599999",
+    "name": "AL MAKTOUM INTERNATIONAL AIRPORT, AE",
+    "distance_km": 49.8,
+    "years": "2010-2024 (15 usable)",
+    "RDD_deg": 99.3262,
+    "primary_RDD_same_hours_deg": 2.1998,
+    "angle_deg": 97.1264,
+    "agrees": false
+   },
+   {
+    "id": "41244099999",
+    "name": "BURAIMI AUT, MU",
+    "distance_km": 51.8,
+    "years": "2000-2024 (24 usable)",
+    "RDD_deg": 341.0938,
+    "primary_RDD_same_hours_deg": 6.9541,
+    "angle_deg": 25.8603,
+    "agrees": true
+   }
+  ]
  }
 }

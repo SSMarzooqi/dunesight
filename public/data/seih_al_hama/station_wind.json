@@ -1,0 +1,89 @@
+{
+ "site": "seih_al_hama",
+ "generated_by": "pipeline/01b_station_wind_check.ipynb (from pipeline/outputs/seih_al_hama/station_wind_check.json)",
+ "role": "Explanation of the difference between the measured dune heading and the MERRA-2 drift direction. MERRA-2 remains the primary wind figure; the station is evidence about the regional wind, not a measurement inside the dune field.",
+ "has_usable_station": true,
+ "representative": true,
+ "publish_rule": "published only if (1) a usable hourly station exists within the screen radius, (2) notebook 02 has measured a dune heading for the site, and (3) every other usable station within the radius gives a resultant drift direction within 45 deg of the primary station's at the synoptic hours they share, i.e. the stations agree on the regional regime",
+ "source": "NOAA NCEI Integrated Surface Database (ISD, Global Hourly)",
+ "link": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+ "period": "2000-2024",
+ "threshold_kt": 12.0,
+ "station": {
+  "name": "Al Ain International (OMAL)",
+  "id": "41218099999",
+  "wmo": "41218",
+  "icao": "OMAL",
+  "lat": 24.2617,
+  "lon": 55.6092,
+  "elevation_m": 264.87,
+  "distance_km": 24.0,
+  "bearing_from_site_deg": 21.0,
+  "years": 25,
+  "hours_reported_pct_min": 89.1,
+  "hours_reported_pct_max": 99.8,
+  "DP": 131.9662,
+  "RDP": 35.7897,
+  "RDD_deg": 8.7315,
+  "RDP_DP": 0.2712,
+  "dp_class": "low",
+  "pct_hours_above_12kt": 12.677,
+  "S_share_of_DP": 0.5496,
+  "NW_share_of_DP": 0.2208,
+  "S_over_NW": 2.4895
+ },
+ "merra2_site_cell": {
+  "DP": 65.6782,
+  "RDP": 25.1478,
+  "RDD_deg": 99.8933,
+  "RDP_DP": 0.3829,
+  "dp_class": "low",
+  "pct_hours_above_12kt": 9.1615,
+  "S_share_of_DP": 0.3037,
+  "NW_share_of_DP": 0.5433,
+  "S_over_NW": 0.559,
+  "cell_lat": 24.0,
+  "cell_lon": 55.625
+ },
+ "merra2_station_cell": {
+  "DP": 70.2163,
+  "RDP": 30.3101,
+  "RDD_deg": 87.1915,
+  "RDP_DP": 0.4317,
+  "dp_class": "low",
+  "pct_hours_above_12kt": 9.8545,
+  "S_share_of_DP": 0.2673,
+  "NW_share_of_DP": 0.5153,
+  "S_over_NW": 0.5188,
+  "cell_lat": 24.5,
+  "cell_lon": 55.625
+ },
+ "dune_heading_deg": 28.8,
+ "angle_station_rdd_to_dune_deg": 20.0685,
+ "angle_merra2_rdd_to_dune_deg": 71.0933,
+ "sensitivity": {
+  "dp_change_pct_speed_x0.95": -26.8574,
+  "dp_change_pct_speed_x1.05": 33.9594,
+  "max_rdd_change_deg": 5.9243
+ },
+ "secondary": [
+  {
+   "id": "41244099999",
+   "name": "BURAIMI AUT, MU",
+   "distance_km": 32.5,
+   "years": "2000-2024 (24 usable)",
+   "RDD_deg": 341.0938,
+   "primary_RDD_same_hours_deg": 6.9541,
+   "angle_deg": 25.8603,
+   "agrees": true
+  }
+ ],
+ "limits": [
+  "The station is 24 km NNE of the box centre, at 265 m; there is no station inside the dune field, so this is evidence about the regional wind, not a measurement at the dunes.",
+  "Record 2000-2024: 89-100 % of hours reported each year (one report per hour, SPECI excluded).",
+  "Its own drift potential is 132 VU/yr, still low in Fryberger's classes (2.0 x MERRA-2 at the site cell). A 5 % anemometer speed error changes it by -27 % / +34 %; no handling or speed choice tested moves the direction by more than 6°.",
+  "Buraimi Aut (32 km) agrees on the direction at the synoptic hours both report (2000-2024, 24 usable years): RDD 341° against 7°.",
+  "It does not explain the southern belt of the box moving east: at the station only a few months (late spring and autumn) and the midday hours have an eastward-to-south-eastward resultant, and they are outweighed over the year. Local steering in the south of the box is possible but untested."
+ ],
+ "note": "Observed wind at Al Ain International (OMAL), 24 km NNE of the box, drives sand toward 9° (20° from the measured dune heading of 29°); MERRA-2 at the site drives it toward 100° (71° away). Southerly winds give 55 % of the station's drift potential against 30 % in MERRA-2, which underestimates them. This explains most of the heading difference."
+}

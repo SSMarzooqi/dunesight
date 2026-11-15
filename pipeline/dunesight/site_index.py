@@ -24,6 +24,9 @@ CONTRACT_FILES = [
     "sources.json",
     "frames/manifest.json",
 ]
+# Optional per-site files: listed in "files" only when present (the app fetches them only if listed, so a
+# missing optional file never causes a 404). station_wind.json is written by notebook 01b.
+OPTIONAL_FILES = ["station_wind.json"]
 
 
 def file_status(path):
@@ -58,6 +61,7 @@ def build_index():
         folder = config.public_dir(s["id"])
         if s.get("verified") and folder.is_dir():
             files = {f: file_status(folder / f) for f in CONTRACT_FILES}
+            files.update({f: file_status(folder / f) for f in OPTIONAL_FILES if (folder / f).exists()})
             entry["status"] = site_status(files)
             entry["data_dir"] = f"{s['id']}/"
             entry["files"] = files
@@ -73,7 +77,8 @@ def build_index():
             "Each site with data has the full handoff §4 file set under data/<id>/ (formats unchanged). "
             "status: 'real' = every file is a pipeline result; 'partial' = some real, some placeholder "
             "(see 'files'); 'placeholder' = all fake; 'not_located' = box not verified yet, no data. "
-            "Placeholder files also carry \"placeholder\": true inside them."
+            "Placeholder files also carry \"placeholder\": true inside them. Optional files (station_wind.json) "
+            "appear in 'files' only for sites that have them."
         ),
         "default_site": default,
         "sites": sites,

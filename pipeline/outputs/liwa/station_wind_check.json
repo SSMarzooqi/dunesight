@@ -1,6 +1,6 @@
 {
  "site": "liwa",
- "generated_utc": "2026-11-15T03:35:49Z",
+ "generated_utc": "2026-11-15T05:46:54Z",
  "site_centre": {
   "lat": 23.045,
   "lon": 54.13
@@ -39,5 +39,13 @@
  },
  "primary_station": null,
  "secondary_stations": [],
- "has_usable_station": false
+ "has_usable_station": false,
+ "publish_decision": {
+  "publish": false,
+  "rule": "published only if (1) a usable hourly station exists within the screen radius, (2) notebook 02 has measured a dune heading for the site, and (3) every other usable station within the radius gives a resultant drift direction within 45 deg of the primary station's at the synoptic hours they share, i.e. the stations agree on the regional regime",
+  "reasons": [
+   "no usable station within 100 km"
+  ],
+  "secondary_agreement": []
+ }
 }

@@ -489,7 +489,8 @@ test('10 · dossier lists every source with links and the full limits; credits l
     const credits = await page.locator('.ds-credit-data').innerText();
     const nasaPart = (credits.match(/NASA \(([^)]*)\)/) || [])[1] || '';
     expect(nasaPart).not.toMatch(/WorldCover|NOAA|OpenStreetMap|ESA/);
-    for (const s of d.sources.filter((x) => /not NASA/.test(x.provider || ''))) expect(credits).toMatch(new RegExp(`Also: [^·]*${s.name.split(' ')[0]}[^·]*\\(not NASA\\)`));
+    for (const s of d.sources.filter((x) => /not NASA/.test(x.provider || ''))) expect(credits).toMatch(new RegExp(`Not NASA: [^·]*${s.name.split(' ')[0]}`));
+    expect(credits).not.toMatch(/\)\s*\(/); // no doubled brackets
   }
   await expect(page.locator('.ds-credit-line')).toHaveText(CREDIT);
   await page.click('.ds-footer [data-dossier="credits"]');
@@ -603,6 +604,52 @@ test('11 · network blocked after load: local layers, frames and fonts still dra
   await context.setOffline(false);
   const expected = /ERR_INTERNET_DISCONNECTED|Failed to load resource/;
   errors.splice(0, errors.length, ...errors.filter((e) => !expected.test(e)));
+});
+
+// map-provider credits -----------------------------------------------------------------------------
+const creditBox = (page) =>
+  page.evaluate(() => {
+    const vis = (el) => {
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      const inView = r.width > 0 && r.height > 0 && r.left >= 0 && r.top >= 0 && r.right <= innerWidth + 0.5 && r.bottom <= innerHeight + 0.5;
+      const hit = inView && document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return { w: r.width, h: r.height, inView, onTop: !!hit && (hit === el || el.contains(hit) || hit.contains(el)) };
+    };
+    const c = document.querySelector('#cesium-credits');
+    const logo = [...c.querySelectorAll('img')].find((i) => /ion/i.test(i.src + i.title)) || null;
+    return { box: vis(c), logo: logo && { ...vis(logo), loaded: logo.complete && logo.naturalWidth > 0 }, text: c.innerText, link: vis(c.querySelector('.cesium-credit-expand-link')) };
+  });
+for (const [w, h] of [[1920, 1080], [1366, 768], [390, 844]]) {
+  test(`credits: Cesium ion logo and data attribution visible at ${w}×${h}`, async ({ page }) => {
+    await page.setViewportSize({ width: w, height: h });
+    await boot(page);
+    const bm = await page.evaluate(() => window.__ds.basemap());
+    test.skip(!/ion/i.test(bm.basemap), 'no Cesium ion token in this environment');
+    await expect.poll(async () => (await creditBox(page)).logo?.loaded, { message: 'ion logo loaded' }).toBe(true);
+    const c = await creditBox(page);
+    console.log(`    credit area ${w}×${h}: ${Math.round(c.box.w)}×${Math.round(c.box.h)} px, logo ${Math.round(c.logo.w)}×${Math.round(c.logo.h)} px`);
+    expect(c.box.inView && c.box.w > 0 && c.box.h > 0).toBe(true);
+    expect(c.logo.inView && c.logo.onTop && c.logo.w > 20 && c.logo.h > 8).toBe(true);
+    expect(c.link?.inView && c.link.onTop).toBe(true);
+    // the provider attribution list opens above the UI
+    await page.click('#cesium-credits .cesium-credit-expand-link');
+    const overlay = page.locator('.cesium-credit-lightbox-overlay');
+    await expect(overlay).toBeVisible();
+    expect(await page.evaluate(() => document.elementFromPoint(innerWidth / 2, innerHeight / 2)?.closest('.cesium-credit-lightbox-overlay') != null)).toBe(true);
+  });
+}
+test('credits: Esri attribution visible on the fallback basemap (no token), desktop and phone', async ({ page }) => {
+  for (const [w, h] of [[1366, 768], [390, 844]]) {
+    await page.setViewportSize({ width: w, height: h });
+    await boot(page, { url: process.env.E2E_NOTOKEN_URL || 'http://localhost:5174/' });
+    await expect.poll(async () => (await creditBox(page)).text).toContain('Esri');
+    const c = await creditBox(page);
+    console.log(`    Esri credit ${w}×${h}: ${Math.round(c.box.w)}×${Math.round(c.box.h)} px`);
+    expect(c.box.inView && c.box.onTop).toBe(true);
+    // the whole attribution line is shown, not clipped
+    expect(await page.locator('#cesium-credits').evaluate((el) => el.scrollWidth <= el.clientWidth + 1 && el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+  }
 });
 
 // fonts -------------------------------------------------------------------------------------------
@@ -725,8 +772,18 @@ for (const [w, h] of [
     await page.setViewportSize({ width: w, height: h });
     await boot(page);
     await setMode(page, 'threat');
-    await page.locator('.ds-rlist [data-target]').first().click(); // opens a target card too
+    await page.locator('.ds-rlist [data-target]').nth(2).click(); // opens a target card too
     await expect(page.locator(CARD)).toBeVisible();
+    // the reached panel keeps its heading in view (only the list scrolls) and shows several rows
+    const rp = await page.evaluate(() => {
+      const p = document.querySelector('.ds-panel--reached').getBoundingClientRect();
+      const hd = document.querySelector('.ds-panel--reached h2').getBoundingClientRect();
+      const list = document.querySelector('.ds-panel--reached .ds-rlist').getBoundingClientRect();
+      const rows = [...document.querySelectorAll('.ds-rlist li')].filter((li) => { const r = li.getBoundingClientRect(); return r.top >= list.top - 1 && r.bottom <= list.bottom + 1; }).length;
+      return { headIn: hd.top >= p.top && hd.bottom <= p.bottom, rows };
+    });
+    expect(rp.headIn, 'reached panel heading visible').toBe(true);
+    expect(rp.rows, 'rows fully visible in the reached list').toBeGreaterThanOrEqual(h >= 1000 ? 4 : 2);
     await page.waitForTimeout(500);
     const rects = await page.evaluate(() =>
       ['.ds-header', '.ds-panel--speed', '.ds-panel--reached', '.ds-panel--card', '.ds-panel--legend', '.ds-timeline', '.ds-footer']

@@ -248,7 +248,7 @@
 .ds-footer > span { overflow: hidden; text-overflow: ellipsis; }
 .ds-credit-line { flex: 0 0 auto; color: var(--ds-text-2); }
 .ds-credit-data { flex: 1 1 auto; min-width: 0; }
-.ds-cesium-credits { flex: 0 0 auto; max-width: 28%; display: flex; }
+.ds-cesium-credits { flex: 0 0 auto; display: flex; } /* never shrinks: provider attribution must stay visible */
 .ds-footer button { flex: 0 0 auto; padding: 0; border: 0; background: none; font-size: 12px; color: var(--ds-text-2); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- First-visit guide ---------- */
@@ -365,7 +365,13 @@
 /* threat mode: ranked list of reached places replaces the wind panel */
 .ds-ui[data-mode="threat"] .ds-panel--wind, .ds-ui:not([data-mode="threat"]) .ds-panel--reached { display: none; }
 .ds-right > [data-reached-slot] { display: contents; }
-.ds-panel--reached { flex: 1 1 260px !important; min-height: 230px !important; }
+/* the heading, lead and filters stay put; only the list scrolls */
+.ds-panel--reached { flex: 1 1 260px !important; min-height: 230px !important; display: flex; flex-direction: column; overflow: hidden !important; }
+.ds-panel--reached > .ds-pbody { flex: 1 1 auto; min-height: 0; }
+.ds-panel--reached > .ds-pbody > div { display: flex; flex-direction: column; }
+.ds-panel--reached .ds-rlist { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; margin-right: -8px; padding-right: 8px; }
+@media (max-height: 899px) and (min-width: 761px) { .ds-panel--reached { flex-basis: 320px !important; min-height: 320px !important; } .ds-panel--reached .ds-lead { font-size: var(--ds-fs-body); } }
+@media (min-height: 900px) { .ds-panel--reached { flex-basis: 500px !important; min-height: 500px !important; } }
 .ds-ui[data-mode="threat"] .ds-right > .ds-panel--legend { flex: 1 12 auto; min-height: 180px; }
 .ds-panel--reached .ds-seg--small { margin: 10px 0 6px; }
 .ds-rlist { list-style: none; padding: 0; margin: 0 0 6px; }
@@ -415,7 +421,6 @@
 
 /* phone: the card and the reached list are tabs of the sheet; the footer stays (credit line); the sheet can be lowered */
 @media (max-width: 760px) {
-  .ds-ui { --ds-footer-h: 46px; }
   .ds-when { position: absolute; left: 12px; top: calc(var(--ds-header-h) + 8px); height: 30px; background: var(--ds-panel); font-size: 14px; pointer-events: none; }
   .ds-header .ds-tag-warn { order: 4; }
   .ds-sheet { bottom: var(--ds-footer-h); height: calc(56% - var(--ds-footer-h)); }
@@ -429,12 +434,13 @@
   .ds-ui:not([data-tab="reached"]) .ds-panel--reached, .ds-ui:not([data-tab="card"]) .ds-panel--card { display: none; }
   .ds-panel--card { position: static; width: auto; max-height: none; flex: 1 1 auto; min-height: 0; overflow-y: auto; border: 0; border-radius: 0; background: transparent; padding: 14px 20px 20px; }
   .ds-panel--card .ds-phead .ds-icon-btn { display: inline-flex; }
-  .ds-panel--reached { min-height: 0 !important; }
+  .ds-panel--reached { min-height: 0 !important; overflow-y: auto !important; display: block; }
+  .ds-panel--reached .ds-rlist { overflow: visible; }
   [data-card-slot] { display: contents; }
-  .ds-footer { display: flex; flex-wrap: wrap; align-content: center; gap: 0 8px; height: var(--ds-footer-h); padding: 2px 12px; font-size: 11px; line-height: 1.3; white-space: normal; }
+  .ds-footer { display: flex; flex-wrap: wrap; align-content: center; gap: 2px 8px; height: auto; padding: 4px 12px; font-size: 11px; line-height: 1.3; white-space: normal; }
   .ds-credit-line { flex: 1 1 100%; white-space: normal; }
   .ds-credit-data { display: none; }
-  .ds-cesium-credits { max-width: 50%; }
+  .ds-cesium-credits { flex: 1 1 100%; }
   .ds-footer button { font-size: 11px; }
   .ds-lsub, .ds-lnote { padding-left: 54px; }
   .ds-range__key span { white-space: normal; }

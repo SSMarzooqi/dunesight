@@ -69,7 +69,7 @@ export function shortSourceName(name) {
   if (/^MERRA-2/i.test(n)) return /aer/i.test(n) ? 'MERRA-2 aerosol' : 'MERRA-2 wind';
   if (/^NASA POWER/i.test(n)) return 'NASA POWER';
   if (/^NASADEM/i.test(n)) return 'NASADEM';
-  if (/^NOAA Integrated Surface/i.test(n)) return 'NOAA ISD (station wind)';
+  if (/^NOAA Integrated Surface/i.test(n)) return 'NOAA ISD station wind';
   return n.split(' (')[0];
 }
 

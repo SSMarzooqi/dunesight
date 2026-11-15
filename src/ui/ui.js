@@ -173,7 +173,7 @@ function compassSVG(w) {
     s += `<text x="${f(gx)}" y="${f(gy + 4)}" text-anchor="middle" font-size="12" font-weight="600" fill="${COL.text}" ${halo}>${w.apartDeg}°</text>`;
   }
   // grow the drawing to hold labels pushed above or below it, so they never sit on the text around the compass
-  const top = Math.min(0, ...labels.map((L) => L.box.y0 - 4)), bottom = Math.max(H, ...labels.map((L) => L.box.y1 + 4));
+  const top = Math.min(cy - R - 6, ...labels.map((L) => L.box.y0 - 4)), bottom = Math.max(cy + R + 6, ...labels.map((L) => L.box.y1 + 4));
   s = s.replace(`viewBox="0 0 ${W} ${H}"`, `viewBox="0 ${f(top)} ${W} ${f(bottom - top)}"`);
   return s + '</svg>';
 }
@@ -423,6 +423,8 @@ export function mountDuneSightUI(container, opts) {
   };
   const root = document.createElement('div');
   root.className = 'ds-ui';
+  // the footer can wrap (phone, long provider credits): the sheet and panels use its measured height
+  const footerObserver = new ResizeObserver(([e]) => root.style.setProperty('--ds-footer-h', `${Math.ceil(e.target.getBoundingClientRect().height)}px`));
   container.appendChild(root);
   const call = (name, ...args) => typeof o[name] === 'function' && o[name](...args);
 
@@ -437,7 +439,7 @@ export function mountDuneSightUI(container, opts) {
     const c = state.data.credits || {};
     return [
       c.nasa?.length ? `Data and imagery: NASA (${c.nasa.map(esc).join(', ')})` : '',
-      c.other?.length ? `Also: ${c.other.map(esc).join(', ')} (not NASA)` : '',
+      c.other?.length ? `Not NASA: ${c.other.map(esc).join(', ')}` : '',
       c.osm ? '© OpenStreetMap contributors' : '',
       state.basemap ? `Basemap: ${esc(state.basemap)}` : '',
     ].filter(Boolean).join(' · ');
@@ -489,6 +491,8 @@ export function mountDuneSightUI(container, opts) {
     root.dataset.guide = String(state.guideOpen);
     for (const k of ['speed', 'wind', 'legend']) setCollapsed(k, store.get(`dunesight-collapsed-${k}`) === '1', false);
     if (o.creditNode) root.querySelector('[data-cesium-credits]').appendChild(o.creditNode);
+    footerObserver.disconnect();
+    footerObserver.observe(root.querySelector('.ds-footer'));
     renderTabs();
     renderReached();
     renderCard();

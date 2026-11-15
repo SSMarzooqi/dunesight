@@ -18,13 +18,22 @@ button, select, input { font: inherit; color: inherit; }
 
 #app { position: fixed; inset: 0; }
 #globe { position: absolute; inset: 0; }
-.cesium-widget-credits { display: none !important; }
-
-/* Cesium credit display, moved into the UI footer */
-#cesium-credits { display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; max-width: 100%; }
-#cesium-credits img { max-height: 14px; vertical-align: middle; opacity: 0.85; }
-#cesium-credits .cesium-credit-textContainer, #cesium-credits .cesium-credit-expand-link { font-size: 11px; }
-#cesium-credits a { color: var(--ds-text-3); }
+/* Map-provider credits (Cesium ion logo, imagery attribution, "Data attribution" link) as Cesium emits them, moved into
+   the UI footer. They must stay visible: the footer truncates the dataset list, never these. Cesium names the element it
+   creates in our container .cesium-widget-credits, so that class must not be hidden. */
+#cesium-credits { display: flex; align-items: center; white-space: nowrap; }
+#cesium-credits .cesium-widget-credits { display: flex !important; align-items: center; gap: 8px; position: static; }
+#cesium-credits .cesium-credit-logoContainer, #cesium-credits .cesium-credit-textContainer { display: inline-flex !important; align-items: center; gap: 6px; }
+#cesium-credits img { height: 16px; width: auto; vertical-align: middle; }
+#cesium-credits .cesium-credit-textContainer, #cesium-credits .cesium-credit-expand-link { font-size: 11px; color: var(--ds-text-2); }
+#cesium-credits a { color: var(--ds-text-2); }
+#cesium-credits .cesium-credit-expand-link { text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+/* the "Data attribution" lightbox opens above the UI */
+#cesium-credits-lightbox { position: fixed; inset: 0; z-index: 70; pointer-events: none; }
+#cesium-credits-lightbox > * { pointer-events: auto; }
+@media (max-width: 760px) {
+  #cesium-credits, #cesium-credits .cesium-widget-credits, #cesium-credits .cesium-credit-textContainer { white-space: normal; flex-wrap: wrap; }
+}
 
 /* ---------- toasts ---------- */
 .ds-toast {

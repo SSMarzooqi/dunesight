@@ -7,10 +7,17 @@ import { qualityAlpha, whenReady, setInstanceColor, fillPrimitive, lineInstance,
 /** Arrow length in metres per 1 m/yr of speed at factor 1: the arrow shows 100 years of motion. */
 export const ARROW_YEARS = 100;
 
-/** Default arrow-scale factor for a site: slow fields get ×2 (200 yr of motion) so arrows stay readable. */
+/**
+ * Opening arrow-scale factor for a site, from what is drawn: the largest of ×1, ×2, ×4 at which a 90th-percentile
+ * arrow (by speed, of the arrows in vectors.geojson) is no longer than the spacing between neighbouring arrows
+ * (the note's "one point per 240 m"), so typical arrows do not run into their neighbours. Never below ×1.
+ */
 export function defaultArrowFactor(bundle) {
-  const med = bundle.summary?.speed_median_myr;
-  return Number.isFinite(med) && med >= 1.5 ? 1 : 2;
+  const speeds = (bundle.vectors?.features || []).map((f) => f.properties?.speed_myr).filter(Number.isFinite).sort((a, b) => a - b);
+  if (!speeds.length) return 1;
+  const p90 = speeds[Math.floor(0.9 * (speeds.length - 1))];
+  const spacing = +(String(bundle.vectors?.note || '').match(/one point per (\d+) m/) || [])[1] || 240;
+  return [4, 2, 1].find((f) => p90 * ARROW_YEARS * f <= spacing) || 1;
 }
 
 export function arrowOutline(lon, lat, headingDeg, lengthM) {

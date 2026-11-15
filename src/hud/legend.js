@@ -1,4 +1,4 @@
-// Map legend for the current mode: speed ramp and arrow scale (with its exaggeration factor), target status colours, dune classes and their toggles.
+// Map legend for the current mode: speed ramp and arrow scale (with its scale factor), target status colours, dune classes and their toggles.
 import { state, set } from '../state.js';
 import { esc, int, num, isNum, statusWords } from '../format.js';
 import { SPEED_DOMAIN, speedColor, STATUS_COLORS, CLASS_COLORS } from '../layers/util.js';

@@ -344,7 +344,7 @@ test('11 · network blocked after load: local layers and frames still draw', asy
     const shown = [];
     for (let i = 0; i < layers.length; i++) {
       const l = layers.get(i);
-      if (l.show && l.alpha > 0 && l.imageryProvider?.constructor?.name === 'SingleTileImageryProvider') shown.push(l.ready);
+      if (l.show && l.alpha > 0 && l.imageryProvider instanceof window.__ds.Cesium.SingleTileImageryProvider) shown.push(l.ready);
     }
     return { targets: L.targets.ready, dunes: L.dunes.ready, arrows: L.vectors.ready, frames: shown };
   });

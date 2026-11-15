@@ -1,12 +1,12 @@
 # DuneSight
 
-A "spy satellite for sand dunes": a 3D globe app that flies from orbit to UAE dune fields (first Seih Al Hama, SW of Al Ain), where every dune is outlined, labelled and tracked (height, speed ± uncertainty, heading, confidence, and threat to roads and farms). A weather-radar-style timeline plays the observed Landsat years and then fades into projected frames to 2050, to help planners decide where and when to build windbreaks.
+A "spy satellite for sand dunes": a 3D globe app that shows where dune sand is measurably moving at three UAE sites (Seih Al Hama and Sweihan near Al Ain, and the eastern Liwa crescent), how fast, in which direction and how sure we are, and which roads, farms and built-up areas that moving sand reaches and when. It is built for planners and farm owners deciding where the next windbreak should go.
 
-> **Status:** pipeline in progress. Three sites are planned (`seih_al_hama`, `sweihan`, `liwa`); only Seih Al Hama has a verified box so far. Most files in `public/data/` are still **PLACEHOLDER** (fake values for app development); `public/data/sites.json` says which files are real (currently the Seih Al Hama wind summary).
+The measured motion is slow (around a metre per year), so the app shows it honestly: a motion-vector field on a stated time scale, "below detection limit" instead of zero, ranges instead of single numbers, and projections clearly labelled as projections. A weather-radar-style timeline plays the observed November Landsat scenes (with the 2002–2012 gap shown as a gap) and then the projected frames to 2050.
 
-*[Screenshot placeholder: added once the app is built, as `docs/screenshot.png`.]*
+![DuneSight: Seih Al Hama in Motion mode](docs/screenshots/seih-motion-1080p.png)
 
-**Live:** https://ssmarzooqi.github.io/dunesight/ (not deployed yet)
+**Live:** https://ssmarzooqi.github.io/dunesight/
 
 ## Run the app locally
 
@@ -19,6 +19,10 @@ npm run build      # production build into dist/ (base path /dunesight/)
 ```
 
 Optional: copy `.env.example` to `.env` and set `VITE_CESIUM_TOKEN` to a Cesium ion token (allowed URLs: the Pages URL and `http://localhost:5173`). Without a token the globe uses Esri World Imagery and a flat ellipsoid.
+
+**Using it.** Pick a site in the header; *True view*, *Motion* and *Threat* are presets of the layers. Click an arrow, a dune outline or a road/farm/built-up target for its card (Esc clears). The timeline plays with the button or the space bar; arrow keys step. *How we know* opens the method, sources, validation and limits for the site. Module-by-module notes and the design choices are in [docs/explain-it.md](docs/explain-it.md).
+
+**Tests.** `npm run test:e2e` builds, then runs the Playwright acceptance suite (spec section 8) against the dev server and against the production build served under `/dunesight/` (first time: `npx playwright install chromium`). `npm run test:e2e:dev` runs only the dev pass. Set `E2E_SWIFTSHADER=1` to force software WebGL.
 
 ## Run the pipeline
 

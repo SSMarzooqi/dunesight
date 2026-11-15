@@ -105,13 +105,24 @@ export function buildSiteData(b, { arrowFactor, arrowYears }) {
   const disp = s.frames?.median_case_2050_displacement || null;
   const projYears = (m.projected_median || []).map((p) => p.year).filter(isNum).sort((a, c) => a - c);
 
-  // timeline from the manifest: observed scenes, every gap between them, projected frames and their statistics
+  // timeline from the manifest: observed scenes (measured), display-only images, every gap left between them, projected
+  // frames and their statistics. A year with any frame is not a gap; the gaps are the years with neither.
   const obs = (m.observed || []).filter((o) => isNum(o.year)).sort((a, c) => a.year - c.year);
   const scenes = obs.map((o) => o.year);
+  const dispOnly = (m.observed_display_only || []).filter((o) => isNum(o.year) && o.file && !scenes.includes(o.year)).sort((a, c) => a.year - c.year);
+  const images = dispOnly.map((o) => o.year);
+  const frameYears = [...scenes, ...images].sort((a, c) => a - c);
   const gaps = [];
-  for (let i = 1; i < scenes.length; i++) if (scenes[i] - scenes[i - 1] > 1) gaps.push([scenes[i - 1] + 1, scenes[i] - 1]);
+  for (let i = 1; i < frameYears.length; i++) if (frameYears[i] - frameYears[i - 1] > 1) gaps.push([frameYears[i - 1] + 1, frameYears[i] - 1]);
   const observed = {};
-  for (const o of obs) observed[o.year] = { date: fmtDate(o.date), sensor: o.sensor || null, pixel: isNum(o.pixel_m) ? o.pixel_m : null, sceneId: o.scene_id || null, sunElev: isNum(o.sun_elevation_deg) ? o.sun_elevation_deg : null };
+  for (const o of obs) observed[o.year] = { date: fmtDate(o.date), sensor: o.sensor || null, pixel: isNum(o.pixel_m) ? o.pixel_m : null, sceneId: o.scene_id || null, sunElev: isNum(o.sun_elevation_deg) ? o.sun_elevation_deg : null, use: o.use || null };
+  for (const o of dispOnly) {
+    observed[o.year] = {
+      date: fmtDate(o.date), sensor: o.sensor || null, pixel: isNum(o.pixel_m) ? o.pixel_m : null, sceneId: o.scene_id || null,
+      sunElev: isNum(o.sun_elevation_deg) ? o.sun_elevation_deg : null, use: 'display_only', imageOnly: true,
+      nodataPct: isNum(o.nodata_share_of_box_pct) ? o.nodata_share_of_box_pct : null,
+    };
+  }
   const frameData = {};
   for (const p of m.projected_median || []) {
     const x = p.displacement || {};
@@ -218,7 +229,12 @@ export function buildSiteData(b, { arrowFactor, arrowYears }) {
       note: s.wind_agreement_note || null,
       sources: `${w.source || 'NASA MERRA-2'}${w.period ? ` ${w.period}` : ''} (wind) · Landsat 8/9 (dune heading)${st ? ` · ${st.source} (station, not NASA)` : ''}`,
     },
-    timeline: { start: scenes[0] ?? 2000, end: END_YEAR, lastObserved: last, scenes, gaps, frames: projYears, frameData, observed, readingNote: m.projection_reading_note || null },
+    timeline: {
+      start: frameYears[0] ?? 2000, end: END_YEAR, lastObserved: last, scenes, images, gaps, frames: projYears, frameData, observed,
+      readingNote: m.projection_reading_note || null,
+      imageNote: m.display_only_note || null,
+      alignNote: m.display_only_alignment_note || null,
+    },
     reached,
     possibleCount: sc.possible_within_direction_uncertainty || 0,
     credits: {

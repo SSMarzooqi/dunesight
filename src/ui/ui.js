@@ -24,6 +24,7 @@ export const MAP_STYLE = {
   casing: COL.casing, // draw under every line at width + 2
   projected: COL.projected,
   measured: COL.measured,
+  nodata: ['#2A2620', '#4A443B'], // hatch for missing data (Landsat 7 scan-line gaps): ground, lines; = --ds-nodata
   text: COL.text,
 };
 /** Threat-status value in targets.geojson -> legend/style key. */
@@ -94,6 +95,9 @@ const compassName = (deg) => ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 
 // trailing space: the tag reads as its own word (screen readers, copied text)
 const projTag = '<span class="ds-tag-projected">PROJECTED</span> ';
 const measTag = '<span class="ds-tag-measured">MEASURED</span> ';
+const imageTag = '<span class="ds-tag-image">IMAGE ONLY</span> ';
+/** Years as a short list: 2002, 2004, 2006–07, 2009–10. */
+const yearRuns = (gaps) => gaps.map(([a, b]) => (a === b ? `${a}` : `${a}–${Math.floor(a / 100) === Math.floor(b / 100) ? String(b).slice(2) : b}`)).join(', ');
 const srcLine = (text, anchor) => `<p class="ds-src ds-caption">Source: ${text} · <button type="button" class="ds-link" data-dossier="${anchor}">How we know</button></p>`;
 
 // ---------- compass ----------
@@ -299,7 +303,7 @@ function reachedPanel(d, filter) {
     + `</div></div></section>`;
 }
 
-function legendRows(mode, d, layers, settings, projectedVisible) {
+function legendRows(mode, d, layers, settings, projectedVisible, imageVisible) {
   const lrow = (id, sample, label, { count, sub } = {}) =>
     `<label class="ds-lrow"><input type="checkbox" data-layer="${id}"${layers[id] ? ' checked' : ''}><span>${sample}</span><span>${label}${sub ? `<small>${sub}</small>` : ''}</span>${count != null ? `<b>${count}</b>` : '<span></span>'}</label>`;
   const classes = `<div class="ds-classes">${['stable', 'slow', 'active', 'fast'].map((k) => `<div>${outlineSample(MAP_STYLE.dune[k], 22)}${k[0].toUpperCase() + k.slice(1)}</div>`).join('')}</div>`;
@@ -315,15 +319,21 @@ function legendRows(mode, d, layers, settings, projectedVisible) {
     : '';
   const exposed = lrow('exposed', exposedSample(), 'Exposed to blowing sand today', { count: n(d.targets.exposed), sub: 'borders free sand; not forecast by this tool' });
   const dunesRow = (sub) => lrow('dunes', outlineSample(MAP_STYLE.dune.active), 'Large dunes (NASADEM outline)', { sub });
+  // image-only years (Landsat 7 with scan-line gaps): what the stripes are, and why arrows and outlines are not drawn
+  const imageNote = imageVisible
+    ? `<div class="ds-limage" data-image-legend><p class="ds-limage__head">${imageTag}<span>This year is an image only, not used for any measurement.</span></p>`
+      + `<p class="ds-limage__row"><span class="ds-nodata-swatch"></span><span>Hatched stripes: no data<small>Landsat 7 scan-line gaps (its scan line corrector failed on 31 May 2003); nothing is filled in</small></span></p>`
+      + `<p class="ds-caption">Motion arrows and dune outlines are hidden in these years: they describe 2013–2025.</p></div>`
+    : '';
   if (mode === 'motion') {
-    return arrows('Dune motion, measured', armSub)
+    return imageNote + arrows('Dune motion, measured', armSub)
       + dunesRow('shifted to Nov 2025 by the motion measured around them') + classes + then
       + projected + box;
   }
   if (mode === 'threat') {
     const L = d.targets.legend, T = MAP_STYLE.threat;
     const rule = settings.reachCase === 'median' ? 'median' : 'fast-case';
-    return `<div class="ds-lgroup ds-caption"><span>Roads, farms and built-up areas</span><span>most urgent first</span></div>`
+    return imageNote + `<div class="ds-lgroup ds-caption"><span>Roads, farms and built-up areas</span><span>most urgent first</span></div>`
       + lrow('t_now', lineSample(T.now), 'Sand at edge now', { count: n(L.now) })
       + lrow('t_by2050', lineSample(T.by2050), 'Reached by 2050', { count: n(L.by2050) })
       + lrow('t_by2100', lineSample(T.by2100), 'Reached 2051–2100', { count: n(L.by2100) })
@@ -335,7 +345,7 @@ function legendRows(mode, d, layers, settings, projectedVisible) {
       + arrows('Dune motion near reached places', `others dimmed; ${armSub}`)
       + dunesRow('dimmed in this view') + then + projected + box;
   }
-  return `<div class="ds-lgroup ds-caption"><span>Satellite image only</span></div>` + box + projected
+  return imageNote + `<div class="ds-lgroup ds-caption"><span>Satellite image only</span></div>` + box + projected
     + dunesRow('shifted to Nov 2025 by the motion measured around them') + then
     + arrows('Dune motion, measured', armSub)
     + lrow('targets', lineSample(MAP_STYLE.threat.now), 'Roads, farms, built-up by threat') + exposed;
@@ -359,24 +369,29 @@ function cardPanel(card) {
 function timelineSection(d, settings) {
   const tl = d.timeline, start = tl.start, end = tl.end, last = tl.lastObserved;
   const x = (y) => `${((y - start) / (end - start)) * 100}%`;
-  const scenes = tl.scenes;
+  const scenes = tl.scenes, images = tl.images || [];
+  const all = [...scenes, ...images].sort((a, b) => a - b);
   let obs = '';
-  // solid segments only between scenes in consecutive years: every gap stays a gap
-  for (let i = 0; i < scenes.length - 1; i++) {
-    const a = scenes[i], b = scenes[i + 1];
+  // solid (measured) segments only between measured scenes in consecutive years; a dotted segment where either year is an
+  // image-only frame; every gap stays a gap
+  for (let i = 0; i < all.length - 1; i++) {
+    const a = all[i], b = all[i + 1];
     if (b - a !== 1) continue;
-    obs += `<div class="ds-track__obs" style="left:${x(a)};width:calc(${x(b)} - ${x(a)})"></div>`;
+    const img = images.includes(a) || images.includes(b);
+    obs += `<div class="${img ? 'ds-track__img' : 'ds-track__obs'}" style="left:${x(a)};width:calc(${x(b)} - ${x(a)})"></div>`;
   }
   const gapEls = tl.gaps.map(([ga, gb]) => {
     const a = ga - 1, b = gb + 1, span = gb === ga ? `${ga}` : `${ga}–${gb}`;
     const long = gb - ga >= 2;
-    return `<div class="ds-track__gap${long ? '' : ' ds-track__gap--short'}" style="left:${x(a)};width:calc(${x(b)} - ${x(a)})" title="No usable November Landsat scene ${span}: a gap, not interpolated">`
+    return `<div class="ds-track__gap${long ? '' : ' ds-track__gap--short'}" data-gap="${span}" style="left:${x(a)};width:calc(${x(b)} - ${x(a)})" title="No usable November Landsat scene ${span}: a gap, not interpolated">`
       + (long ? `no scenes<span class="ds-track__gap-long"> ${span}</span>` : `<span class="ds-sr">no scene ${span}</span>`) + '</div>';
   }).join('');
-  const afterGaps = tl.gaps.filter(([ga, gb]) => gb - ga >= 2).map(([, gb]) => gb + 1);
+  // one label naming every empty year, where image-only frames break the early years into short gaps
+  const gapNote = images.length && tl.gaps.length ? `No scene: ${yearRuns(tl.gaps)}` : '';
+  const afterGaps = tl.gaps.filter(([ga, gb]) => gb - ga >= 2).map(([, gb]) => gb + 1).filter((y) => !(images.length && y < last));
   const years = [[start, 'first'], ...afterGaps.map((y) => [y, 'major']), [last, 'major'], ...tl.frames.filter((f) => f < end).map((f) => [f, (f - start) % 20 ? 'minor' : 'major']), [end, 'last']]
     .filter(([y], i, arr) => isNum(y) && arr.findIndex(([z]) => z === y) === i)
-    .map(([y, k]) => `<div class="ds-track__year ds-track__year--${k}" style="left:${x(y)}">${y}</div>`).join('');
+    .map(([y, k]) => `<div class="ds-track__year ds-track__year--${k}"${y === last ? ' data-last-year' : ''} style="left:${x(y)}">${y}</div>`).join('');
   return `<section class="ds-timeline" aria-label="When?">
   <div class="ds-tl-controls"><h2>When?</h2><div>
     <button type="button" class="ds-tbtn" data-step="-1" aria-label="Step back">${icon('back')}</button>
@@ -389,6 +404,8 @@ function timelineSection(d, settings) {
       <div class="ds-track__sect ds-track__sect--p" style="left:${x(last)}">Projected</div>
       ${obs}${gapEls}
       ${scenes.map((s) => `<div class="ds-track__scene" data-scene="${s}" style="left:${x(s)}"></div>`).join('')}
+      ${images.map((s) => `<div class="ds-track__image" data-image="${s}" style="left:${x(s)}" title="${s}: image only (Landsat 7, striped gaps), not used for measurement"></div>`).join('')}
+      ${images.length ? `<div class="ds-track__gapnote" data-gapnote style="left:calc(${x(start)} + 44px)"><span class="ds-track__gapkey"><i class="ds-key-image"></i>image only, not measured</span>${gapNote ? `<span>${gapNote}</span>` : ''}</div>` : ''}
       <div class="ds-track__proj" style="left:${x(last)};right:0"></div>
       ${tl.frames.map((f) => `<div class="ds-track__frame" data-frame="${f}" style="left:${x(f)}"></div>`).join('')}
       <div class="ds-track__divider" style="left:${x(last)}"></div>
@@ -397,6 +414,7 @@ function timelineSection(d, settings) {
     </div>
     <div class="ds-tl-read"><p data-readout aria-live="polite"></p>
       <span class="ds-hint"><kbd>Space</kbd> play · <kbd>← →</kbd> step</span></div>
+    ${gapNote || images.length ? `<p class="ds-tl-key ds-caption" data-tl-key>${images.length ? `<span><i class="ds-key-image"></i>Image only, not measured (Landsat 7, striped gaps)</span>` : ''}${gapNote ? `<span data-gapnote-phone>${gapNote}</span>` : ''}</p>` : ''}
   </div>
   <div class="ds-gearwrap">
     <button type="button" class="ds-tbtn" data-gear aria-label="Timeline settings" aria-expanded="false">${icon('gear', 18)}</button>
@@ -429,7 +447,7 @@ export function mountDuneSightUI(container, opts) {
   const call = (name, ...args) => typeof o[name] === 'function' && o[name](...args);
 
   function steps() {
-    const tl = state.data.timeline, out = [...tl.scenes];
+    const tl = state.data.timeline, out = [...tl.scenes, ...(tl.images || [])].sort((a, b) => a - b);
     for (let y = tl.lastObserved + 1; y <= tl.end; y++) out.push(y);
     return out;
   }
@@ -525,7 +543,8 @@ export function mountDuneSightUI(container, opts) {
 
   function renderLegend() {
     const projectedVisible = state.year > state.data.timeline.lastObserved;
-    root.querySelector('[data-legend-rows]').innerHTML = legendRows(state.mode, state.data, state.layers[state.mode], state.settings, projectedVisible);
+    const imageVisible = !!state.data.timeline.observed[state.year]?.imageOnly;
+    root.querySelector('[data-legend-rows]').innerHTML = legendRows(state.mode, state.data, state.layers[state.mode], state.settings, projectedVisible, imageVisible);
     root.querySelector('[data-modename]').textContent = NAMES[state.mode];
   }
 
@@ -541,12 +560,20 @@ export function mountDuneSightUI(container, opts) {
     root.querySelector('[data-head-label]').textContent = y;
     const track = root.querySelector('.ds-track');
     track.setAttribute('aria-valuenow', y);
-    track.setAttribute('aria-valuetext', `${y} ${y > tl.lastObserved ? 'projected' : 'measured'}`);
-    let text;
     const projected = y > tl.lastObserved;
+    const o2 = projected ? null : tl.observed[y];
+    const image = !!o2?.imageOnly;
+    track.setAttribute('aria-valuetext', `${y} ${projected ? 'projected' : image ? 'image only, not measured' : 'measured'}`);
+    let text;
     if (!projected) {
-      const o2 = tl.observed[y];
-      if (o2) {
+      if (image) {
+        text = `<b>${y}</b> · ${imageTag}not used for measurement · ${[
+          o2.date ? `<b>${esc(o2.date)}</b>` : null,
+          o2.sensor ? esc(o2.sensor) : null,
+          isNum(o2.pixel) ? `${o2.pixel} m pixel` : null,
+          o2.sceneId ? `scene <span class="ds-mono">${esc(o2.sceneId)}</span>` : null,
+        ].filter(Boolean).join(' · ')} · hatched stripes are missing data${isNum(o2.nodataPct) ? ` (${n(o2.nodataPct, 0)}% of the box)` : ''}: the scan line corrector failed on 31 May 2003.<span class="ds-read-extra"> Arrows and outlines hidden.</span>`;
+      } else if (o2) {
         text = `<b>${y}</b> · ${measTag}${[
           o2.date ? `<b>${esc(o2.date)}</b>` : null,
           o2.sensor ? esc(o2.sensor) : null,
@@ -569,10 +596,13 @@ export function mountDuneSightUI(container, opts) {
       }
     }
     root.querySelector('[data-readout]').innerHTML = text;
-    root.querySelector('[data-when]').innerHTML = projected ? `${projTag}<b>${y}</b>` : `${measTag}<b>${y}</b>`;
-    root.querySelector('[data-when]').dataset.kind = projected ? 'projected' : 'observed';
+    root.querySelector('[data-readout]').dataset.kind = projected ? 'projected' : image ? 'image' : 'observed';
+    root.querySelector('[data-when]').innerHTML = projected ? `${projTag}<b>${y}</b>`
+      : image ? `${imageTag}<b>${y}</b><span class="ds-when__sub"> · Landsat 7, striped gaps · not used for measurement</span>` : `${measTag}<b>${y}</b>`;
+    root.querySelector('[data-when]').dataset.kind = projected ? 'projected' : image ? 'image' : 'observed';
     const wasProjected = root.querySelector('[data-layer="projected"]') != null;
-    if (wasProjected !== projected) renderLegend();
+    const wasImage = root.querySelector('[data-image-legend]') != null;
+    if (wasProjected !== projected || wasImage !== image) renderLegend();
     declutterTrack(track, (y - tl.start) / (tl.end - tl.start));
   }
 
@@ -585,13 +615,22 @@ export function mountDuneSightUI(container, opts) {
       const x0 = el.offsetLeft - (el.classList.contains('ds-track__sect--m') ? el.offsetWidth : 0), x1 = x0 + el.offsetWidth;
       el.style.visibility = hx + hw > x0 && hx - hw < x1 ? 'hidden' : '';
     }
+    // the early-years note (image-only key + empty years): drop the key, then the note, if it would run into the latest year's label
+    const note = track.querySelector('[data-gapnote]'), m = track.querySelector('[data-last-year]');
+    if (note && m) {
+      const mx0 = m.offsetLeft - m.offsetWidth / 2;
+      note.classList.remove('ds-track__gapnote--short');
+      note.style.visibility = '';
+      if (note.offsetLeft + note.offsetWidth > mx0 - 6) note.classList.add('ds-track__gapnote--short');
+      if (note.offsetLeft + note.offsetWidth > mx0 - 6) note.style.visibility = 'hidden';
+    }
   }
 
   function setYear(y, emit = true) {
     const tl = state.data.timeline;
     state.year = Math.max(tl.start, Math.min(tl.end, y));
     renderTime();
-    if (emit) call('onTimeChange', state.year, { projected: state.year > tl.lastObserved, frame: frameFor(state.year), observed: tl.scenes.includes(state.year) });
+    if (emit) call('onTimeChange', state.year, { projected: state.year > tl.lastObserved, frame: frameFor(state.year), observed: tl.scenes.includes(state.year), imageOnly: (tl.images || []).includes(state.year) });
   }
   function step(dir) {
     const s = steps(), i = s.findIndex((v) => v >= state.year);

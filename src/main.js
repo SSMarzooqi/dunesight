@@ -130,6 +130,22 @@ const projectedTag = mapTags.add({
   show: false,
 });
 
+// The IMAGE ONLY tag on the map, same corner, for display-only years (Landsat 7 with scan-line gaps, not measured).
+const imageTag = mapTags.add({
+  text: 'IMAGE ONLY',
+  font: '600 13px "IBM Plex Sans", system-ui, sans-serif',
+  fillColor: C(MAP_STYLE.text),
+  showBackground: true,
+  backgroundColor: C('#15130F', 0.82),
+  backgroundPadding: new Cesium.Cartesian2(7, 4),
+  horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
+  verticalOrigin: Cesium.VerticalOrigin.TOP,
+  pixelOffset: new Cesium.Cartesian2(6, 6),
+  heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+  disableDepthTestDistance: Number.POSITIVE_INFINITY,
+  show: false,
+});
+
 let switchToken = 0;
 async function activateSite(id, { fly = true } = {}) {
   const entry = index.sites.find((s) => s.id === id);
@@ -160,6 +176,7 @@ async function activateSite(id, { fly = true } = {}) {
   ui.setBasemap(basemap.basemap);
   setSiteVisible(id, true);
   projectedTag.position = Cesium.Cartesian3.fromDegrees(bundle.bbox.west, bundle.bbox.north);
+  imageTag.position = projectedTag.position;
   if (!$('#dossier').hidden) openDossier();
   applyLayers();
   applyYear(ui.getState().year);
@@ -247,7 +264,14 @@ function applyStop(stop) {
   const L = layers();
   if (!L || !stop) return;
   const projected = stop.kind === 'projected';
+  const imageOnly = stop.kind === 'display';
   const showProjected = projected && state.projectedOn !== false;
+  // Image-only years (Landsat 7 with scan-line gaps): the arrows and the dune outlines describe 2013-2025 motion, so
+  // they are not drawn on these images (the Feb 2000 outlines of "then vs now" stay available, they are dated).
+  const on = ui?.getState().layers || {};
+  L.vectors.setVisible(!imageOnly && !!on.vectors);
+  L.dunes.setVisible(!imageOnly && !!on.dunes);
+  if (imageOnly && (state.selection?.kind === 'arrow' || state.selection?.kind === 'dune')) clearSelection();
   if (!projected) {
     L.frames.show({ base: stop.frame, med: null, fast: null, change: false });
   } else if (!showProjected) {
@@ -267,6 +291,8 @@ function applyStop(stop) {
   L.boxCasing.show = L.boxOn;
   projectedTag.show = showProjected;
   projectedTag.text = `PROJECTED ${stop.year}${stop.med ? ` · median case, ${stop.med.year} frame` : ''}`;
+  imageTag.show = imageOnly;
+  imageTag.text = imageOnly ? `IMAGE ONLY ${stop.year} · not measured\nLandsat 7: hatched stripes = no data` : 'IMAGE ONLY';
   L.targets.setYear(stop.year);
   L.vectors.setTrackYears(projected ? stop.yearsSince : 0);
   document.body.dataset.timekind = stop.kind;
@@ -681,6 +707,7 @@ window.__ds = {
       boxProjected: L.boxProjected.show,
       projected: !!roles.med || L.vectors.tracksShown,
       projectedTag: projectedTag.show,
+      imageTag: imageTag.show,
       t_now: anyOf('now'),
       t_by2050: anyOf('by2050'),
       t_by2100: anyOf('by2100'),

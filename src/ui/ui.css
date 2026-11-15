@@ -445,3 +445,42 @@
   .ds-lsub, .ds-lnote { padding-left: 54px; }
   .ds-range__key span { white-space: normal; }
 }
+
+/* image-only years (Landsat 7 with scan-line gaps, display only): not blue (measured), not stone (projected) */
+.ds-tag-image {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 6px; margin-right: 2px; vertical-align: 1px;
+  border: 1px dotted var(--ds-text-2); border-radius: var(--ds-radius-sm); background: var(--ds-nodata-soft);
+  font-size: 12px; font-weight: var(--ds-fw-strong); letter-spacing: 0.05em; color: var(--ds-text); white-space: nowrap;
+}
+.ds-tl-read .ds-tag-image { height: 16px; font-size: 11px; }
+.ds-track__img { top: 25px; height: 0; border-top: 2px dotted var(--ds-text-2); }
+.ds-track__image { top: 21px; width: 9px; height: 9px; transform: translateX(-50%); border: 1.5px solid var(--ds-text-2); border-radius: 1px; background: var(--ds-panel-solid); }
+.ds-key-image { display: inline-block; width: 8px; height: 8px; margin-right: 5px; border: 1.5px solid var(--ds-text-2); border-radius: 1px; vertical-align: -1px; }
+.ds-track__gapnote { top: 36px; font-size: 12px; line-height: 1; color: var(--ds-text-3); white-space: nowrap; display: flex; gap: 10px; }
+.ds-track__gapnote span { font-style: italic; }
+.ds-track__gapnote .ds-track__gapkey { font-style: normal; color: var(--ds-text-2); }
+.ds-track__gapnote--short .ds-track__gapkey { display: none; }
+.ds-tl-key { display: none; }
+.ds-tl-key span + span::before { content: " · "; }
+.ds-nodata-swatch { display: inline-block; width: 26px; height: 12px; border-radius: 2px; background: var(--ds-nodata); box-shadow: inset 0 0 0 1px var(--ds-line-strong); }
+.ds-lrow--static { cursor: default; }
+.ds-when[data-kind="image"] { border-style: dotted; }
+.ds-when__sub { margin-left: 4px; font-size: 13px; color: var(--ds-text-2); white-space: nowrap; }
+@media (max-width: 1100px) and (min-width: 761px) { .ds-when__sub { display: none; } }
+@media (max-width: 760px) {
+  .ds-track__gapnote { display: none; }
+  .ds-tl-key { display: block; margin-top: 6px; line-height: 1.42; }
+  .ds-ui .ds-when { height: auto; min-height: 30px; flex-wrap: wrap; max-width: calc(100vw - 24px); padding: 4px 10px; }
+  .ds-when__sub { font-size: 12px; white-space: normal; }
+}
+.ds-limage { margin: 4px 0 8px; padding: 8px 10px; border: 1px dotted var(--ds-line-strong); border-radius: var(--ds-radius); }
+.ds-limage p { margin: 0; }
+.ds-limage__head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--ds-text); }
+.ds-limage__row { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 10px; align-items: start; margin: 8px 0 4px !important; line-height: 1.35; }
+.ds-limage__row small { display: block; font-size: 12px; color: var(--ds-text-3); }
+.ds-limage__row .ds-nodata-swatch { margin-top: 3px; }
+@media (max-width: 760px) {
+  .ds-ui .ds-track__gap:not(.ds-track__gap--short) { top: 25px; height: 0; font-size: 0; border-top: 1px dashed var(--ds-text-3); }
+  .ds-tl-read p[data-kind="image"] { -webkit-line-clamp: unset; line-clamp: unset; display: block; }
+}
+@media (max-width: 760px) { .ds-read-extra { display: none; } }

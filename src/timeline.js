@@ -1,4 +1,4 @@
-// Timeline model: the stops for a site (every observed scene, then every year to 2050) with the frames to draw at each; the bar and its controls are drawn by the UI (src/ui/ui.js).
+// Timeline model: the stops for a site (every observed scene and display-only image in year order, then every year to 2050) with the frames to draw at each; the bar and its controls are drawn by the UI (src/ui/ui.js).
 
 export const END_YEAR = 2050;
 
@@ -8,7 +8,10 @@ export function buildStops(manifest) {
   const med = (manifest?.projected_median || []).filter((p) => Number.isFinite(p.year)).sort((a, b) => a.year - b.year);
   const fast = (manifest?.projected_fast || []).filter((p) => Number.isFinite(p.year)).sort((a, b) => a.year - b.year);
   const latest = obs[obs.length - 1] || null;
-  const stops = obs.map((o) => ({ year: o.year, kind: 'observed', frame: o }));
+  // display-only images (Landsat 7 after the 2003 scan-line-corrector failure): a stop with a frame, never a measurement
+  const disp = (manifest?.observed_display_only || []).filter((o) => Number.isFinite(o.year) && o.file && !obs.some((x) => x.year === o.year));
+  const stops = [...obs.map((o) => ({ year: o.year, kind: 'observed', frame: o })), ...disp.map((o) => ({ year: o.year, kind: 'display', frame: o }))]
+    .sort((a, b) => a.year - b.year);
   if (latest) {
     const firstP = med[0]?.year ?? latest.year + 5;
     const lastP = med[med.length - 1]?.year ?? END_YEAR;
@@ -21,9 +24,10 @@ export function buildStops(manifest) {
       stops.push({ year: y, kind: 'projected', base: latest, med: m, fast: f, medAlpha, yearsSince: y - latest.year, isFrameYear: !!med.find((p) => p.year === y) });
     }
   }
+  const years = stops.filter((s) => s.kind !== 'projected').map((s) => s.year);
   const gaps = [];
-  for (let i = 1; i < obs.length; i++) {
-    if (obs[i].year - obs[i - 1].year > 1) gaps.push([obs[i - 1].year + 1, obs[i].year - 1]);
+  for (let i = 1; i < years.length; i++) {
+    if (years[i] - years[i - 1] > 1) gaps.push([years[i - 1] + 1, years[i] - 1]);
   }
-  return { stops, gaps, first: obs[0]?.year ?? 2000, latest, med, fast };
+  return { stops, gaps, first: years[0] ?? 2000, latest, med, fast, display: disp };
 }

@@ -15,6 +15,23 @@ test.afterEach(async ({ errors }, testInfo) => {
 
 const setMode = (page, m) => page.click(`.ds-header [data-mode="${m}"]`);
 const shown = (page) => page.evaluate(() => window.__ds.shown());
+/** Display-only frames (Landsat 7 with scan-line gaps, image only) and the years left with no frame at all. */
+const displayOnly = (m) => (m.observed_display_only || []).slice().sort((a, b) => a.year - b.year);
+const frameGaps = (m) => {
+  const ys = [...m.observed.map((o) => o.year), ...displayOnly(m).map((o) => o.year)].sort((a, b) => a - b);
+  const gaps = [];
+  for (let k = 1; k < ys.length; k++) if (ys[k] - ys[k - 1] > 1) gaps.push([ys[k - 1] + 1, ys[k] - 1]);
+  return gaps;
+};
+/** Years named in a label such as "No scene: 2002, 2004, 2006–07, 2009–10, 2018". */
+const namedYears = (text) => {
+  const out = [];
+  for (const [, a, b] of String(text).matchAll(/(\d{4})(?:–(\d{2,4}))?/g)) {
+    const end = b ? (b.length === 2 ? Math.floor(+a / 100) * 100 + +b : +b) : +a;
+    for (let y = +a; y <= end; y++) out.push(y);
+  }
+  return out;
+};
 
 // 1 + 2 ---------------------------------------------------------------------------------------
 test('1/2 · loads cleanly; HUD and site box within 5 s', async ({ page }) => {
@@ -53,11 +70,14 @@ test('3 · fly-in lands on the default site; switching swaps all data', async ({
     expect(counts.dunes).toBe(d.dunes.features.length);
     expect(counts.arrows).toBe(d.vectors.features.length);
     const latest = d.manifest.observed.at(-1).year;
-    expect(counts.stops).toBe(d.manifest.observed.length + (2050 - latest));
+    expect(counts.stops).toBe(d.manifest.observed.length + displayOnly(d.manifest).length + (2050 - latest));
     await expect(page.locator('.ds-compass .ds-petal')).toHaveCount(d.wind.sand_rose.length);
     // timeline scene ticks are exactly the manifest's observed years (Liwa has 2018 and no 2016; the others the reverse)
     const scenes = await page.locator('.ds-track__scene').evaluateAll((els) => els.map((e) => +e.dataset.scene));
     expect(scenes).toEqual(d.manifest.observed.map((o) => o.year));
+    // display-only images have their own ticks, never the measured style
+    const images = await page.locator('.ds-track__image').evaluateAll((els) => els.map((e) => +e.dataset.image));
+    expect(images).toEqual(displayOnly(d.manifest).map((o) => o.year));
     const frames = await page.locator('.ds-track__frame').evaluateAll((els) => els.map((e) => +e.dataset.frame));
     expect(frames).toEqual(d.manifest.projected_median.map((p) => p.year));
   }
@@ -157,16 +177,21 @@ for (const id of SITES) {
     await switchSite(page, id);
     const d = siteData(id);
     const m = d.manifest;
-    // every gap between observed scenes is drawn as a gap, the long one labelled
-    const years = m.observed.map((o) => o.year);
-    const gaps = [];
-    for (let k = 1; k < years.length; k++) if (years[k] - years[k - 1] > 1) gaps.push([years[k - 1] + 1, years[k] - 1]);
+    // every year with no frame at all (measured or image-only) is drawn as a gap, a long one labelled
+    const gaps = frameGaps(m);
     await expect(page.locator('.ds-track__gap')).toHaveCount(gaps.length);
     for (const [a, b] of gaps) {
       if (b - a >= 2) await expect(page.locator('.ds-track__gap', { hasText: `no scenes ${a}–${b}` })).toHaveCount(1);
       else await expect(page.locator('.ds-track__gap--short', { hasText: `no scene ${a}` })).toHaveCount(1);
     }
-    await expect(page.locator('.ds-track__scene')).toHaveCount(years.length);
+    // the gap label names exactly the empty years, computed from the data
+    if (displayOnly(m).length) {
+      const note = await page.locator('[data-gapnote]').innerText();
+      expect(namedYears(note)).toEqual(gaps.flatMap(([a, b]) => Array.from({ length: b - a + 1 }, (_, i) => a + i)));
+    }
+    const years = [...m.observed.map((o) => o.year), ...displayOnly(m).map((o) => o.year)].sort((a, b) => a - b);
+    await expect(page.locator('.ds-track__scene')).toHaveCount(m.observed.length);
+    await expect(page.locator('.ds-track__image')).toHaveCount(displayOnly(m).length);
 
     // step through every stop from the first
     await page.evaluate((y) => window.__ds.goYear(y), years[0]);
@@ -190,6 +215,36 @@ for (const id of SITES) {
         expect(label).toContain(o.scene_id);
         // the full line is on screen, not cut off
         expect(await page.locator('[data-readout]').evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+        expect(when).not.toContain('IMAGE ONLY');
+        const sh = await shown(page);
+        expect(sh.imageTag).toBe(false);
+        expect(sh.vectors).toBe(true); // motion view: arrows on every measured year, as before
+        expect(sh.frames.base).toBe(`raw:${o.file}`);
+      } else if (stop.kind === 'display') {
+        // image only: plainly not a measurement, with date, sensor, pixel size, scene id, and what the stripes are
+        const o = displayOnly(m).find((x) => x.year === stop.year);
+        expect(o.use).toBe('display_only');
+        expect(when).toContain('IMAGE ONLY');
+        expect(when).toContain('not used for measurement');
+        expect(when).toContain('Landsat 7');
+        expect(when).not.toContain('MEASURED');
+        expect(label).toContain('IMAGE ONLY');
+        expect(label).toContain('not used for measurement');
+        expect(label).not.toContain('MEASURED');
+        expect(label).toContain(o.sensor);
+        expect(label).toContain(`${o.pixel_m} m pixel`);
+        expect(label).toMatch(new RegExp(`\\b\\d{1,2} [A-Z][a-z]{2} ${o.date.slice(0, 4)}\\b`));
+        expect(label).toContain(o.scene_id);
+        expect(label).toContain('missing data');
+        expect(label).toContain('31 May 2003');
+        expect(await page.locator('[data-readout]').evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+        const sh = await shown(page);
+        expect(sh.imageTag).toBe(true);
+        expect(sh.projectedTag).toBe(false);
+        expect(sh.vectors).toBe(false); // the 2013-2025 arrows and outlines are not drawn on these images
+        expect(sh.dunes).toBe(false);
+        expect(sh.frames.base).toBe(`nodata:${o.file}`); // stripes painted as the no-data hatch
+        await expect(page.locator('[data-image-legend]')).toContainText('Hatched stripes: no data');
       } else {
         expect(when).toContain('PROJECTED');
         expect(label).toContain('PROJECTED');
@@ -215,6 +270,45 @@ for (const id of SITES) {
     await page.waitForFunction(() => window.__ds.timeline.stop.year === 2050 && !window.__ds.timeline.playing, null, { timeout: 20_000 });
   });
 }
+
+// display-only frames ---------------------------------------------------------------------------
+test('display-only Landsat 7 frames: tagged in the data, never a measured year, listed as their own stops at every site', async ({ page }) => {
+  await boot(page);
+  for (const id of SITES) {
+    const d = siteData(id);
+    const m = d.manifest;
+    for (const o of m.observed) expect(['measurement', 'long_baseline_check']).toContain(o.use);
+    expect(m.observed.filter((o) => o.use === 'measurement').every((o) => !/Landsat 7/.test(o.sensor))).toBe(true);
+    const disp = displayOnly(m);
+    expect(disp.length, `${id} has display-only frames`).toBeGreaterThan(0);
+    const measuredYears = new Set(m.observed.map((o) => o.year));
+    for (const o of disp) {
+      expect(o.use).toBe('display_only');
+      expect(o.used_for_measurement).toBe(false);
+      expect(measuredYears.has(o.year)).toBe(false);
+      expect(o.date >= '2003-05-31').toBe(true);
+      expect(o.sensor).toMatch(/^Landsat 7/);
+      expect(o.note).toMatch(/31 May 2003/);
+      expect(o.nodata_share_of_box_pct).toBeGreaterThan(0);
+    }
+    expect(d.summary.frames.n_display_only).toBe(disp.length);
+    expect(d.summary.frames.n_observed).toBe(m.observed.length);
+    // the Landsat 7 source entry says what the display-only dates are for
+    const l7 = d.sources.find((x) => /^Landsat 7/.test(x.name));
+    expect(l7.dates_by_use.display_only_frames).toEqual(disp.map((o) => o.date));
+    expect(l7.used_for).toMatch(/display-only/);
+    await switchSite(page, id);
+    const stops = await page.evaluate(() => window.__ds.timeline.model.stops.map((st) => [st.year, st.kind]));
+    expect(stops.filter(([, k]) => k === 'display').map(([y]) => y)).toEqual(disp.map((o) => o.year));
+    expect(stops.filter(([, k]) => k === 'observed').map(([y]) => y)).toEqual(m.observed.map((o) => o.year));
+    // a measured year after an image-only year shows the arrows again
+    await page.evaluate((y) => window.__ds.goYear(y), disp[0].year);
+    expect((await shown(page)).vectors).toBe(false);
+    await page.evaluate((y) => window.__ds.goYear(y), m.observed.at(-1).year);
+    expect((await shown(page)).vectors).toBe(true);
+    expect((await shown(page)).dunes).toBe(true);
+  }
+});
 
 // 7 -------------------------------------------------------------------------------------------
 for (const id of SITES) {
@@ -868,6 +962,15 @@ test('12 · phone 390×844: bottom sheet with tabs, globe usable, nothing overfl
   await page.selectOption('[data-site-select]', other);
   await page.waitForFunction((sid) => window.__ds.state.siteId === sid, other, { timeout: 60_000 });
   await noSideways();
+  // an image-only year on the phone: chip, readout and the key with the empty years, nothing sideways
+  const firstImage = displayOnly(siteData(other).manifest)[0];
+  await page.evaluate((y) => window.__ds.goYear(y), firstImage.year);
+  await expect(page.locator('[data-when]')).toContainText('IMAGE ONLY');
+  await expect(page.locator('[data-tl-key]')).toBeVisible();
+  await expect(page.locator('[data-tl-key]')).toContainText('No scene');
+  await expect(page.locator('[data-readout]')).toContainText(firstImage.scene_id);
+  await noSideways();
+  await page.screenshot({ path: 'test-results/layout-390x844-image-only.png' });
   await page.screenshot({ path: 'test-results/layout-390x844.png' });
 });
 
@@ -882,7 +985,7 @@ test('13 · full run-through of each site without console errors', async ({ page
       expect(await hudText(page)).not.toMatch(BAD_TEXT);
     }
     await page.click('[data-action="topDown"]');
-    for (const y of [2000, 2013, 2027, 2030, 2050]) {
+    for (const y of [2000, displayOnly(siteData(id).manifest)[0]?.year, 2013, 2027, 2030, 2050].filter(Boolean)) {
       await page.evaluate((yy) => window.__ds.goYear(yy), y);
       expect(await hudText(page)).not.toMatch(BAD_TEXT);
     }

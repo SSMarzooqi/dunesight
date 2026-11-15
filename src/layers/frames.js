@@ -1,4 +1,4 @@
-// Imagery-frame layer: drapes the manifest's observed Landsat frames and stone-tinted projected frames (the projected colour) on the globe inside the exact frame bounds, with cross-fades and an optional changed-pixel overlay.
+// Imagery-frame layer: drapes the manifest's observed Landsat frames (and display-only Landsat 7 frames, their scan-line gaps drawn as a neutral no-data hatch) and stone-tinted projected frames (the projected colour) on the globe inside the exact frame bounds, with cross-fades and an optional changed-pixel overlay.
 import * as Cesium from 'cesium';
 import { dataUrl } from '../data.js';
 import { MAP_STYLE } from '../ui/ui.js';
@@ -7,6 +7,7 @@ const FADE_MS = 320;
 const hexRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 const STONE = hexRgb(MAP_STYLE.projected); // projected = stone, as in the legend and the timeline
 const DARK = [21, 19, 15];
+const [NODATA_BG, NODATA_LINE] = MAP_STYLE.nodata.map(hexRgb); // the legend's no-data hatch
 
 export function createFramesLayer(viewer, bundle) {
   const scene = viewer.scene;
@@ -63,6 +64,37 @@ export function createFramesLayer(viewer, bundle) {
             d[i] = STONE[0] * g;
             d[i + 1] = STONE[1] * g;
             d[i + 2] = STONE[2] * g;
+          }
+          ctx.putImageData(data, 0, 0);
+          return new Promise((res) => canvas.toBlob((bl) => res(URL.createObjectURL(bl)), 'image/png'));
+        }),
+      );
+    }
+    return variants.get(key);
+  }
+
+  /**
+   * A display-only frame with its no-data pixels (alpha 0: Landsat 7 scan-line gaps, masked cloud) painted as an opaque
+   * neutral hatch, so the stripes read as missing data and the basemap's modern imagery does not show through them.
+   * Pixels with data are untouched; nothing is interpolated.
+   */
+  function withNodataHatch(file) {
+    const key = `nodata:${file}`;
+    if (!variants.has(key)) {
+      variants.set(
+        key,
+        decode(file).then(({ canvas, ctx, data }) => {
+          const d = data.data;
+          const w = data.width;
+          for (let i = 0, j = 0; i < d.length; i += 4, j++) {
+            if (d[i + 3] > 0) continue;
+            const x = j % w;
+            const y = (j - x) / w;
+            const c = (x + y) % 6 === 0 ? NODATA_LINE : NODATA_BG;
+            d[i] = c[0];
+            d[i + 1] = c[1];
+            d[i + 2] = c[2];
+            d[i + 3] = 255;
           }
           ctx.putImageData(data, 0, 0);
           return new Promise((res) => canvas.toBlob((bl) => res(URL.createObjectURL(bl)), 'image/png'));
@@ -229,7 +261,7 @@ export function createFramesLayer(viewer, bundle) {
   }
 
   // Preload all frame files in the background so the timeline (and offline use) runs from memory.
-  const allFiles = [...observed.map((o) => o.file), ...(m.projected_median || []).map((p) => p.file), ...(m.projected_fast || []).map((p) => p.file)].filter(Boolean);
+  const allFiles = [...observed.map((o) => o.file), ...(m.observed_display_only || []).map((o) => o.file), ...(m.projected_median || []).map((p) => p.file), ...(m.projected_fast || []).map((p) => p.file)].filter(Boolean);
   const preload = (async () => {
     const queue = [...allFiles];
     const worker = async () => {
@@ -252,7 +284,8 @@ export function createFramesLayer(viewer, bundle) {
      * @param {{base: object|null, med: object|null, medAlpha: number, fast: object|null, fastAlpha: number, change: boolean}} v
      */
     show(v) {
-      setRole('base', v.base?.file ? `raw:${v.base.file}` : null, () => fetchBlobUrl(v.base.file), 1);
+      const hatch = v.base?.use === 'display_only';
+      setRole('base', v.base?.file ? `${hatch ? 'nodata' : 'raw'}:${v.base.file}` : null, () => (hatch ? withNodataHatch(v.base.file) : fetchBlobUrl(v.base.file)), 1);
       setRole('med', v.med?.file ? `tint:${v.med.file}` : null, () => tinted(v.med.file), v.medAlpha);
       setRole('fast', v.fast?.file ? `tint:${v.fast.file}` : null, () => tinted(v.fast.file), v.fastAlpha);
       setRole('change', v.change && v.med?.file && latest ? `change:${v.med.file}` : null, () => changeMask(v.med.file), 1);

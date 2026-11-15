@@ -78,6 +78,27 @@ Each phase ends at a gate. Nothing moves on until the gate has been checked, and
 ### Phase 7 — Deploy and done (§9)
 - Push, Pages build green, live URL loads, README screenshot, `environment.md` filled in.
 
+## Scope change (2026-11-14): three sites
+
+Sultan asked for the same analysis at three deserts, not one:
+
+| Site id | Place | Status |
+|---|---|---|
+| `seih_al_hama` | Seih Al Hama, SW of Al Ain | Box chosen: S 24.015, W 55.475, N 24.105, E 55.575 (see `docs/research/aoi-verification.md`). Runs first. |
+| `sweihan` | Sweihan dune field, NW of Al Ain | Box to be located and verified (Phase 1b). |
+| `liwa` | Liwa, southern Abu Dhabi | Box to be located and verified (Phase 1b). Megadunes are expected to move below the detection limit; if so the app says exactly that. |
+
+How this changes the plan:
+- **One box per site, about 10 × 10 km, placed where dunes meet roads, farms and buildings**, because the tool's question is where the next windbreak goes. A whole desert is not tracked; the box is a config value and can be enlarged later.
+- **Config:** `pipeline/sites.json` replaces `pipeline/aoi.json`. Every notebook takes a site id and is run once per verified site.
+- **Data layout:** `public/data/sites.json` lists the sites; each site has the full §4 file set under `public/data/<site_id>/`. The §4 formats are unchanged inside each folder.
+- **Executed notebooks** are saved per site under `pipeline/runs/<site_id>/`.
+- **App:** adds a site switcher; the fly-in goes to the chosen site.
+- **Order:** Seih Al Hama goes through Phases 2–4 first. Sweihan and Liwa follow through the same notebooks once their boxes are verified. Each site gets its own validation notes and limits.
+- **Size budget:** `public/data/` under 30 MB in total across all three sites.
+
+Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting context only, not something we replicate. Because its abstract gives no time base for "3.32 m", we cite it as "a UAEU study measured dune migration here with Sentinel-2 in 2018–2020" and make no numeric comparison. The independent quantitative check is the HLS repeat. If a numeric comparison is wanted later, Sultan will supply the PDF (into `docs/research/papers/`, gitignored).
+
 ## Standing rules for every phase
 - NASA data is the measurement source; snapshots are display only.
 - No invented coordinates, dates or scene IDs; every number carries dataset, date, place and link.

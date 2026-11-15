@@ -3,23 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="DuneSight: measured sand-dune motion at three UAE sites and which roads, farms and built-up areas the moving sand reaches." />
     <title>DuneSight</title>
   </head>
   <body>
     <div id="globe"></div>
-    <header class="hud hud-top">
-      <span class="brand">DuneSight</span>
-      <span class="status">coming online</span>
-    </header>
-    <section class="hud hud-panel" id="data-panel">
-      <h2>Data link</h2>
-      <p id="data-status">Loading data/sites.json ...</p>
-      <dl id="data-fields"></dl>
-    </section>
-    <footer class="hud hud-bottom">
-      Supported by the Michigan Space Grant Consortium, NASA grant 80NSSC20M0124.
-      <span id="basemap-credit"></span>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header id="hud-header" class="hud bar-top"></header>
+
+    <aside id="col-left" class="col col-left">
+      <section id="panel-headline"></section>
+      <section id="panel-threats" hidden></section>
+    </aside>
+
+    <aside id="col-right" class="col col-right">
+      <section id="panel-card" hidden></section>
+      <section id="panel-wind"></section>
+      <section id="legend"></section>
+    </aside>
+
+    <section id="timeline" class="hud timeline" aria-label="Timeline"></section>
+
+    <footer id="credits" class="credits">
+      <span class="credit-line"></span>
+      <span class="credit-data"></span>
+      <button class="credit-more" data-dossier="credits">All credits</button>
+      <div id="cesium-credits"></div>
     </footer>
+
+    <div id="basemap-note" class="toast" hidden></div>
+    <div id="error-note" class="toast toast-error" hidden></div>
+    <div id="dossier" class="overlay" hidden></div>
+    <div id="boot" class="boot"><span>DuneSight</span><small>acquiring site data</small></div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

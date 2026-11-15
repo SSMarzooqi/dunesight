@@ -17,6 +17,7 @@
     "cesium": "^1.147.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "vite": "^8.3.8",
     "vite-plugin-cesium": "^1.2.23"
   }

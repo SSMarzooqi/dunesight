@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import cesium from 'vite-plugin-cesium';
+import { prodBase } from './scripts/base.mjs';
 
-// base: '/' in dev, '/dunesight/' for production builds (GitHub Pages project site) and for
-// `vite preview` of that build (preview runs with command 'serve', so it needs isPreview).
+// base: '/' in dev; for production builds and for `vite preview` of that build (preview runs with command 'serve',
+// so it needs isPreview) it is DS_BASE, default '/dunesight/' (GitHub Pages project site), '/' for a custom domain.
 export default defineConfig(({ command, isPreview }) => ({
-  base: command === 'build' || isPreview ? '/dunesight/' : '/',
+  base: command === 'build' || isPreview ? prodBase() : '/',
   plugins: [cesium()],
   server: {
     port: 5173,

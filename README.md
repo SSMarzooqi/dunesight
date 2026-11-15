@@ -26,6 +26,17 @@ Optional: copy `.env.example` to `.env` and set `VITE_CESIUM_TOKEN` to a Cesium 
 
 **Tests.** `npm run test:e2e` builds, then runs the Playwright acceptance suite (spec section 8) against the dev server and against the production build served under `/dunesight/` (first time: `npx playwright install chromium`). `npm run test:e2e:dev` runs only the dev pass. Ports can be moved with `E2E_DEV_PORT`, `E2E_NOTOKEN_PORT` and `E2E_PROD_PORT`. Set `E2E_SWIFTSHADER=1` to force software WebGL.
 
+## Deployment and the base path
+
+Every push to `main` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). The production base path, the URL folder the app is served from, comes from one setting, `DS_BASE`. It defaults to `/dunesight/` (the GitHub Pages project site); for a custom domain served at its root it is `/`. It must start and end with `/`. Vite's build and `vite preview`, the `postbuild` step (`scripts/postbuild.mjs`, which moves Cesium's static files to `dist/cesium/` when the base is not `/`) and the prod e2e pass (`E2E_TARGET=prod`) all read it, so build and test with the same value, e.g. `DS_BASE=/ npm run build && DS_BASE=/ npm run test:e2e:prod`. `node tests/tools/live.mjs [url]` checks a deployed site (or set `DS_LIVE_URL`). The dev server always serves at `/`.
+
+The Cesium ion token's allowed-URL list decides where ion terrain and imagery work; from any other origin ion answers 401 and the app falls back to Esri imagery on a flat globe. Local development must use `http://localhost:5173` for ion to load, so run the server under test on port 5173 when checking ion (e.g. `E2E_PROD_PORT=5173` for the prod pass).
+
+Moving to a custom domain changes three things together:
+1. the repository variable `DS_BASE` (Settings → Secrets and variables → Actions → Variables), set to `/`; the workflow falls back to `/dunesight/` while it is unset;
+2. the custom domain in Settings → Pages (GitHub then serves the site at the domain root);
+3. the allowed URLs of the Cesium ion token, which must include the new origin.
+
 ## Run the pipeline
 
 Needs Python 3.11+ (tested on 3.14).

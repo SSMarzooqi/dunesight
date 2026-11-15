@@ -28,6 +28,8 @@ One line per module, copied from the comment at the top of each file.
 | `tests/e2e/helpers.js` | Shared e2e helpers: read the real data files, boot the app and wait for a site, collect console errors. |
 | `tests/tools/screens.mjs` | Dev helper: retakes the screenshots in docs/screenshots/ from a running server, one scripted view each. |
 | `playwright.config.js` | Playwright e2e config: dev server or production build under /dunesight/, plus a token-less dev server for the fallback test. |
+| `scripts/base.mjs` | Production base path, from DS_BASE (default '/dunesight/', the GitHub Pages project site; '/' for a custom domain). |
+| `scripts/postbuild.mjs` | After `vite build`: undo a vite-plugin-cesium base-path quirk (moves Cesium's static files to dist/cesium/ when the base is not '/'). |
 
 ## Design choices the spec left open
 

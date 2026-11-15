@@ -24,10 +24,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Build with Vite (base /dunesight/)
+      # Base path from the repository variable DS_BASE ('/' for a custom domain); unset = the project site /dunesight/.
+      - name: Build with Vite (base ${{ vars.DS_BASE || '/dunesight/' }})
         run: npm run build
         env:
           VITE_CESIUM_TOKEN: ${{ secrets.VITE_CESIUM_TOKEN }}
+          DS_BASE: ${{ vars.DS_BASE || '/dunesight/' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

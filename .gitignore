@@ -21,3 +21,6 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Third-party papers (copyright): keep local only
+docs/research/papers/

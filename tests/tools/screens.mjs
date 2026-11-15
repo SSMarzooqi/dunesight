@@ -50,6 +50,31 @@ const VIEWS = {
       await settle(p, 8000);
     },
   },
+  'sweihan-dune-below-detection-limit': {
+    w: 1920, h: 1080,
+    async run(p) {
+      await ready(p, 'sweihan');
+      await p.click('[data-mode="motion"]');
+      const pos = await p.evaluate(() => window.__ds.frameFeature('dune', 'D001'));
+      await p.mouse.click(pos.x, pos.y);
+      await settle(p, 5000);
+    },
+  },
+  'seih-exposed-roads-frame-alignment': {
+    w: 1920, h: 1080,
+    async run(p) {
+      await ready(p);
+      await p.click('[data-mode="threat"]');
+      await p.locator('[data-toggle="exposed"]').check();
+      await p.evaluate(() => {
+        const { viewer, Cesium } = window.__ds;
+        viewer.camera.cancelFlight();
+        // east edge of the Seih Al Hama box (55.575 E): the frame edge against the basemap shows the alignment
+        viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(55.572, 24.036, 3600), orientation: { heading: 0, pitch: -Cesium.Math.PI_OVER_TWO, roll: 0 } });
+      });
+      await settle(p, 7000);
+    },
+  },
   'seih-station-wind-dossier': {
     w: 1920, h: 1080,
     async run(p) {

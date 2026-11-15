@@ -20,9 +20,11 @@ npm run build      # production build into dist/ (base path /dunesight/)
 
 Optional: copy `.env.example` to `.env` and set `VITE_CESIUM_TOKEN` to a Cesium ion token (allowed URLs: the Pages URL and `http://localhost:5173`). Without a token the globe uses Esri World Imagery and a flat ellipsoid.
 
-**Using it.** Pick a site in the header; *True view*, *Motion* and *Threat* are presets of the layers. Click an arrow, a dune outline or a road/farm/built-up target for its card (Esc clears). The timeline plays with the button or the space bar; arrow keys step. *How we know* opens the method, sources, validation and limits for the site. Module-by-module notes and the design choices are in [docs/explain-it.md](docs/explain-it.md).
+**Using it.** Pick a site in the top bar; *True view*, *Motion* and *Threat* are presets of the layers, and every layer (down to each of the five threat classes) has a checkbox in *What's on the map?*. The left panel says how fast the sand moves, with its range, its detection limit and how well an independent check confirms it; the right panel says why it moves that way (wind versus dunes) or, in Threat mode, which roads, farms and built-up areas the sand reaches first. Click an arrow, a dune outline or a target for its card (Esc clears). *When?* plays the measured scenes and then the projected years with the button, the space bar or the arrow keys; its gear holds the reach-year case, the fast-case frame and the changed-pixel overlay. *How we know* opens the method, sources, validation and limits for the site, and reopens the three-step guide shown on the first visit. On a phone the panels become a bottom sheet with tabs. Module-by-module notes and the design choices are in [docs/explain-it.md](docs/explain-it.md).
 
-**Tests.** `npm run test:e2e` builds, then runs the Playwright acceptance suite (spec section 8) against the dev server and against the production build served under `/dunesight/` (first time: `npx playwright install chromium`). `npm run test:e2e:dev` runs only the dev pass. Set `E2E_SWIFTSHADER=1` to force software WebGL.
+<img src="docs/screenshots/seih-phone-390x844.jpg" alt="DuneSight on a phone (390 × 844): the globe above a bottom sheet with Speed, Wind, Map key and Time tabs" width="260">
+
+**Tests.** `npm run test:e2e` builds, then runs the Playwright acceptance suite (spec section 8) against the dev server and against the production build served under `/dunesight/` (first time: `npx playwright install chromium`). `npm run test:e2e:dev` runs only the dev pass. Ports can be moved with `E2E_DEV_PORT`, `E2E_NOTOKEN_PORT` and `E2E_PROD_PORT`. Set `E2E_SWIFTSHADER=1` to force software WebGL.
 
 ## Run the pipeline
 
@@ -59,7 +61,7 @@ Full citations (versions, dates, places, pixel sizes, DOIs) are in [docs/data-an
 
 Supported by the Michigan Space Grant Consortium, NASA grant 80NSSC20M0124.
 
-Data and imagery courtesy of NASA and USGS (datasets listed above); station wind data from NOAA NCEI. This project is not endorsed by NASA.
+Data and imagery courtesy of NASA and USGS (datasets listed above); station wind data from NOAA NCEI. Typeface: IBM Plex, SIL Open Font License 1.1, bundled with the app. This project is not endorsed by NASA.
 
 ## License
 

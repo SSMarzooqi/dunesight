@@ -552,6 +552,49 @@
  ],
  "observed_display_only": [
   {
+   "year": 2002,
+   "date": "2002-10-16",
+   "scene_id": "LE07_L1TP_160044_20021016_20200916_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2002.webp",
+   "acquired_utc": "2002-10-16T06:34:41Z",
+   "sun_elevation_deg": 50.94,
+   "sun_azimuth_deg": 142.3,
+   "nodata_pixels": 0,
+   "nodata_share_of_box_pct": 0.0,
+   "nodata_scan_line_gaps_pct": 0.0,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.01,
+   "bytes": 85904,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -30,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": false,
+   "geometric_rmse_model_m": 7.5,
+   "offset_vs_first_landsat8_m": {
+    "E": 12.68,
+    "N": 4.39,
+    "spread_nmad_E": 2.34,
+    "spread_nmad_N": 7.39,
+    "n_reference_images": 14,
+    "median_reference_windows": 20,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 0.75,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (30 days before 15 November): the sun was 50.9 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (30 days before 15 November): the sun was 50.9 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Acquired before Landsat 7's scan line corrector failed (31 May 2003): no stripes."
+  },
+  {
    "year": 2003,
    "date": "2003-11-20",
    "scene_id": "LE07_L1TP_160044_20031120_20200915_02_T1",
@@ -570,7 +613,11 @@
    "bytes": 85290,
    "use": "display_only",
    "used_for_measurement": false,
-   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "month": "November",
+   "off_month": false,
+   "days_from_15_november": 5,
+   "chosen_by": "November, closest to 10 November",
+   "has_scan_line_gaps": true,
    "geometric_rmse_model_m": 6.87,
    "offset_vs_first_landsat8_m": {
     "E": 1.95,
@@ -582,7 +629,51 @@
     "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
    },
    "outside_confirmed_offset_range_m": 4.58,
-   "shift_applied_m": null
+   "shift_applied_m": null,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (29.2 % of the box) are transparent, nothing is filled in."
+  },
+  {
+   "year": 2004,
+   "date": "2004-10-21",
+   "scene_id": "LE07_L1TP_160044_20041021_20200915_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2004.webp",
+   "acquired_utc": "2004-10-21T06:35:40Z",
+   "sun_elevation_deg": 49.53,
+   "sun_azimuth_deg": 144.66,
+   "nodata_pixels": 143844,
+   "nodata_share_of_box_pct": 31.8,
+   "nodata_scan_line_gaps_pct": 30.0,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.06,
+   "bytes": 73866,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -25,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": true,
+   "geometric_rmse_model_m": 7.32,
+   "offset_vs_first_landsat8_m": {
+    "E": 6.49,
+    "N": 3.41,
+    "spread_nmad_E": 3.17,
+    "spread_nmad_N": 1.33,
+    "n_reference_images": 14,
+    "median_reference_windows": 13,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 0.0,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (25 days before 15 November): the sun was 49.5 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (25 days before 15 November): the sun was 49.5 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (30.0 % of the box) are transparent, nothing is filled in."
   },
   {
    "year": 2005,
@@ -603,7 +694,11 @@
    "bytes": 81240,
    "use": "display_only",
    "used_for_measurement": false,
-   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "month": "November",
+   "off_month": false,
+   "days_from_15_november": -6,
+   "chosen_by": "November, closest to 10 November",
+   "has_scan_line_gaps": true,
    "geometric_rmse_model_m": 6.31,
    "offset_vs_first_landsat8_m": {
     "E": 5.1,
@@ -615,7 +710,94 @@
     "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
    },
    "outside_confirmed_offset_range_m": 0.04,
-   "shift_applied_m": null
+   "shift_applied_m": null,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (29.9 % of the box) are transparent, nothing is filled in."
+  },
+  {
+   "year": 2006,
+   "date": "2006-10-11",
+   "scene_id": "LE07_L1TP_160044_20061011_20200913_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2006.webp",
+   "acquired_utc": "2006-10-11T06:36:22Z",
+   "sun_elevation_deg": 52.48,
+   "sun_azimuth_deg": 140.72,
+   "nodata_pixels": 166884,
+   "nodata_share_of_box_pct": 36.9,
+   "nodata_scan_line_gaps_pct": 35.1,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.0,
+   "bytes": 63134,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -35,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": true,
+   "geometric_rmse_model_m": 5.21,
+   "offset_vs_first_landsat8_m": {
+    "E": 2.78,
+    "N": 0.22,
+    "spread_nmad_E": 2.45,
+    "spread_nmad_N": 2.5,
+    "n_reference_images": 14,
+    "median_reference_windows": 7,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 0.0,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (35 days before 15 November): the sun was 52.5 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (35 days before 15 November): the sun was 52.5 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (35.1 % of the box) are transparent, nothing is filled in."
+  },
+  {
+   "year": 2007,
+   "date": "2007-10-14",
+   "scene_id": "LE07_L1TP_160044_20071014_20200913_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2007.webp",
+   "acquired_utc": "2007-10-14T06:36:44Z",
+   "sun_elevation_deg": 51.78,
+   "sun_azimuth_deg": 142.02,
+   "nodata_pixels": 142088,
+   "nodata_share_of_box_pct": 31.4,
+   "nodata_scan_line_gaps_pct": 29.6,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.13,
+   "bytes": 74528,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -32,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": true,
+   "geometric_rmse_model_m": 5.14,
+   "offset_vs_first_landsat8_m": {
+    "E": 4.88,
+    "N": 3.86,
+    "spread_nmad_E": 0.56,
+    "spread_nmad_N": 2.39,
+    "n_reference_images": 14,
+    "median_reference_windows": 25,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 0.0,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (32 days before 15 November): the sun was 51.8 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (32 days before 15 November): the sun was 51.8 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (29.6 % of the box) are transparent, nothing is filled in."
   },
   {
    "year": 2008,
@@ -636,7 +818,11 @@
    "bytes": 86170,
    "use": "display_only",
    "used_for_measurement": false,
-   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "month": "November",
+   "off_month": false,
+   "days_from_15_november": 2,
+   "chosen_by": "November, closest to 10 November",
+   "has_scan_line_gaps": true,
    "geometric_rmse_model_m": 5.77,
    "offset_vs_first_landsat8_m": {
     "E": 4.13,
@@ -648,7 +834,94 @@
     "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
    },
    "outside_confirmed_offset_range_m": 1.61,
-   "shift_applied_m": null
+   "shift_applied_m": null,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (29.4 % of the box) are transparent, nothing is filled in."
+  },
+  {
+   "year": 2009,
+   "date": "2009-10-19",
+   "scene_id": "LE07_L1TP_160044_20091019_20200911_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2009.webp",
+   "acquired_utc": "2009-10-19T06:37:10Z",
+   "sun_elevation_deg": 50.41,
+   "sun_azimuth_deg": 144.45,
+   "nodata_pixels": 144257,
+   "nodata_share_of_box_pct": 31.9,
+   "nodata_scan_line_gaps_pct": 30.1,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.14,
+   "bytes": 72944,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -27,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": true,
+   "geometric_rmse_model_m": 4.88,
+   "offset_vs_first_landsat8_m": {
+    "E": 2.1,
+    "N": -2.62,
+    "spread_nmad_E": 1.95,
+    "spread_nmad_N": 1.78,
+    "n_reference_images": 14,
+    "median_reference_windows": 19,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 1.8,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (27 days before 15 November): the sun was 50.4 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (27 days before 15 November): the sun was 50.4 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (30.1 % of the box) are transparent, nothing is filled in."
+  },
+  {
+   "year": 2010,
+   "date": "2010-10-06",
+   "scene_id": "LE07_L1TP_160044_20101006_20200911_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2010.webp",
+   "acquired_utc": "2010-10-06T06:39:14Z",
+   "sun_elevation_deg": 54.31,
+   "sun_azimuth_deg": 139.44,
+   "nodata_pixels": 143809,
+   "nodata_share_of_box_pct": 31.8,
+   "nodata_scan_line_gaps_pct": 30.0,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.02,
+   "bytes": 62702,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "month": "October",
+   "off_month": true,
+   "days_from_15_november": -40,
+   "chosen_by": "October or December, closest to 15 November",
+   "has_scan_line_gaps": true,
+   "geometric_rmse_model_m": 4.98,
+   "offset_vs_first_landsat8_m": {
+    "E": 5.85,
+    "N": 0.9,
+    "spread_nmad_E": 1.28,
+    "spread_nmad_N": 1.56,
+    "n_reference_images": 14,
+    "median_reference_windows": 24,
+    "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
+   },
+   "outside_confirmed_offset_range_m": 0.0,
+   "shift_applied_m": null,
+   "sun_note": "Taken in October (40 days before 15 November): the sun was 54.3 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement.",
+   "november_sun_elevation_range_deg": [
+    39.7,
+    47.6
+   ],
+   "note": "Image only, not used for any measurement. Taken in October (40 days before 15 November): the sun was 54.3 deg above the horizon, against 39.7-47.6 deg in the November images, so shadows and dune shading differ; that difference is not sand movement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (30.0 % of the box) are transparent, nothing is filled in."
   },
   {
    "year": 2011,
@@ -669,7 +942,11 @@
    "bytes": 80006,
    "use": "display_only",
    "used_for_measurement": false,
-   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "month": "November",
+   "off_month": false,
+   "days_from_15_november": -5,
+   "chosen_by": "November, closest to 10 November",
+   "has_scan_line_gaps": true,
    "geometric_rmse_model_m": 6.2,
    "offset_vs_first_landsat8_m": {
     "E": 2.74,
@@ -681,7 +958,8 @@
     "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
    },
    "outside_confirmed_offset_range_m": 0.0,
-   "shift_applied_m": null
+   "shift_applied_m": null,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (30.2 % of the box) are transparent, nothing is filled in."
   },
   {
    "year": 2012,
@@ -702,7 +980,11 @@
    "bytes": 80630,
    "use": "display_only",
    "used_for_measurement": false,
-   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "month": "November",
+   "off_month": false,
+   "days_from_15_november": -3,
+   "chosen_by": "November, closest to 10 November",
+   "has_scan_line_gaps": true,
    "geometric_rmse_model_m": 5.88,
    "offset_vs_first_landsat8_m": {
     "E": 2.66,
@@ -714,43 +996,23 @@
     "reference": "262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)"
    },
    "outside_confirmed_offset_range_m": 0.0,
-   "shift_applied_m": null
+   "shift_applied_m": null,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data (30.1 % of the box) are transparent, nothing is filled in."
   }
  ],
  "use_values": {
   "measurement": "Landsat 8/9 frame of the velocity network (2013-2025)",
   "long_baseline_check": "Landsat 7 frame before the scan-line-corrector failure, used only in the long-baseline check of the velocities",
-  "display_only": "Landsat 7 frame after the scan-line-corrector failure (31 May 2003), shown on the timeline only; not used for any measurement"
+  "display_only": "Landsat 7 frame shown on the timeline only, 2002-2012 (after 31 May 2003 with scan-line gaps; off_month = not November); not used for any measurement"
  },
  "display_only_format": "WebP, grey (R = G = B) lossy + lossless alpha (alpha 0 = no data: scan-line gaps and QA-masked cloud/shadow); same grid, bounds and ETM+ stretch as the observed frames",
  "display_only_masking": "scan-line gaps (B8 = 0 or QA_PIXEL fill) exactly as delivered; QA_PIXEL dilated cloud, cloud and cloud shadow dilated by one 15 m pixel, as for the observed frames; a frame pixel is no-data if any source pixel under it is. Nothing is interpolated or filled.",
- "display_only_note": "Landsat 7's scan line corrector failed on 31 May 2003; its later images have stripes with no data that widen away from the centre of the swath. These frames show the place in the years without a usable scene before 2013. They are images only: not in the velocity network, the Landsat 7 long-baseline check, the registration, any statistic, the threat years or the projection.",
- "display_only_alignment_note": "Display-only frames are drawn as delivered, like every other frame (none is resampled to remove registration offsets; the measurement removes them numerically). Their offset from the first Landsat 8 image, measured on stable reference ground against each of the 14 confirmed images (262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)), is E +1.9 to +5.1 m and N -5.4 to +5.4 m (largest 5.4 m, 0.36 pixel); the confirmed frames' own offsets span E -2.7 to +11.9 m and N -0.8 to +5.4 m. None lies more than half a pixel (7.5 m) outside that range, so none was shifted. Collection 2 model fit to ground control (GEOMETRIC_RMSE_MODEL) for these scenes: 5.8-6.9 m.",
- "empty_years": [
-  {
-   "year": 2002,
-   "reason": "no scene acquired on this path/row in this month"
-  },
-  {
-   "year": 2004,
-   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
-  },
-  {
-   "year": 2006,
-   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
-  },
-  {
-   "year": 2007,
-   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
-  },
-  {
-   "year": 2009,
-   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
-  },
-  {
-   "year": 2010,
-   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
-  }
+ "display_only_note": "These frames show the place in the years before 2013 without a measured frame. They are images only: not in the velocity network, the Landsat 7 long-baseline check (2000 and 2001 only), the registration, any statistic, the threat years or the projection. Landsat 7's scan line corrector failed on 31 May 2003; its later images have stripes with no data (has_scan_line_gaps). Where no November scene was usable, an October or December scene (September as a last resort) is shown instead (off_month), with its sun elevation against the November range (sun_note).",
+ "november_sun_elevation_range_deg": [
+  39.7,
+  47.6
  ],
+ "display_only_alignment_note": "Display-only frames are drawn as delivered, like every other frame (none is resampled to remove registration offsets; the measurement removes them numerically). Their offset from the first Landsat 8 image, measured on stable reference ground against each of the 14 confirmed images (262 hard-surface windows of 240 m outside the farm polygons (notebook 02's hard-surface reference)), is E +1.9 to +12.7 m and N -5.4 to +5.4 m (largest 12.7 m, 0.85 pixel); the confirmed frames' own offsets span E -2.7 to +11.9 m and N -0.8 to +5.4 m. None lies more than half a pixel (7.5 m) outside that range, so none was shifted. Collection 2 model fit to ground control (GEOMETRIC_RMSE_MODEL) for these scenes: 4.9-7.5 m.",
+ "empty_years": [],
  "generated_by": "pipeline/03_threats_and_frames.ipynb"
 }

@@ -3,22 +3,34 @@
   "name": "Landsat 7 ETM+ Collection 2 Level-1 (Tier 1)",
   "provider": "NASA / USGS",
   "version": "Collection 2",
-  "used_for": "observed timeline frames and the long-baseline motion check (B8 panchromatic, scenes before the 31 May 2003 scan-line-corrector failure); vegetation mask (B3/B4 TOA NDVI); display-only timeline frames 2003, 2005, 2008, 2011, 2012 (B8, scenes with scan-line gaps after the failure; images only, not used for any measurement)",
+  "used_for": "observed timeline frames and the long-baseline motion check (B8 panchromatic, scenes before the 31 May 2003 scan-line-corrector failure); vegetation mask (B3/B4 TOA NDVI); display-only timeline frames 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 (B8; scenes after the failure keep their scan-line gaps as no data; off-month scenes 2002-10-16, 2004-10-21, 2006-10-11, 2007-10-14, 2009-10-19, 2010-10-06 where November had none; images only, not used for any measurement)",
   "dates": [
    "2000-11-27",
    "2001-11-30",
+   "2002-10-16",
    "2003-11-20",
+   "2004-10-21",
    "2005-11-09",
+   "2006-10-11",
+   "2007-10-14",
    "2008-11-17",
+   "2009-10-19",
+   "2010-10-06",
    "2011-11-10",
    "2012-11-12"
   ],
   "scene_ids": [
    "LE07_L1TP_160044_20001127_20200918_02_T1",
    "LE07_L1TP_160044_20011130_20200917_02_T1",
+   "LE07_L1TP_160044_20021016_20200916_02_T1",
    "LE07_L1TP_160044_20031120_20200915_02_T1",
+   "LE07_L1TP_160044_20041021_20200915_02_T1",
    "LE07_L1TP_160044_20051109_20200914_02_T1",
+   "LE07_L1TP_160044_20061011_20200913_02_T1",
+   "LE07_L1TP_160044_20071014_20200913_02_T1",
    "LE07_L1TP_160044_20081117_20200913_02_T1",
+   "LE07_L1TP_160044_20091019_20200911_02_T1",
+   "LE07_L1TP_160044_20101006_20200911_02_T1",
    "LE07_L1TP_160044_20111110_20200909_02_T1",
    "LE07_L1TP_160044_20121112_20200908_02_T1"
   ],
@@ -28,11 +40,25 @@
     "2001-11-30"
    ],
    "display_only_frames": [
+    "2002-10-16",
     "2003-11-20",
+    "2004-10-21",
     "2005-11-09",
+    "2006-10-11",
+    "2007-10-14",
     "2008-11-17",
+    "2009-10-19",
+    "2010-10-06",
     "2011-11-10",
     "2012-11-12"
+   ],
+   "display_only_off_month_frames": [
+    "2002-10-16",
+    "2004-10-21",
+    "2006-10-11",
+    "2007-10-14",
+    "2009-10-19",
+    "2010-10-06"
    ]
   },
   "place": "Liwa (eastern crescent: Wadhil / Mawsil), southern Abu Dhabi box (W 54.08, S 23.0, E 54.18, N 23.09); WRS-2 path 160 row 44",

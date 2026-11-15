@@ -2,7 +2,7 @@
 
 const BASE = `${import.meta.env.BASE_URL}data/`;
 
-/** URL of a file under public/data/ (works at '/' in dev and '/dunesight/' on Pages). */
+/** URL of a file under public/data/ (follows Vite's base: '/' in dev and on dunesight.us, '/dunesight/' for a project-site build). */
 export function dataUrl(path) {
   return BASE + path;
 }

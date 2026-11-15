@@ -21,9 +21,9 @@ Status checked 2026-11-14.
 
 ## App
 - GitHub repo: `https://github.com/SSMarzooqi/dunesight` (public)
-- GitHub Pages URL (deployed by GitHub Actions): `https://ssmarzooqi.github.io/dunesight/`
-- Cesium ion token (allowed URLs: Pages URL + http://localhost:5173): in `.env` → `VITE_CESIUM_TOKEN`, and as a GitHub repo secret with the same name ✅ (allowed-URL restriction not yet confirmed)
-- Local run: `npm install` once, then `npm run dev`
+- Live URL (GitHub Pages custom domain, deployed by GitHub Actions, HTTPS enforced): `https://dunesight.us/` (`https://www.dunesight.us/` and the old project-site address redirect there; see README, Deployment); repository variable `DS_BASE` = `/`
+- Cesium ion token (regenerated 2026-11-15; allowed URLs: `https://dunesight.us`, `https://www.dunesight.us`, `http://localhost:5173`; read-only public scopes): in `.env` → `VITE_CESIUM_TOKEN`, and as a GitHub repo secret with the same name ✅
+- Local run: `npm install` once, then `npm run dev` (must stay on `http://localhost:5173` for the token to work; elsewhere the app uses the Esri fallback)
 
 ## Team
 - Data lead: `________`

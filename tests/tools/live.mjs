@@ -1,8 +1,8 @@
 // Dev helper: check a deployed URL: basemap/terrain status (ion or fallback), each site loads and draws, console errors, screenshots.
-// Usage: node tests/tools/live.mjs [url] [outDir]   (url defaults to $DS_LIVE_URL, else the GitHub Pages project site)
+// Usage: node tests/tools/live.mjs [url] [outDir]   (url defaults to $DS_LIVE_URL, else the live site https://dunesight.us/)
 import { chromium } from '@playwright/test';
 
-const [url = process.env.DS_LIVE_URL || 'https://ssmarzooqi.github.io/dunesight/', outDir = '.'] = process.argv.slice(2);
+const [url = process.env.DS_LIVE_URL || 'https://dunesight.us/', outDir = '.'] = process.argv.slice(2);
 const browser = await chromium.launch({ channel: 'chromium', args: ['--enable-gpu', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 const errors = [];

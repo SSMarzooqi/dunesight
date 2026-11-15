@@ -467,7 +467,7 @@
  "projected_format": "PNG, grayscale + alpha (alpha 0 = no data)",
  "masking": "Landsat QA_PIXEL fill, dilated cloud, cirrus, cloud and cloud shadow (dilated by one 15 m pixel) are no-data",
  "projection_method": "Semi-Lagrangian advection of the latest observed image along the measured 2013-2025 dune-motion field: output(x) = image(x - u(x) * years), cubic interpolation. u = velocity of windows with detected motion only (0 below the detection limit, in masked/non-dune areas and outside dune windows), 3x3-window median filter, Gaussian smoothing (sigma = 120 m), bilinear to 15 m, times a feathered free-sand mask. median case = measured velocity; fast case = same heading at speed + 1 sigma (84th percentile of the speed). Assumes the 2013-2025 motion continues unchanged; dunes do not deform, merge, grow or get removed.",
- "projection_reading_note": "These frames change very little: by 2050 the median case moves 58.3 % of the box, by a median 34.24 m (2.28 px) and at most 84.7 m; the fast case at most 99.4 m. Most of the image does not move at all because motion there is below the detection limit or the ground is not dune sand. The small change is the measurement, not a rendering problem.",
+ "projection_reading_note": "These frames change very little: by 2050 the median case moves 58.3 % of the box, by a median 34.24 m (2.28 px) and at most 84.7 m; the fast case at most 99.4 m. The other 41.7 % of the box is drawn unchanged, because motion there is below the detection limit or the ground is not dune sand. The small change is the measurement, not a rendering problem.",
  "warp_test": [
   {
    "vE_myr": 3.0,

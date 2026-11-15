@@ -1,0 +1,17 @@
+## What the wind numbers can and cannot support
+
+**Result (MERRA-2, native cell centred 24.0 N 55.625 E, 2000-2024, no missing hours):** DP ≈ 66 VU/yr, which is **low** in Fryberger's classes. RDP ≈ 25 VU/yr, **RDD ≈ 100°** (sand moves toward the east, slightly south of east), and **RDP/DP ≈ 0.38**. Yearly DP ranges 44-88 VU and yearly RDD 46-174°. The exact values are printed above and written to `wind_summary.json`.
+
+**Is the direction physically plausible?** The shamal alone would push sand toward the SE (~135°). RDD is about 35° north of that, so I broke the record down before reporting it:
+- The sand rose is **bimodal**. About 54 % of DP comes from the WNW-NW sectors (292.5° and 315°): the shamal plus the afternoon north-westerly that peaks 08-13 UTC (12-17 local) and drives sand toward 95-135°. About 30 % comes from the SSE-SSW sectors (157.5-202.5°), mostly in the morning (03-05 UTC, 07-09 local), and drives sand toward the north (335-005°).
+- By month, May-June is the most unimodal (RDD 124-129°, RDP/DP ≈ 0.8, the summer shamal). February-March drifts toward the NE (RDD 42-56°), and August-November contributes little.
+- The vector sum of a NW mode and a S/SSE mode points roughly east, which is what we get. It is not a processing error: the direction maths passes the hand-checked tests, and NASA POWER gives the same numbers. RDP/DP ≈ 0.38 falls in Fryberger's intermediate band (0.3-0.8), as expected for a bimodal regime. The morning southerlies may be nocturnal drainage or land-breeze flow off the uplands to the east. That is an inference I have not verified.
+
+**How far to trust it:**
+- **Absolute DP is likely biased low.** MERRA-2 is a ~0.5° × 0.625° (about 55 × 64 km) reanalysis of hourly *means*, which damps gusts and short wind peaks. Because DP grows roughly with V³ above 12 kt, losing peaks lowers it strongly. Only about 9 % of hours exceed 12 kt here. Station anemometers would very likely give a higher DP, so the **"low" class is approximate**. Treat DP as a relative and interannual index, not a calibrated sand flux.
+- **RDD and RDP/DP are the more robust outputs**, but not exact either. One year's RDD swings between 46° and 174°, so only the multi-year value is meaningful. Using the neighbouring cell to the north (the one Earth Engine returns at the centroid's own coordinates) shifts 2020-2024 RDD by about 13° (91.5° vs 104.2°) and DP by about 8 %. A fair uncertainty for RDD from the grid alone is about ±10-15°.
+- The cell spans 23.75-24.25 N, 55.31-55.94 E. It reaches east to the longitude of Al Ain city (55.75 E), so it blends desert with the city and its surroundings. The box sits in its western half.
+- **Grid georeferencing:** Earth Engine's MERRA-2 asset is offset from the native grid (0.25° in latitude, 0.1875° in longitude). Sampling at the centroid's own coordinates would silently read the cell to the north. The cell used here was checked hour-for-hour against NASA POWER.
+- **NASA POWER agreement** (2001-2024, same MERRA-2 source, so this checks processing only): DP agrees to about 0.001 % and RDD to about 0.004° for the whole period, with yearly differences at most about 0.02 % and 0.06°. Of 210,384 common hours, one differs (2004-09-05 17 UTC, V10M +1.51 vs −4.47 m/s). It is below threshold either way, so DP is unaffected.
+
+**For Phase 3:** compare the dune headings with RDD (~100°) *and* with the NW-mode downwind direction (~130°). In a bimodal regime the heading tells us which mode moves the sand, and a 30° disagreement would not by itself mean the tracking is wrong.

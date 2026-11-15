@@ -10,7 +10,7 @@
  },
  "wrs_path": 160,
  "wrs_row": 43,
- "generated_utc": "2026-11-15T02:03:52Z",
+ "generated_utc": "2026-11-15T02:25:55Z",
  "rule": "Per calendar year, scenes in the month on WRS-2 160/043 (Collection 2 Tier 1) that fully cover the box with valid B8; reject if in-box cloud/dilated cloud/cirrus/shadow (QA_PIXEL bits 1-4) > 1.0 %; pick the survivor closest to the target date (20 May / 10 Nov). Landsat 7 only before 2003-05-31 (SLC failure).",
  "visual_reject": {
   "LE07_L1TP_160043_20020509_20200916_02_T1": "visual QA: dark, irregular patches over roughly the SW quarter of the box in B8 and in true colour, also cooler in the thermal band (cloud shadow or rain-wetted sand); QA_PIXEL flags 0 % (ETM+ CFMask missed it)"

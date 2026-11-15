@@ -1,41 +1,59 @@
 {
-  "note": "The only place site boxes live. Every notebook reads its site from here, chosen by the DUNESIGHT_SITE environment variable (default seih_al_hama). Only sites with verified=true are run by `npm run pipeline` and get data in public/data/<site_id>/. Boxes are WGS84 (EPSG:4326) degrees; `epsg` is the projected CRS used for processing.",
+  "note": "The only place site boxes live. Every notebook reads its site from here, chosen by the DUNESIGHT_SITE environment variable (default seih_al_hama). Only sites with verified=true are run by `npm run pipeline` and get data in public/data/<site_id>/. Boxes are WGS84 (EPSG:4326) degrees; `epsg` is the projected CRS used for processing. `phase1_candidates_csv` is the Phase 1 USGS STAC scene list that notebook 01 cross-checks against (read only).",
   "sites": [
     {
       "id": "seih_al_hama",
       "name": "Seih Al Hama, SW of Al Ain",
-      "bbox": {"west": 55.475, "south": 24.015, "east": 55.575, "north": 24.105},
+      "bbox": {
+        "west": 55.475,
+        "south": 24.015,
+        "east": 55.575,
+        "north": 24.105
+      },
       "epsg": 32640,
       "wrs_path": 160,
       "wrs_row": 43,
       "hls_tile": "T40QCM",
       "verified": true,
       "source": "docs/research/aoi-verification.md (Phase 1, AOI-1)",
+      "phase1_candidates_csv": "docs/research/landsat_candidates.csv",
       "note": "AOI-1 from the Phase 1 research: about 10.2 km E-W x 9.95 km N-S, centroid 24.060 N, 55.525 E, containing the 'Sieh Al Hama Camel Race Track' (24.0578614, 55.5217188), the E40 road, a settlement and plantations. EPSG:32640 and WRS-2 160/043 confirmed from USGS STAC footprints. CAVEAT: the link between this place name and the Fareaa (2025, UAEU) thesis study area is NOT confirmed. The thesis full text and study-area map were not reachable, its Arabic abstract spells the field 'Seih Al-Lahma', and GeoNames has a different 'Sayh al Hammah' trough 13 km WSW (AOI-2 in the research note). The box was chosen for dunes next to roads and farms, not because it is proven to be the thesis site."
     },
     {
       "id": "sweihan",
       "name": "Sweihan dune field, NW of Al Ain",
-      "bbox": null,
-      "epsg": null,
-      "wrs_path": null,
-      "wrs_row": null,
-      "hls_tile": null,
-      "verified": false,
-      "source": null,
-      "note": "Not located yet (Phase 1b). No box, CRS or path/row until they are verified from sources; do not run the pipeline for this site."
+      "bbox": {
+        "west": 55.29,
+        "south": 24.42,
+        "east": 55.39,
+        "north": 24.51
+      },
+      "epsg": 32640,
+      "wrs_path": 160,
+      "wrs_row": 43,
+      "hls_tile": "T40RCN",
+      "verified": true,
+      "source": "docs/research/aoi-sweihan-liwa.md (Phase 1b, box S1); confirmed by the user 2026-11-14",
+      "phase1_candidates_csv": "docs/research/landsat_candidates_sweihan.csv",
+      "note": "Box S1 from the Phase 1b research: about 10.26 km E-W x 10.09 km N-S, centroid 24.465 N, 55.340 E, about 0.3 km from the Sweihan town node (OSM 914493080; GeoNames Suwayhan 413256). It holds two belts of small crescentic/barchanoid transverse dunes (crest spacing roughly 100-200 m, an estimate by eye) north and south of the interdune corridor with the town, farms, the E20 Sweihan Road and E16 At Taf Road, and a military compound. EPSG:32640, WRS-2 160/043 (the same Landsat scenes as Seih Al Hama) and HLS tile T40RCN confirmed from USGS STAC and CMR footprints. CAVEATS: no published dune-migration rate was found for Sweihan; the only local number is the Seih Al Hama thesis value of 3.32 m with no stated time base, so whether these dunes move above the detection limit is an inference, not a known. Non-dune surface change needs masks: a housing grid west of the junction (2013-2024), a levelled rectangle north of the E16, an E20 realignment in the NW (by 2013), and a SE farm grid abandoned and sanding over (2000-2013)."
     },
     {
       "id": "liwa",
-      "name": "Liwa, southern Abu Dhabi",
-      "bbox": null,
-      "epsg": null,
-      "wrs_path": null,
-      "wrs_row": null,
-      "hls_tile": null,
-      "verified": false,
-      "source": null,
-      "note": "Not located yet (Phase 1b). Megadunes here are expected to move below the detection limit (about 0.1 m/yr from a field estimate, Lorenz & Radebaugh 2015); if so the app must say exactly that. Do not run the pipeline for this site until the box is verified."
+      "name": "Liwa (eastern crescent: Wadhil / Mawsil), southern Abu Dhabi",
+      "bbox": {
+        "west": 54.08,
+        "south": 23.0,
+        "east": 54.18,
+        "north": 23.09
+      },
+      "epsg": 32640,
+      "wrs_path": 160,
+      "wrs_row": 44,
+      "hls_tile": "T40QBL",
+      "verified": true,
+      "source": "docs/research/aoi-sweihan-liwa.md (Phase 1b, box L1); confirmed by the user 2026-11-14",
+      "phase1_candidates_csv": "docs/research/landsat_candidates_liwa.csv",
+      "note": "Box L1 from the Phase 1b research: about 10.45 km E-W x 10.17 km N-S, centroid 23.045 N, 54.130 E, on the eastern Liwa crescent around the villages Wadhil (GeoNames 290521) and Mawsil (GeoNames 291471), with the E90 road and farm blocks. It is deliberately NOT Liwa town (Mezairaa, 53.79 E): that area lies only on WRS-2 path 161, in UTM zone 39, with no Landsat 7 May or November scenes in 2000-2002. This box is east of 54 E so that all three sites share Landsat path 160, the same acquisition dates and UTM zone 40. EPSG:32640, WRS-2 160/044 (path 161/044 also covers it but is not used) and HLS tile T40QBL confirmed from USGS STAC and CMR footprints. Contents: a small crescentic/dome dune field in the NE half, the foot of the 50-80 m Liwa megadunes with sabkha flats in the SW. CAVEATS: the megadunes are reported to move about 0.1 m/yr (Lorenz et al., EGU2016-9369; Lorenz & Radebaugh 2015, a field inference from buried palms), i.e. about 2.5 m in 25 years, expected to be BELOW our detection limit; the app must say so. The small dunes are said to move faster (Pugh et al. 1993) but no number was found. There is no Landsat 7 scene of 160/044 in May 2000. A ~3 x 1.5 km farm block was built on dunes between 2000-11-27 and 2013-11-07 and must be masked in the long baseline."
     }
   ]
 }

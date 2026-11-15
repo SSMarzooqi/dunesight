@@ -2,7 +2,8 @@
    Rule: a colour that carries meaning is used ONLY for that meaning,
    on the map, in the panels and in the legend. Never colour alone:
    pair it with a label, a line weight, a dash or a hatch. */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+/* IBM Plex Sans 400/500/600 and IBM Plex Mono 400 are self-hosted (@fontsource packages, SIL OFL 1.1),
+   imported in src/main.js, so no font is requested from a third party. */
 
 :root {
   /* ---------- Surfaces (warm charcoal, no blur, no glow) ---------- */
@@ -71,7 +72,7 @@
   --ds-radius-panel: 8px;  /* panels */
   --ds-radius-sheet: 14px; /* mobile bottom sheet, top corners */
   --ds-header-h:     52px;
-  --ds-timeline-h:   88px;
+  --ds-timeline-h:   100px; /* room for a two-line readout (date, sensor, pixel size, scene id) */
   --ds-footer-h:     28px;
   --ds-panel-left:   360px;
   --ds-panel-right:  340px;

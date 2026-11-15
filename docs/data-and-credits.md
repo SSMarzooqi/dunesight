@@ -37,11 +37,18 @@ All NASA data were accessed through Google Earth Engine (`LANDSAT/LE07/C02/T1`, 
 
 Display only (not measurements): Cesium ion imagery (Bing Maps Aerial) and Cesium World Terrain when a token is set, otherwise Esri World Imagery; CesiumJS for the globe.
 
+## Software and typeface
+
+| Item | Licence | Used for |
+|---|---|---|
+| CesiumJS | Apache 2.0 | the 3D globe |
+| IBM Plex Sans (400, 500, 600) and IBM Plex Mono (400), © IBM Corp., packaged as `@fontsource/ibm-plex-sans` and `@fontsource/ibm-plex-mono` | SIL Open Font License 1.1 (https://openfontlicense.org; the licence text ships in `node_modules/@fontsource/ibm-plex-sans/LICENSE`) | all interface text. The font files are bundled with the app and served from the same origin, so the app makes no third-party font request and keeps its typeface when the network drops after load. |
+
 ## Credits
 
 Supported by the Michigan Space Grant Consortium, NASA grant 80NSSC20M0124.
 
-Data and imagery courtesy of NASA (Landsat 7 ETM+, Landsat 8-9 OLI, HLS S30, HLS L30, MERRA-2, NASA POWER, NASADEM) and the U.S. Geological Survey. Station wind data: NOAA NCEI. Land cover: ESA WorldCover. Roads and buildings © OpenStreetMap contributors. This project is not endorsed by NASA, and it uses no NASA logos. No Prithvi model is used.
+Data and imagery courtesy of NASA (Landsat 7 ETM+, Landsat 8-9 OLI, HLS S30, HLS L30, MERRA-2, NASA POWER, NASADEM) and the U.S. Geological Survey. Station wind data: NOAA NCEI. Land cover: ESA WorldCover. Roads and buildings © OpenStreetMap contributors. Typeface: IBM Plex (SIL Open Font License 1.1). This project is not endorsed by NASA, and it uses no NASA logos. No Prithvi model is used.
 
 ## Link check (2026-11-15)
 

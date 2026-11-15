@@ -1,0 +1,234 @@
+{
+ "location": {
+  "lat": 24.06,
+  "lon": 55.525
+ },
+ "period": "2000-2024",
+ "source": "NASA MERRA-2 U10M/V10M hourly",
+ "threshold_kt": 12,
+ "DP": 65.7,
+ "RDP": 25.1,
+ "RDD_deg": 99.9,
+ "RDP_DP": 0.383,
+ "dp_class": "low",
+ "yearly": [
+  {
+   "year": 2000,
+   "DP": 74.3,
+   "RDP": 44.9,
+   "RDD_deg": 127.8
+  },
+  {
+   "year": 2001,
+   "DP": 53.7,
+   "RDP": 27.8,
+   "RDD_deg": 111.7
+  },
+  {
+   "year": 2002,
+   "DP": 77.8,
+   "RDP": 39.8,
+   "RDD_deg": 105.5
+  },
+  {
+   "year": 2003,
+   "DP": 88.2,
+   "RDP": 34.0,
+   "RDD_deg": 101.4
+  },
+  {
+   "year": 2004,
+   "DP": 74.6,
+   "RDP": 34.9,
+   "RDD_deg": 94.7
+  },
+  {
+   "year": 2005,
+   "DP": 60.5,
+   "RDP": 43.3,
+   "RDD_deg": 115.7
+  },
+  {
+   "year": 2006,
+   "DP": 65.2,
+   "RDP": 30.3,
+   "RDD_deg": 107.7
+  },
+  {
+   "year": 2007,
+   "DP": 63.0,
+   "RDP": 6.9,
+   "RDD_deg": 87.9
+  },
+  {
+   "year": 2008,
+   "DP": 52.0,
+   "RDP": 35.5,
+   "RDD_deg": 123.0
+  },
+  {
+   "year": 2009,
+   "DP": 68.7,
+   "RDP": 25.7,
+   "RDD_deg": 57.7
+  },
+  {
+   "year": 2010,
+   "DP": 59.4,
+   "RDP": 9.8,
+   "RDD_deg": 76.7
+  },
+  {
+   "year": 2011,
+   "DP": 62.1,
+   "RDP": 22.1,
+   "RDD_deg": 88.4
+  },
+  {
+   "year": 2012,
+   "DP": 78.5,
+   "RDP": 20.7,
+   "RDD_deg": 77.9
+  },
+  {
+   "year": 2013,
+   "DP": 56.7,
+   "RDP": 25.0,
+   "RDD_deg": 93.1
+  },
+  {
+   "year": 2014,
+   "DP": 52.3,
+   "RDP": 20.1,
+   "RDD_deg": 101.0
+  },
+  {
+   "year": 2015,
+   "DP": 84.0,
+   "RDP": 29.3,
+   "RDD_deg": 75.9
+  },
+  {
+   "year": 2016,
+   "DP": 49.8,
+   "RDP": 31.5,
+   "RDD_deg": 122.3
+  },
+  {
+   "year": 2017,
+   "DP": 66.3,
+   "RDP": 19.6,
+   "RDD_deg": 68.8
+  },
+  {
+   "year": 2018,
+   "DP": 78.1,
+   "RDP": 40.5,
+   "RDD_deg": 102.8
+  },
+  {
+   "year": 2019,
+   "DP": 85.6,
+   "RDP": 31.0,
+   "RDD_deg": 60.6
+  },
+  {
+   "year": 2020,
+   "DP": 77.1,
+   "RDP": 16.3,
+   "RDD_deg": 46.4
+  },
+  {
+   "year": 2021,
+   "DP": 50.1,
+   "RDP": 10.5,
+   "RDD_deg": 173.7
+  },
+  {
+   "year": 2022,
+   "DP": 70.6,
+   "RDP": 34.2,
+   "RDD_deg": 112.2
+  },
+  {
+   "year": 2023,
+   "DP": 44.2,
+   "RDP": 31.3,
+   "RDD_deg": 115.3
+  },
+  {
+   "year": 2024,
+   "DP": 49.1,
+   "RDP": 16.3,
+   "RDD_deg": 79.2
+  }
+ ],
+ "sand_rose": [
+  {
+   "sector_deg": 0.0,
+   "dp": 0.32
+  },
+  {
+   "sector_deg": 22.5,
+   "dp": 0.12
+  },
+  {
+   "sector_deg": 45.0,
+   "dp": 0.43
+  },
+  {
+   "sector_deg": 67.5,
+   "dp": 2.31
+  },
+  {
+   "sector_deg": 90.0,
+   "dp": 1.7
+  },
+  {
+   "sector_deg": 112.5,
+   "dp": 0.26
+  },
+  {
+   "sector_deg": 135.0,
+   "dp": 0.54
+  },
+  {
+   "sector_deg": 157.5,
+   "dp": 7.06
+  },
+  {
+   "sector_deg": 180.0,
+   "dp": 9.68
+  },
+  {
+   "sector_deg": 202.5,
+   "dp": 3.2
+  },
+  {
+   "sector_deg": 225.0,
+   "dp": 0.74
+  },
+  {
+   "sector_deg": 247.5,
+   "dp": 0.35
+  },
+  {
+   "sector_deg": 270.0,
+   "dp": 0.81
+  },
+  {
+   "sector_deg": 292.5,
+   "dp": 13.78
+  },
+  {
+   "sector_deg": 315.0,
+   "dp": 21.9
+  },
+  {
+   "sector_deg": 337.5,
+   "dp": 2.48
+  }
+ ],
+ "placeholder": false,
+ "note": "Fryberger & Dean (1979) drift potential, DP = sum V^2 (V - 12 kt)/100 * t with V the hourly-mean 10 m wind in knots and t each hour's share of its year in percent; DP, RDP are mean annual values in vector units (VU/yr). RDD_deg is the direction sand moves TO (resultant of downwind drift vectors), degrees clockwise from north. sand_rose.sector_deg is the direction the wind blows FROM (16 sectors of 22.5 deg centred on sector_deg); sand_rose.dp sums to DP. Data: MERRA-2 tavg1_2d_slv_Nx via Earth Engine NASA/GSFC/MERRA/slv/2, native cell centred 24.0 N 55.625 E (0.5 x 0.625 deg, about 55 x 63 km) containing the box centroid; Earth Engine's grid is offset from the native one, so the pixel was chosen by native index and checked against NASA POWER. Missing hours: 0 of 219168. NASA POWER cross-check 2001-2024: DP differs by 0.001 %, RDD by 0.004 deg (same underlying MERRA-2, so this checks processing only). Caveat: a ~50 km reanalysis of hourly means damps gusts, so absolute DP is likely biased low against station anemometers and dp_class is approximate; RDD and RDP_DP are the more robust outputs. Computed by pipeline/01_scenes_and_wind.ipynb."
+}

@@ -7,4 +7,4 @@ Not written yet. Written in Phase 5 (science review), after the pipeline has pro
 - data handling: cloud/shadow masking (QA_PIXEL, Fmask), Landsat 7 SLC-off exclusion, no-data, low-correlation rejection, and what was dropped and why;
 - uncertainty and validation (Fareaa 2025 UAEU thesis; NASA HLS second-dataset check).
 
-The data currently in `public/data/` is PLACEHOLDER and supports none of these claims.
+Most data currently in `public/data/<site_id>/` is PLACEHOLDER and supports none of these claims; `public/data/sites.json` lists which files are real (so far only `seih_al_hama/wind_summary.json`).

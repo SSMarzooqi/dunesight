@@ -11,7 +11,7 @@
     "postbuild": "node -e \"const fs=require('fs');if(fs.existsSync('dist/dunesight/cesium')){fs.rmSync('dist/cesium',{recursive:true,force:true});fs.renameSync('dist/dunesight/cesium','dist/cesium');fs.rmSync('dist/dunesight',{recursive:true,force:true});console.log('postbuild: moved dist/dunesight/cesium -> dist/cesium (vite-plugin-cesium base-path quirk)')}\"",
     "preview": "vite preview",
     "placeholders": "pipeline/.venv/bin/python pipeline/make_placeholders.py",
-    "pipeline": "cd pipeline && .venv/bin/jupyter nbconvert --to notebook --execute --inplace 01_scenes_and_wind.ipynb && .venv/bin/jupyter nbconvert --to notebook --execute --inplace 02_tracking_and_dunes.ipynb && .venv/bin/jupyter nbconvert --to notebook --execute --inplace 03_threats_and_frames.ipynb"
+    "pipeline": "pipeline/.venv/bin/python pipeline/run_pipeline.py"
   },
   "dependencies": {
     "cesium": "^1.147.0"

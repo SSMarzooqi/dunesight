@@ -38,26 +38,38 @@ if (!hasToken) {
 const viewer = new Cesium.Viewer('globe', viewerOptions);
 viewer.scene.globe.enableLighting = false;
 
-// Base-aware path: '/' in dev, '/dunesight/' on GitHub Pages.
-const dataUrl = `${import.meta.env.BASE_URL}data/summary.json`;
+// Base-aware paths: '/' in dev, '/dunesight/' on GitHub Pages.
+// Layout: data/sites.json lists the sites; each site's §4 files live in data/<site_id>/.
+const base = `${import.meta.env.BASE_URL}data/`;
 
-async function loadSummary() {
+async function getJson(path) {
+  const res = await fetch(base + path);
+  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+  return res.json();
+}
+
+async function loadData() {
   const statusEl = document.getElementById('data-status');
   const fieldsEl = document.getElementById('data-fields');
   try {
-    const res = await fetch(dataUrl);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const s = await res.json();
-    statusEl.textContent = s.placeholder ? 'summary.json loaded (PLACEHOLDER values, not results)' : 'summary.json loaded';
+    const index = await getJson('sites.json');
+    const site = index.sites.find((s) => s.id === index.default_site) || index.sites.find((s) => s.data_dir);
+    if (!site) throw new Error('sites.json lists no site with data');
+    const s = await getJson(`${site.data_dir}summary.json`);
+    const files = site.files || {};
+    const realFiles = Object.keys(files).filter((f) => files[f] === 'real');
+    statusEl.textContent = `${site.id}/summary.json loaded (${s.placeholder ? 'PLACEHOLDER values, not results' : 'real'})`;
     const rows = [
+      ['Sites', index.sites.map((x) => `${x.id} (${x.status})`).join(', ')],
       ['AOI', s.aoi_name],
+      ['Real files', realFiles.length ? realFiles.join(', ') : 'none yet'],
       ['Dunes', s.n_dunes],
       ['Median speed', `${s.speed_median_myr} m/yr (p10–p90 ${s.speed_p10_myr}–${s.speed_p90_myr})`],
       ['Threat dunes', s.n_threat],
     ];
     fieldsEl.innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
 
-    const b = s.aoi_bounds;
+    const b = site.bbox || s.aoi_bounds;
     if (b && Number.isFinite(b.west)) {
       const rect = Cesium.Rectangle.fromDegrees(b.west, b.south, b.east, b.north);
       viewer.entities.add({
@@ -72,8 +84,8 @@ async function loadSummary() {
       viewer.camera.flyTo({ destination: Cesium.Rectangle.fromDegrees(b.west - 0.3, b.south - 0.3, b.east + 0.3, b.north + 0.3), duration: 3 });
     }
   } catch (err) {
-    statusEl.textContent = `Could not load ${dataUrl}: ${err.message}`;
+    statusEl.textContent = `Could not load data: ${err.message}`;
   }
 }
 
-loadSummary();
+loadData();

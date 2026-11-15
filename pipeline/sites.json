@@ -1,0 +1,41 @@
+{
+  "note": "The only place site boxes live. Every notebook reads its site from here, chosen by the DUNESIGHT_SITE environment variable (default seih_al_hama). Only sites with verified=true are run by `npm run pipeline` and get data in public/data/<site_id>/. Boxes are WGS84 (EPSG:4326) degrees; `epsg` is the projected CRS used for processing.",
+  "sites": [
+    {
+      "id": "seih_al_hama",
+      "name": "Seih Al Hama, SW of Al Ain",
+      "bbox": {"west": 55.475, "south": 24.015, "east": 55.575, "north": 24.105},
+      "epsg": 32640,
+      "wrs_path": 160,
+      "wrs_row": 43,
+      "hls_tile": "T40QCM",
+      "verified": true,
+      "source": "docs/research/aoi-verification.md (Phase 1, AOI-1)",
+      "note": "AOI-1 from the Phase 1 research: about 10.2 km E-W x 9.95 km N-S, centroid 24.060 N, 55.525 E, containing the 'Sieh Al Hama Camel Race Track' (24.0578614, 55.5217188), the E40 road, a settlement and plantations. EPSG:32640 and WRS-2 160/043 confirmed from USGS STAC footprints. CAVEAT: the link between this place name and the Fareaa (2025, UAEU) thesis study area is NOT confirmed. The thesis full text and study-area map were not reachable, its Arabic abstract spells the field 'Seih Al-Lahma', and GeoNames has a different 'Sayh al Hammah' trough 13 km WSW (AOI-2 in the research note). The box was chosen for dunes next to roads and farms, not because it is proven to be the thesis site."
+    },
+    {
+      "id": "sweihan",
+      "name": "Sweihan dune field, NW of Al Ain",
+      "bbox": null,
+      "epsg": null,
+      "wrs_path": null,
+      "wrs_row": null,
+      "hls_tile": null,
+      "verified": false,
+      "source": null,
+      "note": "Not located yet (Phase 1b). No box, CRS or path/row until they are verified from sources; do not run the pipeline for this site."
+    },
+    {
+      "id": "liwa",
+      "name": "Liwa, southern Abu Dhabi",
+      "bbox": null,
+      "epsg": null,
+      "wrs_path": null,
+      "wrs_row": null,
+      "hls_tile": null,
+      "verified": false,
+      "source": null,
+      "note": "Not located yet (Phase 1b). Megadunes here are expected to move below the detection limit (about 0.1 m/yr from a field estimate, Lorenz & Radebaugh 2015); if so the app must say exactly that. Do not run the pipeline for this site until the box is verified."
+    }
+  ]
+}

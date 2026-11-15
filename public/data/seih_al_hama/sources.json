@@ -6,10 +6,11 @@
   "dates": [
    "2001-05-01"
   ],
-  "place": "PLACEHOLDER AOI (unverified)",
+  "place": "Seih Al Hama, SW of Al Ain box (PLACEHOLDER entry)",
   "pixel": "15 m",
   "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
   "doi": "https://doi.org/10.5066/P9TU80IG",
+  "placeholder": true,
   "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
  },
  {
@@ -21,10 +22,11 @@
    "2019-05-01",
    "2025-05-01"
   ],
-  "place": "PLACEHOLDER AOI (unverified)",
+  "place": "Seih Al Hama, SW of Al Ain box (PLACEHOLDER entry)",
   "pixel": "15 m",
   "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
   "doi": "https://doi.org/10.5066/P975CC9B",
+  "placeholder": true,
   "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
  },
  {
@@ -32,10 +34,11 @@
   "provider": "NASA LP DAAC",
   "used_for": "second-dataset check - PLACEHOLDER",
   "dates": [],
-  "place": "PLACEHOLDER AOI (unverified)",
+  "place": "Seih Al Hama, SW of Al Ain box (PLACEHOLDER entry)",
   "pixel": "30 m",
   "link": "https://lpdaac.usgs.gov/products/hlsl30v002/",
   "doi": "https://doi.org/10.5067/HLS/HLSL30.002",
+  "placeholder": true,
   "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
  },
  {
@@ -45,10 +48,11 @@
   "dates": [
    "2000-01-01/2024-12-31"
   ],
-  "place": "PLACEHOLDER AOI centroid",
+  "place": "Seih Al Hama, SW of Al Ain box centroid (PLACEHOLDER entry)",
   "pixel": "0.5 x 0.625 deg",
   "link": "https://disc.gsfc.nasa.gov/datasets/M2T1NXSLV_5.12.4/summary",
   "doi": "https://doi.org/10.5067/VJAFPLI1CSIV",
+  "placeholder": true,
   "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
  },
  {
@@ -58,10 +62,11 @@
   "dates": [
    "2000-02"
   ],
-  "place": "PLACEHOLDER AOI (unverified)",
+  "place": "Seih Al Hama, SW of Al Ain box (PLACEHOLDER entry)",
   "pixel": "30 m",
   "link": "https://lpdaac.usgs.gov/products/nasadem_hgtv001/",
   "doi": "https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001",
+  "placeholder": true,
   "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
  }
 ]

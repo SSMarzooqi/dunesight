@@ -1,8 +1,8 @@
 # DuneSight
 
-A "spy satellite for sand dunes": a 3D globe app that flies from orbit to a UAE dune field west of Al Ain, where every dune is outlined, labelled and tracked (height, speed ± uncertainty, heading, confidence, and threat to roads and farms). A weather-radar-style timeline plays the observed Landsat years and then fades into projected frames to 2050, to help planners decide where and when to build windbreaks.
+A "spy satellite for sand dunes": a 3D globe app that flies from orbit to UAE dune fields (first Seih Al Hama, SW of Al Ain), where every dune is outlined, labelled and tracked (height, speed ± uncertainty, heading, confidence, and threat to roads and farms). A weather-radar-style timeline plays the observed Landsat years and then fades into projected frames to 2050, to help planners decide where and when to build windbreaks.
 
-> **Status:** scaffold. The data in `public/data/` is **PLACEHOLDER** (fake values for app development), and the area of interest in `pipeline/aoi.json` is an unverified placeholder box.
+> **Status:** pipeline in progress. Three sites are planned (`seih_al_hama`, `sweihan`, `liwa`); only Seih Al Hama has a verified box so far. Most files in `public/data/` are still **PLACEHOLDER** (fake values for app development); `public/data/sites.json` says which files are real (currently the Seih Al Hama wind summary).
 
 *[Screenshot placeholder: added once the app is built, as `docs/screenshot.png`.]*
 
@@ -27,11 +27,20 @@ Needs Python 3.11+ (tested on 3.14).
 ```bash
 python3 -m venv pipeline/.venv
 pipeline/.venv/bin/pip install -r pipeline/requirements.txt
-npm run placeholders   # regenerate PLACEHOLDER files in public/data/ from pipeline/aoi.json
-npm run pipeline       # execute the three notebooks headless, outputs saved in place
+npm run placeholders   # write PLACEHOLDER files for every verified site (never overwrites real results)
+npm run pipeline       # run notebooks 01 -> 02 -> 03 headless for every verified site
 ```
 
-The area of interest lives only in `pipeline/aoi.json`. Earth Engine (`EE_PROJECT`) and NASA Earthdata (`EARTHDATA_USERNAME`, `EARTHDATA_PASSWORD`) credentials go in `.env`, which is never committed. Downloaded rasters go in `pipeline/raw/` (ignored by git).
+**Sites.** Site boxes live only in `pipeline/sites.json` (id, name, bbox, EPSG, WRS-2 path/row, `verified`, source note). Each notebook reads its site from the `DUNESIGHT_SITE` environment variable (default `seih_al_hama`); `npm run pipeline` (`pipeline/run_pipeline.py`) loops over the verified sites, and `--site <id>` / `--only 01` narrow it. Shared code is in `pipeline/dunesight/`.
+
+**Where things go.**
+- `public/data/sites.json`: the site list for the app, with each site's status and which of its files are `real` or `placeholder`.
+- `public/data/<site_id>/`: the handoff §4 data files for that site (`summary.json`, `dunes.geojson`, `dunes_2000.geojson`, `vectors.geojson`, `targets.geojson`, `wind_summary.json`, `sources.json`, `frames/`).
+- `pipeline/runs/<site_id>/`: executed copies of the notebooks, with outputs, as documentation. The source notebooks in `pipeline/` are kept without outputs.
+- `pipeline/outputs/<site_id>/`: small working outputs (candidate-scene tables, rejection logs, the proposed scene list, wind tables, figures).
+- `pipeline/raw/<site_id>/`: downloads and caches (ignored by git). Set `DUNESIGHT_REFRESH=1` to re-query instead of using the cache.
+
+Earth Engine (`EE_PROJECT`) and NASA Earthdata (`EARTHDATA_USERNAME`, `EARTHDATA_PASSWORD`) credentials go in `.env`, which is never committed.
 
 ## NASA datasets
 

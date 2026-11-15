@@ -135,15 +135,15 @@ Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting cont
 - **Body motion withdrawn at every site.** Earlier statements that megadune or ridge bodies move at a measured speed (e.g. "0.68-0.83 m/yr toward ~138°" at Liwa, "0.2-0.3 m/yr" at Sweihan, "below the detection limit, 0.04-0.17 m/yr" at Seih Al Hama) are withdrawn: the body-scale matcher failed a known-shift test. Bodies are outlined but their motion is "not measured".
 - **Station wind published only where defensible** (rule in notebook 01b): Seih Al Hama yes (Al Ain International, 24 km; Buraimi agrees); Sweihan no (Al Ain and the coastal Al Maktoum disagree by 97°, and MERRA-2 already matches the dunes within 4°); Liwa no (no usable station within 100 km). MERRA-2 stays the primary wind figure.
 - **Cross-check status on screen.** `summary.confirmation` (notebook 03, from notebook 02's QC) states for speed and heading whether an independent check agrees: tolerance 15 % (speed) and 20° (heading); HLS S30 = independent, Landsat 7 long baseline = partly independent, HLS L30 = context only. Seih Al Hama: speed and heading partly confirmed; Sweihan: speed partly, heading confirmed; Liwa: speed not confirmed, heading confirmed. The tolerances were fixed after the QC numbers were known; the numbers are shown with the status.
+- **Cross-check tolerances kept** (Sultan, 2026-11-15): 15 % for speed and 20° for heading stay as they are. Any speed tolerance between 5 % and 19 % gives the same three verdicts.
+- **Team names stay blank** in `environment.md` (Sultan, 2026-11-15).
 
 ## Still open
 - **Liwa speed magnitude.** Why HLS (both S30 and L30) gives about a third to two fifths of the Landsat pan speed at Liwa, while L30 agrees within ~0.1 m/yr at the other sites, is not understood. Until it is, Liwa's reach years carry an extra, unquantified uncertainty.
 - **Sentinel-2 speeds at the Al Ain sites** are about half of Landsat's; at 30 m their detection limit is close to or above most measured speeds, so this may be a resolution effect, but it is not shown to be.
 - **Southern belt of Seih Al Hama** moves east, which neither MERRA-2's resultant nor the station explains.
 - **Fareaa (2025) thesis:** context only until the full text is available.
-- **Team names** in `environment.md` (Sultan to fill in).
 - **Cesium ion token allowed-URL restriction** not yet confirmed in the ion dashboard.
-- **Stale local dev servers** from an earlier worktree were found on ports 5173/5174 on 2026-11-15; stopping them was not permitted to the agent, so the e2e runs used other ports (`E2E_DEV_PORT` etc.). Sultan can stop them (`lsof -iTCP:5173`).
 
 ## What blocked on Sultan (all resolved by 2026-11-14)
 1. Earth Engine: a registered Cloud project ID, then one browser login (`earthengine authenticate`). Blocks Phases 2–4.

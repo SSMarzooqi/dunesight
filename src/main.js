@@ -292,7 +292,11 @@ function applyStop(stop) {
   projectedTag.show = showProjected;
   projectedTag.text = `PROJECTED ${stop.year}${stop.med ? ` · median case, ${stop.med.year} frame` : ''}`;
   imageTag.show = imageOnly;
-  imageTag.text = imageOnly ? `IMAGE ONLY ${stop.year} · not measured\nLandsat 7: hatched stripes = no data` : 'IMAGE ONLY';
+  if (imageOnly) {
+    const f = stop.frame || {};
+    const lines = [`IMAGE ONLY ${stop.year} · not measured`, `Landsat 7${f.off_month ? `, ${f.month} image (not November)` : ''}`, f.has_scan_line_gaps ? 'hatched stripes = no data' : null];
+    imageTag.text = lines.filter(Boolean).join('\n');
+  }
   L.targets.setYear(stop.year);
   L.vectors.setTrackYears(projected ? stop.yearsSince : 0);
   document.body.dataset.timekind = stop.kind;

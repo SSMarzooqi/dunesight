@@ -484,3 +484,12 @@
   .ds-tl-read p[data-kind="image"] { -webkit-line-clamp: unset; line-clamp: unset; display: block; }
 }
 @media (max-width: 760px) { .ds-read-extra { display: none; } }
+/* phone: the timeline settings button sits beside the "When?" heading, so a longer readout can never push it under the footer */
+@media (max-width: 760px) {
+  .ds-ui .ds-timeline { position: relative; inset: auto; } /* the desktop offsets (bottom, left, right) must not move it */
+  .ds-ui .ds-gearwrap { position: absolute; top: 6px; right: 14px; margin-top: 0; }
+  .ds-ui .ds-pop { top: calc(100% + 8px); bottom: auto; left: auto; right: 0; max-width: calc(100vw - 40px); }
+}
+/* off-month image-only frames (not November): a round marker instead of the square */
+.ds-track__image--off { border-radius: 50%; }
+.ds-key-image--off { border-radius: 50%; }

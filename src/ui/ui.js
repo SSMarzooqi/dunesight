@@ -303,7 +303,7 @@ function reachedPanel(d, filter) {
     + `</div></div></section>`;
 }
 
-function legendRows(mode, d, layers, settings, projectedVisible, imageVisible) {
+function legendRows(mode, d, layers, settings, projectedVisible, image) {
   const lrow = (id, sample, label, { count, sub } = {}) =>
     `<label class="ds-lrow"><input type="checkbox" data-layer="${id}"${layers[id] ? ' checked' : ''}><span>${sample}</span><span>${label}${sub ? `<small>${sub}</small>` : ''}</span>${count != null ? `<b>${count}</b>` : '<span></span>'}</label>`;
   const classes = `<div class="ds-classes">${['stable', 'slow', 'active', 'fast'].map((k) => `<div>${outlineSample(MAP_STYLE.dune[k], 22)}${k[0].toUpperCase() + k.slice(1)}</div>`).join('')}</div>`;
@@ -320,9 +320,10 @@ function legendRows(mode, d, layers, settings, projectedVisible, imageVisible) {
   const exposed = lrow('exposed', exposedSample(), 'Exposed to blowing sand today', { count: n(d.targets.exposed), sub: 'borders free sand; not forecast by this tool' });
   const dunesRow = (sub) => lrow('dunes', outlineSample(MAP_STYLE.dune.active), 'Large dunes (NASADEM outline)', { sub });
   // image-only years (Landsat 7 with scan-line gaps): what the stripes are, and why arrows and outlines are not drawn
-  const imageNote = imageVisible
+  const imageNote = image
     ? `<div class="ds-limage" data-image-legend><p class="ds-limage__head">${imageTag}<span>This year is an image only, not used for any measurement.</span></p>`
-      + `<p class="ds-limage__row"><span class="ds-nodata-swatch"></span><span>Hatched stripes: no data<small>Landsat 7 scan-line gaps (its scan line corrector failed on 31 May 2003); nothing is filled in</small></span></p>`
+      + (image.offMonth ? `<p class="ds-limage__row" data-offmonth-legend><span class="ds-key-image ds-key-image--off"></span><span>Taken in ${esc(image.month)}, not November<small>The sun stands at a different height${isNum(image.sunElev) && image.novSun ? ` (${n(image.sunElev, 1)}° against ${n(image.novSun[0], 1)}–${n(image.novSun[1], 1)}° in November)` : ''}, so shadows and dune shading differ: that is not sand movement</small></span></p>` : '')
+      + (image.hasGaps ? `<p class="ds-limage__row"><span class="ds-nodata-swatch"></span><span>Hatched stripes: no data<small>Landsat 7 scan-line gaps (its scan line corrector failed on 31 May 2003); nothing is filled in</small></span></p>` : '')
       + `<p class="ds-caption">Motion arrows and dune outlines are hidden in these years: they describe 2013–2025.</p></div>`
     : '';
   if (mode === 'motion') {
@@ -404,8 +405,8 @@ function timelineSection(d, settings) {
       <div class="ds-track__sect ds-track__sect--p" style="left:${x(last)}">Projected</div>
       ${obs}${gapEls}
       ${scenes.map((s) => `<div class="ds-track__scene" data-scene="${s}" style="left:${x(s)}"></div>`).join('')}
-      ${images.map((s) => `<div class="ds-track__image" data-image="${s}" style="left:${x(s)}" title="${s}: image only (Landsat 7, striped gaps), not used for measurement"></div>`).join('')}
-      ${images.length ? `<div class="ds-track__gapnote" data-gapnote style="left:calc(${x(start)} + 44px)"><span class="ds-track__gapkey"><i class="ds-key-image"></i>image only, not measured</span>${gapNote ? `<span>${gapNote}</span>` : ''}</div>` : ''}
+      ${images.map((s) => { const o = tl.observed[s] || {}; return `<div class="ds-track__image${o.offMonth ? ' ds-track__image--off' : ''}" data-image="${s}"${o.offMonth ? ' data-offmonth' : ''} style="left:${x(s)}" title="${s}: image only (Landsat 7${o.offMonth ? `, ${esc(o.month)}` : ''}${o.hasGaps ? ', striped gaps' : ''}), not used for measurement"></div>`; }).join('')}
+      ${images.length ? `<div class="ds-track__gapnote" data-gapnote style="left:calc(${x(start)} + 44px)"><span class="ds-track__gapkey"><i class="ds-key-image"></i>image only, not measured${(tl.offMonth || []).length ? `</span><span class="ds-track__gapkey"><i class="ds-key-image ds-key-image--off"></i>not November` : ''}</span>${gapNote ? `<span>${gapNote}</span>` : ''}</div>` : ''}
       <div class="ds-track__proj" style="left:${x(last)};right:0"></div>
       ${tl.frames.map((f) => `<div class="ds-track__frame" data-frame="${f}" style="left:${x(f)}"></div>`).join('')}
       <div class="ds-track__divider" style="left:${x(last)}"></div>
@@ -414,7 +415,7 @@ function timelineSection(d, settings) {
     </div>
     <div class="ds-tl-read"><p data-readout aria-live="polite"></p>
       <span class="ds-hint"><kbd>Space</kbd> play · <kbd>← →</kbd> step</span></div>
-    ${gapNote || images.length ? `<p class="ds-tl-key ds-caption" data-tl-key>${images.length ? `<span><i class="ds-key-image"></i>Image only, not measured (Landsat 7, striped gaps)</span>` : ''}${gapNote ? `<span data-gapnote-phone>${gapNote}</span>` : ''}</p>` : ''}
+    ${gapNote || images.length ? `<p class="ds-tl-key ds-caption" data-tl-key>${images.length ? `<span><i class="ds-key-image"></i>Image only, not measured (Landsat 7)</span>` : ''}${(tl.offMonth || []).length ? `<span><i class="ds-key-image ds-key-image--off"></i>taken in another month than November</span>` : ''}${gapNote ? `<span data-gapnote-phone>${gapNote}</span>` : ''}</p>` : ''}
   </div>
   <div class="ds-gearwrap">
     <button type="button" class="ds-tbtn" data-gear aria-label="Timeline settings" aria-expanded="false">${icon('gear', 18)}</button>
@@ -543,8 +544,9 @@ export function mountDuneSightUI(container, opts) {
 
   function renderLegend() {
     const projectedVisible = state.year > state.data.timeline.lastObserved;
-    const imageVisible = !!state.data.timeline.observed[state.year]?.imageOnly;
-    root.querySelector('[data-legend-rows]').innerHTML = legendRows(state.mode, state.data, state.layers[state.mode], state.settings, projectedVisible, imageVisible);
+    const o = state.data.timeline.observed[state.year];
+    const image = !projectedVisible && o?.imageOnly ? o : null;
+    root.querySelector('[data-legend-rows]').innerHTML = legendRows(state.mode, state.data, state.layers[state.mode], state.settings, projectedVisible, image);
     root.querySelector('[data-modename]').textContent = NAMES[state.mode];
   }
 
@@ -567,12 +569,16 @@ export function mountDuneSightUI(container, opts) {
     let text;
     if (!projected) {
       if (image) {
+        // every clause comes from this frame's own data: month and sun only when it is not November, stripes only when it has them
         text = `<b>${y}</b> · ${imageTag}not used for measurement · ${[
-          o2.date ? `<b>${esc(o2.date)}</b>` : null,
+          o2.date ? `<b>${esc(o2.date)}</b>${o2.offMonth && o2.month ? ` (${esc(o2.month)}, not November)` : ''}` : null,
           o2.sensor ? esc(o2.sensor) : null,
           isNum(o2.pixel) ? `${o2.pixel} m pixel` : null,
           o2.sceneId ? `scene <span class="ds-mono">${esc(o2.sceneId)}</span>` : null,
-        ].filter(Boolean).join(' · ')} · hatched stripes are missing data${isNum(o2.nodataPct) ? ` (${n(o2.nodataPct, 0)}% of the box)` : ''}: the scan line corrector failed on 31 May 2003.<span class="ds-read-extra"> Arrows and outlines hidden.</span>`;
+        ].filter(Boolean).join(' · ')}`
+          + (o2.offMonth && isNum(o2.sunElev) && o2.novSun ? ` · <span data-sun-note>sun ${n(o2.sunElev, 1)}° high, against ${n(o2.novSun[0], 1)}–${n(o2.novSun[1], 1)}° in the November images: shadows and dune shading differ, and that is not sand movement</span>` : '')
+          + (o2.hasGaps ? ` · hatched stripes are missing data${isNum(o2.gapsPct) ? ` (${n(o2.gapsPct, 0)}% of the box)` : ''}: the scan line corrector failed on 31 May 2003` : '')
+          + `.<span class="ds-read-extra"> Arrows and outlines hidden.</span>`;
       } else if (o2) {
         text = `<b>${y}</b> · ${measTag}${[
           o2.date ? `<b>${esc(o2.date)}</b>` : null,
@@ -598,11 +604,12 @@ export function mountDuneSightUI(container, opts) {
     root.querySelector('[data-readout]').innerHTML = text;
     root.querySelector('[data-readout]').dataset.kind = projected ? 'projected' : image ? 'image' : 'observed';
     root.querySelector('[data-when]').innerHTML = projected ? `${projTag}<b>${y}</b>`
-      : image ? `${imageTag}<b>${y}</b><span class="ds-when__sub"> · Landsat 7, striped gaps · not used for measurement</span>` : `${measTag}<b>${y}</b>`;
+      : image ? `${imageTag}<b>${y}</b><span class="ds-when__sub"> · ${[o2.offMonth && o2.month ? `${esc(o2.month)} image, not November` : null, `Landsat 7${o2.hasGaps ? ', striped gaps' : ''}`, 'not used for measurement'].filter(Boolean).join(' · ')}</span>` : `${measTag}<b>${y}</b>`;
     root.querySelector('[data-when]').dataset.kind = projected ? 'projected' : image ? 'image' : 'observed';
     const wasProjected = root.querySelector('[data-layer="projected"]') != null;
-    const wasImage = root.querySelector('[data-image-legend]') != null;
-    if (wasProjected !== projected || wasImage !== image) renderLegend();
+    // the legend follows the kind of year (and, for an image-only year, that frame's own month and stripes)
+    const legendKey = projected ? 'projected' : image ? `image:${y}` : 'measured', rows = root.querySelector('[data-legend-rows]');
+    if (wasProjected !== projected || rows.dataset.key !== legendKey) { renderLegend(); rows.dataset.key = legendKey; }
     declutterTrack(track, (y - tl.start) / (tl.end - tl.start));
   }
 

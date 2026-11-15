@@ -187,7 +187,8 @@ for (const id of SITES) {
     // the gap label names exactly the empty years, computed from the data
     if (displayOnly(m).length) {
       const note = await page.locator('[data-gapnote]').innerText();
-      expect(namedYears(note)).toEqual(gaps.flatMap(([a, b]) => Array.from({ length: b - a + 1 }, (_, i) => a + i)));
+      expect(namedYears(note.replace(/^[^N]*(?=No scene)/, ''))).toEqual(gaps.flatMap(([a, b]) => Array.from({ length: b - a + 1 }, (_, i) => a + i)));
+      if (!gaps.length) expect(note).not.toContain('No scene');
     }
     const years = [...m.observed.map((o) => o.year), ...displayOnly(m).map((o) => o.year)].sort((a, b) => a - b);
     await expect(page.locator('.ds-track__scene')).toHaveCount(m.observed.length);
@@ -235,8 +236,21 @@ for (const id of SITES) {
         expect(label).toContain(`${o.pixel_m} m pixel`);
         expect(label).toMatch(new RegExp(`\\b\\d{1,2} [A-Z][a-z]{2} ${o.date.slice(0, 4)}\\b`));
         expect(label).toContain(o.scene_id);
-        expect(label).toContain('missing data');
-        expect(label).toContain('31 May 2003');
+        // stripes are mentioned only for a frame that has them (read from its own data, not from its year)
+        expect(label.includes('missing data') && label.includes('31 May 2003')).toBe(o.has_scan_line_gaps);
+        expect(when.includes('striped gaps')).toBe(o.has_scan_line_gaps);
+        // an off-month frame says its month and its sun against the November range; a November frame says neither
+        expect(label.includes(`(${o.month}, not November)`)).toBe(o.off_month);
+        expect(when.includes(`${o.month} image, not November`)).toBe(o.off_month);
+        if (o.off_month) {
+          const [a, b] = o.november_sun_elevation_range_deg;
+          expect(label).toContain(`sun ${o.sun_elevation_deg.toFixed(1)}° high, against ${a.toFixed(1)}–${b.toFixed(1)}° in the November images`);
+          expect(label).toContain('not sand movement');
+          await expect(page.locator('[data-offmonth-legend]')).toContainText(`Taken in ${o.month}, not November`);
+        } else {
+          expect(label).not.toContain('not November');
+          await expect(page.locator('[data-offmonth-legend]')).toHaveCount(0);
+        }
         expect(await page.locator('[data-readout]').evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
         const sh = await shown(page);
         expect(sh.imageTag).toBe(true);
@@ -244,7 +258,8 @@ for (const id of SITES) {
         expect(sh.vectors).toBe(false); // the 2013-2025 arrows and outlines are not drawn on these images
         expect(sh.dunes).toBe(false);
         expect(sh.frames.base).toBe(`nodata:${o.file}`); // stripes painted as the no-data hatch
-        await expect(page.locator('[data-image-legend]')).toContainText('Hatched stripes: no data');
+        if (o.has_scan_line_gaps) await expect(page.locator('[data-image-legend]')).toContainText('Hatched stripes: no data');
+        else await expect(page.locator('[data-image-legend]')).not.toContainText('Hatched stripes');
       } else {
         expect(when).toContain('PROJECTED');
         expect(label).toContain('PROJECTED');
@@ -286,20 +301,36 @@ test('display-only Landsat 7 frames: tagged in the data, never a measured year, 
       expect(o.use).toBe('display_only');
       expect(o.used_for_measurement).toBe(false);
       expect(measuredYears.has(o.year)).toBe(false);
-      expect(o.date >= '2003-05-31').toBe(true);
       expect(o.sensor).toMatch(/^Landsat 7/);
-      expect(o.note).toMatch(/31 May 2003/);
-      expect(o.nodata_share_of_box_pct).toBeGreaterThan(0);
+      // stripes: from the frame's own data; a scene before the scan-line-corrector failure has none
+      if (o.date < '2003-05-31') expect(o.has_scan_line_gaps).toBe(false);
+      expect(o.has_scan_line_gaps).toBe(o.nodata_scan_line_gaps_pct >= 0.5);
+      expect(/stripes with no data/.test(o.note)).toBe(o.has_scan_line_gaps);
+      // off-month: from the date; it carries its month, days from 15 November and the sun note
+      expect(o.off_month).toBe(o.date.slice(5, 7) !== '11');
+      expect(o.month).toBe(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][+o.date.slice(5, 7) - 1]);
+      expect(o.days_from_15_november).toBe(Math.round((Date.parse(o.date) - Date.parse(`${o.date.slice(0, 4)}-11-15`)) / 86400000));
+      if (o.off_month) {
+        expect(o.sun_note).toContain(`${o.sun_elevation_deg.toFixed(1)} deg`);
+        expect(o.sun_note).toContain('not sand movement');
+        const nov = [...m.observed, ...disp].filter((x) => x.date.slice(5, 7) === '11').map((x) => x.sun_elevation_deg);
+        // rounded to 0.1 deg by the pipeline (ties may round either way)
+        expect(Math.abs(o.november_sun_elevation_range_deg[0] - Math.min(...nov))).toBeLessThanOrEqual(0.051);
+        expect(Math.abs(o.november_sun_elevation_range_deg[1] - Math.max(...nov))).toBeLessThanOrEqual(0.051);
+      } else expect(o.sun_note).toBeUndefined();
     }
     expect(d.summary.frames.n_display_only).toBe(disp.length);
+    expect(d.summary.frames.display_only_off_month_years).toEqual(disp.filter((o) => o.off_month).map((o) => o.year));
     expect(d.summary.frames.n_observed).toBe(m.observed.length);
     // the Landsat 7 source entry says what the display-only dates are for
     const l7 = d.sources.find((x) => /^Landsat 7/.test(x.name));
     expect(l7.dates_by_use.display_only_frames).toEqual(disp.map((o) => o.date));
+    expect(l7.dates_by_use.display_only_off_month_frames).toEqual(disp.filter((o) => o.off_month).map((o) => o.date));
     expect(l7.used_for).toMatch(/display-only/);
     await switchSite(page, id);
     const stops = await page.evaluate(() => window.__ds.timeline.model.stops.map((st) => [st.year, st.kind]));
     expect(stops.filter(([, k]) => k === 'display').map(([y]) => y)).toEqual(disp.map((o) => o.year));
+    expect(await page.locator('.ds-track__image--off').evaluateAll((els) => els.map((e) => +e.dataset.image))).toEqual(disp.filter((o) => o.off_month).map((o) => o.year));
     expect(stops.filter(([, k]) => k === 'observed').map(([y]) => y)).toEqual(m.observed.map((o) => o.year));
     // a measured year after an image-only year shows the arrows again
     await page.evaluate((y) => window.__ds.goYear(y), disp[0].year);
@@ -721,6 +752,8 @@ for (const [w, h] of [[1920, 1080], [1366, 768], [390, 844]]) {
     const bm = await page.evaluate(() => window.__ds.basemap());
     test.skip(!/ion/i.test(bm.basemap), 'no Cesium ion token in this environment');
     await expect.poll(async () => (await creditBox(page)).logo?.loaded, { message: 'ion logo loaded' }).toBe(true);
+    // Cesium fills the credit block in steps (logo first, then the attribution link): wait until it is drawn in full
+    await expect.poll(async () => { const b = await creditBox(page); return !!(b.link?.inView && b.link.onTop && b.logo?.inView); }, { message: 'credit block drawn' }).toBe(true);
     const c = await creditBox(page);
     console.log(`    credit area ${w}×${h}: ${Math.round(c.box.w)}×${Math.round(c.box.h)} px, logo ${Math.round(c.logo.w)}×${Math.round(c.logo.h)} px`);
     expect(c.box.inView && c.box.w > 0 && c.box.h > 0).toBe(true);
@@ -970,6 +1003,18 @@ test('12 · phone 390×844: bottom sheet with tabs, globe usable, nothing overfl
   await expect(page.locator('[data-tl-key]')).toContainText('No scene');
   await expect(page.locator('[data-readout]')).toContainText(firstImage.scene_id);
   await noSideways();
+  // the timeline settings button is fully on screen without scrolling and not under the footer
+  const gear = await page.evaluate(() => {
+    const g = document.querySelector('[data-gear]').getBoundingClientRect(), f = document.querySelector('.ds-footer').getBoundingClientRect();
+    const hit = document.elementFromPoint(g.left + g.width / 2, g.top + g.height / 2);
+    return { bottom: g.bottom, top: g.top, footerTop: f.top, onTop: !!hit && !!hit.closest('[data-gear]') };
+  });
+  expect(gear.bottom, 'settings button above the footer').toBeLessThanOrEqual(gear.footerTop);
+  expect(gear.top).toBeGreaterThanOrEqual(0);
+  expect(gear.onTop, 'settings button not covered').toBe(true);
+  await page.click('[data-gear]');
+  await expect(page.locator('.ds-pop')).toBeVisible();
+  await page.keyboard.press('Escape');
   await page.screenshot({ path: 'test-results/layout-390x844-image-only.png' });
   await page.screenshot({ path: 'test-results/layout-390x844.png' });
 });

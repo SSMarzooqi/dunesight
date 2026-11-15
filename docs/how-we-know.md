@@ -77,24 +77,31 @@ All numbers below were read from `public/data/<site>/summary.json`, `wind_summar
 ## Data handling common to all sites
 
 - **Clouds and shadows:** Landsat `QA_PIXEL` bits 0-4 (fill, dilated cloud, cirrus, cloud, shadow), dilated by one pixel; HLS Fmask bits 1-3. Scenes with more than 1 % cloud or shadow inside the box were rejected in notebook 01 and logged in `pipeline/outputs/<site>/scene_rejections.csv`.
-- **Landsat 7** is used for measurement only before the 31 May 2003 scan-line-corrector failure (scenes of 2000 and 2001), and only for the long-baseline check and the timeline frames. Later Landsat 7 scenes appear on the timeline as images only (next section).
+- **Landsat 7** is used for measurement only before the 31 May 2003 scan-line-corrector failure (scenes of 2000 and 2001), and only for the long-baseline check and the timeline frames. Other Landsat 7 scenes of 2002-2012, including off-month ones, appear on the timeline as images only (next section).
 
-## Timeline images 2003-2012 (display only)
+## Timeline images 2002-2012 (display only)
 
-No November 2002 scene was acquired on these paths, and on 31 May 2003 Landsat 7's scan line corrector failed: every later ETM+ image has stripes of missing data, narrow near the centre line of the swath and wider toward its edges. On 2026-11-15 Sultan chose to fill the timeline's 2003-2012 gap with these striped images **for display only**. They are not in the velocity network, the Landsat 7 long-baseline check, the registration, any statistic, the reach years or the projection; every published measured number is unchanged (checked file by file against the previous commit: dunes, vectors, targets, wind and every existing frame byte-identical; `summary.json` and `frames/manifest.json` only gained fields).
+No November 2002 scene was acquired on these paths, and on 31 May 2003 Landsat 7's scan line corrector failed: every later ETM+ image has stripes of missing data, narrow near the centre line of the swath and wider toward its edges. On 2026-11-15 Sultan chose to fill the timeline's 2002-2012 gap with Landsat 7 images **for display only**: first the striped November images, then, for the years November cannot fill, the closest October or December image (September as a last resort). They are not in the velocity network, the Landsat 7 long-baseline check (2000 and 2001 only), the registration, any statistic, the reach years or the projection; **November-only is unchanged for everything measured**. Every published measured number is unchanged (checked file by file against the previous commit: dunes, vectors, targets, wind and every existing frame byte-identical; `summary.json`, `frames/manifest.json` and `sources.json` changed only in their display-only entries).
 
-How they were chosen (notebook 01, section 3b; list in `pipeline/outputs/<site>/display_only_scenes_slc_off.json`, kept apart from the confirmed measurement list): November Landsat 7 Tier 1 scenes on the site's path/row; the box inside the footprint (stripes allowed); in-box cloud or shadow at most 1 % of the pixels with data; the same haze test as for the measurement list; every candidate looked at in B8, true colour and the thermal band; the scene closest to 10 November. Rejections and empty years are in `scene_rejections.csv` (`list` = `display_only`).
+How they were chosen (notebook 01, section 3b; list in `pipeline/outputs/<site>/display_only_scenes_landsat7.json`, kept apart from the confirmed measurement list): Landsat 7 Tier 1 scenes on the site's path/row; the box inside the footprint (stripes allowed); in-box cloud or shadow at most 1 % of the pixels with data; the same haze test as for the measurement list (reference: the same calendar month); every candidate looked at in B8, true colour and the thermal band. Per year: the acceptable November scene closest to 10 November; else the acceptable October or December scene closest to 15 November; else September. Rejections are in `scene_rejections.csv` (`list` = `display_only`).
 
-| Site | Image-only years (scene date, share of the box with no data) | Years with no image |
-|---|---|---|
-| Seih Al Hama | 2003-11-04 (25 %), 2005-11-09 (25 %), 2008-11-17 (24 %), 2011-11-10 (23 %), 2012-11-12 (24 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene acquired) |
-| Sweihan | 2005-11-09 (13 %), 2008-11-17 (12 %), 2011-11-10 (11 %), 2012-11-12 (11 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene); 2003 (the only scene, 2003-11-04, has an unflagged dark patch and a cold swath in the thermal band: cloud shadow or wet sand) |
-| Liwa | 2003-11-20 (31 %), 2005-11-09 (32 %), 2008-11-17 (31 %), 2011-11-10 (32 %), 2012-11-12 (32 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene acquired) |
+| Year | Seih Al Hama | Sweihan | Liwa |
+|---|---|---|---|
+| 2002 | 2002-09-30 (Sept., sun 54.2°, no stripes) | 2002-09-30 (Sept., 54.2°, no stripes) | 2002-10-16 (Oct., 50.9°, no stripes) |
+| 2003 | 2003-11-04 (Nov., 25 % no data) | 2003-12-22 (Dec., 36.0°, 13 %); the November scene has an unflagged cloud shadow / wet patch | 2003-11-20 (Nov., 31 %) |
+| 2004 | 2004-10-21 (Oct., 48.5°, 25 %) | 2004-10-21 (Oct., 48.5°, 13 %) | 2004-10-21 (Oct., 49.5°, 32 %) |
+| 2005 | 2005-11-09 (Nov., 25 %) | 2005-11-09 (Nov., 13 %) | 2005-11-09 (Nov., 32 %) |
+| 2006 | 2006-10-11 (Oct., 51.5°, 25 %) | 2006-10-11 (Oct., 51.5°, 12 %) | 2006-10-11 (Oct., 52.5°, 37 %) |
+| 2007 | 2007-10-14 (Oct., 50.8°, 25 %) | 2007-10-14 (Oct., 50.8°, 11 %) | 2007-10-14 (Oct., 51.8°, 31 %) |
+| 2008 | 2008-11-17 (Nov., 24 %) | 2008-11-17 (Nov., 12 %) | 2008-11-17 (Nov., 31 %) |
+| 2009 | 2009-10-19 (Oct., 49.4°, 24 %) | 2009-10-19 (Oct., 49.4°, 11 %) | 2009-10-19 (Oct., 50.4°, 32 %) |
+| 2010 | 2010-10-06 (Oct., 53.4°, 24 %) | 2010-10-06 (Oct., 53.4°, 11 %) | 2010-10-06 (Oct., 54.3°, 32 %) |
+| 2011 | 2011-11-10 (Nov., 23 %) | 2011-11-10 (Nov., 11 %) | 2011-11-10 (Nov., 32 %) |
+| 2012 | 2012-11-12 (Nov., 24 %) | 2012-11-12 (Nov., 11 %) | 2012-11-12 (Nov., 32 %) |
 
-The stripes are published as transparent no-data and drawn in the app as a neutral hatch; nothing is filled in. Alignment: each image's offset from the first Landsat 8 image, measured on the site's stable reference ground against all 14 confirmed images, is at most 2.5 m (Seih Al Hama), 3.8 m (Sweihan) and 5.4 m (Liwa), inside the spread of the confirmed frames' own offsets (up to 3.2, 3.9 and 11.9 m), so no image was shifted. The Collection 2 geometric model fit of these scenes is 4.7-6.9 m. On these images the app does not draw the motion arrows or the dune outlines, which describe 2013-2025.
-- **No-data:** a window-pair is dropped when more than 40 % of the window is masked.
-- **Low-correlation rejection:** a match is kept only if its correlation peak beats the 99th percentile of matches between unrelated windows; displacements beyond the reliable range and network outliers are also dropped. The percentages are given per site above.
-- **Non-dune ground** (vegetation, ESA WorldCover classes, OpenStreetMap features, hand-drawn change areas with reasons in `pipeline/site_config/<site>/`) is excluded from the dune statistics.
+Percentages: share of the box with no data in the published frame (stripes plus masked cloud). The November images on the timeline have the sun 38.6-46.5° high (39.7-47.6° at Liwa); the off-month ones 36.0-54.3°. A higher or lower sun changes shadows and dune shading, which is not sand movement; the app says so for each off-month image. Whether an image mentions stripes depends on its own data: the 2002 images predate the failure and have none.
+
+The stripes are published as transparent no-data and drawn in the app as a neutral hatch; nothing is filled in. Alignment: each image's offset from the first Landsat 8 image, measured on the site's stable reference ground against all 14 confirmed images, lies inside or within half a pixel (7.5 m) of the spread of the confirmed frames' own offsets, so no image was shifted. The largest offsets: Seih Al Hama 2.6 m; Sweihan 7.3 m (the September 2002 image; 6.0 m outside the confirmed spread); Liwa 12.7 m (the October 2002 image, from only 20 windows with a north-component spread of 7.4 m, so a rough estimate; the confirmed 2000 frame itself sits at +11.9 m). Off-month sun can bias these estimates where the reference ground includes tree canopy (shadows move with the sun); at Sweihan the off-month images' east offsets spread from -7.3 to +5.9 m against -3.8 to +2.0 m for the November ones, which is consistent with such a bias but not proven. On these images the app does not draw the motion arrows or the dune outlines, which describe 2013-2025.
 
 ## Where the numbers come from
 
@@ -105,5 +112,5 @@ The stripes are published as transparent no-data and drawn in the app as a neutr
 | Cross-checks | `summary.json`: `confirmation` (from `02_qc_summary.json`: `hls_second_dataset`, `landsat7_long_baseline`) |
 | Wind | `wind_summary.json`; station: `public/data/seih_al_hama/station_wind.json`, `pipeline/outputs/<site>/station_wind_check.json` |
 | Targets and 2050 shift | `summary.json`: `threat`, `frames` |
-| Image-only years 2003-2012 | `frames/manifest.json`: `observed_display_only`, `display_only_alignment_note`, `empty_years`; `pipeline/outputs/<site>/display_only_scenes_slc_off.json` |
+| Image-only years 2002-2012 | `frames/manifest.json`: `observed_display_only` (`off_month`, `sun_note`, `has_scan_line_gaps`), `display_only_alignment_note`; `pipeline/outputs/<site>/display_only_scenes_landsat7.json` |
 | Data handling | `summary.json`: `data_handling` |

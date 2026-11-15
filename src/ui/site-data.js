@@ -121,6 +121,13 @@ export function buildSiteData(b, { arrowFactor, arrowYears }) {
       date: fmtDate(o.date), sensor: o.sensor || null, pixel: isNum(o.pixel_m) ? o.pixel_m : null, sceneId: o.scene_id || null,
       sunElev: isNum(o.sun_elevation_deg) ? o.sun_elevation_deg : null, use: 'display_only', imageOnly: true,
       nodataPct: isNum(o.nodata_share_of_box_pct) ? o.nodata_share_of_box_pct : null,
+      // read from the frame's own data: stripes only where the frame has scan-line gaps; off-month only where it is not November
+      hasGaps: o.has_scan_line_gaps === true,
+      gapsPct: isNum(o.nodata_scan_line_gaps_pct) ? o.nodata_scan_line_gaps_pct : null,
+      offMonth: o.off_month === true,
+      month: o.month || null,
+      daysFromNov15: isNum(o.days_from_15_november) ? o.days_from_15_november : null,
+      novSun: Array.isArray(o.november_sun_elevation_range_deg) ? o.november_sun_elevation_range_deg : null,
     };
   }
   const frameData = {};
@@ -230,7 +237,7 @@ export function buildSiteData(b, { arrowFactor, arrowYears }) {
       sources: `${w.source || 'NASA MERRA-2'}${w.period ? ` ${w.period}` : ''} (wind) · Landsat 8/9 (dune heading)${st ? ` · ${st.source} (station, not NASA)` : ''}`,
     },
     timeline: {
-      start: frameYears[0] ?? 2000, end: END_YEAR, lastObserved: last, scenes, images, gaps, frames: projYears, frameData, observed,
+      start: frameYears[0] ?? 2000, end: END_YEAR, lastObserved: last, scenes, images, offMonth: dispOnly.filter((o) => o.off_month === true).map((o) => o.year), gaps, frames: projYears, frameData, observed,
       readingNote: m.projection_reading_note || null,
       imageNote: m.display_only_note || null,
       alignNote: m.display_only_alignment_note || null,

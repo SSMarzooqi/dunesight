@@ -40,8 +40,10 @@ export const test = base.extend({
 });
 export { expect };
 
-/** Load the app, skip the fly-in, and wait until the default site's layers are built. */
-export async function boot(page, { url = './', skipFlyIn = true } = {}) {
+/** Load the app, skip the fly-in, and wait until the default site's layers are built. The first-visit guide is
+ *  marked as seen unless `guide` is true (it covers the globe until closed). */
+export async function boot(page, { url = './', skipFlyIn = true, guide = false } = {}) {
+  if (!guide) await page.addInitScript(() => localStorage.setItem('dunesight-guide-seen', '1'));
   await page.goto(url);
   await page.waitForFunction(() => window.__ds && window.__ds.state.siteId, null, { timeout: 60_000 });
   await page.evaluate(() => window.__ds.ready);
@@ -53,7 +55,7 @@ export async function boot(page, { url = './', skipFlyIn = true } = {}) {
 }
 
 export async function switchSite(page, id) {
-  await page.click(`[data-site="${id}"]`);
+  await page.click(`.ds-header [data-site="${id}"]`);
   await page.waitForFunction((sid) => window.__ds.state.siteId === sid, id, { timeout: 60_000 });
   await page.evaluate(() => window.__ds.siteReady());
 }
@@ -71,7 +73,7 @@ export async function clickFeature(page, kind, id) {
   expect(pos, `${kind} ${id} should be on screen`).toBeTruthy();
   await page.mouse.click(pos.x, pos.y);
   try {
-    await expect(page.locator('#panel-card')).toBeVisible({ timeout: 4000 });
+    await expect(page.locator('.ds-panel--card')).toBeVisible({ timeout: 4000 });
   } catch (err) {
     const dbg = await page.evaluate(([x, y]) => {
       const C = window.__ds.Cesium;
@@ -86,6 +88,21 @@ export async function clickFeature(page, kind, id) {
     throw new Error(`click on ${kind} ${id} at ${pos.x},${pos.y} did not select: ${JSON.stringify(dbg)}`);
   }
 }
+
+/** A colour token from src/ui/tokens.css as [r, g, b] (the map, legend and panels all use these). */
+export const token = (name) => {
+  const css = fs.readFileSync(path.resolve('src/ui/tokens.css'), 'utf8');
+  const m = css.match(new RegExp(`--${name}:\\s*#([0-9a-fA-F]{6})`));
+  if (!m) throw new Error(`token --${name} not found`);
+  return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16));
+};
+
+/** The pipeline's field heading for a site, from summary.json's wind_agreement_note (the only place it is published). */
+export const fieldHeading = (d) => {
+  const m = String(d.summary.wind_agreement_note || '').match(/field-median heading\s+([\d.]+)\s*deg/);
+  return m ? +m[1] : null;
+};
+export const apart = (a, b) => Math.abs((((a - b) % 360) + 540) % 360 - 180);
 
 /** Format like the app: fixed decimals. */
 export const fx = (v, d = 2) => Number(v).toFixed(d);

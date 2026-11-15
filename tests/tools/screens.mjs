@@ -9,7 +9,7 @@ async function ready(page, site) {
   await page.evaluate(() => window.__ds.ready);
   await page.keyboard.press('Shift'); // skip the fly-in
   if (site) {
-    await page.click(`[data-site="${site}"]`);
+    await page.click(`.ds-header [data-site="${site}"]`);
     await page.waitForFunction((s) => window.__ds.state.siteId === s, site);
   }
   await page.evaluate(() => window.__ds.siteReady());
@@ -19,24 +19,36 @@ const settle = async (page, ms = 6000) => {
   await page.waitForFunction(() => window.__ds.viewer.scene.globe.tilesLoaded, null, { timeout: 30000 }).catch(() => {});
   await page.waitForTimeout(800);
 };
+const mode = (p, m) => p.click(`.ds-header [data-mode="${m}"]`);
+const gear = async (p, fn) => {
+  await p.click('[data-gear]');
+  await fn();
+  await p.keyboard.press('Escape');
+};
 
 const VIEWS = {
-  'seih-motion-1080p': { w: 1920, h: 1080, async run(p) { await ready(p); await p.click('[data-mode="motion"]'); await settle(p, 8000); } },
+  'seih-motion-1080p': { w: 1920, h: 1080, async run(p) { await ready(p); await mode(p, 'motion'); await settle(p, 8000); } },
   'seih-true-view-then-now': {
     w: 1920, h: 1080,
-    async run(p) { await ready(p); await p.click('[data-mode="true"]'); await p.locator('[data-toggle="thenNow"]').check(); await settle(p, 8000); },
+    async run(p) {
+      await ready(p);
+      await mode(p, 'true');
+      await p.locator('[data-layer="dunes"]').check();
+      await p.locator('[data-layer="dunes2000"]').check();
+      await settle(p, 8000);
+    },
   },
   'seih-threat-2035-1366x768': {
     w: 1366, h: 768,
-    async run(p) { await ready(p); await p.click('[data-mode="threat"]'); await p.evaluate(() => window.__ds.goYear(2035)); await settle(p, 8000); },
+    async run(p) { await ready(p); await mode(p, 'threat'); await p.evaluate(() => window.__ds.goYear(2035)); await settle(p, 8000); },
   },
   'liwa-projected-2050-changed-pixels': {
     w: 1920, h: 1080,
     async run(p) {
       await ready(p, 'liwa');
-      await p.click('[data-mode="motion"]');
+      await mode(p, 'motion');
       await p.evaluate(() => window.__ds.goYear(2050));
-      await p.check('[data-opt="showChange"]');
+      await gear(p, () => p.check('[data-setting="changedPixels"]'));
       await settle(p, 9000);
     },
   },
@@ -44,9 +56,18 @@ const VIEWS = {
     w: 1920, h: 1080,
     async run(p) {
       await ready(p, 'sweihan');
-      await p.click('[data-mode="threat"]');
+      await mode(p, 'threat');
       await p.waitForTimeout(1500);
-      await p.locator('.threat-list [data-target]').first().click();
+      await p.locator('.ds-rlist [data-target]').first().click();
+      await settle(p, 8000);
+    },
+  },
+  'sweihan-motion-wind-agrees': {
+    w: 1920, h: 1080,
+    async run(p) {
+      await ready(p, 'sweihan');
+      await mode(p, 'motion');
+      await p.click('.ds-panel--wind [data-details="wind"]');
       await settle(p, 8000);
     },
   },
@@ -54,7 +75,7 @@ const VIEWS = {
     w: 1920, h: 1080,
     async run(p) {
       await ready(p, 'sweihan');
-      await p.click('[data-mode="motion"]');
+      await mode(p, 'motion');
       const pos = await p.evaluate(() => window.__ds.frameFeature('dune', 'D001'));
       await p.mouse.click(pos.x, pos.y);
       await settle(p, 5000);
@@ -64,8 +85,8 @@ const VIEWS = {
     w: 1920, h: 1080,
     async run(p) {
       await ready(p);
-      await p.click('[data-mode="threat"]');
-      await p.locator('[data-toggle="exposed"]').check();
+      await mode(p, 'threat');
+      await p.locator('[data-layer="exposed"]').check();
       await p.evaluate(() => {
         const { viewer, Cesium } = window.__ds;
         viewer.camera.cancelFlight();
@@ -80,7 +101,7 @@ const VIEWS = {
     async run(p) {
       await ready(p);
       await settle(p, 5000);
-      await p.locator('#panel-wind [data-dossier="station"]').first().click();
+      await p.locator('.ds-panel--wind .ds-src [data-dossier="station"]').click();
       await p.waitForTimeout(1500);
     },
   },
@@ -89,16 +110,18 @@ const VIEWS = {
     async run(p) {
       await ready(p, 'liwa');
       await settle(p, 6000);
-      await p.locator('#panel-headline [data-dossier="crosschecks"]').click();
+      await p.locator('.ds-panel--speed [data-dossier="crosschecks"]').click();
       await p.waitForTimeout(1500);
     },
   },
+  'seih-phone-390x844': { w: 390, h: 844, async run(p) { await ready(p); await mode(p, 'motion'); await settle(p, 8000); } },
 };
 
 const browser = await chromium.launch({ channel: 'chromium', args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
 for (const [name, v] of Object.entries(VIEWS)) {
   if (only.length && !only.includes(name)) continue;
-  const page = await browser.newPage({ viewport: { width: v.w, height: v.h } });
+  const page = await browser.newPage({ viewport: { width: v.w, height: v.h }, deviceScaleFactor: v.w < 500 ? 2 : 1 });
+  await page.addInitScript(() => localStorage.setItem('dunesight-guide-seen', '1'));
   const errors = [];
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 200)));
   page.on('pageerror', (e) => errors.push(e.message));

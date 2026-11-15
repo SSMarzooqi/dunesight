@@ -20,6 +20,6 @@ console.log('--- offline');
 await context.setOffline(true);
 await page.evaluate(() => window.__ds.goYear(2040));
 await page.evaluate(() => window.__ds.setMode('threat'));
-await page.click('[data-act="home"]');
+await page.click('[data-action="home"]');
 await page.waitForTimeout(4000);
 await browser.close();

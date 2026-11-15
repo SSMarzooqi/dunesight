@@ -27,15 +27,17 @@ const terrain = await page.evaluate(() => {
   return { ellipsoid: tp instanceof Cesium.EllipsoidTerrainProvider, groundHeightAtSeih_m: h };
 });
 console.log('terrain', JSON.stringify(terrain));
-await page.screenshot({ path: `${outDir}/live-seih_al_hama.png` });
+await page.screenshot({ path: `${outDir}/live-seih_al_hama.png` }); // first visit: the three-step guide is open
+console.log('guide shown on first visit', await page.locator('.ds-guide').isVisible());
+await page.click('.ds-guide .ds-primary');
 for (const id of ['sweihan', 'liwa']) {
-  await page.click(`[data-site="${id}"]`);
+  await page.click(`.ds-header [data-site="${id}"]`);
   await page.waitForFunction((sid) => window.__ds.state.siteId === sid, id);
   await page.evaluate(() => window.__ds.siteReady());
   await page.waitForTimeout(4000);
   const info = await page.evaluate(() => {
     const L = window.__ds.layers();
-    return { kpi: document.querySelector('.kpi-num')?.innerText, targets: L.targets.count, arrows: L.vectors.count, dunes: L.dunes.count };
+    return { lead: document.querySelector('.ds-panel--speed .ds-lead')?.innerText, wind: document.querySelector('[data-wind-lead]')?.innerText, targets: L.targets.count, arrows: L.vectors.count, dunes: L.dunes.count };
   });
   console.log(id, JSON.stringify(info));
   await page.screenshot({ path: `${outDir}/live-${id}.png` });

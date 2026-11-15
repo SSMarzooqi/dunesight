@@ -3,15 +3,38 @@
   "name": "Landsat 7 ETM+ Collection 2 Level-1 (Tier 1)",
   "provider": "NASA / USGS",
   "version": "Collection 2",
-  "used_for": "observed timeline frames and the long-baseline motion check (B8 panchromatic); vegetation mask (B3/B4 TOA NDVI)",
+  "used_for": "observed timeline frames and the long-baseline motion check (B8 panchromatic, scenes before the 31 May 2003 scan-line-corrector failure); vegetation mask (B3/B4 TOA NDVI); display-only timeline frames 2003, 2005, 2008, 2011, 2012 (B8, scenes with scan-line gaps after the failure; images only, not used for any measurement)",
   "dates": [
    "2000-11-27",
-   "2001-11-30"
+   "2001-11-30",
+   "2003-11-04",
+   "2005-11-09",
+   "2008-11-17",
+   "2011-11-10",
+   "2012-11-12"
   ],
   "scene_ids": [
    "LE07_L1TP_160043_20001127_20200918_02_T1",
-   "LE07_L1TP_160043_20011130_20200917_02_T1"
+   "LE07_L1TP_160043_20011130_20200917_02_T1",
+   "LE07_L1TP_160043_20031104_20200915_02_T1",
+   "LE07_L1TP_160043_20051109_20200914_02_T1",
+   "LE07_L1TP_160043_20081117_20200913_02_T1",
+   "LE07_L1TP_160043_20111110_20200909_02_T1",
+   "LE07_L1TP_160043_20121112_20200908_02_T1"
   ],
+  "dates_by_use": {
+   "long_baseline_check_and_frames": [
+    "2000-11-27",
+    "2001-11-30"
+   ],
+   "display_only_frames": [
+    "2003-11-04",
+    "2005-11-09",
+    "2008-11-17",
+    "2011-11-10",
+    "2012-11-12"
+   ]
+  },
   "place": "Seih Al Hama, SW of Al Ain box (W 55.475, S 24.015, E 55.575, N 24.105); WRS-2 path 160 row 43",
   "pixel": "15 m (B8), 30 m (QA_PIXEL, B3/B4)",
   "access": "Google Earth Engine LANDSAT/LE07/C02/T1",

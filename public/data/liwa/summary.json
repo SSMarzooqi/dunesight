@@ -47,6 +47,7 @@
   "scenes_rejected": 4,
   "cloud_masking": "QA_PIXEL / Fmask",
   "windows_rejected_pct": 0.63,
+  "display_only_frames": "5 Landsat 7 frames acquired after the 31 May 2003 scan-line-corrector failure (2003-11-20, 2005-11-09, 2008-11-17, 2011-11-10, 2012-11-12) are shown on the timeline as images only, stripes left as no-data; they are not used in any number in this file (see frames/manifest.json observed_display_only).",
   "notes": "4 November candidate scenes rejected in notebook 01 (cloud/shadow/haze/coverage; listed in pipeline/outputs/liwa/scene_rejections.csv); Landsat 7 used only before the 31 May 2003 SLC failure. Clouds/shadows: Landsat QA_PIXEL bits 0-4 (dilated 1 px), HLS Fmask bits 1-3. Of 10403 tracking windows, 3290 lie outside the box and 3307 are mostly non-dune (vegetation, WorldCover, OSM, hand-drawn change areas); of the 3806 dune windows 0.63 % had too few valid pairs. Window-pair observations rejected: 4.14 % (weak match below the false-match threshold, displacement beyond the reliable range, network outliers)."
  },
  "limits": [
@@ -246,7 +247,15 @@
    "p90_px": 3.55,
    "max_px": 6.63,
    "share_of_box_moved_ge_1px_pct": 54.24
-  }
+  },
+  "n_display_only": 5,
+  "display_only_years": [
+   2003,
+   2005,
+   2008,
+   2011,
+   2012
+  ]
  },
  "generated_by": "pipeline/03_threats_and_frames.ipynb (from notebook 02's pipeline/outputs/liwa/02_qc_summary.json and 02_velocity_field.csv)",
  "confirmation": {

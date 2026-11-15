@@ -19,7 +19,9 @@
    "nodata_pixels": 12,
    "stretch": "ETM+",
    "clipped_pct": 0.56,
-   "bytes": 132190
+   "bytes": 132190,
+   "use": "long_baseline_check",
+   "used_for_measurement": false
   },
   {
    "year": 2001,
@@ -34,7 +36,9 @@
    "nodata_pixels": 0,
    "stretch": "ETM+",
    "clipped_pct": 0.15,
-   "bytes": 121744
+   "bytes": 121744,
+   "use": "long_baseline_check",
+   "used_for_measurement": false
   },
   {
    "year": 2013,
@@ -49,7 +53,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.39,
-   "bytes": 117054
+   "bytes": 117054,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2014,
@@ -64,7 +70,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.59,
-   "bytes": 123927
+   "bytes": 123927,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2015,
@@ -79,7 +87,9 @@
    "nodata_pixels": 46,
    "stretch": "OLI",
    "clipped_pct": 0.28,
-   "bytes": 119183
+   "bytes": 119183,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2016,
@@ -94,7 +104,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.71,
-   "bytes": 131354
+   "bytes": 131354,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2017,
@@ -109,7 +121,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.23,
-   "bytes": 114415
+   "bytes": 114415,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2019,
@@ -124,7 +138,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.32,
-   "bytes": 119188
+   "bytes": 119188,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2020,
@@ -139,7 +155,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.17,
-   "bytes": 120028
+   "bytes": 120028,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2021,
@@ -154,7 +172,9 @@
    "nodata_pixels": 27,
    "stretch": "OLI",
    "clipped_pct": 0.27,
-   "bytes": 118128
+   "bytes": 118128,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2022,
@@ -169,7 +189,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.14,
-   "bytes": 110923
+   "bytes": 110923,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2023,
@@ -184,7 +206,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.39,
-   "bytes": 127112
+   "bytes": 127112,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2024,
@@ -199,7 +223,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.3,
-   "bytes": 126476
+   "bytes": 126476,
+   "use": "measurement",
+   "used_for_measurement": true
   },
   {
    "year": 2025,
@@ -214,7 +240,9 @@
    "nodata_pixels": 0,
    "stretch": "OLI",
    "clipped_pct": 0.45,
-   "bytes": 117003
+   "bytes": 117003,
+   "use": "measurement",
+   "used_for_measurement": true
   }
  ],
  "projected_median": [
@@ -520,6 +548,208 @@
    "wgs84_frame_N_m": -12.0,
    "error_m": 0.028,
    "error_wgs84_m": 0.02
+  }
+ ],
+ "observed_display_only": [
+  {
+   "year": 2003,
+   "date": "2003-11-04",
+   "scene_id": "LE07_L1TP_160043_20031104_20200915_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2003.webp",
+   "acquired_utc": "2003-11-04T06:34:57Z",
+   "sun_elevation_deg": 44.75,
+   "sun_azimuth_deg": 149.38,
+   "nodata_pixels": 113632,
+   "nodata_share_of_box_pct": 25.3,
+   "nodata_scan_line_gaps_pct": 23.3,
+   "nodata_cloud_mask_pct": 0.19,
+   "stretch": "ETM+",
+   "clipped_pct": 0.17,
+   "bytes": 82128,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "geometric_rmse_model_m": 4.86,
+   "offset_vs_first_landsat8_m": {
+    "E": 1.95,
+    "N": -0.86,
+    "spread_nmad_E": 0.95,
+    "spread_nmad_N": 0.39,
+    "n_reference_images": 14,
+    "median_reference_windows": 201,
+    "reference": "1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)"
+   },
+   "outside_confirmed_offset_range_m": 0.86,
+   "shift_applied_m": null
+  },
+  {
+   "year": 2005,
+   "date": "2005-11-09",
+   "scene_id": "LE07_L1TP_160043_20051109_20200914_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2005.webp",
+   "acquired_utc": "2005-11-09T06:36:00Z",
+   "sun_elevation_deg": 43.36,
+   "sun_azimuth_deg": 150.66,
+   "nodata_pixels": 114238,
+   "nodata_share_of_box_pct": 25.4,
+   "nodata_scan_line_gaps_pct": 23.7,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.11,
+   "bytes": 83370,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "geometric_rmse_model_m": 4.79,
+   "offset_vs_first_landsat8_m": {
+    "E": 1.05,
+    "N": -1.28,
+    "spread_nmad_E": 0.22,
+    "spread_nmad_N": 0.28,
+    "n_reference_images": 14,
+    "median_reference_windows": 353,
+    "reference": "1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)"
+   },
+   "outside_confirmed_offset_range_m": 1.28,
+   "shift_applied_m": null
+  },
+  {
+   "year": 2008,
+   "date": "2008-11-17",
+   "scene_id": "LE07_L1TP_160043_20081117_20200913_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2008.webp",
+   "acquired_utc": "2008-11-17T06:35:45Z",
+   "sun_elevation_deg": 41.25,
+   "sun_azimuth_deg": 151.6,
+   "nodata_pixels": 108097,
+   "nodata_share_of_box_pct": 24.0,
+   "nodata_scan_line_gaps_pct": 22.3,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.28,
+   "bytes": 95398,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "geometric_rmse_model_m": 5.09,
+   "offset_vs_first_landsat8_m": {
+    "E": 0.45,
+    "N": 1.2,
+    "spread_nmad_E": 0.22,
+    "spread_nmad_N": 0.22,
+    "n_reference_images": 14,
+    "median_reference_windows": 552,
+    "reference": "1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)"
+   },
+   "outside_confirmed_offset_range_m": 0.0,
+   "shift_applied_m": null
+  },
+  {
+   "year": 2011,
+   "date": "2011-11-10",
+   "scene_id": "LE07_L1TP_160043_20111110_20200909_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2011.webp",
+   "acquired_utc": "2011-11-10T06:40:05Z",
+   "sun_elevation_deg": 43.74,
+   "sun_azimuth_deg": 152.06,
+   "nodata_pixels": 102915,
+   "nodata_share_of_box_pct": 22.9,
+   "nodata_scan_line_gaps_pct": 21.1,
+   "nodata_cloud_mask_pct": 0.02,
+   "stretch": "ETM+",
+   "clipped_pct": 0.27,
+   "bytes": 95198,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "geometric_rmse_model_m": 4.83,
+   "offset_vs_first_landsat8_m": {
+    "E": 2.18,
+    "N": 2.25,
+    "spread_nmad_E": 0.11,
+    "spread_nmad_N": 0.0,
+    "n_reference_images": 14,
+    "median_reference_windows": 718,
+    "reference": "1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)"
+   },
+   "outside_confirmed_offset_range_m": 0.9,
+   "shift_applied_m": null
+  },
+  {
+   "year": 2012,
+   "date": "2012-11-12",
+   "scene_id": "LE07_L1TP_160043_20121112_20200908_02_T1",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "file": "frames/obs_display_only_2012.webp",
+   "acquired_utc": "2012-11-12T06:42:28Z",
+   "sun_elevation_deg": 43.28,
+   "sun_azimuth_deg": 153.13,
+   "nodata_pixels": 107829,
+   "nodata_share_of_box_pct": 24.0,
+   "nodata_scan_line_gaps_pct": 22.2,
+   "nodata_cloud_mask_pct": 0.0,
+   "stretch": "ETM+",
+   "clipped_pct": 0.08,
+   "bytes": 90876,
+   "use": "display_only",
+   "used_for_measurement": false,
+   "note": "Image only, not used for any measurement. Landsat 7's scan line corrector failed on 31 May 2003: the stripes with no data are transparent, nothing is filled in.",
+   "geometric_rmse_model_m": 4.69,
+   "offset_vs_first_landsat8_m": {
+    "E": -0.9,
+    "N": 2.55,
+    "spread_nmad_E": 0.22,
+    "spread_nmad_N": 0.22,
+    "n_reference_images": 14,
+    "median_reference_windows": 739,
+    "reference": "1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)"
+   },
+   "outside_confirmed_offset_range_m": 1.2,
+   "shift_applied_m": null
+  }
+ ],
+ "use_values": {
+  "measurement": "Landsat 8/9 frame of the velocity network (2013-2025)",
+  "long_baseline_check": "Landsat 7 frame before the scan-line-corrector failure, used only in the long-baseline check of the velocities",
+  "display_only": "Landsat 7 frame after the scan-line-corrector failure (31 May 2003), shown on the timeline only; not used for any measurement"
+ },
+ "display_only_format": "WebP, grey (R = G = B) lossy + lossless alpha (alpha 0 = no data: scan-line gaps and QA-masked cloud/shadow); same grid, bounds and ETM+ stretch as the observed frames",
+ "display_only_masking": "scan-line gaps (B8 = 0 or QA_PIXEL fill) exactly as delivered; QA_PIXEL dilated cloud, cloud and cloud shadow dilated by one 15 m pixel, as for the observed frames; a frame pixel is no-data if any source pixel under it is. Nothing is interpolated or filled.",
+ "display_only_note": "Landsat 7's scan line corrector failed on 31 May 2003; its later images have stripes with no data that widen away from the centre of the swath. These frames show the place in the years without a usable scene before 2013. They are images only: not in the velocity network, the Landsat 7 long-baseline check, the registration, any statistic, the threat years or the projection.",
+ "display_only_alignment_note": "Display-only frames are drawn as delivered, like every other frame (none is resampled to remove registration offsets; the measurement removes them numerically). Their offset from the first Landsat 8 image, measured on stable reference ground against each of the 14 confirmed images (1316 stable-ground windows of 480 m (notebook 02's stable-ground rule without its coherence filter)), is E -0.9 to +2.2 m and N -1.3 to +2.5 m (largest 2.5 m, 0.17 pixel); the confirmed frames' own offsets span E -1.4 to +3.2 m and N -0.0 to +1.4 m. None lies more than half a pixel (7.5 m) outside that range, so none was shifted. Collection 2 model fit to ground control (GEOMETRIC_RMSE_MODEL) for these scenes: 4.7-5.1 m.",
+ "empty_years": [
+  {
+   "year": 2002,
+   "reason": "no scene acquired on this path/row in this month"
+  },
+  {
+   "year": 2004,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2006,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2007,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2009,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2010,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
   }
  ],
  "generated_by": "pipeline/03_threats_and_frames.ipynb"

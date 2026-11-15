@@ -10,7 +10,7 @@
  },
  "wrs_path": 160,
  "wrs_row": 43,
- "generated_utc": "2026-11-15T02:26:16Z",
+ "generated_utc": "2026-11-15T12:10:21Z",
  "rule": "Per calendar year, scenes in the month on WRS-2 160/043 (Collection 2 Tier 1) that fully cover the box with valid B8; reject if in-box cloud/dilated cloud/cirrus/shadow (QA_PIXEL bits 1-4) > 1.0 %; pick the survivor closest to the target date (20 May / 10 Nov). Landsat 7 only before 2003-05-31 (SLC failure).",
  "visual_reject": {
   "LC08_L1TP_160043_20181105_20200830_02_T1": "visual QA: diffuse darker patch over the northern dune belt in B8, and cool patches in the thermal band over the N belt and a large part of the SW dune belt that are absent in other November scenes (thin cloud shadow or rain-wetted sand); QA_PIXEL flags 0 % here, while the same scene has 9.9 % cloud/cirrus over Seih Al Hama"

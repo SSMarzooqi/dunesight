@@ -1,46 +1,54 @@
-month,year,scene_id,date,reason
-May,2000,,,no scene acquired on this path/row in this month
-May,2002,,,NO ACCEPTABLE SCENE this year
-May,2002,LE07_L1TP_160044_20020509_20200916_02_T1,2002-05-09,"visual QA: a dark plume about 1.5 km wide runs from the N edge into the NE quarter of the box in B8 and true colour, and is cold in the thermal band (cloud shadow or a rain/smoke streak); QA_PIXEL flags 0.001 % (ETM+ CFMask missed it)"
-May,2013,LC08_L1TP_160044_20130531_20200912_02_T1,2013-05-31,"in-box cloud/shadow 2.26 % > 1.0 % (cloud 0.00, dilated 0.00, cirrus 2.26, shadow 0.00)"
-May,2014,LC08_L1TP_160044_20140502_20200911_02_T1,2014-05-02,"passed, not picked (18 d from target vs 2 d)"
-May,2015,LC08_L1TP_160044_20150505_20200909_02_T1,2015-05-05,"in-box cloud/shadow 82.78 % > 1.0 % (cloud 58.03, dilated 5.73, cirrus 66.07, shadow 12.29)"
-May,2016,LC08_L1TP_160044_20160507_20200907_02_T1,2016-05-07,"passed, not picked (13 d from target vs 3 d)"
-May,2017,LC08_L1TP_160044_20170510_20200904_02_T1,2017-05-10,"passed, not picked (10 d from target vs 6 d)"
-May,2018,LC08_L1TP_160044_20180513_20200901_02_T1,2018-05-13,haze/dust suspected: B8 texture 0.007 < 0.5 x month median 0.052 (OLI); MERRA-2 AOD550 1.02
-May,2020,LC08_L1TP_160044_20200502_20200820_02_T1,2020-05-02,"in-box cloud/shadow 100.00 % > 1.0 % (cloud 100.00, dilated 0.00, cirrus 100.00, shadow 0.00)"
-May,2021,LC08_L1TP_160044_20210505_20210517_02_T1,2021-05-05,"passed, not picked (15 d from target vs 1 d)"
-May,2022,LC08_L1TP_160044_20220508_20220512_02_T1,2022-05-08,"passed, not picked (12 d from target vs 4 d)"
-May,2022,LC08_L1TP_160044_20220524_20220602_02_T1,2022-05-24,"passed, not picked (4 d from target vs 4 d)"
-May,2023,LC09_L1TP_160044_20230503_20230503_02_T1,2023-05-03,"passed, not picked (17 d from target vs 1 d)"
-May,2023,LC08_L1TP_160044_20230511_20230518_02_T1,2023-05-11,"passed, not picked (9 d from target vs 1 d)"
-May,2023,LC08_L1TP_160044_20230527_20230603_02_T1,2023-05-27,"passed, not picked (7 d from target vs 1 d)"
-May,2024,LC09_L1TP_160044_20240505_20240505_02_T1,2024-05-05,"passed, not picked (15 d from target vs 1 d)"
-May,2024,LC08_L1TP_160044_20240513_20240520_02_T1,2024-05-13,"passed, not picked (7 d from target vs 1 d)"
-May,2024,LC08_L1TP_160044_20240529_20240611_02_T1,2024-05-29,"passed, not picked (9 d from target vs 1 d)"
-May,2025,LC09_L1TP_160044_20250508_20250509_02_T1,2025-05-08,"passed, not picked (12 d from target vs 4 d)"
-May,2025,LC09_L1TP_160044_20250524_20250526_02_T1,2025-05-24,"passed, not picked (4 d from target vs 4 d)"
-November,2002,,,no scene acquired on this path/row in this month
-November,2003,,,no scene acquired on this path/row in this month
-November,2013,LC08_L1TP_160044_20131123_20200912_02_T1,2013-11-23,"passed, not picked (13 d from target vs 3 d)"
-November,2014,LC08_L1TP_160044_20141126_20200910_02_T1,2014-11-26,"passed, not picked (16 d from target vs 0 d)"
-November,2015,LC08_L1TP_160044_20151129_20200908_02_T1,2015-11-29,"passed, not picked (19 d from target vs 3 d)"
-November,2016,,,NO ACCEPTABLE SCENE this year
-November,2016,LC08_L1TP_160044_20161115_20200905_02_T1,2016-11-15,"visual QA: thin, unflagged cloud or haze wisps (bluish-white in true colour, washing out the dune relief in B8) over roughly 1.5 x 1.5 km of the small-dune field N of the large farm block, centred near 23.048 N 54.149 E; QA_PIXEL flags 0 %"
-November,2017,LC08_L1TP_160044_20171118_20200902_02_T1,2017-11-18,"passed, not picked (8 d from target vs 8 d)"
-November,2018,LC08_L1TP_160044_20181121_20200830_02_T1,2018-11-21,"in-box cloud/shadow 45.80 % > 1.0 % (cloud 14.44, dilated 11.61, cirrus 11.17, shadow 22.60)"
-November,2019,LC08_L1TP_160044_20191124_20200825_02_T1,2019-11-24,"passed, not picked (14 d from target vs 2 d)"
-November,2020,LC08_L1TP_160044_20201126_20210316_02_T1,2020-11-26,"passed, not picked (16 d from target vs 0 d)"
-November,2021,LC09_L1TP_160044_20211103_20230507_02_T1,2021-11-03,"passed, not picked (7 d from target vs 3 d)"
-November,2021,LC09_L1TP_160044_20211108_20230506_02_T1,2021-11-08,"passed, not picked (2 d from target vs 3 d; seih_al_hama date preferred)"
-November,2021,LC08_L1TP_160044_20211129_20211208_02_T1,2021-11-29,"passed, not picked (19 d from target vs 3 d)"
-November,2022,LC08_L1TP_160044_20221116_20221122_02_T1,2022-11-16,"passed, not picked (6 d from target vs 2 d)"
-November,2022,LC09_L1TP_160044_20221124_20230320_02_T1,2022-11-24,"passed, not picked (14 d from target vs 2 d)"
-November,2023,LC08_L1TP_160044_20231103_20231110_02_T1,2023-11-03,"in-box cloud/shadow 58.66 % > 1.0 % (cloud 0.04, dilated 0.09, cirrus 58.66, shadow 0.63)"
-November,2023,LC09_L1TP_160044_20231111_20231111_02_T1,2023-11-11,"passed, not picked (1 d from target vs 9 d; seih_al_hama date preferred)"
-November,2023,LC09_L1TP_160044_20231127_20231127_02_T1,2023-11-27,"passed, not picked (17 d from target vs 9 d)"
-November,2024,LC08_L1TP_160044_20241105_20241113_02_T1,2024-11-05,"passed, not picked (5 d from target vs 3 d)"
-November,2024,LC08_L1TP_160044_20241121_20241127_02_T1,2024-11-21,"passed, not picked (11 d from target vs 3 d)"
-November,2024,LC09_L1TP_160044_20241129_20241129_02_T1,2024-11-29,"in-box cloud/shadow 2.12 % > 1.0 % (cloud 0.35, dilated 0.91, cirrus 0.00, shadow 1.04)"
-November,2025,LC09_L1TP_160044_20251116_20251116_02_T1,2025-11-16,"passed, not picked (6 d from target vs 2 d)"
-November,2025,LC08_L1TP_160044_20251124_20251202_02_T1,2025-11-24,"passed, not picked (14 d from target vs 2 d)"
+month,year,scene_id,date,reason,list
+May,2000,,,no scene acquired on this path/row in this month,measurement
+May,2002,,,NO ACCEPTABLE SCENE this year,measurement
+May,2002,LE07_L1TP_160044_20020509_20200916_02_T1,2002-05-09,"visual QA: a dark plume about 1.5 km wide runs from the N edge into the NE quarter of the box in B8 and true colour, and is cold in the thermal band (cloud shadow or a rain/smoke streak); QA_PIXEL flags 0.001 % (ETM+ CFMask missed it)",measurement
+May,2013,LC08_L1TP_160044_20130531_20200912_02_T1,2013-05-31,"in-box cloud/shadow 2.26 % > 1.0 % (cloud 0.00, dilated 0.00, cirrus 2.26, shadow 0.00)",measurement
+May,2014,LC08_L1TP_160044_20140502_20200911_02_T1,2014-05-02,"passed, not picked (18 d from target vs 2 d)",measurement
+May,2015,LC08_L1TP_160044_20150505_20200909_02_T1,2015-05-05,"in-box cloud/shadow 82.78 % > 1.0 % (cloud 58.03, dilated 5.73, cirrus 66.07, shadow 12.29)",measurement
+May,2016,LC08_L1TP_160044_20160507_20200907_02_T1,2016-05-07,"passed, not picked (13 d from target vs 3 d)",measurement
+May,2017,LC08_L1TP_160044_20170510_20200904_02_T1,2017-05-10,"passed, not picked (10 d from target vs 6 d)",measurement
+May,2018,LC08_L1TP_160044_20180513_20200901_02_T1,2018-05-13,haze/dust suspected: B8 texture 0.007 < 0.5 x month median 0.052 (OLI); MERRA-2 AOD550 1.02,measurement
+May,2020,LC08_L1TP_160044_20200502_20200820_02_T1,2020-05-02,"in-box cloud/shadow 100.00 % > 1.0 % (cloud 100.00, dilated 0.00, cirrus 100.00, shadow 0.00)",measurement
+May,2021,LC08_L1TP_160044_20210505_20210517_02_T1,2021-05-05,"passed, not picked (15 d from target vs 1 d)",measurement
+May,2022,LC08_L1TP_160044_20220508_20220512_02_T1,2022-05-08,"passed, not picked (12 d from target vs 4 d)",measurement
+May,2022,LC08_L1TP_160044_20220524_20220602_02_T1,2022-05-24,"passed, not picked (4 d from target vs 4 d)",measurement
+May,2023,LC09_L1TP_160044_20230503_20230503_02_T1,2023-05-03,"passed, not picked (17 d from target vs 1 d)",measurement
+May,2023,LC08_L1TP_160044_20230511_20230518_02_T1,2023-05-11,"passed, not picked (9 d from target vs 1 d)",measurement
+May,2023,LC08_L1TP_160044_20230527_20230603_02_T1,2023-05-27,"passed, not picked (7 d from target vs 1 d)",measurement
+May,2024,LC09_L1TP_160044_20240505_20240505_02_T1,2024-05-05,"passed, not picked (15 d from target vs 1 d)",measurement
+May,2024,LC08_L1TP_160044_20240513_20240520_02_T1,2024-05-13,"passed, not picked (7 d from target vs 1 d)",measurement
+May,2024,LC08_L1TP_160044_20240529_20240611_02_T1,2024-05-29,"passed, not picked (9 d from target vs 1 d)",measurement
+May,2025,LC09_L1TP_160044_20250508_20250509_02_T1,2025-05-08,"passed, not picked (12 d from target vs 4 d)",measurement
+May,2025,LC09_L1TP_160044_20250524_20250526_02_T1,2025-05-24,"passed, not picked (4 d from target vs 4 d)",measurement
+November,2002,,,no scene acquired on this path/row in this month,measurement
+November,2003,,,no scene acquired on this path/row in this month,measurement
+November,2013,LC08_L1TP_160044_20131123_20200912_02_T1,2013-11-23,"passed, not picked (13 d from target vs 3 d)",measurement
+November,2014,LC08_L1TP_160044_20141126_20200910_02_T1,2014-11-26,"passed, not picked (16 d from target vs 0 d)",measurement
+November,2015,LC08_L1TP_160044_20151129_20200908_02_T1,2015-11-29,"passed, not picked (19 d from target vs 3 d)",measurement
+November,2016,,,NO ACCEPTABLE SCENE this year,measurement
+November,2016,LC08_L1TP_160044_20161115_20200905_02_T1,2016-11-15,"visual QA: thin, unflagged cloud or haze wisps (bluish-white in true colour, washing out the dune relief in B8) over roughly 1.5 x 1.5 km of the small-dune field N of the large farm block, centred near 23.048 N 54.149 E; QA_PIXEL flags 0 %",measurement
+November,2017,LC08_L1TP_160044_20171118_20200902_02_T1,2017-11-18,"passed, not picked (8 d from target vs 8 d)",measurement
+November,2018,LC08_L1TP_160044_20181121_20200830_02_T1,2018-11-21,"in-box cloud/shadow 45.80 % > 1.0 % (cloud 14.44, dilated 11.61, cirrus 11.17, shadow 22.60)",measurement
+November,2019,LC08_L1TP_160044_20191124_20200825_02_T1,2019-11-24,"passed, not picked (14 d from target vs 2 d)",measurement
+November,2020,LC08_L1TP_160044_20201126_20210316_02_T1,2020-11-26,"passed, not picked (16 d from target vs 0 d)",measurement
+November,2021,LC09_L1TP_160044_20211103_20230507_02_T1,2021-11-03,"passed, not picked (7 d from target vs 3 d)",measurement
+November,2021,LC09_L1TP_160044_20211108_20230506_02_T1,2021-11-08,"passed, not picked (2 d from target vs 3 d; seih_al_hama date preferred)",measurement
+November,2021,LC08_L1TP_160044_20211129_20211208_02_T1,2021-11-29,"passed, not picked (19 d from target vs 3 d)",measurement
+November,2022,LC08_L1TP_160044_20221116_20221122_02_T1,2022-11-16,"passed, not picked (6 d from target vs 2 d)",measurement
+November,2022,LC09_L1TP_160044_20221124_20230320_02_T1,2022-11-24,"passed, not picked (14 d from target vs 2 d)",measurement
+November,2023,LC08_L1TP_160044_20231103_20231110_02_T1,2023-11-03,"in-box cloud/shadow 58.66 % > 1.0 % (cloud 0.04, dilated 0.09, cirrus 58.66, shadow 0.63)",measurement
+November,2023,LC09_L1TP_160044_20231111_20231111_02_T1,2023-11-11,"passed, not picked (1 d from target vs 9 d; seih_al_hama date preferred)",measurement
+November,2023,LC09_L1TP_160044_20231127_20231127_02_T1,2023-11-27,"passed, not picked (17 d from target vs 9 d)",measurement
+November,2024,LC08_L1TP_160044_20241105_20241113_02_T1,2024-11-05,"passed, not picked (5 d from target vs 3 d)",measurement
+November,2024,LC08_L1TP_160044_20241121_20241127_02_T1,2024-11-21,"passed, not picked (11 d from target vs 3 d)",measurement
+November,2024,LC09_L1TP_160044_20241129_20241129_02_T1,2024-11-29,"in-box cloud/shadow 2.12 % > 1.0 % (cloud 0.35, dilated 0.91, cirrus 0.00, shadow 1.04)",measurement
+November,2025,LC09_L1TP_160044_20251116_20251116_02_T1,2025-11-16,"passed, not picked (6 d from target vs 2 d)",measurement
+November,2025,LC08_L1TP_160044_20251124_20251202_02_T1,2025-11-24,"passed, not picked (14 d from target vs 2 d)",measurement
+November,2004,,,no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2),display_only
+November,2006,,,no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2),display_only
+November,2007,,,no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2),display_only
+November,2008,LE07_L1TP_160044_20081101_20200912_02_T1,2008-11-01,"visual QA: bright, diffuse haze or thin cloud over the E third of the box in B8 (whitish in true colour), cold in the thermal band; QA_PIXEL flags 0.2 %",display_only
+November,2009,,,no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2),display_only
+November,2010,,,no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2),display_only
+November,2011,LE07_L1TP_160044_20111126_20200909_02_T1,2011-11-26,"passed, not picked (16 d from target vs 0 d)",display_only
+November,2012,LE07_L1TP_160044_20121128_20200908_02_T1,2012-11-28,"passed, not picked (18 d from target vs 2 d)",display_only

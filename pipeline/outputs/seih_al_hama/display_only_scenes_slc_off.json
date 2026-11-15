@@ -1,0 +1,140 @@
+{
+ "status": "display only: not used for any measurement",
+ "not_used_in": [
+  "tracking network (velocities)",
+  "Landsat 7 long-baseline check",
+  "registration / stable-ground offsets",
+  "any statistic",
+  "threat (reach years)",
+  "projection"
+ ],
+ "decision": "Sultan, 2026-11-15: fill the 2003-2012 timeline gap with the striped Landsat 7 images for display only, stripes shown as missing data.",
+ "site": "seih_al_hama",
+ "site_name": "Seih Al Hama, SW of Al Ain",
+ "bbox": {
+  "west": 55.475,
+  "south": 24.015,
+  "east": 55.575,
+  "north": 24.105
+ },
+ "wrs_path": 160,
+ "wrs_row": 43,
+ "generated_utc": "2026-11-15T12:10:04Z",
+ "slc_note": "Landsat 7's scan line corrector failed on 31 May 2003. Every later ETM+ image has wedge-shaped stripes with no data (about 22 % of a full scene), narrow near the centre line of the swath and widening toward its edges.",
+ "rule": "November Landsat 7 ETM+ scenes (Collection 2 Tier 1) on WRS-2 160/043, 2003-2012; the box inside the scene footprint (stripes allowed); B8 not saturated; in-box cloud/dilated cloud/shadow (QA_PIXEL bits 1-4) <= 1.0 % of the pixels with data; B8 texture >= 0.5 x the median of the clear covering November ETM+ scenes (0.0698); not rejected by eye (visual_reject); closest to 10 November.",
+ "visual_reject": {},
+ "scenes": [
+  {
+   "year": 2003,
+   "date": "2003-11-04",
+   "scene_id": "LE07_L1TP_160043_20031104_20200915_02_T1",
+   "ee_asset": "LANDSAT/LE07/C02/T1/LE07_160043_20031104",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "sun_elevation_deg": 44.75,
+   "sun_azimuth_deg": 149.38,
+   "cloud_cover_scene_pct": 3.0,
+   "inbox_cloud_shadow_pct_of_data": 0.214,
+   "inbox_b8_gap_pct": 23.3,
+   "b8_texture": 0.0494,
+   "merra2_aod550_total": 0.136,
+   "use": "display_only"
+  },
+  {
+   "year": 2005,
+   "date": "2005-11-09",
+   "scene_id": "LE07_L1TP_160043_20051109_20200914_02_T1",
+   "ee_asset": "LANDSAT/LE07/C02/T1/LE07_160043_20051109",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "sun_elevation_deg": 43.36,
+   "sun_azimuth_deg": 150.66,
+   "cloud_cover_scene_pct": 11.0,
+   "inbox_cloud_shadow_pct_of_data": 0.0,
+   "inbox_b8_gap_pct": 23.7,
+   "b8_texture": 0.0564,
+   "merra2_aod550_total": 0.267,
+   "use": "display_only"
+  },
+  {
+   "year": 2008,
+   "date": "2008-11-17",
+   "scene_id": "LE07_L1TP_160043_20081117_20200913_02_T1",
+   "ee_asset": "LANDSAT/LE07/C02/T1/LE07_160043_20081117",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "sun_elevation_deg": 41.25,
+   "sun_azimuth_deg": 151.6,
+   "cloud_cover_scene_pct": 10.0,
+   "inbox_cloud_shadow_pct_of_data": 0.0,
+   "inbox_b8_gap_pct": 22.3,
+   "b8_texture": 0.0683,
+   "merra2_aod550_total": 0.192,
+   "use": "display_only"
+  },
+  {
+   "year": 2011,
+   "date": "2011-11-10",
+   "scene_id": "LE07_L1TP_160043_20111110_20200909_02_T1",
+   "ee_asset": "LANDSAT/LE07/C02/T1/LE07_160043_20111110",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "sun_elevation_deg": 43.74,
+   "sun_azimuth_deg": 152.06,
+   "cloud_cover_scene_pct": 4.0,
+   "inbox_cloud_shadow_pct_of_data": 0.009,
+   "inbox_b8_gap_pct": 21.1,
+   "b8_texture": 0.0675,
+   "merra2_aod550_total": 0.156,
+   "use": "display_only"
+  },
+  {
+   "year": 2012,
+   "date": "2012-11-12",
+   "scene_id": "LE07_L1TP_160043_20121112_20200908_02_T1",
+   "ee_asset": "LANDSAT/LE07/C02/T1/LE07_160043_20121112",
+   "sensor": "Landsat 7 ETM+ B8",
+   "pixel_m": 15,
+   "sun_elevation_deg": 43.28,
+   "sun_azimuth_deg": 153.13,
+   "cloud_cover_scene_pct": 0.0,
+   "inbox_cloud_shadow_pct_of_data": 0.0,
+   "inbox_b8_gap_pct": 21.0,
+   "b8_texture": 0.0644,
+   "merra2_aod550_total": 0.215,
+   "use": "display_only"
+  }
+ ],
+ "empty_years": [
+  {
+   "year": 2004,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2006,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2007,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2009,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  },
+  {
+   "year": 2010,
+   "reason": "no Landsat 7 scene acquired on this path/row in November (Collection 2 Tier 1 or Tier 2)"
+  }
+ ],
+ "empty_years_before": [
+  {
+   "year": 2002,
+   "reason": "no scene acquired on this path/row in this month"
+  }
+ ],
+ "files": {
+  "rejections": "scene_rejections.csv (list = display_only)",
+  "visual_check": "l7_slc_off_nov_visual_check.png"
+ }
+}

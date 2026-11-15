@@ -10,7 +10,7 @@
  },
  "wrs_path": 160,
  "wrs_row": 44,
- "generated_utc": "2026-11-15T02:26:38Z",
+ "generated_utc": "2026-11-15T12:10:44Z",
  "rule": "Per calendar year, scenes in the month on WRS-2 160/044 (Collection 2 Tier 1) that fully cover the box with valid B8; reject if in-box cloud/dilated cloud/cirrus/shadow (QA_PIXEL bits 1-4) > 1.0 %; pick the survivor closest to the target date (20 May / 10 Nov). Landsat 7 only before 2003-05-31 (SLC failure).",
  "visual_reject": {
   "LE07_L1TP_160044_20020509_20200916_02_T1": "visual QA: a dark plume about 1.5 km wide runs from the N edge into the NE quarter of the box in B8 and true colour, and is cold in the thermal band (cloud shadow or a rain/smoke streak); QA_PIXEL flags 0.001 % (ETM+ CFMask missed it)",

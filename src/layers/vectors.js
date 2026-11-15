@@ -118,10 +118,11 @@ export function createVectorsLayer(viewer, bundle) {
     prims.add(tracks);
   }
 
-  build();
+  const readyPromise = build();
 
   return {
     kind: 'arrow',
+    readyPromise,
     get ready() {
       return ready;
     },

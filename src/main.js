@@ -81,7 +81,7 @@ function buildLayers(bundle) {
   const dunes = createDunesLayer(viewer, bundle);
   const vectors = createVectorsLayer(viewer, bundle);
   const boxReady = whenReady(scene, box).then(() => mark(`box:${bundle.id}`));
-  const ready = Promise.all([boxReady, targets.readyPromise, dunes.readyPromise]);
+  const ready = Promise.all([boxReady, targets.readyPromise, dunes.readyPromise, vectors.readyPromise]);
   return { frames, box, targets, dunes, vectors, ready };
 }
 

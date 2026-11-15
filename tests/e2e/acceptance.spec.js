@@ -197,6 +197,7 @@ for (const id of SITES) {
     const later = feats.find((p) => p.threat_status === 'reached_by_2050' && p.hit_year_min > latest && stops.includes(p.hit_year_min - 1));
     const picks = [edge, later].filter(Boolean);
     expect(picks.length).toBeGreaterThanOrEqual(2);
+    await page.click('[data-mode="threat"]'); // full target intensity: hit alpha 0.55-1.0 (pulsing), pending 0.32
     const STATUS_RGB = { sand_at_edge_now: [0xf8, 0x51, 0x49], reached_by_2050: [0xf0, 0x88, 0x3e] };
     for (const p of picks) {
       const Y = p.hit_year_min;
@@ -208,8 +209,8 @@ for (const id of SITES) {
       const after = await page.evaluate((t) => window.__ds.targetColor(t), p.id);
       const rgb = STATUS_RGB[p.threat_status];
       for (let c = 0; c < 3; c++) expect(Math.abs(after[c] - rgb[c])).toBeLessThanOrEqual(2);
-      expect(after[3]).toBeGreaterThan(110); // bright (pulses between ~55 % and 100 %)
-      expect(before[3]).toBeLessThan(100); // faint before the hit year
+      expect(after[3]).toBeGreaterThanOrEqual(138); // bright: pulses between 55 % and 100 %
+      expect(before[3]).toBeLessThanOrEqual(84); // faint (32 %) before the hit year
     }
   });
 }

@@ -137,6 +137,7 @@ Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting cont
 - **Cross-check status on screen.** `summary.confirmation` (notebook 03, from notebook 02's QC) states for speed and heading whether an independent check agrees: tolerance 15 % (speed) and 20° (heading); HLS S30 = independent, Landsat 7 long baseline = partly independent, HLS L30 = context only. Seih Al Hama: speed and heading partly confirmed; Sweihan: speed partly, heading confirmed; Liwa: speed not confirmed, heading confirmed. The tolerances were fixed after the QC numbers were known; the numbers are shown with the status.
 - **Cross-check tolerances kept** (Sultan, 2026-11-15): 15 % for speed and 20° for heading stay as they are. Any speed tolerance between 5 % and 19 % gives the same three verdicts.
 - **Team names stay blank** in `environment.md` (Sultan, 2026-11-15).
+- **2003-2012 timeline gap filled with display-only Landsat 7 SLC-off frames** (Sultan, 2026-11-15). Asked why the timeline was empty 2002-2012 (no November 2002 scene; Landsat 7's scan line corrector failed on 31 May 2003, so later images are striped), Sultan chose to show the striped images for display only, stripes as missing data, each frame marked as not used for measurement; published speeds must not change. Done: one November scene per year where an acceptable one exists (Seih Al Hama and Liwa: 2003, 2005, 2008, 2011, 2012; Sweihan: 2005, 2008, 2011, 2012; Sweihan 2003 rejected by eye for an unflagged cloud shadow / wet patch), kept in their own list (`pipeline/outputs/<site>/display_only_scenes_slc_off.json`), not in any measurement. No measured value changed (diff-checked). Still empty: 2002, 2004, 2006, 2007, 2009, 2010 at every site (no November Landsat 7 scene in the Tier 1 or Tier 2 catalogue), plus Sweihan 2003.
 
 ## Still open
 - **Liwa speed magnitude.** Why HLS (both S30 and L30) gives about a third to two fifths of the Landsat pan speed at Liwa, while L30 agrees within ~0.1 m/yr at the other sites, is not understood. Until it is, Liwa's reach years carry an extra, unquantified uncertainty.
@@ -144,6 +145,7 @@ Thesis (decided by Sultan 2026-11-14): the Fareaa 2025 thesis is supporting cont
 - **Southern belt of Seih Al Hama** moves east, which neither MERRA-2's resultant nor the station explains.
 - **Fareaa (2025) thesis:** context only until the full text is available.
 - **Cesium ion token allowed-URL restriction** not yet confirmed in the ion dashboard.
+- **Remaining empty timeline years** (2002, 2004, 2006-2007, 2009-2010, and Sweihan 2003) stay gaps under the November-only rule. Off-month Landsat 7 scenes (October/December) could fill some of them for display; that would reverse the earlier "no off-month fill-ins" decision and is Sultan's call.
 
 ## What blocked on Sultan (all resolved by 2026-11-14)
 1. Earth Engine: a registered Cloud project ID, then one browser login (`earthengine authenticate`). Blocks Phases 2–4.

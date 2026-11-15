@@ -77,7 +77,21 @@ All numbers below were read from `public/data/<site>/summary.json`, `wind_summar
 ## Data handling common to all sites
 
 - **Clouds and shadows:** Landsat `QA_PIXEL` bits 0-4 (fill, dilated cloud, cirrus, cloud, shadow), dilated by one pixel; HLS Fmask bits 1-3. Scenes with more than 1 % cloud or shadow inside the box were rejected in notebook 01 and logged in `pipeline/outputs/<site>/scene_rejections.csv`.
-- **Landsat 7** is used only before the 31 May 2003 scan-line-corrector failure (scenes of 2000 and 2001), and only for the long-baseline check and the timeline frames.
+- **Landsat 7** is used for measurement only before the 31 May 2003 scan-line-corrector failure (scenes of 2000 and 2001), and only for the long-baseline check and the timeline frames. Later Landsat 7 scenes appear on the timeline as images only (next section).
+
+## Timeline images 2003-2012 (display only)
+
+No November 2002 scene was acquired on these paths, and on 31 May 2003 Landsat 7's scan line corrector failed: every later ETM+ image has stripes of missing data, narrow near the centre line of the swath and wider toward its edges. On 2026-11-15 Sultan chose to fill the timeline's 2003-2012 gap with these striped images **for display only**. They are not in the velocity network, the Landsat 7 long-baseline check, the registration, any statistic, the reach years or the projection; every published measured number is unchanged (checked file by file against the previous commit: dunes, vectors, targets, wind and every existing frame byte-identical; `summary.json` and `frames/manifest.json` only gained fields).
+
+How they were chosen (notebook 01, section 3b; list in `pipeline/outputs/<site>/display_only_scenes_slc_off.json`, kept apart from the confirmed measurement list): November Landsat 7 Tier 1 scenes on the site's path/row; the box inside the footprint (stripes allowed); in-box cloud or shadow at most 1 % of the pixels with data; the same haze test as for the measurement list; every candidate looked at in B8, true colour and the thermal band; the scene closest to 10 November. Rejections and empty years are in `scene_rejections.csv` (`list` = `display_only`).
+
+| Site | Image-only years (scene date, share of the box with no data) | Years with no image |
+|---|---|---|
+| Seih Al Hama | 2003-11-04 (25 %), 2005-11-09 (25 %), 2008-11-17 (24 %), 2011-11-10 (23 %), 2012-11-12 (24 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene acquired) |
+| Sweihan | 2005-11-09 (13 %), 2008-11-17 (12 %), 2011-11-10 (11 %), 2012-11-12 (11 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene); 2003 (the only scene, 2003-11-04, has an unflagged dark patch and a cold swath in the thermal band: cloud shadow or wet sand) |
+| Liwa | 2003-11-20 (31 %), 2005-11-09 (32 %), 2008-11-17 (31 %), 2011-11-10 (32 %), 2012-11-12 (32 %) | 2002, 2004, 2006, 2007, 2009, 2010 (no November scene acquired) |
+
+The stripes are published as transparent no-data and drawn in the app as a neutral hatch; nothing is filled in. Alignment: each image's offset from the first Landsat 8 image, measured on the site's stable reference ground against all 14 confirmed images, is at most 2.5 m (Seih Al Hama), 3.8 m (Sweihan) and 5.4 m (Liwa), inside the spread of the confirmed frames' own offsets (up to 3.2, 3.9 and 11.9 m), so no image was shifted. The Collection 2 geometric model fit of these scenes is 4.7-6.9 m. On these images the app does not draw the motion arrows or the dune outlines, which describe 2013-2025.
 - **No-data:** a window-pair is dropped when more than 40 % of the window is masked.
 - **Low-correlation rejection:** a match is kept only if its correlation peak beats the 99th percentile of matches between unrelated windows; displacements beyond the reliable range and network outliers are also dropped. The percentages are given per site above.
 - **Non-dune ground** (vegetation, ESA WorldCover classes, OpenStreetMap features, hand-drawn change areas with reasons in `pipeline/site_config/<site>/`) is excluded from the dune statistics.
@@ -91,4 +105,5 @@ All numbers below were read from `public/data/<site>/summary.json`, `wind_summar
 | Cross-checks | `summary.json`: `confirmation` (from `02_qc_summary.json`: `hls_second_dataset`, `landsat7_long_baseline`) |
 | Wind | `wind_summary.json`; station: `public/data/seih_al_hama/station_wind.json`, `pipeline/outputs/<site>/station_wind_check.json` |
 | Targets and 2050 shift | `summary.json`: `threat`, `frames` |
+| Image-only years 2003-2012 | `frames/manifest.json`: `observed_display_only`, `display_only_alignment_note`, `empty_years`; `pipeline/outputs/<site>/display_only_scenes_slc_off.json` |
 | Data handling | `summary.json`: `data_handling` |

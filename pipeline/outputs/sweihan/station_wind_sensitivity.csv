@@ -1,0 +1,14 @@
+case,DP,RDP,RDD_deg,RDP_DP,pct_hours_above_vt,n_hours,DP_change_pct,RDD_change_deg
+baseline,131.966,35.79,8.731,0.271,12.677,214010,0.0,0.0
+speeds as stored by ISD (no rounding to whole knots),132.298,35.829,8.754,0.271,16.568,214010,0.251,0.022
+whole-knot speeds dithered +/-0.5 kt (quantisation),133.128,36.015,8.786,0.271,14.606,214010,0.88,0.054
+SPECI reports allowed (hour slot),131.999,35.846,8.754,0.272,12.676,214117,0.025,0.023
+"every valid report, any minute, SPECI included",143.712,32.269,7.936,0.225,12.927,224238,8.901,-0.796
+report window +/-30 min,131.967,35.788,8.732,0.271,12.678,214014,0.0,0.001
+"synoptic hours only (00, 03, ..., 21 UTC)",131.011,37.478,6.83,0.286,13.036,71563,-0.724,-1.901
+calms dropped (wrong; shows the effect),132.642,35.965,8.759,0.271,12.74,212911,0.512,0.027
+speed x 0.95,96.524,27.365,6.47,0.284,12.677,214010,-26.857,-2.261
+speed x 1.05,176.781,45.761,11.058,0.259,16.571,214010,33.959,2.327
+1-2-1 vector average over neighbouring hours (averaging-time proxy),97.775,37.799,3.847,0.387,12.214,206810,-25.909,-4.884
+MERRA-2 threshold equivalence: station speed x (MERRA-2 / station mean speed),59.843,18.342,2.807,0.307,9.361,214010,-54.653,-5.924
+gap-weighted: month x hour strata per year,132.276,35.914,8.656,0.272,,214010,0.235,-0.075

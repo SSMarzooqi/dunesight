@@ -1,7 +1,7 @@
 """Run the pipeline notebooks headless for every verified site (this is `npm run pipeline`).
 
 WHAT THIS DOES:
-    For each site with verified=true in pipeline/sites.json, executes 01 -> 02 -> 03 in order with
+    For each site with verified=true in pipeline/sites.json, executes 01 -> 01b -> 02 -> 03 in order with
     DUNESIGHT_SITE set to the site id. Each executed copy, with its outputs, is saved as
     pipeline/runs/<site_id>/<notebook>.ipynb; the source notebooks in pipeline/ are never modified.
     Stops at the first failing notebook.
@@ -22,7 +22,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dunesight import config  # noqa: E402
 
-NOTEBOOKS = ["01_scenes_and_wind.ipynb", "02_tracking_and_dunes.ipynb", "03_threats_and_frames.ipynb"]
+NOTEBOOKS = ["01_scenes_and_wind.ipynb", "01b_station_wind_check.ipynb",  # 01b: ground-station check of the wind (outputs only)
+             "02_tracking_and_dunes.ipynb", "03_threats_and_frames.ipynb"]
 JUPYTER = config.PIPELINE / ".venv" / "bin" / "jupyter"
 
 

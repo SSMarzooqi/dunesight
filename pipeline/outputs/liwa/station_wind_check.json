@@ -1,0 +1,43 @@
+{
+ "site": "liwa",
+ "generated_utc": "2026-11-15T03:35:49Z",
+ "site_centre": {
+  "lat": 23.045,
+  "lon": 54.13
+ },
+ "period": "2000-2024",
+ "source": "NOAA NCEI Integrated Surface Database (Global Hourly), via the NOAA Open Data bucket",
+ "screen": {
+  "radius_km": 100,
+  "rule": "usable: >= 10 years with >= 2000 hours carrying a valid wind report; primary: nearest usable with >= 7000 such hours in >= 10 years",
+  "candidates": [
+   {
+    "id": "41016099999",
+    "name": "SHAWALAH",
+    "distance_km": 59.3,
+    "years_ge_2000h": 0,
+    "years_ge_7000h": 0,
+    "first": 2001,
+    "last": 2003,
+    "median_hours_per_year": 2.0,
+    "usable": false,
+    "hourly": false
+   },
+   {
+    "id": "41226099999",
+    "name": "MEDINA ZAYED",
+    "distance_km": 82.8,
+    "years_ge_2000h": 0,
+    "years_ge_7000h": 0,
+    "first": 2001,
+    "last": 2003,
+    "median_hours_per_year": 1.0,
+    "usable": false,
+    "hourly": false
+   }
+  ]
+ },
+ "primary_station": null,
+ "secondary_stations": [],
+ "has_usable_station": false
+}

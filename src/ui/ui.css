@@ -370,7 +370,7 @@
 .ds-panel--reached > .ds-pbody { flex: 1 1 auto; min-height: 0; }
 .ds-panel--reached > .ds-pbody > div { display: flex; flex-direction: column; }
 .ds-panel--reached .ds-rlist { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; margin-right: -8px; padding-right: 8px; }
-@media (max-height: 899px) and (min-width: 761px) { .ds-panel--reached { flex-basis: 320px !important; min-height: 320px !important; } .ds-panel--reached .ds-lead { font-size: var(--ds-fs-body); } }
+@media (max-height: 899px) and (min-width: 761px) { .ds-panel--reached { flex-basis: 350px !important; min-height: 350px !important; } .ds-panel--reached .ds-lead { font-size: var(--ds-fs-body); } }
 @media (min-height: 900px) { .ds-panel--reached { flex-basis: 500px !important; min-height: 500px !important; } }
 .ds-ui[data-mode="threat"] .ds-right > .ds-panel--legend { flex: 1 12 auto; min-height: 180px; }
 .ds-panel--reached .ds-seg--small { margin: 10px 0 6px; }

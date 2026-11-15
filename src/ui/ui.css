@@ -365,8 +365,8 @@
 /* threat mode: ranked list of reached places replaces the wind panel */
 .ds-ui[data-mode="threat"] .ds-panel--wind, .ds-ui:not([data-mode="threat"]) .ds-panel--reached { display: none; }
 .ds-right > [data-reached-slot] { display: contents; }
-.ds-panel--reached { flex: 1 1 0 !important; min-height: 170px !important; }
-.ds-ui[data-mode="threat"] .ds-right > .ds-panel--legend { flex: 1 1 auto; min-height: 180px; }
+.ds-panel--reached { flex: 1 1 260px !important; min-height: 230px !important; }
+.ds-ui[data-mode="threat"] .ds-right > .ds-panel--legend { flex: 1 12 auto; min-height: 180px; }
 .ds-panel--reached .ds-seg--small { margin: 10px 0 6px; }
 .ds-rlist { list-style: none; padding: 0; margin: 0 0 6px; }
 .ds-rlist li + li { border-top: 1px solid var(--ds-line); }

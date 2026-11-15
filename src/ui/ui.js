@@ -685,7 +685,19 @@ export function mountDuneSightUI(container, opts) {
     track.addEventListener('pointermove', seek);
     track.addEventListener('pointerup', up);
   });
+  const closePop = () => {
+    const pop = root.querySelector('.ds-pop');
+    if (!pop || pop.hidden) return false;
+    pop.hidden = true;
+    root.querySelector('[data-gear]')?.setAttribute('aria-expanded', 'false');
+    return true;
+  };
+  // a click anywhere outside the settings popover closes it
+  document.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest?.('.ds-gearwrap')) closePop();
+  }, true);
   const onKey = (e) => {
+    if (e.key === 'Escape' && closePop()) return; // also when focus is on a control inside the popover
     if (e.target.closest('input, select, textarea, [contenteditable="true"]')) return;
     if (o.keyGuard?.()) return; // e.g. the dossier dialog is open
     if (e.code === 'Space') {
@@ -694,7 +706,6 @@ export function mountDuneSightUI(container, opts) {
     }
     else if (e.key === 'ArrowRight') { e.preventDefault(); setPlaying(false); step(1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); setPlaying(false); step(-1); }
-    else if (e.key === 'Escape') { const pop = root.querySelector('.ds-pop'); if (pop && !pop.hidden) pop.hidden = true; }
   };
   document.addEventListener('keydown', onKey);
 

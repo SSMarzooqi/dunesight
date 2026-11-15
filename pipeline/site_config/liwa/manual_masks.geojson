@@ -1,0 +1,570 @@
+{
+ "type": "FeatureCollection",
+ "note": "Hand-drawn non-dune areas for Liwa (WGS84). Drawn by eye on the Landsat 15 m pan images of 2000-11-27, 2013-11-07 and 2025-11-08 around every farm cluster as the union of its 2000, 2013 and 2025 extent (walled plots on sand are mostly unvegetated and missed by NDVI/WorldCover), and around structures added after 2000. Megadunes, sabkha flats and the small-dune field are left unmasked. Used only to EXCLUDE areas from dune-motion statistics (and from stable ground). Each polygon states why. Polygons flagged stable_ground = allowed are established walled farms that may still give stable ground (subject to the coherence test); all other polygons are barred from stable ground too.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M1",
+    "reason": "Farm plots along the western edge (dark irrigated plots in 2000, walled plots with sand inside by 2013-2025): walls and planting change, not dune motion.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.069,
+       23.084
+      ],
+      [
+       54.079,
+       23.084
+      ],
+      [
+       54.085,
+       23.07
+      ],
+      [
+       54.092,
+       23.07
+      ],
+      [
+       54.092,
+       23.062
+      ],
+      [
+       54.084,
+       23.057
+      ],
+      [
+       54.082,
+       23.044
+      ],
+      [
+       54.069,
+       23.044
+      ],
+      [
+       54.069,
+       23.084
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M2",
+    "reason": "Northern farm cluster (irrigated in 2000, walled and partly re-laid by 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.083,
+       23.088
+      ],
+      [
+       54.108,
+       23.088
+      ],
+      [
+       54.108,
+       23.079
+      ],
+      [
+       54.095,
+       23.077
+      ],
+      [
+       54.083,
+       23.078
+      ],
+      [
+       54.083,
+       23.088
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M3",
+    "reason": "Farm cluster north of the E90 (irrigated in 2000, walled plots by 2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.086,
+       23.082
+      ],
+      [
+       54.1,
+       23.082
+      ],
+      [
+       54.1,
+       23.07
+      ],
+      [
+       54.086,
+       23.07
+      ],
+      [
+       54.086,
+       23.082
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M4",
+    "reason": "Farm cluster north of the E90, east of M3 (dark plots in 2000, walled plots 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.099,
+       23.0795
+      ],
+      [
+       54.113,
+       23.0795
+      ],
+      [
+       54.113,
+       23.068
+      ],
+      [
+       54.099,
+       23.068
+      ],
+      [
+       54.099,
+       23.0795
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M5",
+    "reason": "Central farms and settlement north of the E90 (plots and a walled grid in 2000, expanded and re-walled by 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.084,
+       23.069
+      ],
+      [
+       54.121,
+       23.069
+      ],
+      [
+       54.121,
+       23.056
+      ],
+      [
+       54.106,
+       23.053
+      ],
+      [
+       54.09,
+       23.056
+      ],
+      [
+       54.084,
+       23.06
+      ],
+      [
+       54.084,
+       23.069
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M6",
+    "reason": "Diagonal farm block north-east of the E90, built on dunes between 2000 and 2013 (a few plots existed in 2000), extended after 2013.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.11,
+       23.05
+      ],
+      [
+       54.133,
+       23.07
+      ],
+      [
+       54.14,
+       23.069
+      ],
+      [
+       54.14,
+       23.06
+      ],
+      [
+       54.124,
+       23.044
+      ],
+      [
+       54.11,
+       23.04
+      ],
+      [
+       54.105,
+       23.04
+      ],
+      [
+       54.105,
+       23.047
+      ],
+      [
+       54.11,
+       23.05
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M7",
+    "reason": "Small walled plots at the western edge south of the E90 (2000-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.069,
+       23.0435
+      ],
+      [
+       54.086,
+       23.0435
+      ],
+      [
+       54.086,
+       23.036
+      ],
+      [
+       54.069,
+       23.036
+      ],
+      [
+       54.069,
+       23.0435
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M8",
+    "reason": "Farm cluster east of the E90 bend (irrigated plots in 2000, walled plots and buildings 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.125,
+       23.056
+      ],
+      [
+       54.147,
+       23.056
+      ],
+      [
+       54.147,
+       23.039
+      ],
+      [
+       54.131,
+       23.033
+      ],
+      [
+       54.121,
+       23.033
+      ],
+      [
+       54.121,
+       23.042
+      ],
+      [
+       54.125,
+       23.056
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M9",
+    "reason": "The ~3 x 1.5 km farm block built on former dune ground between 2001-11-30 and 2013-11-07 (absent in 2000, full extent by 2013), and the farm strip along both sides of the E90 south of it. Construction, not dune motion: it would fake or suppress motion in any pair that spans 2000.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.1225,
+       23.0285
+      ],
+      [
+       54.1545,
+       23.0515
+      ],
+      [
+       54.159,
+       23.0515
+      ],
+      [
+       54.17,
+       23.0445
+      ],
+      [
+       54.145,
+       23.0215
+      ],
+      [
+       54.16,
+       23.0105
+      ],
+      [
+       54.152,
+       23.008
+      ],
+      [
+       54.143,
+       23.006
+      ],
+      [
+       54.139,
+       23.006
+      ],
+      [
+       54.122,
+       23.0255
+      ],
+      [
+       54.1225,
+       23.0285
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M10",
+    "reason": "Farm plots on both sides of the E90 east of the block (dark plots in 2000, walled plots 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.134,
+       23.0185
+      ],
+      [
+       54.168,
+       23.0185
+      ],
+      [
+       54.168,
+       23.008
+      ],
+      [
+       54.134,
+       23.008
+      ],
+      [
+       54.134,
+       23.0185
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M11",
+    "reason": "Farm cluster and settlement at the south-east corner (2000-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics",
+    "stable_ground": "allowed",
+    "stable_ground_note": "Walled farm plots already in place by 2013 (outline unchanged 2013-2025 by eye): excluded from dune statistics, but windows here may serve as stable ground for co-registration if they pass the coherence test (look alike in every Landsat 8/9 pair). Without them the only automatic stable-ground candidates in this box were live dunes."
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.166,
+       23.023
+      ],
+      [
+       54.186,
+       23.023
+      ],
+      [
+       54.186,
+       23.004
+      ],
+      [
+       54.166,
+       23.004
+      ],
+      [
+       54.166,
+       23.023
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M12",
+    "reason": "Small structures/plots added after 2013 west of the E90.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.101,
+       23.037
+      ],
+      [
+       54.109,
+       23.037
+      ],
+      [
+       54.109,
+       23.031
+      ],
+      [
+       54.101,
+       23.031
+      ],
+      [
+       54.101,
+       23.037
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M13",
+    "reason": "Small structure added after 2013 on the sabkha south of the E90.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       54.1395,
+       23.0055
+      ],
+      [
+       54.146,
+       23.0055
+      ],
+      [
+       54.146,
+       22.9995
+      ],
+      [
+       54.1395,
+       22.9995
+      ],
+      [
+       54.1395,
+       23.0055
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

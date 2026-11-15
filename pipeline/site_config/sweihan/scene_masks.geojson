@@ -1,0 +1,56 @@
+{
+ "type": "FeatureCollection",
+ "note": "Per-scene exclusions for Sweihan (WGS84): areas masked as no data only in the images acquired on the listed dates (Landsat B8 and HLS of the same date), for problems QA_PIXEL/Fmask missed. Read by notebook 02.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "S1",
+    "dates": [
+     "2022-11-08"
+    ],
+    "reason": "Cluster of small cumulus shadows over the northern dune belt on 2022-11-08 (largest ~300 m at 55.336 E 24.505 N, four to five smaller ones down to 24.489 N), dark in B8 and slightly cool in thermal, flagged in only 0.001 % of the box by QA_PIXEL. Seen by comparing with 2021-11-13 and 2023-11-19 at full resolution.",
+    "drawn_on": "Landsat pan B8 2022-11-08 against 2021-11-13 (notebook 02 grid)"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.33,
+       24.508
+      ],
+      [
+       55.3405,
+       24.508
+      ],
+      [
+       55.348,
+       24.4975
+      ],
+      [
+       55.348,
+       24.49
+      ],
+      [
+       55.339,
+       24.4875
+      ],
+      [
+       55.335,
+       24.4875
+      ],
+      [
+       55.33,
+       24.499
+      ],
+      [
+       55.33,
+       24.508
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

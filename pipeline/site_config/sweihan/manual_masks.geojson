@@ -1,0 +1,550 @@
+{
+ "type": "FeatureCollection",
+ "note": "Hand-drawn non-dune areas for Sweihan (WGS84). Drawn by eye on the Landsat 15 m pan images of 2000-11-27, 2013-11-07 and 2025-11-08 where human change (building, levelling, fencing, farms, road realignment) is visible but not caught by the automatic layers (NDVI, ESA WorldCover, OpenStreetMap). Used only to EXCLUDE areas from dune-motion statistics (and from stable ground). Each polygon states why.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M1",
+    "reason": "NW settlement west of the E20: scattered plots in 2000, a dense block of compounds, walls and plots by 2013 that keeps growing to 2025. Built-up change, not dune motion.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.287,
+       24.503
+      ],
+      [
+       55.3,
+       24.503
+      ],
+      [
+       55.3215,
+       24.483
+      ],
+      [
+       55.3185,
+       24.474
+      ],
+      [
+       55.3,
+       24.473
+      ],
+      [
+       55.287,
+       24.473
+      ],
+      [
+       55.287,
+       24.503
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M2",
+    "reason": "E20 (Sweihan Road) corridor in the NW: a single carriageway in 2000, realigned and dualled by 2013 (the 2000 and 2013 alignments differ by up to ~50 m), with an interchange at 24.480 N. OSM buffers only the current line.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.2815,
+       24.5095
+      ],
+      [
+       55.285,
+       24.512
+      ],
+      [
+       55.325,
+       24.48
+      ],
+      [
+       55.3325,
+       24.4685
+      ],
+      [
+       55.3285,
+       24.4665
+      ],
+      [
+       55.3205,
+       24.4775
+      ],
+      [
+       55.2815,
+       24.5095
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M3",
+    "reason": "Levelled and fenced area north of the E16 (a diamond-shaped enclosure with a pushed-up sand pile inside, and fenced plots south-east of it): dunes in 2000 and 2013, graded by 2025.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.3195,
+       24.487
+      ],
+      [
+       55.332,
+       24.4935
+      ],
+      [
+       55.346,
+       24.484
+      ],
+      [
+       55.346,
+       24.4715
+      ],
+      [
+       55.333,
+       24.4715
+      ],
+      [
+       55.3195,
+       24.48
+      ],
+      [
+       55.3195,
+       24.487
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M4",
+    "reason": "Elongated flat inside the northern dune belt (WNW-ESE, ~1.8 x 0.4 km): a graded strip already in 2013, excavated and brighter by 2022-2025. Non-dune surface with non-dune change.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.325,
+       24.4995
+      ],
+      [
+       55.329,
+       24.501
+      ],
+      [
+       55.345,
+       24.493
+      ],
+      [
+       55.3435,
+       24.4893
+      ],
+      [
+       55.327,
+       24.4962
+      ],
+      [
+       55.325,
+       24.4995
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M5",
+    "reason": "Housing grid west of the junction (absent in 2013, street grid by 2019-2025) on a long flat strip parallel to the E16 that was dark in 2000 and pale in 2013 (graded ground).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.299,
+       24.466
+      ],
+      [
+       55.3235,
+       24.4725
+      ],
+      [
+       55.331,
+       24.466
+      ],
+      [
+       55.331,
+       24.4545
+      ],
+      [
+       55.315,
+       24.453
+      ],
+      [
+       55.299,
+       24.4585
+      ],
+      [
+       55.299,
+       24.466
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M6",
+    "reason": "Military compound north of the E16 and the fenced plots added beside it after 2013 (new buildings and walls 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.3625,
+       24.4995
+      ],
+      [
+       55.3815,
+       24.4995
+      ],
+      [
+       55.3815,
+       24.4855
+      ],
+      [
+       55.372,
+       24.482
+      ],
+      [
+       55.362,
+       24.4815
+      ],
+      [
+       55.3625,
+       24.4995
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M7",
+    "reason": "New fenced compound in the NE corner, absent in 2013, present in 2025.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.378,
+       24.5125
+      ],
+      [
+       55.395,
+       24.5125
+      ],
+      [
+       55.395,
+       24.5015
+      ],
+      [
+       55.378,
+       24.5015
+      ],
+      [
+       55.378,
+       24.5125
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M8",
+    "reason": "Farm corridor east of the town between the E16 and the southern dunes: plots added, abandoned and re-fenced between 2000 and 2025 (unvegetated plots are missed by NDVI/WorldCover).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.338,
+       24.4735
+      ],
+      [
+       55.396,
+       24.4875
+      ],
+      [
+       55.396,
+       24.4665
+      ],
+      [
+       55.375,
+       24.4635
+      ],
+      [
+       55.36,
+       24.4595
+      ],
+      [
+       55.345,
+       24.4555
+      ],
+      [
+       55.338,
+       24.4555
+      ],
+      [
+       55.338,
+       24.4735
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M9",
+    "reason": "Abandoned farm grid in the SE: irrigated plots in 2000, faded to a grid of tracks/walls by 2013 and being covered by sand from the north-west by 2025. A sand-encroachment target for notebook 03, not a tracking area: its static grid would pull dune speeds toward zero.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.3555,
+       24.4385
+      ],
+      [
+       55.3625,
+       24.4428
+      ],
+      [
+       55.392,
+       24.459
+      ],
+      [
+       55.3965,
+       24.4575
+      ],
+      [
+       55.3965,
+       24.4415
+      ],
+      [
+       55.3655,
+       24.4268
+      ],
+      [
+       55.3592,
+       24.4318
+      ],
+      [
+       55.3555,
+       24.4385
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M10",
+    "reason": "Water tanks/pond built south of the town between 2000 and 2013.",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.345,
+       24.451
+      ],
+      [
+       55.3505,
+       24.451
+      ],
+      [
+       55.3505,
+       24.446
+      ],
+      [
+       55.345,
+       24.446
+      ],
+      [
+       55.345,
+       24.451
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M11",
+    "reason": "Compound at the southern edge of the SW dune belt that grew between 2000 and 2025, with a new fenced enclosure to its south (2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.329,
+       24.4335
+      ],
+      [
+       55.3465,
+       24.4335
+      ],
+      [
+       55.3465,
+       24.415
+      ],
+      [
+       55.335,
+       24.415
+      ],
+      [
+       55.329,
+       24.4235
+      ],
+      [
+       55.329,
+       24.4335
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M12",
+    "reason": "Fenced plots and compounds on the gravel flat south-east of the road (new fence lines 2013-2025).",
+    "drawn_on": "Landsat pan B8 2000-11-27, 2013-11-07 and 2025-11-08 (notebook 02 grid, 15 m, viewed at full resolution with a 0.005 deg lon/lat grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.3465,
+       24.4365
+      ],
+      [
+       55.359,
+       24.4365
+      ],
+      [
+       55.3655,
+       24.4268
+      ],
+      [
+       55.3965,
+       24.4405
+      ],
+      [
+       55.3965,
+       24.415
+      ],
+      [
+       55.3465,
+       24.415
+      ],
+      [
+       55.3465,
+       24.4365
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "M13",
+    "reason": "Graded bright patches, tracks, a camp and a dark structure added on the gravel flat along the toe of the SW dune belt between 2013 and 2025 (55.286-55.320 E). Found after the first runs: windows centred on this flat showed 2-8 m/yr toward the NE with low match quality (0.2-0.3), out of line with the belt (about 1 m/yr toward the east).",
+    "drawn_on": "Landsat pan B8 2013-11-07 and 2025-11-08 (notebook 02 grid)",
+    "use": "excluded from dune-motion statistics"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       55.2855,
+       24.4258
+      ],
+      [
+       55.32,
+       24.4258
+      ],
+      [
+       55.32,
+       24.417
+      ],
+      [
+       55.2855,
+       24.417
+      ],
+      [
+       55.2855,
+       24.4258
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

@@ -8,8 +8,11 @@ Layers (all boolean arrays on the tracking grid, True = flagged):
   worldcover  ESA WorldCover v200 (2021, 10 m) classes tree cover (10), cropland (40), built-up (50),
               permanent water (80)
   osm         OpenStreetMap roads (buffered by a per-class half width), buildings and land-use polygons
-  manual      per-site polygons drawn by eye from the 2000 and 2025 pan images, each with a stated reason
-              (pipeline/site_config/<site>/manual_masks.geojson); optional
+  manual      per-site polygons drawn by eye from the 2000, 2013 and 2025 pan images, each with a stated reason
+              (pipeline/site_config/<site>/manual_masks.geojson); optional. A polygon flagged
+              "stable_ground": "allowed" is excluded from dune statistics but may still give stable ground.
+  scene       per-scene exclusions (pipeline/site_config/<site>/scene_masks.geojson), e.g. an unflagged cloud
+              shadow, applied only to images acquired on the listed dates; optional
 The union of vegetated | worldcover | osm | manual is the "non-dune" mask: excluded from dune-motion
 statistics. The same mask, restricted per pair to windows that correlate strongly, is where stable-ground
 (co-registration and noise) candidates come from.
@@ -27,6 +30,9 @@ OSM_ROAD_HALF_WIDTH_M = {"motorway": 30, "trunk": 30, "primary": 25, "primary_li
                          "tertiary": 15, "unclassified": 10, "residential": 10, "service": 8, "track": 6,
                          "construction": 15}
 OSM_ROAD_DEFAULT_M = 8
+# OSM areas that describe protected natural land, not a built or farmed surface: a nature reserve in a dune field is
+# dune field (at Liwa a 185 km2 reserve covers live dunes), so these are NOT treated as non-dune
+OSM_NATURAL_AREAS = {"nature_reserve", "protected_area", "national_park"}
 
 
 def qa_mask(qa, dilate_px=1):
@@ -65,6 +71,8 @@ def osm_mask(osm_json, grid):
             line = stransform(tr, LineString(pts))
             shapes.append(line.buffer(OSM_ROAD_HALF_WIDTH_M.get(hw, OSM_ROAD_DEFAULT_M)))
             counts["highway"] = counts.get("highway", 0) + 1
+        elif tags.get("leisure") in OSM_NATURAL_AREAS or tags.get("boundary") in OSM_NATURAL_AREAS:
+            counts["skipped_natural_area"] = counts.get("skipped_natural_area", 0) + 1   # protected natural land, not a surface
         elif any(k in tags for k in ("building", "landuse", "amenity", "leisure", "man_made", "sport")) and pts[0] == pts[-1] and len(pts) >= 4:
             shapes.append(stransform(tr, Polygon(pts)).buffer(15))
             key = next(k for k in ("building", "landuse", "amenity", "leisure", "man_made", "sport") if k in tags)
@@ -72,8 +80,12 @@ def osm_mask(osm_json, grid):
     return _rasterize(shapes, grid), counts
 
 
-def manual_mask(geojson_path, grid):
-    """Rasterise per-site manual polygons (WGS84 GeoJSON). Returns (mask, list of (id, reason))."""
+def manual_mask(geojson_path, grid, stable_blocking_only=False):
+    """Rasterise per-site manual polygons (WGS84 GeoJSON). Returns (mask, list of (id, reason)).
+    Every polygon excludes its area from dune statistics. By default it also bars the area from stable ground; a
+    polygon with property "stable_ground": "allowed" (an established man-made surface such as walled farm plots, which
+    still has to pass the coherence test to be used) does not. With stable_blocking_only=True only the barring
+    polygons are rasterised."""
     from pyproj import Transformer
     from shapely.geometry import shape
     from .rasters import reproject_geom as stransform
@@ -83,9 +95,33 @@ def manual_mask(geojson_path, grid):
     tr = Transformer.from_crs("EPSG:4326", grid.crs, always_xy=True).transform
     shapes, info = [], []
     for f in fc["features"]:
+        if stable_blocking_only and f["properties"].get("stable_ground") == "allowed":
+            continue
         shapes.append(stransform(tr, shape(f["geometry"])))
         info.append((f["properties"].get("id"), f["properties"].get("reason")))
     return _rasterize(shapes, grid), info
+
+
+def scene_masks(geojson_path, grid):
+    """Per-scene exclusions (e.g. an unflagged cloud shadow), from pipeline/site_config/<site>/scene_masks.geojson.
+    Each feature has properties id, reason and "dates" (list of acquisition dates YYYY-MM-DD); the polygon is masked
+    (set to no data) only in images acquired on those dates, Landsat and HLS alike. Optional file.
+    Returns {date: boolean mask} and a list of {id, dates, reason}."""
+    from pyproj import Transformer
+    from shapely.geometry import shape
+    from .rasters import reproject_geom as stransform
+    if geojson_path is None or not geojson_path.exists():
+        return {}, []
+    fc = json.loads(geojson_path.read_text())
+    tr = Transformer.from_crs("EPSG:4326", grid.crs, always_xy=True).transform
+    by_date, info = {}, []
+    for f in fc["features"]:
+        pr = f["properties"]
+        m = _rasterize([stransform(tr, shape(f["geometry"]))], grid)
+        for d in pr["dates"]:
+            by_date[d] = by_date.get(d, np.zeros_like(m)) | m
+        info.append({"id": pr.get("id"), "dates": pr["dates"], "reason": pr.get("reason")})
+    return by_date, info
 
 
 def vegetated_mask(ndvi_max, inbox, ndvi_margin=0.07, dilate_px=1):

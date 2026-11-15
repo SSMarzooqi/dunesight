@@ -1,6 +1,56 @@
 // "How we know" dossier for the current site, composed from the data files: method, datasets with links/DOIs, data handling, uncertainty, validation, threat definition, limits and repo links.
 import { esc, num, date, isNum, int, pct } from '../format.js';
-import { CREDIT_LINE } from './credits.js';
+import { CREDIT_LINE, isNasa } from './credits.js';
+import howWeKnowMd from '../../docs/how-we-know.md?raw';
+
+/** The "How we know" panel text: the block between the panel markers in docs/how-we-know.md (single source). */
+export const PANEL_TEXT = (() => {
+  const m = howWeKnowMd.match(/<!-- panel:start -->([\s\S]*?)<!-- panel:end -->/);
+  return m ? m[1].trim().split(/\n\s*\n/).map((p) => p.replace(/\s+/g, ' ').trim()).filter(Boolean) : [];
+})();
+
+const CONFIRM_WORDS = { confirmed: 'confirmed', partly_confirmed: 'partly confirmed', not_confirmed: 'not confirmed' };
+const yesNo = (v) => (v === true ? 'agrees' : v === false ? 'does not agree' : '—');
+
+function crossChecks(c) {
+  if (!c || !Array.isArray(c.checks)) return '<p>No cross-check summary in this site\'s summary.json.</p>';
+  const rows = c.checks
+    .map(
+      (k) => `<tr data-check="${esc(k.id)}">
+      <td><b>${esc(k.name)}</b><div class="dim">${esc(k.independence || '')}${k.context_only ? ' · context only, not counted' : ''}</div></td>
+      <td>${esc(k.period || '')}</td>
+      <td>${isNum(k.speed_check_myr) ? `${num(k.speed_check_myr, 2)} vs ${num(k.speed_landsat_myr, 2)} m/yr (${num(k.speed_ratio, 2)}×)` : '—'}<div class="${k.speed_agrees ? 'st-confirmed' : 'st-no'}">${yesNo(k.speed_agrees)}</div></td>
+      <td>${isNum(k.heading_diff_deg) ? `${num(k.heading_check_deg, 0)}° vs ${num(k.heading_landsat_deg, 0)}° (${num(k.heading_diff_deg, 0)}° apart)` : 'no field heading'}${isNum(k.corr_E) ? `<div class="dim">per-window r ${num(k.corr_E, 2)} E / ${num(k.corr_N, 2)} N</div>` : ''}<div class="${k.heading_agrees ? 'st-confirmed' : 'st-no'}">${yesNo(k.heading_agrees)}</div></td>
+    </tr>`,
+    )
+    .join('');
+  return `<ul>
+      <li><b>Speed: ${esc(CONFIRM_WORDS[c.speed?.status] || '')}.</b> ${esc(c.speed?.short || '')}</li>
+      <li><b>Heading: ${esc(CONFIRM_WORDS[c.heading?.status] || '')}.</b> ${esc(c.heading?.short || '')}</li>
+    </ul>
+    <table class="src-table cx-table"><thead><tr><th>Check</th><th>Period</th><th>Field-median speed (check vs Landsat pan)</th><th>Heading</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="dim">Rule: ${esc(c.rule || '')}</p>`;
+}
+
+function stationSection(st) {
+  if (!st || st.representative === false || !st.station) {
+    return '<p>No ground-station wind comparison is published for this site: notebook 01b found either no usable station or nearby stations that disagree with each other on the drift direction (see the 01b notebook below). The wind figures are MERRA-2 only.</p>';
+  }
+  const s = st.station;
+  const m = st.merra2_site_cell || {};
+  return `${para('', st.note)}
+    <dl class="kv">
+      <dt>Station</dt><dd>${esc(s.name || '')}${s.id ? ` · ISD ${esc(s.id)}` : ''}${s.wmo ? ` · WMO ${esc(s.wmo)}` : ''}</dd>
+      ${isNum(s.lat) ? `<dt>Position</dt><dd>${num(s.lat, 3)} N, ${num(s.lon, 3)} E, ${num(s.elevation_m, 0)} m; ${num(s.distance_km, 0)} km from the box centre</dd>` : ''}
+      ${st.period ? `<dt>Record</dt><dd>${esc(st.period)}${isNum(s.hours_reported_pct_min) ? `, ${num(s.hours_reported_pct_min, 0)}–${num(s.hours_reported_pct_max, 0)} % of hours reported per year` : ''}</dd>` : ''}
+      ${isNum(s.RDD_deg) ? `<dt>Station drift</dt><dd>toward ${num(s.RDD_deg, 0)}°; DP ${num(s.DP, 0)} VU/yr (${esc(s.dp_class || '')}); RDP/DP ${num(s.RDP_DP, 2)}</dd>` : ''}
+      ${isNum(m.RDD_deg) ? `<dt>MERRA-2 (site cell)</dt><dd>toward ${num(m.RDD_deg, 0)}°; DP ${num(m.DP, 0)} VU/yr (${esc(m.dp_class || '')}); RDP/DP ${num(m.RDP_DP, 2)}</dd>` : ''}
+      ${isNum(st.dune_heading_deg) ? `<dt>Dune heading</dt><dd>${num(st.dune_heading_deg, 0)}°: ${num(st.angle_station_rdd_to_dune_deg, 0)}° from the station drift, ${num(st.angle_merra2_rdd_to_dune_deg, 0)}° from MERRA-2</dd>` : ''}
+    </dl>
+    ${para('Role', st.role)}
+    ${Array.isArray(st.limits) && st.limits.length ? `<p><b>Limits of the station check:</b></p><ul>${st.limits.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>` : ''}
+    <p class="dim">Source: ${esc(st.source || 'NOAA ISD')} ${link(st.link, 'dataset page')}. Rule for publishing: ${esc(st.publish_rule || '')}.</p>`;
+}
 
 const REPO = 'https://github.com/SSMarzooqi/dunesight';
 
@@ -76,11 +126,13 @@ export function renderDossier(root, b, { basemap }) {
   <div class="dossier-inner" role="dialog" aria-modal="true" aria-labelledby="dossier-title">
     <header class="dossier-head">
       <h2 id="dossier-title">How we know · ${esc(b.name)}</h2>
-      <nav>${['method', 'sources', 'handling', 'uncertainty', 'validation', 'threat', 'limits', 'frames', 'links', 'credits'].map((a) => `<a href="#" data-jump="${a}">${a}</a>`).join('')}</nav>
+      <nav>${['method', 'crosschecks', 'station', 'sources', 'handling', 'uncertainty', 'validation', 'threat', 'limits', 'frames', 'links', 'credits'].map((a) => `<a href="#" data-jump="${a}">${a}</a>`).join('')}</nav>
       <button class="btn" data-close aria-label="Close">Close ✕</button>
     </header>
     <div class="dossier-body">
-      <section id="ds-method"><h3>Method in plain language</h3>
+      <section id="ds-method"><h3>How we know</h3>
+        <div class="panel-text">${PANEL_TEXT.map((p) => `<p>${esc(p)}</p>`).join('')}</div>
+        <h4>At this site</h4>
         ${plainMethod(b)}
         <details><summary>Details from the data files</summary>
         ${para('Motion', b.vectors?.note)}
@@ -91,6 +143,12 @@ export function renderDossier(root, b, { basemap }) {
         ${para('Projection', m.projection_method)}
         <p class="dim">Generated by: ${esc(s.generated_by || 'pipeline notebooks')}.</p>
         </details>
+      </section>
+      <section id="ds-crosschecks"><h3>Cross-checks of speed and heading</h3>
+        ${crossChecks(s.confirmation)}
+      </section>
+      <section id="ds-station"><h3>Ground-station wind check</h3>
+        ${stationSection(b.station)}
       </section>
       <section id="ds-sources"><h3>Datasets (sources.json)</h3>
         <table class="src-table"><thead><tr><th>Dataset</th><th>Used for</th><th>Dates</th><th>Pixel</th><th>Links</th></tr></thead><tbody>${sources}</tbody></table>
@@ -161,8 +219,8 @@ export function renderDossier(root, b, { basemap }) {
       </section>
       <section id="ds-credits"><h3>Credits</h3>
         <p><b>${esc(CREDIT_LINE)}</b></p>
-        <p>Data and imagery courtesy of NASA: ${b.sources.filter((x) => /NASA/i.test(x.provider || '')).map((x) => esc(x.name)).join('; ')}. This project is not endorsed by NASA.</p>
-        <p>Also used: ${b.sources.filter((x) => !/NASA/i.test(x.provider || '')).map((x) => `${esc(x.name)} (${esc(x.provider || '')})`).join('; ')}. © OpenStreetMap contributors.</p>
+        <p>Data and imagery courtesy of NASA: ${b.sources.filter(isNasa).map((x) => esc(x.name)).join('; ')}. This project is not endorsed by NASA.</p>
+        <p>Also used: ${b.sources.filter((x) => !isNasa(x)).map((x) => `${esc(x.name)} (${esc(x.provider || '')})`).join('; ')}. © OpenStreetMap contributors.</p>
         <p>Basemap and terrain for display: ${esc(basemap?.basemap || '')}${basemap?.terrain ? `; ${esc(basemap.terrain)}` : ''}. Globe: CesiumJS.</p>
       </section>
     </div>

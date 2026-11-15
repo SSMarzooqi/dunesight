@@ -4,7 +4,13 @@
 import { defineConfig } from '@playwright/test';
 
 const target = process.env.E2E_TARGET || 'dev';
-const baseURL = target === 'prod' ? 'http://localhost:4173/dunesight/' : 'http://localhost:5173/';
+// Ports can be moved (E2E_DEV_PORT, E2E_NOTOKEN_PORT, E2E_PROD_PORT) when the defaults are taken by another server;
+// servers already listening on the chosen ports are reused, so make sure they serve this checkout.
+const DEV_PORT = Number(process.env.E2E_DEV_PORT || 5173);
+const NOTOKEN_PORT = Number(process.env.E2E_NOTOKEN_PORT || 5174);
+const PROD_PORT = Number(process.env.E2E_PROD_PORT || 4173);
+process.env.E2E_NOTOKEN_URL = `http://localhost:${NOTOKEN_PORT}/`;
+const baseURL = target === 'prod' ? `http://localhost:${PROD_PORT}/dunesight/` : `http://localhost:${DEV_PORT}/`;
 const software = process.env.E2E_SWIFTSHADER === '1';
 
 export default defineConfig({
@@ -28,11 +34,11 @@ export default defineConfig({
   metadata: { target },
   webServer: [
     target === 'prod'
-      ? { command: 'npx vite preview --port 4173 --strictPort', url: 'http://localhost:4173/dunesight/', reuseExistingServer: true, timeout: 60_000 }
-      : { command: 'npx vite --port 5173 --strictPort', url: 'http://localhost:5173/', reuseExistingServer: true, timeout: 60_000 },
+      ? { command: `npx vite preview --port ${PROD_PORT} --strictPort`, url: `http://localhost:${PROD_PORT}/dunesight/`, reuseExistingServer: true, timeout: 60_000 }
+      : { command: `npx vite --port ${DEV_PORT} --strictPort`, url: `http://localhost:${DEV_PORT}/`, reuseExistingServer: true, timeout: 60_000 },
     {
-      command: 'npx vite --port 5174 --strictPort',
-      url: 'http://localhost:5174/',
+      command: `npx vite --port ${NOTOKEN_PORT} --strictPort`,
+      url: `http://localhost:${NOTOKEN_PORT}/`,
       reuseExistingServer: true,
       timeout: 60_000,
       env: { VITE_CESIUM_TOKEN: '' },

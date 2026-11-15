@@ -337,6 +337,20 @@ label.lg-row input { margin-top: 2px; }
 .kv dt { color: var(--fg-dim); }
 .kv dd { margin: 0; }
 
+/* cross-check status next to the headline speed (summary.confirmation) */
+.confirm { margin: 2px 0 6px; padding: 4px 6px; border-left: 2px solid var(--line); font-size: 10.5px; line-height: 1.35; }
+.cf-row { margin: 1px 0; }
+.cf { font-weight: 600; white-space: nowrap; }
+.cf-confirmed { color: #3fb950; }
+.cf-partly_confirmed { color: var(--amber); }
+.cf-not_confirmed { color: #f0883e; }
+.cf-why { color: var(--fg-dim); }
+.cf-more { text-align: right; }
+.station-limits { margin: 4px 0; padding-left: 16px; color: var(--fg-dim); }
+.station-facts .fine { margin-top: 2px; }
+.cx-table .st-confirmed { color: #3fb950; }
+.cx-table .st-no { color: #f0883e; }
+
 /* ---------- smaller screens (1366 x 768 and down) ---------- */
 @media (max-width: 1500px), (max-height: 860px) {
   :root { --left-w: 300px; --right-w: 318px; font-size: 11.5px; --tl-h: 90px; }

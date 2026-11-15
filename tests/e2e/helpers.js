@@ -6,6 +6,12 @@ import path from 'node:path';
 const DATA = path.resolve('public/data');
 export const readJson = (p) => JSON.parse(fs.readFileSync(path.join(DATA, p), 'utf8'));
 export const sitesIndex = () => readJson('sites.json');
+/** The "How we know" panel text paragraphs from docs/how-we-know.md (between the panel markers). */
+export const panelText = () => {
+  const md = fs.readFileSync(path.resolve('docs/how-we-know.md'), 'utf8');
+  const m = md.match(/<!-- panel:start -->([\s\S]*?)<!-- panel:end -->/);
+  return m ? m[1].trim().split(/\n\s*\n/).map((p) => p.replace(/\s+/g, ' ').trim()) : [];
+};
 export const siteIds = () => sitesIndex().sites.filter((s) => s.data_dir).map((s) => s.id);
 export const siteData = (id) => {
   const dir = sitesIndex().sites.find((s) => s.id === id).data_dir;
@@ -17,6 +23,7 @@ export const siteData = (id) => {
     manifest: readJson(`${dir}frames/manifest.json`),
     sources: readJson(`${dir}sources.json`),
     wind: readJson(`${dir}wind_summary.json`),
+    station: fs.existsSync(path.join(DATA, `${dir}station_wind.json`)) ? readJson(`${dir}station_wind.json`) : null,
   };
 };
 

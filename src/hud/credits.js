@@ -13,12 +13,16 @@ function shortName(name) {
   if (/^MERRA-2/i.test(n)) return /aer/i.test(n) ? 'MERRA-2 aerosol' : 'MERRA-2 wind';
   if (/^NASA POWER/i.test(n)) return 'NASA POWER';
   if (/^NASADEM/i.test(n)) return 'NASADEM';
+  if (/^NOAA Integrated Surface/i.test(n)) return 'NOAA ISD (station wind)';
   return n.split(' (')[0];
 }
 
+/** True when a sources.json entry is provided by NASA (providers such as "European Space Agency (not NASA)" are not). */
+export const isNasa = (s) => /NASA/.test(s.provider || '') && !/not NASA/i.test(s.provider || '');
+
 export function renderCredits(root, sources, basemap) {
-  const nasa = sources.filter((s) => /NASA/i.test(s.provider || ''));
-  const other = sources.filter((s) => !/NASA/i.test(s.provider || '') && !/openstreetmap/i.test(s.name || ''));
+  const nasa = sources.filter(isNasa);
+  const other = sources.filter((s) => !isNasa(s) && !/openstreetmap/i.test(s.name || ''));
   const osm = sources.some((s) => /openstreetmap/i.test(s.name || ''));
   root.querySelector('.credit-line').textContent = CREDIT_LINE;
   root.querySelector('.credit-data').innerHTML = [

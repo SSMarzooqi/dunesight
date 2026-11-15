@@ -45,6 +45,18 @@ export function panelFrame(section, id, title, { source } = {}) {
 
 const srcLink = (label, anchor) => `<a href="#" class="src" data-dossier="${anchor}">${label}</a>`;
 
+const CONFIRM_WORDS = { confirmed: 'confirmed', partly_confirmed: 'partly confirmed', not_confirmed: 'not confirmed' };
+
+/** How well the headline speed and heading are confirmed by independent checks (summary.confirmation, from notebook 03). */
+export function confirmLine(c) {
+  if (!c || !c.speed || !c.heading) return '';
+  const row = (label, q) =>
+    CONFIRM_WORDS[q.status]
+      ? `<div class="cf-row" data-confirm="${esc(label.toLowerCase())}" data-status="${esc(q.status)}"><span class="cf cf-${esc(q.status)}">${esc(label)} ${esc(CONFIRM_WORDS[q.status])}</span>${q.short ? ` <span class="cf-why">${esc(q.short)}</span>` : ''}</div>`
+      : '';
+  return `<div class="confirm" title="Independent cross-checks of the headline speed and heading">${row('Speed', c.speed)}${row('Heading', c.heading)}<div class="cf-more"><a href="#" class="src" data-dossier="crosschecks">cross-checks</a></div></div>`;
+}
+
 /** Headline numbers. */
 export function renderHeadline(body, b) {
   const s = b.summary || {};
@@ -65,6 +77,7 @@ export function renderHeadline(body, b) {
       <div class="kpi-num">${num(s.speed_median_myr, 2) ?? '—'}<span class="unit">m/yr</span>${isNum(d.fieldHeading) ? `<span class="kpi-dir">toward ${heading(d.fieldHeading)}</span>` : ''}</div>
       <div class="kpi-label">median speed where motion is detected · 10–90 %: ${range(s.speed_p10_myr, s.speed_p90_myr, 'm/yr') ?? 'not given'}</div>
     </div>
+    ${confirmLine(s.confirmation)}
     <dl class="facts">
       ${share ? `<dt>Detected</dt><dd><b>${share}</b> of ${isNum(d.validN) ? int(d.validN) : ''} dune windows (480 m)${lim !== null ? `; the rest move &lt; ${num(lim, 2)} m/yr (detection limit)` : ''}</dd>` : ''}
       ${s.baseline ? `<dt>Baseline</dt><dd>${esc(date(s.baseline.start_date))} → ${esc(date(s.baseline.end_date))}${isNum(s.baseline.years) ? ` (${num(s.baseline.years, 1)} yr)` : ''}${isNum(s.uncertainty_myr) ? ` · ± ${num(s.uncertainty_myr, 2)} m/yr (1σ)` : ''}</dd>` : ''}

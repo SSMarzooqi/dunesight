@@ -1,5 +1,5 @@
 // Wind compass: 16-sector MERRA-2 sand rose (wind FROM), the resultant drift direction (sand moves TOWARD), the measured dune heading, and the optional station result.
-import { esc, num, heading, isNum, int } from '../format.js';
+import { esc, num, heading, isNum, int, compassPoint } from '../format.js';
 
 const SIZE = 220;
 const CX = SIZE / 2;
@@ -17,20 +17,36 @@ function arrow(deg, len, cls, label) {
   return `<g class="${cls}"><line x1="${CX}" y1="${CX}" x2="${x2}" y2="${y2}"/><polygon points="${x2},${y2} ${hx1},${hy1} ${hx2},${hy2}"/><title>${esc(label)}</title></g>`;
 }
 
-/** Reads a station RDD defensively from station_wind.json (field layout may vary). */
+/** Reads the station result from station_wind.json (written by notebook 01b); null if absent, unusable or flagged not representative. */
 function stationRdd(st) {
-  if (!st || st.has_usable_station === false) return null;
+  if (!st || st.has_usable_station === false || st.representative === false) return null;
   const cand = [st.station?.RDD_deg, st.station_result?.RDD_deg, st.RDD_deg];
   const v = cand.find(isNum);
   if (!isNum(v)) return null;
+  const s = st.station || {};
   return {
     rdd: v,
-    name: st.station?.name || st.station_name || null,
-    dist: st.station?.distance_km ?? st.distance_km ?? null,
-    rdpdp: st.station?.RDP_DP ?? null,
+    name: s.name || st.station_name || null,
+    dist: s.distance_km ?? st.distance_km ?? null,
+    bearing: isNum(s.bearing_from_site_deg) ? s.bearing_from_site_deg : null,
+    dp: isNum(s.DP) ? s.DP : null,
+    dpClass: s.dp_class || null,
+    rdpdp: s.RDP_DP ?? null,
     period: st.period || null,
+    years: isNum(s.years) ? s.years : null,
+    pctMin: isNum(s.hours_reported_pct_min) ? s.hours_reported_pct_min : null,
+    pctMax: isNum(s.hours_reported_pct_max) ? s.hours_reported_pct_max : null,
     note: st.note || null,
+    limits: Array.isArray(st.limits) ? st.limits : [],
+    source: st.source || null,
   };
+}
+
+/** One-line station facts with its own limits (distance, record, its own DP class). */
+function stationFacts(st) {
+  const where = [isNum(st.dist) ? `${num(st.dist, 0)} km` : null, isNum(st.bearing) ? compassPoint(st.bearing) : null].filter(Boolean).join(' ');
+  const rec = st.period ? `${esc(st.period)}${isNum(st.pctMin) && isNum(st.pctMax) ? `, ${num(st.pctMin, 0)}–${num(st.pctMax, 0)} % of hours reported` : ''}` : '';
+  return `<dt>Station</dt><dd class="station-facts">${esc(st.name || 'ground station')}${where ? ` · ${esc(where)} of the box` : ''}${rec ? ` · ${rec}` : ''}${isNum(st.dp) ? ` · its DP ${num(st.dp, 0)} VU/yr${st.dpClass ? ` (${esc(st.dpClass)})` : ''}` : ''}<div class="fine">Explains the heading difference; MERRA-2 stays the main wind figure. <a href="#" class="src" data-dossier="station">limits</a></div></dd>`;
 }
 
 export function renderCompass(body, b) {
@@ -73,16 +89,17 @@ export function renderCompass(body, b) {
         <li><i class="k-petal"></i>Wind blowing <b>from</b> each sector (area ∝ drift potential)</li>
         ${isNum(w.RDD_deg) ? `<li><i class="k-rdd"></i>Sand driven <b>toward</b> ${heading(w.RDD_deg)} <span class="dim">(RDD)</span></li>` : ''}
         ${isNum(field) ? `<li><i class="k-field"></i>Dunes measured moving <b>${heading(field)}</b> <span class="dim">(mean of ${int(b.derived.nVectors)} arrows)</span></li>` : ''}
-        ${st ? `<li><i class="k-station"></i>Station RDD <b>${heading(st.rdd)}</b>${st.name ? ` <span class="dim">(${esc(st.name)}${isNum(st.dist) ? `, ${num(st.dist, 0)} km` : ''})</span>` : ''}</li>` : ''}
+        ${st ? `<li class="station-line"><i class="k-station"></i>Ground station: sand driven <b>toward ${heading(st.rdd)}</b></li>` : ''}
       </ul>
     </div>
     <dl class="facts">
       ${isNum(w.DP) ? `<dt>DP</dt><dd><b>${num(w.DP, 1)}</b> VU/yr${w.dp_class ? ` (${esc(w.dp_class)} energy)` : ''}</dd>` : ''}
       ${isNum(w.RDP) ? `<dt>RDP</dt><dd>${num(w.RDP, 1)} VU/yr · RDP/DP ${num(w.RDP_DP, 2) ?? '—'}</dd>` : ''}
       ${isNum(diff) ? `<dt>Agreement</dt><dd>dunes move <b>${num(diff, 0)}°</b> from RDD</dd>` : ''}
+      ${st ? stationFacts(st) : ''}
       <dt>Wind data</dt><dd>${esc(w.source || 'NASA MERRA-2')}${w.period ? `, ${esc(w.period)}` : ''}${isNum(w.threshold_kt) ? `; threshold ${w.threshold_kt} kt` : ''}</dd>
     </dl>
-    ${b.summary?.wind_agreement_note ? `<details class="why"><summary>Why the dunes and the wind ${isNum(diff) && diff > 30 ? 'disagree' : 'agree'}</summary><p>${esc(b.summary.wind_agreement_note)}</p>${st?.note ? `<p><b>Ground station check:</b> ${esc(st.note)}</p>` : ''}<p class="dim">MERRA-2 is a ~0.5° × 0.625° NASA reanalysis of hourly means; absolute DP is approximate, RDD is the more robust comparison.</p></details>` : ''}
+    ${b.summary?.wind_agreement_note ? `<details class="why"><summary>Why the dunes and the wind ${isNum(diff) && diff > 30 ? 'disagree' : 'agree'}</summary><p>${esc(b.summary.wind_agreement_note)}</p>${st?.note ? `<p><b>Ground station check:</b> ${esc(st.note)}</p>${st.limits.length ? `<ul class="station-limits">${st.limits.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>` : ''}` : ''}<p class="dim">MERRA-2 is a ~0.5° × 0.625° NASA reanalysis of hourly means; absolute DP is approximate, RDD is the more robust comparison.</p></details>` : ''}
     ${st && !b.summary?.wind_agreement_note && st.note ? `<p class="fine">${esc(st.note)}</p>` : ''}`;
-  return 'NASA MERRA-2 (wind) · Landsat 8/9 (dune heading) · <a href="#" class="src" data-dossier="method">method</a>';
+  return `NASA MERRA-2 (wind) · Landsat 8/9 (dune heading)${st ? ' · NOAA ISD (station)' : ''} · <a href="#" class="src" data-dossier="${st ? 'station' : 'method'}">method</a>`;
 }

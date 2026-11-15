@@ -16,9 +16,9 @@
    "data_dir": "seih_al_hama/",
    "files": {
     "summary.json": "placeholder",
-    "dunes.geojson": "placeholder",
-    "dunes_2000.geojson": "placeholder",
-    "vectors.geojson": "placeholder",
+    "dunes.geojson": "real",
+    "dunes_2000.geojson": "real",
+    "vectors.geojson": "real",
     "targets.geojson": "placeholder",
     "wind_summary.json": "real",
     "sources.json": "placeholder",

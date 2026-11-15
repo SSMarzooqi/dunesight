@@ -1,0 +1,82 @@
+/* DuneSight · "Field Survey Instrument" design tokens.
+   Rule: a colour that carries meaning is used ONLY for that meaning,
+   on the map, in the panels and in the legend. Never colour alone:
+   pair it with a label, a line weight, a dash or a hatch. */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+:root {
+  /* ---------- Surfaces (warm charcoal, no blur, no glow) ---------- */
+  --ds-ground:        #15130F;               /* page behind the globe, footer */
+  --ds-panel:         rgba(30, 27, 23, 0.93); /* every floating panel */
+  --ds-panel-solid:   #1E1B17;               /* popovers, dialogs, mobile sheet */
+  --ds-raise:         #2A2620;               /* inputs, empty bar tracks */
+  --ds-line:          rgba(237, 230, 216, 0.14); /* 1px hairlines */
+  --ds-line-strong:   rgba(237, 230, 216, 0.28); /* input borders, sheet edge */
+  --ds-casing:        rgba(21, 19, 15, 0.62);    /* dark halo under every map line */
+
+  /* ---------- Text (bone on charcoal, all pass 4.5:1) ---------- */
+  --ds-text:          #EDE6D8;  /* primary, selected controls (as fill) */
+  --ds-text-2:        #BDB3A2;  /* secondary */
+  --ds-text-3:        #948B7C;  /* labels, captions */
+  --ds-on-bone:       #1E1B17;  /* text on bone fills */
+  --ds-brand-sand:    #D8C3A0;  /* logo mark only */
+
+  /* ---------- Meaning: measured vs projected ---------- */
+  --ds-measured:      #7FAEEA;  /* THE accent: measured dune motion (arrows, median tick, observed track) */
+  --ds-measured-fill: rgba(127, 174, 234, 0.42);
+  --ds-projected:     #CFC6B4;  /* anything in the future; always with hatch or dashed edge */
+  --ds-hatch:         repeating-linear-gradient(135deg, rgba(207, 198, 180, 0.85) 0 1.5px, transparent 1.5px 5px);
+  --ds-hatch-soft:    repeating-linear-gradient(135deg, rgba(207, 198, 180, 0.30) 0 1.5px, transparent 1.5px 5px);
+  --ds-below-limit:   radial-gradient(rgba(237, 230, 216, 0.38) 0.9px, transparent 1.1px); /* stipple, size 4px 4px */
+
+  /* ---------- Meaning: wind (neutral, so the dune arrow stands out) ---------- */
+  --ds-wind:          #EDE6D8;  /* solid = MERRA-2 drift (RDD); dashed = ground station */
+
+  /* ---------- Meaning: dune class (cool, ordered by speed + line weight) ---------- */
+  --ds-dune-stable:   #9AA3AD;  --ds-dune-stable-w: 1.25px; /* below detection limit (< 0.45 m/yr) */
+  --ds-dune-slow:     #BBD5F5;  --ds-dune-slow-w:   1.75px; /* < 0.65 m/yr */
+  --ds-dune-active:   #6FA0E6;  --ds-dune-active-w: 2.25px; /* < 1.15 m/yr */
+  --ds-dune-fast:     #3866CC;  --ds-dune-fast-w:   3px;    /* >= 1.15 m/yr */
+  --ds-dune-2000:     #EDE6D8;  /* Feb 2000 outlines: 1.25px, dash 1 3, round caps */
+
+  /* ---------- Meaning: threat to roads, farms, built-up (warm, ordered) ---------- */
+  --ds-threat-now:      #E5533D; --ds-threat-now-w:      3.5px; /* sand at edge now */
+  --ds-threat-2050:     #F08A3C; --ds-threat-2050-w:     3px;   /* reached by 2050 */
+  --ds-threat-2100:     #F5C15A; --ds-threat-2100-w:     2.5px; /* reached 2051–2100 */
+  --ds-threat-possible: #4DBFA0; --ds-threat-possible-w: 2.5px; /* possible within direction uncertainty, dash 5 3 */
+  --ds-threat-none:     #8E8779; --ds-threat-none-w:     1.5px; /* not reached by 2100 */
+
+  /* ---------- Type (one humanist sans, tabular figures) ---------- */
+  --ds-font:       "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ds-font-mono:  "IBM Plex Mono", ui-monospace, monospace; /* coordinates only */
+  --ds-fs-lead:    19px;  /* the one plain-English sentence per panel */
+  --ds-fs-body:    14px;  /* titles (600), labels, values */
+  --ds-fs-small:   12px;  /* captions, axis labels, details */
+  --ds-lh-lead:    1.32;
+  --ds-lh:         1.42;
+  --ds-fw-regular: 400;
+  --ds-fw-medium:  500;
+  --ds-fw-strong:  600;
+
+  /* ---------- Space, shape, motion ---------- */
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-radius-sm:    4px;  /* tags, segmented items */
+  --ds-radius:       6px;  /* buttons, inputs */
+  --ds-radius-panel: 8px;  /* panels */
+  --ds-radius-sheet: 14px; /* mobile bottom sheet, top corners */
+  --ds-header-h:     52px;
+  --ds-timeline-h:   88px;
+  --ds-footer-h:     28px;
+  --ds-panel-left:   360px;
+  --ds-panel-right:  340px;
+  --ds-gap-edge:     16px;
+  --ds-ease:         cubic-bezier(0.2, 0, 0, 1);
+  --ds-dur:          180ms; /* panel expand/collapse; nothing decorative */
+  --ds-focus:        0 0 0 2px var(--ds-ground), 0 0 0 4px var(--ds-text);
+}

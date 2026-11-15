@@ -28,3 +28,6 @@ docs/research/papers/
 # e2e test output
 test-results/
 playwright-report/
+
+# user-supplied UI zip (source of src/ui/; not committed)
+dunesight-ui.zip

@@ -157,6 +157,12 @@ export function createTargetsLayer(viewer, bundle, { latestObservedYear }) {
     getFeature: resolve,
     get: (tid) => byId.get(tid) || null,
     stateOf: (tid) => states.get(tid) || null,
+    paintedColor(tid) {
+      const id = lineIds.get(tid)?.[0];
+      if (!id || !lines?.ready) return null;
+      const c = lines.getGeometryInstanceAttributes(id)?.color;
+      return c ? Array.from(c) : null;
+    },
     setYear(y) {
       year = y;
       recompute();

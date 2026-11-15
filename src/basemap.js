@@ -25,6 +25,14 @@ export function createViewer(container, { onStatus }) {
   const status = { basemap: useIon ? 'Cesium ion (Bing Maps Aerial)' : 'Esri World Imagery', terrain: useIon ? 'Cesium World Terrain' : 'none (flat ellipsoid)', offline: false, note: '' };
   const report = () => onStatus?.({ ...status });
 
+  // Create ion terrain and imagery first so their error listeners exist before any request can fail
+  // (Cesium logs to the console only when nobody listens).
+  const ionTerrain = useIon ? Cesium.Terrain.fromWorldTerrain() : null;
+  const ionImagery = useIon ? Cesium.ImageryLayer.fromWorldImagery() : null;
+  const pendingErrors = [];
+  ionTerrain?.errorEvent.addEventListener((err) => pendingErrors.push(`terrain: ${err?.message || err}`));
+  ionImagery?.errorEvent.addEventListener((err) => pendingErrors.push(`imagery: ${err?.message || err}`));
+
   const viewer = new Cesium.Viewer(container, {
     animation: false,
     timeline: false,
@@ -38,8 +46,8 @@ export function createViewer(container, { onStatus }) {
     selectionIndicator: false,
     creditContainer: document.getElementById('cesium-credits'),
     creditViewport: document.getElementById('cesium-credits-lightbox') || undefined,
-    baseLayer: useIon ? Cesium.ImageryLayer.fromWorldImagery() : esriLayer(),
-    terrain: useIon ? Cesium.Terrain.fromWorldTerrain() : undefined,
+    baseLayer: useIon ? ionImagery : esriLayer(),
+    terrain: ionTerrain || undefined,
     terrainProvider: useIon ? undefined : new Cesium.EllipsoidTerrainProvider(),
     requestRenderMode: true,
     maximumRenderTimeChange: Infinity,
@@ -81,11 +89,10 @@ export function createViewer(container, { onStatus }) {
   }
 
   if (useIon) {
-    const terrain = scene.terrain || null;
-    terrain?.errorEvent?.addEventListener((err) => fallBackFromIon(`terrain: ${err?.message || err}`));
-    const base = viewer.imageryLayers.get(0);
-    base?.errorEvent?.addEventListener((err) => fallBackFromIon(`imagery: ${err?.message || err}`));
-    base?.readyEvent?.addEventListener(() => watchLayer(base));
+    ionTerrain.errorEvent.addEventListener((err) => fallBackFromIon(`terrain: ${err?.message || err}`));
+    ionImagery.errorEvent.addEventListener((err) => fallBackFromIon(`imagery: ${err?.message || err}`));
+    ionImagery.readyEvent.addEventListener(() => watchLayer(ionImagery));
+    if (pendingErrors.length) fallBackFromIon(pendingErrors[0]);
   } else {
     watchLayer(viewer.imageryLayers.get(0));
   }

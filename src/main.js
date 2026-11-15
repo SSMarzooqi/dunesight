@@ -363,10 +363,19 @@ function highlight(sel) {
     highlightPrims.push(p);
   }
   const a = sel.props?.approach;
-  if (sel.kind === 'target' && Array.isArray(a?.window_lonlat) && Array.isArray(a?.hit_point_lonlat)) {
-    const p = dashedLinePrimitive([lineInstance('hl:approach', [a.window_lonlat, a.hit_point_lonlat], 4, Cesium.Color.WHITE)], C('#ffd166', 1), 12);
-    scene.primitives.add(p);
-    highlightPrims.push(p);
+  if (sel.kind === 'target' && Array.isArray(a?.hit_point_lonlat)) {
+    // Reach ray: from the migrating sand edge along the measured heading to the target footprint
+    // (solid amber), plus a faint dashed link back to the 480 m window where the motion was measured.
+    if (Array.isArray(a.window_lonlat) && Array.isArray(a.sand_edge_lonlat)) {
+      const link = dashedLinePrimitive([lineInstance('hl:window', [a.window_lonlat, a.sand_edge_lonlat], 2, Cesium.Color.WHITE)], C('#ffffff', 0.6), 10);
+      scene.primitives.add(link);
+      highlightPrims.push(link);
+    }
+    if (Array.isArray(a.sand_edge_lonlat)) {
+      const ray = linePrimitive([lineInstance('hl:ray', [a.sand_edge_lonlat, a.hit_point_lonlat], 5, C('#ffd166', 1))]);
+      scene.primitives.add(ray);
+      highlightPrims.push(ray);
+    }
   }
   const pos = sel.kind === 'target' && Array.isArray(a?.hit_point_lonlat) ? a.hit_point_lonlat : sel.lonlat;
   if (pos) {
@@ -541,6 +550,30 @@ window.__ds = {
   clear: () => clearSelection(),
   isFlying: () => flying,
   basemap: () => ({ ...basemap }),
+  /** Colour actually painted on a target's first line instance, as [r, g, b, a] 0-255. */
+  targetColor: (tid) => layers()?.targets.paintedColor(tid) || null,
+  /** Window coordinates of an arrow's tail (window centre) and tip at the current camera. */
+  arrowEnds(id) {
+    const f = layers()?.vectors.getFeature(id);
+    if (!f) return null;
+    const p = f.props;
+    const ring = arrowOutline(f.lonlat[0], f.lonlat[1], p.heading_deg, p.speed_myr * ARROW_YEARS * state.arrowFactor);
+    const toWin = ([lon, lat]) => {
+      const h = scene.globe.getHeight(Cesium.Cartographic.fromDegrees(lon, lat)) || 0;
+      const w = Cesium.SceneTransforms.worldToWindowCoordinates(scene, Cesium.Cartesian3.fromDegrees(lon, lat, h));
+      return w ? { x: w.x, y: w.y } : null;
+    };
+    return { tail: toWin(f.lonlat), tip: toWin(ring[3]), heading: p.heading_deg };
+  },
+  /** Ground point at the centre of the canvas (lon, lat in degrees), or null. */
+  centreGround() {
+    const c = new Cesium.Cartesian2(scene.canvas.clientWidth / 2, scene.canvas.clientHeight / 2);
+    const ray = camera.getPickRay(c);
+    const pos = ray && scene.globe.pick(ray, scene);
+    if (!pos) return null;
+    const g = Cesium.Cartographic.fromCartesian(pos);
+    return [Cesium.Math.toDegrees(g.longitude), Cesium.Math.toDegrees(g.latitude)];
+  },
   /** Instantly frame a feature top-down and return its window coordinates for a real click. */
   async frameFeature(kind, id) {
     const L = layers();
@@ -551,7 +584,16 @@ window.__ds = {
     const [lon, lat] = f.lonlat;
     camera.setView({ destination: Cesium.Cartesian3.fromDegrees(lon, lat, 2200), orientation: { heading: 0, pitch: -Cesium.Math.PI_OVER_TWO, roll: 0 } });
     scene.requestRender();
-    await new Promise((r) => setTimeout(r, 400));
+    // wait until the terrain/imagery tiles for this view are in, so a click picks what is drawn
+    const t0 = performance.now();
+    await new Promise((resolve) => {
+      const check = () => {
+        scene.requestRender();
+        if ((scene.globe.tilesLoaded && performance.now() - t0 > 300) || performance.now() - t0 > 8000) resolve();
+        else setTimeout(check, 100);
+      };
+      check();
+    });
     let target = f.lonlat;
     if (kind === 'arrow') {
       const p = f.props;

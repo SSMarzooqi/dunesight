@@ -53,7 +53,7 @@ export function loadSite(entry) {
 async function loadSiteUncached(entry) {
   const dir = entry.data_dir || `${entry.id}/`;
   const t0 = performance.now();
-  const [summary, dunes, dunes2000, vectors, targets, wind, sources, manifest, station] = await Promise.all([
+  const [summary, dunes, dunes2000, vectors, targets, wind, sources, manifest] = await Promise.all([
     getJson(`${dir}summary.json`),
     getJson(`${dir}dunes.geojson`),
     getJson(`${dir}dunes_2000.geojson`),
@@ -62,8 +62,14 @@ async function loadSiteUncached(entry) {
     getJson(`${dir}wind_summary.json`),
     getJson(`${dir}sources.json`),
     getJson(`${dir}frames/manifest.json`),
-    getJson(`${dir}station_wind.json`, { optional: true }),
   ]);
+  // station_wind.json is optional. Request it only when the site's data refers to it, so a missing
+  // file never produces a 404 (which browsers always log as a console error on static hosts).
+  const mentionsStation =
+    Object.prototype.hasOwnProperty.call(entry.files || {}, 'station_wind.json') ||
+    JSON.stringify(summary).includes('station_wind') ||
+    JSON.stringify(wind).includes('station_wind');
+  const station = mentionsStation ? await getJson(`${dir}station_wind.json`, { optional: true }) : null;
   const files = entry.files || {};
   const placeholderFiles = Object.keys(files).filter((f) => files[f] !== 'real');
   const bundle = {

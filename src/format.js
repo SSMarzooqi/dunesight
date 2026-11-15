@@ -5,7 +5,8 @@ export const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
 /** Fixed decimals, or null when the value is not a finite number. */
 export function num(v, digits = 2) {
   if (!isNum(v)) return null;
-  return v.toFixed(digits);
+  const s = v.toFixed(digits);
+  return /^-0(\.0+)?$/.test(s) ? s.slice(1) : s; // never print "-0.00"
 }
 
 /** Integer with thousands separators. */

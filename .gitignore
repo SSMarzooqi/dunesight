@@ -24,3 +24,7 @@ __pycache__/
 
 # Third-party papers (copyright): keep local only
 docs/research/papers/
+
+# e2e test output
+test-results/
+playwright-report/

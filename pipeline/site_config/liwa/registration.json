@@ -1,0 +1,16 @@
+{
+ "mode": "bracket",
+ "bracket": ["hard_outside_farms", "bare_in_farms"],
+ "reason": "The default stable ground here is date-palm farm canopy, which drifts against bare ground in the same farms (toward the anti-sun direction, and it responds to sun elevation as shadows do). No canopy-free reference could be shown stable to 0.1 m/yr: hard surfaces outside the farm polygons and bare ground inside the farms are both canopy-free and both pass the matcher's tests, but their trends differ by ~0.2 m/yr. So the registration is their mean and the speeds carry half their difference as a systematic uncertainty. The megadune bodies cannot serve as a reference (the body-scale matcher fails its known-shift test, section 15b). Transfer from Sweihan is tested below and not used (row 044 and row 043 per-date offsets do not track each other, and their difference in the overlap has a trend). Tests and decision rules were written down before the speeds were computed (pipeline/site_notes/liwa/02_registration_reference.md).",
+ "transfer_check": {
+  "other_site": "sweihan",
+  "same_scene_sites": ["sweihan", "seih_al_hama"],
+  "other_row": "043",
+  "nearest_box": "west_54.30E",
+  "overlap_boxes": {
+   "west_54.30E": {"west": 54.27, "south": 23.90, "east": 54.33, "north": 23.96},
+   "centre_54.90E": {"west": 54.87, "south": 23.82, "east": 54.93, "north": 23.88},
+   "east_55.50E": {"west": 55.47, "south": 23.73, "east": 55.53, "north": 23.79}
+  }
+ }
+}

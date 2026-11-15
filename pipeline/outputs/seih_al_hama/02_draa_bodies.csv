@@ -1,25 +1,25 @@
-draa,lon,lat,height_m,area_km2,dem_image_corr,body_valid,body_n_epochs,body_speed_myr,body_estimate_east_north_myr,body_estimate_heading_deg,body_detection_limit_myr,body_detected,body_heading_deg,bedform_windows_on_outline,bedform_share_detected,bedform_detected_speed_median_myr
-B09,55.5306,24.08368,58.0,0.572,0.449,False,0,,,,,False,,17,0.353,0.514
-B15,55.49835,24.07107,57.8,0.371,0.251,False,0,,,,,False,,26,0.462,0.687
-B18,55.54391,24.04237,45.9,0.277,0.333,True,14,0.106,"[0.106, -0.002]",90.9,0.232,False,,43,0.907,0.734
-B06,55.51448,24.09041,44.6,0.256,0.195,False,0,,,,,False,,11,0.545,0.477
-B14,55.50069,24.07445,43.2,0.261,0.287,False,0,,,,,False,,3,0.333,0.52
-B19,55.54112,24.03691,41.2,0.305,0.317,True,14,0.119,"[0.096, 0.07]",54.1,0.204,False,,55,0.782,0.677
-B07,55.51855,24.08822,40.4,0.383,0.176,False,0,,,,,False,,3,1.0,0.429
-B10,55.54583,24.08372,37.7,0.272,0.25,True,14,0.058,"[0.058, 0.001]",88.7,0.207,False,,48,0.729,0.711
-B12,55.56538,24.07942,34.8,0.524,0.228,True,14,0.105,"[0.091, 0.051]",60.8,0.207,False,,76,0.868,0.623
-B05,55.48034,24.09215,33.9,0.963,0.192,False,0,,,,,False,,74,0.851,0.625
-B08,55.54219,24.08932,33.8,0.503,0.24,False,0,,,,,False,,57,0.632,0.586
-B23,55.48185,24.01949,33.6,0.365,0.343,False,0,,,,,False,,0,,
-B17,55.57067,24.04879,32.1,0.726,0.207,True,14,0.04,"[0.035, 0.018]",62.5,0.219,False,,82,0.476,0.626
-B13,55.54844,24.07871,30.6,0.267,0.419,False,0,,,,,False,,32,0.625,0.673
-B11,55.55381,24.07811,29.3,0.396,0.294,False,0,,,,,False,,44,0.705,0.609
-B03,55.53301,24.10163,29.2,0.346,0.35,False,0,,,,,False,,9,0.889,0.492
-B20,55.52578,24.03675,28.8,0.432,0.217,True,14,0.174,"[0.174, -0.017]",95.4,0.215,False,,57,0.895,1.074
-B04,55.54239,24.09841,27.1,0.942,0.224,True,14,0.074,"[0.073, -0.006]",94.5,0.205,False,,86,0.488,0.554
-B16,55.55779,24.054,26.9,0.281,0.394,True,14,0.525,"[0.525, -0.007]",90.8,0.853,False,,31,0.355,0.678
-B21,55.57026,24.02982,25.3,0.392,0.196,False,0,,,,,False,,0,,
-B24,55.51198,24.0172,25.3,0.363,0.206,False,0,,,,,False,,0,,
-B22,55.4932,24.02934,24.5,0.532,0.179,False,0,,,,,False,,0,,
-B02,55.52168,24.10156,24.1,0.631,0.241,False,0,,,,,False,,23,0.435,0.47
-B01,55.55834,24.10296,17.8,0.716,0.204,False,0,,,,,False,,20,0.1,0.85
+draa,lon,lat,height_m,area_km2,dem_image_corr,body_motion,bedform_windows_on_outline,bedform_share_detected,bedform_detected_speed_median_myr
+B09,55.5306,24.08368,58.0,0.572,0.449,not measured (matcher failed its known-shift test),17,0.353,0.514
+B15,55.49835,24.07107,57.8,0.371,0.251,not measured (matcher failed its known-shift test),26,0.462,0.687
+B18,55.54391,24.04237,45.9,0.277,0.333,not measured (matcher failed its known-shift test),43,0.907,0.734
+B06,55.51448,24.09041,44.6,0.256,0.195,not measured (matcher failed its known-shift test),11,0.545,0.477
+B14,55.50069,24.07445,43.2,0.261,0.287,not measured (matcher failed its known-shift test),3,0.333,0.52
+B19,55.54112,24.03691,41.2,0.305,0.317,not measured (matcher failed its known-shift test),55,0.782,0.677
+B07,55.51855,24.08822,40.4,0.383,0.176,not measured (matcher failed its known-shift test),3,1.0,0.429
+B10,55.54583,24.08372,37.7,0.272,0.25,not measured (matcher failed its known-shift test),48,0.729,0.711
+B12,55.56538,24.07942,34.8,0.524,0.228,not measured (matcher failed its known-shift test),76,0.868,0.623
+B05,55.48034,24.09215,33.9,0.963,0.192,not measured (matcher failed its known-shift test),74,0.851,0.625
+B08,55.54219,24.08932,33.8,0.503,0.24,not measured (matcher failed its known-shift test),57,0.632,0.586
+B23,55.48185,24.01949,33.6,0.365,0.343,not measured (matcher failed its known-shift test),0,,
+B17,55.57067,24.04879,32.1,0.726,0.207,not measured (matcher failed its known-shift test),82,0.476,0.626
+B13,55.54844,24.07871,30.6,0.267,0.419,not measured (matcher failed its known-shift test),32,0.625,0.673
+B11,55.55381,24.07811,29.3,0.396,0.294,not measured (matcher failed its known-shift test),44,0.705,0.609
+B03,55.53301,24.10163,29.2,0.346,0.35,not measured (matcher failed its known-shift test),9,0.889,0.492
+B20,55.52578,24.03675,28.8,0.432,0.217,not measured (matcher failed its known-shift test),57,0.895,1.074
+B04,55.54239,24.09841,27.1,0.942,0.224,not measured (matcher failed its known-shift test),86,0.488,0.554
+B16,55.55779,24.054,26.9,0.281,0.394,not measured (matcher failed its known-shift test),31,0.355,0.678
+B21,55.57026,24.02982,25.3,0.392,0.196,not measured (matcher failed its known-shift test),0,,
+B24,55.51198,24.0172,25.3,0.363,0.206,not measured (matcher failed its known-shift test),0,,
+B22,55.4932,24.02934,24.5,0.532,0.179,not measured (matcher failed its known-shift test),0,,
+B02,55.52168,24.10156,24.1,0.631,0.241,not measured (matcher failed its known-shift test),23,0.435,0.47
+B01,55.55834,24.10296,17.8,0.716,0.204,not measured (matcher failed its known-shift test),20,0.1,0.85

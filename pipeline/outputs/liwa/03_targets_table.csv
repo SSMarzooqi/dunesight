@@ -19,7 +19,7 @@ R001-17,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 17 of 52",road,poss
 R001-18,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 18 of 52",road,not_reached_by_2100,,,,,,False,80.0,,,,,,,,,
 R001-19,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 19 of 52",road,not_reached_by_2100,,,,,,False,215.5,,,,,,,,,
 R001-20,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 20 of 52",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
-R001-21,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 21 of 52",road,reached_by_2050,2040.0,2055.0,2082.0,2082.0,39.3,True,7.5,1.35,1.77,0.93,145.3,26.8,51.8,"[54.10413, 23.05097]","[54.106411, 23.052152]","[54.106144, 23.052494]"
+R001-21,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 21 of 52",road,reached_2051_2100,2095.0,2124.0,,2171.0,99.4,True,7.5,1.01,1.25,0.77,139.6,86.9,111.9,"[54.10413, 23.05097]","[54.106388, 23.05217]","[54.105697, 23.052892]"
 R001-22,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 22 of 52",road,not_reached_by_2100,,,,,,False,120.7,,,,,,,,,
 R001-23,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 23 of 52",road,not_reached_by_2100,,,,,,False,291.4,,,,,,,,,
 R001-24,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 24 of 52",road,not_reached_by_2100,,,,,,False,121.5,,,,,,,,,
@@ -34,9 +34,9 @@ R001-32,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 32 of 52",road,not_
 R001-33,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 33 of 52",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R001-34,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 34 of 52",road,not_reached_by_2100,,,,,,False,175.6,,,,,,,,,
 R001-35,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 35 of 52",road,not_reached_by_2100,,,,,,False,37.5,,,,,,,,,
-R001-36,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 36 of 52",road,reached_by_2050,2042.0,2049.0,2061.0,2061.0,78.3,True,7.5,3.33,4.06,2.61,142.3,65.8,90.8,"[54.11842, 23.03932]","[54.119089, 23.038851]","[54.118564, 23.039454]"
-R001-37,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 37 of 52",road,reached_by_2050,2045.0,2054.0,2065.0,2065.0,93.9,True,7.5,3.33,4.06,2.61,142.3,81.4,106.4,"[54.11842, 23.03932]","[54.119488, 23.038205]","[54.118868, 23.038918]"
-R001-38,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 38 of 52",road,reached_2051_2100,2058.0,2065.0,2074.0,2074.0,186.1,True,7.5,4.74,5.36,4.13,147.4,173.6,198.6,"[54.11849, 23.03607]","[54.121882, 23.034387]","[54.120835, 23.03584]"
+R001-36,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 36 of 52",road,reached_by_2050,2039.0,2046.0,2058.0,2058.0,61.3,True,7.5,2.99,3.63,2.36,140.0,48.8,73.8,"[54.11842, 23.03932]","[54.119005, 23.038986]","[54.118564, 23.039454]"
+R001-37,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 37 of 52",road,reached_by_2050,2046.0,2051.0,2058.0,2058.0,110.9,True,7.5,4.39,4.86,3.92,146.3,98.4,123.4,"[54.11849, 23.03607]","[54.121191, 23.035499]","[54.120531, 23.036376]"
+R001-38,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 38 of 52",road,reached_2051_2100,2066.0,2074.0,2083.0,2083.0,210.7,True,7.5,4.39,4.86,3.92,146.3,198.2,223.2,"[54.11849, 23.03607]","[54.121901, 23.034357]","[54.120686, 23.035973]"
 R001-39,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 39 of 52",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R001-40,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 40 of 52",road,not_reached_by_2100,,,,,,False,448.7,,,,,,,,,
 R001-41,"E90 Sheikh Theyab Bin Eissa AL Falahi Road, segment 41 of 52",road,not_reached_by_2100,,,,,,False,704.0,,,,,,,,,
@@ -58,7 +58,7 @@ R005-01,Unnamed primary link road (OSM way 121650311),road,not_reached_by_2100,,
 R006-01,Unnamed primary link road (OSM way 335362015),road,not_reached_by_2100,,,,,,False,412.5,,,,,,,,,
 R007-01,Unnamed primary link road (OSM way 335362018),road,not_reached_by_2100,,,,,,False,427.5,,,,,,,,,
 R008-01,Unnamed primary link road (OSM way 641930473),road,not_reached_by_2100,,,,,,False,715.0,,,,,,,,,
-R009-01,Unnamed primary link road (OSM way 641930474),road,reached_2051_2100,2066.0,2074.0,2085.0,2085.0,230.2,True,13.7,4.74,5.36,4.13,147.4,217.7,242.7,"[54.11849, 23.03607]","[54.122124, 23.033921]","[54.120838, 23.035705]"
+R009-01,Unnamed primary link road (OSM way 641930474),road,reached_2051_2100,2069.0,2077.0,2087.0,2087.0,226.0,True,13.7,4.39,4.86,3.92,146.3,213.5,238.5,"[54.11849, 23.03607]","[54.122138, 23.033975]","[54.120838, 23.035705]"
 R010-01,Unnamed primary link road (OSM way 641930475),road,not_reached_by_2100,,,,,,False,388.5,,,,,,,,,
 R011-01,Unnamed primary link road (OSM way 641930476),road,possible_within_direction_uncertainty,,,,,,True,22.5,,,,,,,,,
 R012-01,Unnamed primary link road (OSM way 641930477),road,not_reached_by_2100,,,,,,False,367.5,,,,,,,,,
@@ -90,8 +90,8 @@ R026-01,"Lane 2536, segment 1 of 6",road,not_reached_by_2100,,,,,,True,7.5,,,,,,
 R026-02,"Lane 2536, segment 2 of 6",road,not_reached_by_2100,,,,,,False,127.5,,,,,,,,,
 R026-03,"Lane 2536, segment 3 of 6",road,not_reached_by_2100,,,,,,False,647.7,,,,,,,,,
 R026-04,"Lane 2536, segment 4 of 6",road,not_reached_by_2100,,,,,,False,262.5,,,,,,,,,
-R026-05,"Lane 2536, segment 5 of 6",road,reached_2051_2100,2075.0,2093.0,,2121.0,130.2,False,37.5,1.93,2.35,1.51,163.2,117.7,142.7,"[54.11286, 23.08037]","[54.112852, 23.078503]","[54.112439, 23.079686]"
-R026-06,"Lane 2536, segment 6 of 6",road,sand_at_edge_now,2025.0,2028.0,2047.0,2047.0,10.9,True,7.5,1.12,1.5,0.74,156.1,0.0,23.4,"[54.11523, 23.07933]","[54.115739, 23.079324]","[54.115663, 23.079474]"
+R026-05,"Lane 2536, segment 5 of 6",road,reached_2051_2100,2090.0,2109.0,,2135.0,130.3,False,37.5,1.57,1.82,1.32,163.6,117.8,142.8,"[54.11286, 23.08037]","[54.112843, 23.0785]","[54.112439, 23.079686]"
+R026-06,"Lane 2536, segment 6 of 6",road,sand_at_edge_now,2025.0,2029.0,2052.0,2052.0,10.9,True,7.5,0.76,0.93,0.59,153.5,0.0,23.4,"[54.11523, 23.07933]","[54.115746, 23.079327]","[54.115663, 23.079474]"
 R027-01,Lane 2537,road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R028-01,Lane 2538,road,not_reached_by_2100,,,,,,False,589.9,,,,,,,,,
 R029-01,"Lane 2539, segment 1 of 2",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
@@ -120,7 +120,7 @@ R043-01,"Lane 2560, segment 1 of 10",road,not_reached_by_2100,,,,,,False,898.7,,
 R043-02,"Lane 2560, segment 2 of 10",road,not_reached_by_2100,,,,,,False,538.5,,,,,,,,,
 R043-03,"Lane 2560, segment 3 of 10",road,not_reached_by_2100,,,,,,False,459.2,,,,,,,,,
 R043-04,"Lane 2560, segment 4 of 10",road,not_reached_by_2100,,,,,,False,257.9,,,,,,,,,
-R043-05,"Lane 2560, segment 5 of 10",road,reached_by_2050,2040.0,2050.0,2065.0,2065.0,48.9,False,34.9,2.04,2.5,1.58,167.9,36.4,61.4,"[54.13179, 23.07097]","[54.132243, 23.068989]","[54.132117, 23.069485]"
+R043-05,"Lane 2560, segment 5 of 10",road,reached_by_2050,2044.0,2056.0,2071.0,2071.0,49.8,False,34.9,1.68,1.96,1.39,169.3,37.3,62.3,"[54.13179, 23.07097]","[54.132232, 23.068978]","[54.132117, 23.069485]"
 R043-06,"Lane 2560, segment 6 of 10",road,not_reached_by_2100,,,,,,False,425.2,,,,,,,,,
 R043-07,"Lane 2560, segment 7 of 10",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R043-08,"Lane 2560, segment 8 of 10",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
@@ -154,7 +154,7 @@ R052-03,"Lane 2573, segment 3 of 3",road,not_reached_by_2100,,,,,,False,757.5,,,
 R053-01,"Lane 2575, segment 1 of 3",road,not_reached_by_2100,,,,,,False,624.1,,,,,,,,,
 R053-02,"Lane 2575, segment 2 of 3",road,not_reached_by_2100,,,,,,False,395.6,,,,,,,,,
 R053-03,"Lane 2575, segment 3 of 3",road,not_reached_by_2100,,,,,,False,409.3,,,,,,,,,
-R054-01,"Lane 2577, segment 1 of 2",road,reached_by_2050,2031.0,2043.0,2065.0,2065.0,22.3,True,7.5,1.33,1.74,0.91,177.5,9.8,34.8,"[54.12945, 23.07093]","[54.129359, 23.069031]","[54.129341, 23.069299]"
+R054-01,"Lane 2577, segment 1 of 2",road,reached_by_2050,2031.0,2046.0,2068.0,2068.0,19.4,True,7.5,0.98,1.2,0.77,183.4,6.9,31.9,"[54.12945, 23.07093]","[54.12948, 23.068924]","[54.12949, 23.069166]"
 R054-02,"Lane 2577, segment 2 of 2",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R055-01,Lane 2580,road,not_reached_by_2100,,,,,,False,639.6,,,,,,,,,
 R056-01,"Lane 2581, segment 1 of 2",road,not_reached_by_2100,,,,,,False,576.7,,,,,,,,,
@@ -164,7 +164,7 @@ R057-02,"Lane 2582, segment 2 of 2",road,not_reached_by_2100,,,,,,True,0.0,,,,,,
 R058-01,"Lane 2583, segment 1 of 2",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R058-02,"Lane 2583, segment 2 of 2",road,not_reached_by_2100,,,,,,False,965.2,,,,,,,,,
 R059-01,Lane 2584,road,not_reached_by_2100,,,,,,False,737.7,,,,,,,,,
-R060-01,"Lane 2590, segment 1 of 7",road,reached_2051_2100,2068.0,2082.0,2100.0,2100.0,186.5,False,67.5,3.33,4.06,2.61,142.3,174.0,199.0,"[54.11842, 23.03932]","[54.121946, 23.037995]","[54.12076, 23.039359]"
+R060-01,"Lane 2590, segment 1 of 7",road,reached_2051_2100,2073.0,2088.0,,2106.0,185.3,False,67.5,2.99,3.63,2.36,140.0,172.8,197.8,"[54.11842, 23.03932]","[54.121998, 23.037912]","[54.120763, 23.039223]"
 R060-02,"Lane 2590, segment 2 of 7",road,possible_within_direction_uncertainty,,,,,,False,172.5,,,,,,,,,
 R060-03,"Lane 2590, segment 3 of 7",road,not_reached_by_2100,,,,,,False,577.5,,,,,,,,,
 R060-04,"Lane 2590, segment 4 of 7",road,not_reached_by_2100,,,,,,False,720.1,,,,,,,,,
@@ -187,9 +187,9 @@ R066-01,"Lane 2597, segment 1 of 20",road,not_reached_by_2100,,,,,,True,0.0,,,,,
 R066-02,"Lane 2597, segment 2 of 20",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R066-03,"Lane 2597, segment 3 of 20",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R066-04,"Lane 2597, segment 4 of 20",road,not_reached_by_2100,,,,,,False,280.6,,,,,,,,,
-R066-05,"Lane 2597, segment 5 of 20",road,reached_2051_2100,2069.0,2081.0,2098.0,2098.0,146.7,False,152.0,2.65,3.08,2.22,160.6,134.2,159.2,"[54.15441, 23.05297]","[54.155399, 23.050587]","[54.154873, 23.05189]"
-R066-06,"Lane 2597, segment 6 of 20",road,sand_at_edge_now,2025.0,2028.0,2036.0,2036.0,7.2,True,7.5,2.26,2.67,1.85,164.2,0.0,19.7,"[54.15675, 23.05301]","[54.156378, 23.051789]","[54.156336, 23.051917]"
-R066-07,"Lane 2597, segment 7 of 20",road,possible_within_direction_uncertainty,,,,,,False,126.7,,,,,,,,,
+R066-05,"Lane 2597, segment 5 of 20",road,reached_2051_2100,2074.0,2085.0,2099.0,2099.0,135.6,False,152.0,2.29,2.55,2.03,160.5,123.1,148.1,"[54.15441, 23.05297]","[54.155367, 23.050546]","[54.154876, 23.051755]"
+R066-06,"Lane 2597, segment 6 of 20",road,sand_at_edge_now,2025.0,2029.0,2037.0,2037.0,7.3,True,7.5,1.91,2.13,1.68,164.7,0.0,19.8,"[54.15675, 23.05301]","[54.156376, 23.051789]","[54.156336, 23.051917]"
+R066-07,"Lane 2597, segment 7 of 20",road,not_reached_by_2100,,,,,,False,126.7,,,,,,,,,
 R066-08,"Lane 2597, segment 8 of 20",road,not_reached_by_2100,,,,,,False,141.0,,,,,,,,,
 R066-09,"Lane 2597, segment 9 of 20",road,not_reached_by_2100,,,,,,False,163.5,,,,,,,,,
 R066-10,"Lane 2597, segment 10 of 20",road,not_reached_by_2100,,,,,,False,130.8,,,,,,,,,
@@ -254,7 +254,7 @@ R078-01,Lane 2613,road,not_reached_by_2100,,,,,,False,427.5,,,,,,,,,
 R079-01,"Lane 2615, segment 1 of 3",road,not_reached_by_2100,,,,,,False,427.5,,,,,,,,,
 R079-02,"Lane 2615, segment 2 of 3",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R079-03,"Lane 2615, segment 3 of 3",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
-R080-01,Lane 2617,road,reached_2051_2100,2059.0,2069.0,2082.0,2082.0,116.8,True,0.0,2.71,3.11,2.31,172.9,104.3,129.3,"[54.16445, 23.02065]","[54.165396, 23.017661]","[54.165222, 23.018772]"
+R080-01,Lane 2617,road,reached_2051_2100,2084.0,2095.0,,2107.0,161.6,True,0.0,2.35,2.55,2.15,174.6,149.1,174.1,"[54.16445, 23.02065]","[54.165401, 23.017661]","[54.165214, 23.019178]"
 R081-01,"Lane 2618, segment 1 of 6",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R081-02,"Lane 2618, segment 2 of 6",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R081-03,"Lane 2618, segment 3 of 6",road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
@@ -306,8 +306,8 @@ R093-08,"Lane 3100, segment 8 of 8",road,not_reached_by_2100,,,,,,False,175.6,,,
 R094-01,Lane 3102,road,not_reached_by_2100,,,,,,False,397.5,,,,,,,,,
 R095-01,"Lane 3103, segment 1 of 5",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R095-02,"Lane 3103, segment 2 of 5",road,possible_within_direction_uncertainty,,,,,,True,7.5,,,,,,,,,
-R095-03,"Lane 3103, segment 3 of 5",road,reached_by_2050,2026.0,2037.0,2058.0,2058.0,13.1,True,7.5,1.19,1.57,0.82,164.4,0.6,25.6,"[54.08553, 23.04521]","[54.084588, 23.043796]","[54.08453, 23.043974]"
-R095-04,"Lane 3103, segment 4 of 5",road,reached_by_2050,2035.0,2049.0,2076.0,2076.0,27.8,True,7.5,1.19,1.57,0.82,164.4,15.3,40.3,"[54.08553, 23.04521]","[54.084489, 23.043396]","[54.084389, 23.043701]"
+R095-03,"Lane 3103, segment 3 of 5",road,reached_by_2050,2027.0,2043.0,2065.0,2065.0,14.0,True,7.5,0.83,0.98,0.69,165.7,1.5,26.5,"[54.08553, 23.04521]","[54.084586, 23.043787]","[54.08453, 23.043974]"
+R095-04,"Lane 3103, segment 4 of 5",road,reached_by_2050,2042.0,2061.0,2087.0,2087.0,29.2,True,7.5,0.83,0.98,0.69,165.7,16.7,41.7,"[54.08553, 23.04521]","[54.084485, 23.043382]","[54.084389, 23.043701]"
 R095-05,"Lane 3103, segment 5 of 5",road,not_reached_by_2100,,,,,,False,202.5,,,,,,,,,
 R096-01,Lane 3105,road,not_reached_by_2100,,,,,,False,249.3,,,,,,,,,
 R097-01,Lane 3107,road,not_reached_by_2100,,,,,,False,247.9,,,,,,,,,
@@ -320,8 +320,8 @@ R103-01,Lane 3125,road,not_reached_by_2100,,,,,,False,733.6,,,,,,,,,
 R104-01,Lane 3127,road,not_reached_by_2100,,,,,,False,737.2,,,,,,,,,
 R105-01,Lane 3129,road,not_reached_by_2100,,,,,,False,775.5,,,,,,,,,
 R106-01,"Lane 3131, segment 1 of 4",road,not_reached_by_2100,,,,,,False,201.4,,,,,,,,,
-R106-02,"Lane 3131, segment 2 of 4",road,reached_by_2050,2025.0,2032.0,2041.0,2041.0,12.8,True,7.5,2.16,2.57,1.75,171.7,0.3,25.3,"[54.1484, 23.0052]","[54.147528, 23.006088]","[54.147495, 23.006268]"
-R106-03,"Lane 3131, segment 3 of 4",road,sand_at_edge_now,2025.0,2029.0,2036.0,2036.0,11.1,True,7.5,2.51,2.91,2.1,170.7,0.0,23.6,"[54.14842, 23.00412]","[54.146688, 23.004328]","[54.146655, 23.004493]"
+R106-02,"Lane 3131, segment 2 of 4",road,reached_by_2050,2026.0,2034.0,2043.0,2043.0,13.9,True,7.5,1.81,2.03,1.58,173.8,1.4,26.4,"[54.1484, 23.0052]","[54.147522, 23.006077]","[54.147495, 23.006268]"
+R106-03,"Lane 3131, segment 3 of 4",road,sand_at_edge_now,2025.0,2029.0,2037.0,2037.0,11.6,True,7.5,2.15,2.37,1.93,172.2,0.0,24.1,"[54.14842, 23.00412]","[54.146684, 23.004323]","[54.146655, 23.004493]"
 R106-04,"Lane 3131, segment 4 of 4",road,not_reached_by_2100,,,,,,True,22.5,,,,,,,,,
 R107-01,"Mahdar Jarrah Street, segment 1 of 6",road,not_reached_by_2100,,,,,,False,342.7,,,,,,,,,
 R107-02,"Mahdar Jarrah Street, segment 2 of 6",road,not_reached_by_2100,,,,,,False,532.5,,,,,,,,,
@@ -330,7 +330,7 @@ R107-04,"Mahdar Jarrah Street, segment 4 of 6",road,not_reached_by_2100,,,,,,Tru
 R107-05,"Mahdar Jarrah Street, segment 5 of 6",road,not_reached_by_2100,,,,,,False,272.7,,,,,,,,,
 R107-06,"Mahdar Jarrah Street, segment 6 of 6",road,not_reached_by_2100,,,,,,False,277.1,,,,,,,,,
 R108-01,"Mousal Street, segment 1 of 4",road,not_reached_by_2100,,,,,,False,907.5,,,,,,,,,
-R108-02,"Mousal Street, segment 2 of 4",road,reached_2051_2100,2085.0,2105.0,,2133.0,149.9,False,172.5,1.9,2.29,1.52,157.6,137.4,162.4,"[54.17608, 23.02411]","[54.177005, 23.021866]","[54.176393, 23.023168]"
+R108-02,"Mousal Street, segment 2 of 4",road,not_reached_by_2100,,,,,,False,172.5,,,,,,,,,
 R108-03,"Mousal Street, segment 3 of 4",road,not_reached_by_2100,,,,,,False,517.5,,,,,,,,,
 R108-04,"Mousal Street, segment 4 of 4",road,not_reached_by_2100,,,,,,False,982.5,,,,,,,,,
 R109-01,Yaw Dhaneen Street,road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
@@ -349,21 +349,21 @@ R116-01,Unnamed unclassified road (OSM way 1011464666),road,not_reached_by_2100,
 R117-01,"Unnamed unclassified road (OSM way 1011464666), segment 1 of 2",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R117-02,"Unnamed unclassified road (OSM way 1011464666), segment 2 of 2",road,not_reached_by_2100,,,,,,False,37.5,,,,,,,,,
 R118-01,"Unnamed unclassified road (OSM way 1011464666), segment 1 of 4",road,not_reached_by_2100,,,,,,False,106.7,,,,,,,,,
-R118-02,"Unnamed unclassified road (OSM way 1011464666), segment 2 of 4",road,sand_at_edge_now,2025.0,2030.0,2051.0,2051.0,9.2,True,7.5,1.06,1.44,0.67,161.9,0.0,21.7,"[54.11026, 23.03808]","[54.110441, 23.038621]","[54.110387, 23.038763]"
-R118-03,"Unnamed unclassified road (OSM way 1011464666), segment 3 of 4",road,sand_at_edge_now,2025.0,2030.0,2051.0,2051.0,12.3,True,7.5,1.06,1.44,0.67,161.9,0.0,24.8,"[54.11026, 23.03808]","[54.109293, 23.038032]","[54.109229, 23.038201]"
-R118-04,"Unnamed unclassified road (OSM way 1011464666), segment 4 of 4",road,reached_2051_2100,2095.0,2115.0,,2144.0,179.9,False,127.5,2.02,2.42,1.63,154.1,167.4,192.4,"[54.10555, 23.03908]","[54.107156, 23.035694]","[54.106325, 23.0372]"
-R119-01,"Unnamed unclassified road (OSM way 1011464667), segment 1 of 4",road,sand_at_edge_now,2025.0,2032.0,2056.0,2056.0,6.0,True,7.5,1.0,1.38,0.62,140.1,0.0,18.5,"[54.09495, 23.04214]","[54.09458, 23.043119]","[54.094494, 23.04321]"
-R119-02,"Unnamed unclassified road (OSM way 1011464667), segment 2 of 4",road,sand_at_edge_now,2025.0,2029.0,2041.0,2041.0,4.5,True,7.5,1.59,2.02,1.16,146.3,0.0,17.0,"[54.09959, 23.04439]","[54.100228, 23.04485]","[54.100162, 23.044939]"
-R119-03,"Unnamed unclassified road (OSM way 1011464667), segment 3 of 4",road,sand_at_edge_now,2025.0,2034.0,2060.0,2060.0,8.0,True,7.5,0.99,1.38,0.6,134.5,0.0,20.5,"[54.10193, 23.04443]","[54.102178, 23.044607]","[54.102068, 23.044703]"
+R118-02,"Unnamed unclassified road (OSM way 1011464666), segment 2 of 4",road,sand_at_edge_now,2025.0,2032.0,2059.0,2059.0,9.3,True,7.5,0.69,0.88,0.51,162.1,0.0,21.8,"[54.11026, 23.03808]","[54.11044, 23.03862]","[54.110387, 23.038763]"
+R118-03,"Unnamed unclassified road (OSM way 1011464666), segment 3 of 4",road,sand_at_edge_now,2025.0,2031.0,2058.0,2058.0,12.3,True,7.5,0.69,0.88,0.51,162.1,0.0,24.8,"[54.11026, 23.03808]","[54.109292, 23.038032]","[54.109229, 23.038201]"
+R118-04,"Unnamed unclassified road (OSM way 1011464666), segment 4 of 4",road,not_reached_by_2100,,,,,,False,127.5,,,,,,,,,
+R119-01,"Unnamed unclassified road (OSM way 1011464667), segment 1 of 4",road,sand_at_edge_now,2025.0,2033.0,2061.0,2061.0,4.9,True,7.5,0.68,0.85,0.5,129.0,0.0,17.4,"[54.09495, 23.04214]","[54.094589, 23.043141]","[54.094494, 23.04321]"
+R119-02,"Unnamed unclassified road (OSM way 1011464667), segment 2 of 4",road,sand_at_edge_now,2025.0,2030.0,2044.0,2044.0,5.4,True,7.5,1.25,1.49,1.0,142.0,0.0,17.9,"[54.09959, 23.04439]","[54.100241, 23.044849]","[54.100162, 23.044939]"
+R119-03,"Unnamed unclassified road (OSM way 1011464667), segment 3 of 4",road,reached_by_2050,2026.0,2047.0,2081.0,2081.0,13.3,True,7.5,0.63,0.79,0.47,122.3,0.8,25.8,"[54.1031, 23.04445]","[54.103561, 23.044495]","[54.103387, 23.044592]"
 R119-04,"Unnamed unclassified road (OSM way 1011464667), segment 4 of 4",road,not_reached_by_2100,,,,,,False,157.5,,,,,,,,,
 R120-01,Unnamed unclassified road (OSM way 1011464667),road,not_reached_by_2100,,,,,,False,433.7,,,,,,,,,
 R121-01,Unnamed unclassified road (OSM way 1011633932),road,not_reached_by_2100,,,,,,False,822.3,,,,,,,,,
 R122-01,Unnamed unclassified road (OSM way 1011633939),road,not_reached_by_2100,,,,,,False,463.5,,,,,,,,,
-R123-01,"Unnamed unclassified road (OSM way 1011633940), segment 1 of 2",road,sand_at_edge_now,2025.0,2030.0,2037.0,2037.0,10.2,True,7.5,2.49,2.94,2.04,176.4,0.0,22.7,"[54.12362, 23.06974]","[54.125294, 23.067441]","[54.12528, 23.0676]"
+R123-01,"Unnamed unclassified road (OSM way 1011633940), segment 1 of 2",road,sand_at_edge_now,2025.0,2030.0,2038.0,2038.0,9.4,True,7.5,2.15,2.41,1.88,178.9,0.0,21.9,"[54.12362, 23.06974]","[54.125287, 23.067448]","[54.12528, 23.0676]"
 R123-02,"Unnamed unclassified road (OSM way 1011633940), segment 2 of 2",road,not_reached_by_2100,,,,,,False,353.7,,,,,,,,,
 R124-01,Unnamed unclassified road (OSM way 1011639755),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R125-01,Unnamed unclassified road (OSM way 1011639755),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
-R126-01,Unnamed unclassified road (OSM way 1012764197),road,sand_at_edge_now,2025.0,2032.0,2047.0,2047.0,10.0,True,7.5,0.94,1.32,0.56,177.4,0.0,22.5,"[54.08106, 23.08953]","[54.080775, 23.089505]","[54.080764, 23.089663]"
+R126-01,Unnamed unclassified road (OSM way 1012764197),road,sand_at_edge_now,2025.0,2034.0,2051.0,2051.0,9.5,True,7.5,1.11,1.32,0.91,165.3,0.0,22.0,"[54.08108, 23.08845]","[54.080098, 23.088555]","[54.080053, 23.088702]"
 R127-01,Unnamed unclassified road (OSM way 1126928790),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R128-01,Unnamed unclassified road (OSM way 1126928790),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R129-01,Unnamed unclassified road (OSM way 1126928791),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
@@ -407,7 +407,7 @@ R165-01,Unnamed unclassified road (OSM way 1127510470),road,not_reached_by_2100,
 R166-01,Unnamed unclassified road (OSM way 1127510473),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R167-01,Unnamed unclassified road (OSM way 1127510474),road,not_reached_by_2100,,,,,,False,215.5,,,,,,,,,
 R168-01,Unnamed unclassified road (OSM way 1127510475),road,not_reached_by_2100,,,,,,False,233.0,,,,,,,,,
-R169-01,Unnamed unclassified road (OSM way 1127510475),road,reached_by_2050,2032.0,2044.0,2066.0,2066.0,24.2,True,7.5,1.35,1.77,0.93,145.3,11.7,36.7,"[54.10413, 23.05097]","[54.106319, 23.052533]","[54.106138, 23.052765]"
+R169-01,Unnamed unclassified road (OSM way 1127510475),road,reached_by_2050,2030.0,2044.0,2066.0,2066.0,17.9,True,7.5,1.01,1.25,0.77,139.6,5.4,30.4,"[54.10413, 23.05097]","[54.106303, 23.052593]","[54.106138, 23.052765]"
 R170-01,Unnamed unclassified road (OSM way 1127510477),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R171-01,Unnamed unclassified road (OSM way 1127510478),road,not_reached_by_2100,,,,,,False,355.0,,,,,,,,,
 R172-01,Unnamed unclassified road (OSM way 1127510479),road,not_reached_by_2100,,,,,,False,344.0,,,,,,,,,
@@ -459,7 +459,7 @@ R201-03,"Ghanem Bin Jrayw Al Mansouri Street, segment 3 of 6",road,not_reached_b
 R201-04,"Ghanem Bin Jrayw Al Mansouri Street, segment 4 of 6",road,not_reached_by_2100,,,,,,False,140.2,,,,,,,,,
 R201-05,"Ghanem Bin Jrayw Al Mansouri Street, segment 5 of 6",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R201-06,"Ghanem Bin Jrayw Al Mansouri Street, segment 6 of 6",road,not_reached_by_2100,,,,,,False,214.0,,,,,,,,,
-R202-01,Lane 2591,road,reached_by_2050,2038.0,2045.0,2056.0,2056.0,64.3,True,22.5,3.33,4.06,2.61,142.3,51.8,76.8,"[54.11842, 23.03932]","[54.12119, 23.03926]","[54.120752, 23.039765]"
+R202-01,Lane 2591,road,reached_by_2050,2038.0,2046.0,2057.0,2057.0,58.9,True,22.5,2.99,3.63,2.36,140.0,46.4,71.4,"[54.11842, 23.03932]","[54.12118, 23.039178]","[54.120755, 23.039629]"
 R203-01,"Mahdar Jarrah Street, segment 1 of 3",road,not_reached_by_2100,,,,,,False,391.1,,,,,,,,,
 R203-02,"Mahdar Jarrah Street, segment 2 of 3",road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R203-03,"Mahdar Jarrah Street, segment 3 of 3",road,not_reached_by_2100,,,,,,False,39.9,,,,,,,,,
@@ -472,7 +472,7 @@ R205-01,Yaw Al 'Asmi Street,road,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 R206-01,Unnamed residential road (OSM way 121649486),road,not_reached_by_2100,,,,,,False,59.6,,,,,,,,,
 R207-01,Unnamed residential road (OSM way 121649722),road,not_reached_by_2100,,,,,,False,427.5,,,,,,,,,
 R208-01,Unnamed residential road (OSM way 121649723),road,not_reached_by_2100,,,,,,False,382.8,,,,,,,,,
-R209-01,"Al 'Anajeej Street, segment 1 of 3",road,reached_2051_2100,2056.0,2070.0,2093.0,2093.0,85.9,True,7.5,1.93,2.39,1.47,158.0,73.4,98.4,"[54.10415, 23.04989]","[54.106844, 23.049424]","[54.106486, 23.050199]"
+R209-01,"Al 'Anajeej Street, segment 1 of 3",road,reached_2051_2100,2064.0,2080.0,,2103.0,85.2,True,7.5,1.57,1.87,1.28,157.2,72.7,97.7,"[54.10415, 23.04989]","[54.106852, 23.049434]","[54.106486, 23.050199]"
 R209-02,"Al 'Anajeej Street, segment 2 of 3",road,not_reached_by_2100,,,,,,False,26.0,,,,,,,,,
 R209-03,"Al 'Anajeej Street, segment 3 of 3",road,not_reached_by_2100,,,,,,True,22.5,,,,,,,,,
 R210-01,Lane 2627,road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
@@ -488,10 +488,10 @@ R219-01,Unnamed service road (OSM way 641932127),road,not_reached_by_2100,,,,,,T
 R220-01,Unnamed service road (OSM way 1011639756),road,not_reached_by_2100,,,,,,False,723.0,,,,,,,,,
 R221-01,Unnamed service road (OSM way 1126928804),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R222-01,Unnamed service road (OSM way 1126952648),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
-R223-01,Unnamed service road (OSM way 1126952667),road,reached_by_2050,2031.0,2038.0,2051.0,2051.0,26.3,True,7.5,2.08,2.56,1.59,172.0,13.8,38.8,"[54.10417, 23.0488]","[54.105687, 23.048665]","[54.105634, 23.048965]"
+R223-01,Unnamed service road (OSM way 1126952667),road,reached_by_2050,2031.0,2040.0,2053.0,2053.0,25.0,True,7.5,1.72,2.04,1.41,174.2,12.5,37.5,"[54.10417, 23.0488]","[54.105673, 23.048674]","[54.105634, 23.048965]"
 R224-01,Unnamed service road (OSM way 1126952668),road,not_reached_by_2100,,,,,,False,26.0,,,,,,,,,
 R225-01,Unnamed service road (OSM way 1126952668),road,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
-R226-01,Unnamed service road (OSM way 1126952669),road,reached_by_2050,2026.0,2033.0,2044.0,2044.0,13.6,True,7.5,1.93,2.39,1.47,158.0,1.1,26.1,"[54.10415, 23.04989]","[54.10628, 23.049749]","[54.106199, 23.049923]"
+R226-01,Unnamed service road (OSM way 1126952669),road,reached_by_2050,2026.0,2035.0,2047.0,2047.0,14.1,True,7.5,1.57,1.87,1.28,157.2,1.6,26.6,"[54.10415, 23.04989]","[54.106284, 23.049745]","[54.106199, 23.049923]"
 R227-01,Unnamed service road (OSM way 1126952669),road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 R228-01,Unnamed service road (OSM way 1126952670),road,not_reached_by_2100,,,,,,False,46.6,,,,,,,,,
 R229-01,Unnamed service road (OSM way 1126952670),road,not_reached_by_2100,,,,,,False,73.3,,,,,,,,,
@@ -528,20 +528,20 @@ R259-01,Unnamed service road (OSM way 1127519600),road,not_reached_by_2100,,,,,,
 R260-01,Unnamed service road (OSM way 1127519605),road,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 R261-01,Unnamed service road (OSM way 1127519606),road,not_reached_by_2100,,,,,,False,1183.6,,,,,,,,,
 R262-01,Unnamed service road (OSM way 1130644320),road,not_reached_by_2100,,,,,,False,207.3,,,,,,,,,
-R263-01,Unnamed service road (OSM way 1130644321),road,reached_2051_2100,2084.0,2113.0,,2166.0,117.2,False,46.6,1.35,1.77,0.93,145.3,104.7,129.7,"[54.10413, 23.05097]","[54.105431, 23.049797]","[54.104719, 23.050708]"
+R263-01,Unnamed service road (OSM way 1130644321),road,not_reached_by_2100,,,,,,False,46.6,,,,,,,,,
 R264-01,Unnamed service road (OSM way 1130644324),road,not_reached_by_2100,,,,,,False,414.9,,,,,,,,,
 R265-01,Unnamed service road (OSM way 1138356362),road,not_reached_by_2100,,,,,,False,37.5,,,,,,,,,
 R266-01,Unnamed service road (OSM way 1138356363),road,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
-F001,"Farm/plantation F001 (67.3 ha, vegetated 2024-2025)",farm,reached_by_2050,2025.0,2033.0,2043.0,2043.0,22.7,True,13.7,2.04,2.46,1.61,186.9,0.2,45.2,"[54.0951, 23.08979]","[54.094522, 23.087886]","[54.094552, 23.088157]"
+F001,"Farm/plantation F001 (67.3 ha, vegetated 2024-2025)",farm,reached_by_2050,2025.0,2034.0,2044.0,2044.0,22.7,True,13.7,2.73,2.93,2.52,173.0,0.2,45.2,"[54.09393, 23.08977]","[54.09357, 23.087868]","[54.093528, 23.088138]"
 F002,"Farm/plantation F002 (12.9 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,623.2,,,,,,,,,
-F003,"Farm/plantation F003 (4.0 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2041.0,2041.0,0.0,True,0.0,1.92,2.34,1.49,176.6,0.0,22.5,"[54.1105, 23.08141]","[54.108194, 23.079743]","[54.108194, 23.079743]"
+F003,"Farm/plantation F003 (4.0 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2043.0,2043.0,7.5,True,0.0,1.57,1.81,1.33,180.1,0.0,30.0,"[54.1105, 23.08141]","[54.108194, 23.079743]","[54.108192, 23.079879]"
 F004,"Farm/plantation F004 (0.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,495.4,,,,,,,,,
 F005,"Farm/plantation F005 (11.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 F006,"Farm/plantation F006 (30.0 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 F007,"Farm/plantation F007 (23.4 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,217.5,,,,,,,,,
-F008,"Farm/plantation F008 (3.9 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2030.0,2046.0,2046.0,7.8,True,7.5,2.04,2.5,1.58,167.9,0.0,30.3,"[54.13179, 23.07097]","[54.131578, 23.068798]","[54.131543, 23.068933]"
+F008,"Farm/plantation F008 (3.9 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2030.0,2048.0,2048.0,7.8,True,7.5,1.68,1.96,1.39,169.3,0.0,30.3,"[54.13179, 23.07097]","[54.131574, 23.068798]","[54.131543, 23.068933]"
 F009,"Farm/plantation F009 (2.3 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,158.2,,,,,,,,,
-F010,"Farm/plantation F010 (23.5 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2041.0,2041.0,8.0,True,0.0,1.04,1.43,0.65,165.0,0.0,30.5,"[54.12592, 23.07194]","[54.126561, 23.071144]","[54.126519, 23.071278]"
+F010,"Farm/plantation F010 (23.5 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2042.0,2042.0,7.9,True,0.0,0.68,0.87,0.49,167.0,0.0,30.4,"[54.12592, 23.07194]","[54.126555, 23.071144]","[54.126519, 23.071278]"
 F011,"Farm/plantation F011 (39.2 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,157.5,,,,,,,,,
 F012,"Farm/plantation F012 (2.0 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,370.2,,,,,,,,,
 F013,"Farm/plantation F013 (2.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,443.7,,,,,,,,,
@@ -563,11 +563,11 @@ F028,"Farm/plantation F028 (1.7 ha, vegetated 2024-2025)",farm,not_reached_by_21
 F029,"Farm/plantation F029 (0.8 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 F030,"Farm/plantation F030 (1.2 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 F031,"Farm/plantation F031 (2.0 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,97.5,,,,,,,,,
-F032,"Farm/plantation F032 (216.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2032.0,2043.0,2058.0,2058.0,42.5,True,13.7,2.49,2.94,2.04,176.4,20.0,65.0,"[54.12362, 23.06974]","[54.12444, 23.06727]","[54.1244, 23.06772]"
+F032,"Farm/plantation F032 (216.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2035.0,2047.0,2062.0,2062.0,44.8,True,13.7,2.15,2.41,1.88,178.9,22.3,67.3,"[54.12362, 23.06974]","[54.12442, 23.067248]","[54.1244, 23.06772]"
 F033,"Farm/plantation F033 (0.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,703.2,,,,,,,,,
-F034,"Farm/plantation F034 (7.7 ha, vegetated 2024-2025)",farm,possible_within_direction_uncertainty,,,,,,True,13.7,,,,,,,,,
+F034,"Farm/plantation F034 (7.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 F035,"Farm/plantation F035 (4.4 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,922.6,,,,,,,,,
-F036,"Farm/plantation F036 (0.5 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2043.0,2043.0,0.0,True,0.0,1.73,2.13,1.33,148.7,0.0,22.5,"[54.10177, 23.05201]","[54.101438, 23.053627]","[54.101438, 23.053627]"
+F036,"Farm/plantation F036 (0.5 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2026.0,2045.0,2045.0,0.0,True,0.0,1.38,1.58,1.18,145.4,0.0,22.5,"[54.10177, 23.05201]","[54.101438, 23.053627]","[54.101438, 23.053627]"
 F037,"Farm/plantation F037 (2.3 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,202.5,,,,,,,,,
 F038,"Farm/plantation F038 (1.4 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,7.5,,,,,,,,,
 F039,"Farm/plantation F039 (1.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,819.7,,,,,,,,,
@@ -586,9 +586,9 @@ F051,"Farm/plantation F051 (25.4 ha, vegetated 2024-2025)",farm,not_reached_by_2
 F052,"Farm/plantation F052 (0.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,908.6,,,,,,,,,
 F053,"Farm/plantation F053 (5.8 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,217.5,,,,,,,,,
 F054,"Farm/plantation F054 (1.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
-F055,"Farm/plantation F055 (1.0 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2045.0,2091.0,2091.0,19.8,True,7.5,1.05,1.44,0.66,146.7,0.0,42.3,"[54.09262, 23.04209]","[54.092904, 23.042298]","[54.092753, 23.042501]"
+F055,"Farm/plantation F055 (1.0 ha, vegetated 2024-2025)",farm,sand_at_edge_now,2025.0,2048.0,2098.0,2098.0,15.5,True,7.5,0.71,0.88,0.53,139.3,0.0,38.0,"[54.09262, 23.04209]","[54.092903, 23.042347]","[54.092753, 23.042501]"
 F056,"Farm/plantation F056 (2.9 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,1149.4,,,,,,,,,
-F057,"Farm/plantation F057 (112.0 ha, vegetated 2024-2025)",farm,reached_2051_2100,2055.0,2070.0,2087.0,2087.0,101.6,True,7.5,2.26,2.67,1.85,164.2,79.1,124.1,"[54.15675, 23.05301]","[54.156778, 23.051654]","[54.156468, 23.052596]"
+F057,"Farm/plantation F057 (112.0 ha, vegetated 2024-2025)",farm,reached_2051_2100,2062.0,2077.0,2093.0,2093.0,101.3,True,7.5,1.91,2.13,1.68,164.7,78.8,123.8,"[54.15675, 23.05301]","[54.156767, 23.051654]","[54.156468, 23.052596]"
 F058,"Farm/plantation F058 (31.9 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,334.6,,,,,,,,,
 F059,"Farm/plantation F059 (3.1 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,234.4,,,,,,,,,
 F060,"Farm/plantation F060 (1.9 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,201.4,,,,,,,,,
@@ -608,14 +608,14 @@ F073,"Farm/plantation F073 (0.5 ha, vegetated 2024-2025)",farm,not_reached_by_21
 F074,"Farm/plantation F074 (2.4 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,26.0,,,,,,,,,
 F075,"Farm/plantation F075 (2.9 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,826.6,,,,,,,,,
 F076,"Farm/plantation F076 (1.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,46.6,,,,,,,,,
-F077,"Farm/plantation F077 (1.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2035.0,2060.0,,2113.0,37.7,True,0.0,1.11,1.52,0.7,174.6,15.2,60.2,"[54.11406, 23.02407]","[54.113831, 23.023257]","[54.113781, 23.023663]"
+F077,"Farm/plantation F077 (1.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2041.0,2075.0,,2135.0,37.5,True,0.0,0.76,0.97,0.55,180.7,15.0,60.0,"[54.11406, 23.02407]","[54.11393, 23.023259]","[54.113927, 23.023665]"
 F078,"Farm/plantation F078 (59.2 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,277.9,,,,,,,,,
 F079,"Farm/plantation F079 (2.4 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,121.5,,,,,,,,,
 F080,"Farm/plantation F080 (85.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,173.1,,,,,,,,,
-F081,"Farm/plantation F081 (53.3 ha, vegetated 2024-2025)",farm,reached_by_2050,2032.0,2043.0,2059.0,2059.0,39.8,False,37.5,2.3,2.69,1.9,162.1,17.3,62.3,"[54.16211, 23.02061]","[54.16172, 23.018167]","[54.16157, 23.018571]"
+F081,"Farm/plantation F081 (53.3 ha, vegetated 2024-2025)",farm,reached_by_2050,2033.0,2046.0,2062.0,2062.0,39.7,False,37.5,1.94,2.14,1.73,162.3,17.2,62.2,"[54.16211, 23.02061]","[54.161719, 23.018167]","[54.16157, 23.018571]"
 F082,"Farm/plantation F082 (4.0 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,435.7,,,,,,,,,
 F083,"Farm/plantation F083 (28.7 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,232.5,,,,,,,,,
-F084,"Farm/plantation F084 (71.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2028.0,2038.0,2051.0,2051.0,31.3,True,22.5,2.55,2.95,2.15,161.9,8.8,53.8,"[54.17959, 23.02417]","[54.179883, 23.022762]","[54.179759, 23.023093]"
+F084,"Farm/plantation F084 (71.1 ha, vegetated 2024-2025)",farm,reached_by_2050,2029.0,2040.0,2053.0,2053.0,31.3,True,22.5,2.19,2.39,1.98,162.0,8.8,53.8,"[54.17959, 23.02417]","[54.179883, 23.022762]","[54.179759, 23.023093]"
 F085,"Farm/plantation F085 (50.0 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,232.5,,,,,,,,,
 F086,"Farm/plantation F086 (0.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,487.5,,,,,,,,,
 F087,"Farm/plantation F087 (1.6 ha, vegetated 2024-2025)",farm,not_reached_by_2100,,,,,,False,442.5,,,,,,,,,
@@ -666,18 +666,18 @@ B042,Building [way/310308856],building,not_reached_by_2100,,,,,,True,22.5,,,,,,,
 B043,Building [way/310308857],building,not_reached_by_2100,,,,,,False,52.5,,,,,,,,,
 B044,Building [way/310308855],building,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 B045,Building [way/310308838],building,not_reached_by_2100,,,,,,False,738.4,,,,,,,,,
-B046,Building [way/310308841],building,reached_by_2050,2041.0,2054.0,2072.0,2072.0,40.1,True,13.7,1.35,1.77,0.93,145.3,27.6,52.6,"[54.10413, 23.05097]","[54.105289, 23.050095]","[54.105017, 23.050443]"
-B047,Building [way/310308849],building,reached_by_2050,2030.0,2038.0,2051.0,2051.0,23.2,True,13.7,1.93,2.39,1.47,158.0,10.7,35.7,"[54.10415, 23.04989]","[54.105141, 23.049918]","[54.105023, 23.050172]"
-B048,Building [way/310308852],building,possible_within_direction_uncertainty,,,,,,False,39.9,,,,,,,,,
+B046,Building [way/310308841],building,reached_by_2050,2046.0,2062.0,2080.0,2080.0,38.8,True,13.7,1.01,1.25,0.77,139.6,26.3,51.3,"[54.10413, 23.05097]","[54.105317, 23.05013]","[54.105017, 23.050443]"
+B047,Building [way/310308849],building,reached_by_2050,2031.0,2040.0,2054.0,2054.0,22.9,True,13.7,1.57,1.87,1.28,157.2,10.4,35.4,"[54.10415, 23.04989]","[54.105143, 23.049922]","[54.105023, 23.050172]"
+B048,Building [way/310308852],building,not_reached_by_2100,,,,,,False,39.9,,,,,,,,,
 B049,Building [way/310308854],building,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
-B050,Building [way/310308842],building,reached_by_2050,2037.0,2047.0,2062.0,2062.0,40.0,True,22.5,1.93,2.39,1.47,158.0,27.5,52.5,"[54.10415, 23.04989]","[54.106085, 23.049659]","[54.105904, 23.050053]"
+B050,Building [way/310308842],building,reached_by_2050,2040.0,2051.0,2067.0,2067.0,39.6,True,22.5,1.57,1.87,1.28,157.2,27.1,52.1,"[54.10415, 23.04989]","[54.10609, 23.049665]","[54.105904, 23.050053]"
 B051,Building [way/310308827],building,not_reached_by_2100,,,,,,False,1011.6,,,,,,,,,
-B052,Building [way/310308847],building,reached_by_2050,2033.0,2042.0,2056.0,2056.0,31.2,True,13.7,1.93,2.39,1.47,158.0,18.7,43.7,"[54.10415, 23.04989]","[54.104891, 23.049305]","[54.104742, 23.049626]"
+B052,Building [way/310308847],building,reached_by_2050,2035.0,2045.0,2060.0,2060.0,30.9,True,13.7,1.57,1.87,1.28,157.2,18.4,43.4,"[54.10415, 23.04989]","[54.104894, 23.049309]","[54.104742, 23.049626]"
 B053,Building [way/310308840],building,not_reached_by_2100,,,,,,False,770.3,,,,,,,,,
-B054,Building [way/310308851],building,reached_2051_2100,2071.0,2089.0,,2117.0,121.9,True,22.5,1.93,2.39,1.47,158.0,109.4,134.4,"[54.10415, 23.04989]","[54.10625, 23.049112]","[54.105754, 23.050186]"
+B054,Building [way/310308851],building,reached_2051_2100,2085.0,2105.0,,2133.0,124.7,True,22.5,1.57,1.87,1.28,157.2,112.2,137.2,"[54.10415, 23.04989]","[54.106277, 23.049096]","[54.105754, 23.050186]"
 B055,Building [way/310308843],building,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 B056,Building [way/310308850],building,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
-B057,Building [way/310308853],building,possible_within_direction_uncertainty,,,,,,True,22.5,,,,,,,,,
+B057,Building [way/310308853],building,not_reached_by_2100,,,,,,True,22.5,,,,,,,,,
 B058,Building [way/310308111],building,not_reached_by_2100,,,,,,False,188.1,,,,,,,,,
 B059,Building [way/310308848],building,possible_within_direction_uncertainty,,,,,,True,22.5,,,,,,,,,
 B060,Building [way/310308148],building,not_reached_by_2100,,,,,,False,970.7,,,,,,,,,
@@ -685,7 +685,7 @@ B061,Building [way/310308844],building,not_reached_by_2100,,,,,,True,22.5,,,,,,,
 B062,Building [way/310308839],building,not_reached_by_2100,,,,,,False,429.3,,,,,,,,,
 B063,Building [way/310308136],building,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,
 B064,Building [way/310308822],building,not_reached_by_2100,,,,,,False,1057.8,,,,,,,,,
-B065,Building [way/310308845],building,possible_within_direction_uncertainty,,,,,,True,13.7,,,,,,,,,
+B065,Building [way/310308845],building,not_reached_by_2100,,,,,,True,13.7,,,,,,,,,
 B066,Building [way/310308846],building,not_reached_by_2100,,,,,,False,34.9,,,,,,,,,
 B067,Building [way/310308823],building,not_reached_by_2100,,,,,,False,999.3,,,,,,,,,
 B068,Building [way/310308137],building,not_reached_by_2100,,,,,,True,0.0,,,,,,,,,

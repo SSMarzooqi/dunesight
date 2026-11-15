@@ -15,7 +15,7 @@
   "Most targets are not reached by {P[projection_end]}; targets flagged 'sand at edge now' already have migrating sand within that edge uncertainty.",
   "The projection is advection along the measured 2013-2025 motion, assuming those conditions continue; it does not model dune deformation, merging, splitting or growth.",
   "Vegetation, windbreaks, sand fences, levelling, construction and climate change alter the outcome.",
-  "Motion is measured in 480 m windows: it is the motion of the small dunes (spacing ~{qc[linearity_aliasing][dune_spacing_25pct_variance_below_m]}-{qc[linearity_aliasing][dune_spacing_spectral_peak_m]} m) and sand sheets inside, not of the large ridges they ride on; those ridge bodies, tracked separately at 960 m scale, move about 0.2-0.3 m/yr (detected for {qc[draa_bodies][n_detected]} of {qc[draa_bodies][n_valid]} trackable bodies).",
+  "Motion is measured in 480 m windows: it is the motion of the small dunes (spacing ~{qc[linearity_aliasing][dune_spacing_25pct_variance_below_m]}-{qc[linearity_aliasing][dune_spacing_spectral_peak_m]} m) and sand sheets inside, not of the large ridges they ride on; the motion of those ridge bodies is not measured (the body-scale matcher failed its known-shift test).",
   "Only {n_dunes} large dunes (13-45 m high) are outlined, from NASADEM (February 2000) shifted to 2025; the small dunes that carry most of the motion are represented by the velocity grid, not by polygons.",
   "The independent Sentinel-2 (HLS S30) check agrees on direction but gives about half the speed; HLS L30 agrees better but uses the same Landsat instruments.",
   "No published migration rate exists for Sweihan, so there is nothing to compare against.",

@@ -1,6 +1,6 @@
 {
  "site": "liwa",
- "generated_utc": "2026-11-15T04:14:30Z",
+ "generated_utc": "2026-11-15T05:29:29Z",
  "parameters": {
   "grid_margin_m": 1500,
   "win": 32,
@@ -28,6 +28,8 @@
   "draa_min_area_km2": 0.25,
   "draa_win": 64,
   "min_unvegetated_stable": 20,
+  "ref_win": 16,
+  "min_reference_windows": 20,
   "seed": 20261114
  },
  "masks": {
@@ -459,6 +461,1135 @@
    0.452
   ]
  },
+ "registration_reference": {
+  "mode": "bracket",
+  "config": {
+   "mode": "bracket",
+   "bracket": [
+    "hard_outside_farms",
+    "bare_in_farms"
+   ],
+   "reason": "The default stable ground here is date-palm farm canopy, which drifts against bare ground in the same farms (toward the anti-sun direction, and it responds to sun elevation as shadows do). No canopy-free reference could be shown stable to 0.1 m/yr: hard surfaces outside the farm polygons and bare ground inside the farms are both canopy-free and both pass the matcher's tests, but their trends differ by ~0.2 m/yr. So the registration is their mean and the speeds carry half their difference as a systematic uncertainty. The megadune bodies cannot serve as a reference (the body-scale matcher fails its known-shift test, section 15b). Transfer from Sweihan is tested below and not used (row 044 and row 043 per-date offsets do not track each other, and their difference in the overlap has a trend). Tests and decision rules were written down before the speeds were computed (pipeline/site_notes/liwa/02_registration_reference.md).",
+   "transfer_check": {
+    "other_site": "sweihan",
+    "same_scene_sites": [
+     "sweihan",
+     "seih_al_hama"
+    ],
+    "other_row": "043",
+    "nearest_box": "west_54.30E",
+    "overlap_boxes": {
+     "west_54.30E": {
+      "west": 54.27,
+      "south": 23.9,
+      "east": 54.33,
+      "north": 23.96
+     },
+     "centre_54.90E": {
+      "west": 54.87,
+      "south": 23.82,
+      "east": 54.93,
+      "north": 23.88
+     },
+     "east_55.50E": {
+      "west": 55.47,
+      "south": 23.73,
+      "east": 55.53,
+      "north": 23.79
+     }
+    }
+   }
+  },
+  "window_px": 16,
+  "surface_counts": {
+   "paved_road_ways": 391,
+   "buildings": 160
+  },
+  "known_shift_test": {
+   "table": [
+    {
+     "shift_row_px": 0.1,
+     "shift_col_px": -0.2,
+     "degraded": false,
+     "passes": 1,
+     "bias_row_px": -0.01,
+     "bias_col_px": 0.02
+    },
+    {
+     "shift_row_px": 0.1,
+     "shift_col_px": -0.2,
+     "degraded": false,
+     "passes": 3,
+     "bias_row_px": -0.01,
+     "bias_col_px": 0.01
+    },
+    {
+     "shift_row_px": 0.1,
+     "shift_col_px": -0.2,
+     "degraded": true,
+     "passes": 1,
+     "bias_row_px": -0.04,
+     "bias_col_px": 0.04
+    },
+    {
+     "shift_row_px": 0.1,
+     "shift_col_px": -0.2,
+     "degraded": true,
+     "passes": 3,
+     "bias_row_px": -0.04,
+     "bias_col_px": 0.03
+    },
+    {
+     "shift_row_px": -0.5,
+     "shift_col_px": 0.5,
+     "degraded": false,
+     "passes": 1,
+     "bias_row_px": 0.03,
+     "bias_col_px": -0.04
+    },
+    {
+     "shift_row_px": -0.5,
+     "shift_col_px": 0.5,
+     "degraded": false,
+     "passes": 3,
+     "bias_row_px": 0.02,
+     "bias_col_px": -0.02
+    },
+    {
+     "shift_row_px": -0.5,
+     "shift_col_px": 0.5,
+     "degraded": true,
+     "passes": 1,
+     "bias_row_px": -0.01,
+     "bias_col_px": -0.045
+    },
+    {
+     "shift_row_px": -0.5,
+     "shift_col_px": 0.5,
+     "degraded": true,
+     "passes": 3,
+     "bias_row_px": -0.08,
+     "bias_col_px": -0.02
+    },
+    {
+     "shift_row_px": 1.3,
+     "shift_col_px": -0.7,
+     "degraded": false,
+     "passes": 1,
+     "bias_row_px": -0.09,
+     "bias_col_px": 0.06
+    },
+    {
+     "shift_row_px": 1.3,
+     "shift_col_px": -0.7,
+     "degraded": false,
+     "passes": 3,
+     "bias_row_px": -0.02,
+     "bias_col_px": -0.01
+    },
+    {
+     "shift_row_px": 1.3,
+     "shift_col_px": -0.7,
+     "degraded": true,
+     "passes": 1,
+     "bias_row_px": -0.12,
+     "bias_col_px": 0.11
+    },
+    {
+     "shift_row_px": 1.3,
+     "shift_col_px": -0.7,
+     "degraded": true,
+     "passes": 3,
+     "bias_row_px": -0.03,
+     "bias_col_px": -0.015
+    },
+    {
+     "shift_row_px": 3.0,
+     "shift_col_px": 2.0,
+     "degraded": false,
+     "passes": 1,
+     "bias_row_px": -0.19,
+     "bias_col_px": -0.14
+    },
+    {
+     "shift_row_px": 3.0,
+     "shift_col_px": 2.0,
+     "degraded": false,
+     "passes": 3,
+     "bias_row_px": 0.0,
+     "bias_col_px": 0.0
+    },
+    {
+     "shift_row_px": 3.0,
+     "shift_col_px": 2.0,
+     "degraded": true,
+     "passes": 1,
+     "bias_row_px": -0.685,
+     "bias_col_px": -0.41
+    },
+    {
+     "shift_row_px": 3.0,
+     "shift_col_px": 2.0,
+     "degraded": true,
+     "passes": 3,
+     "bias_row_px": -0.04,
+     "bias_col_px": 0.03
+    }
+   ],
+   "bias_le_0p05px": false
+  },
+  "references": [
+   {
+    "reference": "stable_ground",
+    "n_windows": 621,
+    "trend_E_myr": -0.212,
+    "trend_N_myr": 0.452,
+    "trend_speed_myr": 0.5,
+    "trend_toward_deg": 334.9,
+    "minus_stable_ground_myr": 0.0,
+    "minus_stable_ground_toward_deg": 0.0,
+    "minus_base_myr": 0.27,
+    "minus_base_toward_deg": 332.1,
+    "split_halves_myr": null
+   },
+   {
+    "reference": "hard_all",
+    "n_windows": 401,
+    "trend_E_myr": -0.185,
+    "trend_N_myr": 0.359,
+    "trend_speed_myr": 0.404,
+    "trend_toward_deg": 332.7,
+    "minus_stable_ground_myr": 0.097,
+    "minus_stable_ground_toward_deg": 163.7,
+    "minus_base_myr": 0.176,
+    "minus_base_toward_deg": 325.7,
+    "split_halves_myr": 0.02
+   },
+   {
+    "reference": "hard_outside_farms",
+    "n_windows": 99,
+    "trend_E_myr": -0.086,
+    "trend_N_myr": 0.214,
+    "trend_speed_myr": 0.23,
+    "trend_toward_deg": 338.1,
+    "minus_stable_ground_myr": 0.27,
+    "minus_stable_ground_toward_deg": 152.1,
+    "minus_base_myr": 0.0,
+    "minus_base_toward_deg": 0.0,
+    "split_halves_myr": 0.029
+   },
+   {
+    "reference": "bare_in_farms",
+    "n_windows": 2391,
+    "trend_E_myr": -0.108,
+    "trend_N_myr": 0.008,
+    "trend_speed_myr": 0.109,
+    "trend_toward_deg": 274.0,
+    "minus_stable_ground_myr": 0.457,
+    "minus_stable_ground_toward_deg": 166.9,
+    "minus_base_myr": 0.207,
+    "minus_base_toward_deg": 186.2,
+    "split_halves_myr": 0.0036
+   },
+   {
+    "reference": "canopy_in_farms",
+    "n_windows": 2717,
+    "trend_E_myr": -0.202,
+    "trend_N_myr": 0.45,
+    "trend_speed_myr": 0.493,
+    "trend_toward_deg": 335.9,
+    "minus_stable_ground_myr": 0.011,
+    "minus_stable_ground_toward_deg": 100.5,
+    "minus_base_myr": 0.263,
+    "minus_base_toward_deg": 333.9,
+    "split_halves_myr": 0.0054
+   }
+  ],
+  "base_for_differences": "hard_outside_farms",
+  "per_image_offsets_m": {
+   "stable_ground": {
+    "dates": [
+     "2000-11-27",
+     "2001-11-30",
+     "2013-11-07",
+     "2013-11-23",
+     "2013-12-09",
+     "2014-10-09",
+     "2014-11-10",
+     "2014-11-26",
+     "2015-10-12",
+     "2015-11-13",
+     "2015-12-15",
+     "2017-10-01",
+     "2017-11-02",
+     "2017-12-04",
+     "2018-10-04",
+     "2018-11-05",
+     "2018-12-07",
+     "2019-10-07",
+     "2019-11-08",
+     "2019-11-24",
+     "2020-10-09",
+     "2020-11-10",
+     "2020-11-26",
+     "2021-10-12",
+     "2021-11-13",
+     "2021-12-15",
+     "2022-09-29",
+     "2022-11-08",
+     "2022-12-02",
+     "2023-10-10",
+     "2023-11-19",
+     "2023-12-13",
+     "2024-10-04",
+     "2024-11-13",
+     "2024-12-07",
+     "2025-09-29",
+     "2025-11-08",
+     "2025-12-10"
+    ],
+    "E": [
+     12.793,
+     6.729,
+     0.0,
+     1.8,
+     0.15,
+     0.927,
+     0.777,
+     -0.423,
+     0.67,
+     -0.53,
+     -0.38,
+     -1.779,
+     -0.429,
+     0.321,
+     -1.934,
+     -2.234,
+     -1.634,
+     -2.373,
+     -1.323,
+     0.327,
+     -1.114,
+     -1.264,
+     -2.164,
+     -0.402,
+     -1.302,
+     -0.702,
+     -2.025,
+     -2.625,
+     -2.175,
+     -0.739,
+     -3.589,
+     -1.789,
+     -1.302,
+     -1.602,
+     -1.602,
+     -1.725,
+     -1.275,
+     -2.925
+    ],
+    "N": [
+     -6.552,
+     -4.538,
+     0.0,
+     0.15,
+     0.3,
+     2.802,
+     1.302,
+     2.202,
+     1.988,
+     1.988,
+     3.037,
+     2.973,
+     3.873,
+     4.323,
+     3.064,
+     3.664,
+     4.564,
+     4.511,
+     3.761,
+     4.061,
+     3.091,
+     3.991,
+     5.491,
+     5.641,
+     4.741,
+     5.941,
+     5.737,
+     6.037,
+     4.687,
+     6.541,
+     4.441,
+     7.141,
+     4.264,
+     6.964,
+     3.814,
+     5.802,
+     5.202,
+     7.152
+    ]
+   },
+   "hard_all": {
+    "dates": [
+     "2000-11-27",
+     "2001-11-30",
+     "2013-11-07",
+     "2013-11-23",
+     "2013-12-09",
+     "2014-10-09",
+     "2014-11-10",
+     "2014-11-26",
+     "2015-10-12",
+     "2015-11-13",
+     "2015-12-15",
+     "2017-10-01",
+     "2017-11-02",
+     "2017-12-04",
+     "2018-10-04",
+     "2018-11-05",
+     "2018-12-07",
+     "2019-10-07",
+     "2019-11-08",
+     "2019-11-24",
+     "2020-10-09",
+     "2020-11-10",
+     "2020-11-26",
+     "2021-10-12",
+     "2021-11-13",
+     "2021-12-15",
+     "2022-09-29",
+     "2022-11-08",
+     "2022-12-02",
+     "2023-10-10",
+     "2023-11-19",
+     "2023-12-13",
+     "2024-10-04",
+     "2024-11-13",
+     "2024-12-07",
+     "2025-09-29",
+     "2025-11-08",
+     "2025-12-10"
+    ],
+    "E": [
+     11.373,
+     6.525,
+     0.0,
+     1.05,
+     0.375,
+     0.487,
+     0.337,
+     -0.713,
+     0.262,
+     -0.563,
+     0.037,
+     -2.03,
+     -0.53,
+     0.22,
+     -1.671,
+     -2.121,
+     -1.221,
+     -2.154,
+     -1.104,
+     0.096,
+     -1.104,
+     -1.404,
+     -2.154,
+     -0.798,
+     -1.398,
+     -0.798,
+     -1.87,
+     -2.77,
+     -2.02,
+     -1.227,
+     -3.327,
+     -1.677,
+     -1.023,
+     -1.623,
+     -1.023,
+     -1.521,
+     -0.921,
+     -2.121
+    ],
+    "N": [
+     -7.184,
+     -5.786,
+     0.0,
+     -0.45,
+     -0.3,
+     2.759,
+     0.659,
+     1.409,
+     2.004,
+     1.254,
+     1.704,
+     2.571,
+     3.021,
+     2.871,
+     2.925,
+     2.625,
+     2.925,
+     4.259,
+     2.759,
+     2.909,
+     3.107,
+     3.107,
+     3.707,
+     4.612,
+     3.412,
+     3.862,
+     5.421,
+     4.971,
+     3.471,
+     6.032,
+     2.732,
+     5.282,
+     3.696,
+     5.796,
+     1.896,
+     5.282,
+     3.782,
+     5.132
+    ]
+   },
+   "hard_outside_farms": {
+    "dates": [
+     "2000-11-27",
+     "2001-11-30",
+     "2013-11-07",
+     "2013-11-23",
+     "2013-12-09",
+     "2014-10-09",
+     "2014-11-10",
+     "2014-11-26",
+     "2015-10-12",
+     "2015-11-13",
+     "2015-12-15",
+     "2017-10-01",
+     "2017-11-02",
+     "2017-12-04",
+     "2018-10-04",
+     "2018-11-05",
+     "2018-12-07",
+     "2019-10-07",
+     "2019-11-08",
+     "2019-11-24",
+     "2020-10-09",
+     "2020-11-10",
+     "2020-11-26",
+     "2021-10-12",
+     "2021-11-13",
+     "2021-12-15",
+     "2022-09-29",
+     "2022-11-08",
+     "2022-12-02",
+     "2023-10-10",
+     "2023-11-19",
+     "2023-12-13",
+     "2024-10-04",
+     "2024-11-13",
+     "2024-12-07",
+     "2025-09-29",
+     "2025-11-08",
+     "2025-12-10"
+    ],
+    "E": [
+     10.607,
+     2.609,
+     0.0,
+     0.825,
+     0.45,
+     0.686,
+     0.386,
+     -0.964,
+     0.814,
+     -0.161,
+     -0.011,
+     -1.661,
+     -0.011,
+     0.289,
+     -0.471,
+     -1.371,
+     -0.621,
+     -0.83,
+     -0.53,
+     0.07,
+     -0.504,
+     -0.804,
+     -1.554,
+     0.032,
+     -0.493,
+     0.257,
+     -1.146,
+     -2.346,
+     -1.446,
+     -0.305,
+     -2.255,
+     -1.055,
+     0.536,
+     -0.214,
+     0.086,
+     0.059,
+     0.359,
+     -0.991
+    ],
+    "N": [
+     0.236,
+     2.143,
+     0.0,
+     -0.075,
+     -0.225,
+     1.371,
+     -0.354,
+     0.396,
+     1.098,
+     0.798,
+     1.098,
+     1.13,
+     1.73,
+     1.28,
+     2.02,
+     1.57,
+     2.32,
+     2.711,
+     1.211,
+     1.661,
+     1.998,
+     2.448,
+     3.048,
+     3.268,
+     2.293,
+     2.743,
+     3.729,
+     3.279,
+     1.929,
+     3.45,
+     0.6,
+     3.3,
+     2.03,
+     4.13,
+     0.23,
+     2.866,
+     1.366,
+     3.016
+    ]
+   },
+   "bare_in_farms": {
+    "dates": [
+     "2000-11-27",
+     "2001-11-30",
+     "2013-11-07",
+     "2013-11-23",
+     "2013-12-09",
+     "2014-10-09",
+     "2014-11-10",
+     "2014-11-26",
+     "2015-10-12",
+     "2015-11-13",
+     "2015-12-15",
+     "2017-10-01",
+     "2017-11-02",
+     "2017-12-04",
+     "2018-10-04",
+     "2018-11-05",
+     "2018-12-07",
+     "2019-10-07",
+     "2019-11-08",
+     "2019-11-24",
+     "2020-10-09",
+     "2020-11-10",
+     "2020-11-26",
+     "2021-10-12",
+     "2021-11-13",
+     "2021-12-15",
+     "2022-09-29",
+     "2022-11-08",
+     "2022-12-02",
+     "2023-10-10",
+     "2023-11-19",
+     "2023-12-13",
+     "2024-10-04",
+     "2024-11-13",
+     "2024-12-07",
+     "2025-09-29",
+     "2025-11-08",
+     "2025-12-10"
+    ],
+    "E": [
+     10.237,
+     3.975,
+     0.0,
+     0.9,
+     0.15,
+     0.836,
+     0.686,
+     -0.214,
+     0.846,
+     -0.504,
+     0.096,
+     -1.929,
+     -0.429,
+     0.471,
+     -1.382,
+     -1.832,
+     -1.232,
+     -1.554,
+     -0.954,
+     0.246,
+     -0.423,
+     -1.023,
+     -2.073,
+     -0.354,
+     -1.104,
+     -0.654,
+     -1.104,
+     -2.004,
+     -1.404,
+     0.043,
+     -2.507,
+     -0.707,
+     -0.15,
+     -0.6,
+     -0.15,
+     -0.343,
+     -0.043,
+     -1.243
+    ],
+    "N": [
+     -0.3,
+     -0.182,
+     0.0,
+     0.75,
+     -0.0,
+     2.068,
+     0.418,
+     1.318,
+     1.634,
+     0.734,
+     1.184,
+     1.345,
+     1.945,
+     1.795,
+     0.557,
+     0.557,
+     1.007,
+     1.736,
+     0.536,
+     1.436,
+     0.959,
+     1.109,
+     1.559,
+     2.062,
+     1.012,
+     1.462,
+     2.014,
+     1.714,
+     0.364,
+     1.982,
+     -0.718,
+     1.832,
+     -0.445,
+     1.805,
+     -1.945,
+     0.97,
+     -0.23,
+     1.12
+    ]
+   },
+   "canopy_in_farms": {
+    "dates": [
+     "2000-11-27",
+     "2001-11-30",
+     "2013-11-07",
+     "2013-11-23",
+     "2013-12-09",
+     "2014-10-09",
+     "2014-11-10",
+     "2014-11-26",
+     "2015-10-12",
+     "2015-11-13",
+     "2015-12-15",
+     "2017-10-01",
+     "2017-11-02",
+     "2017-12-04",
+     "2018-10-04",
+     "2018-11-05",
+     "2018-12-07",
+     "2019-10-07",
+     "2019-11-08",
+     "2019-11-24",
+     "2020-10-09",
+     "2020-11-10",
+     "2020-11-26",
+     "2021-10-12",
+     "2021-11-13",
+     "2021-12-15",
+     "2022-09-29",
+     "2022-11-08",
+     "2022-12-02",
+     "2023-10-10",
+     "2023-11-19",
+     "2023-12-13",
+     "2024-10-04",
+     "2024-11-13",
+     "2024-12-07",
+     "2025-09-29",
+     "2025-11-08",
+     "2025-12-10"
+    ],
+    "E": [
+     12.713,
+     6.08,
+     0.0,
+     1.35,
+     -0.0,
+     0.825,
+     0.675,
+     -0.525,
+     0.536,
+     -0.514,
+     -0.214,
+     -1.757,
+     -0.407,
+     0.193,
+     -1.8,
+     -2.1,
+     -1.5,
+     -2.095,
+     -1.195,
+     0.305,
+     -0.996,
+     -1.146,
+     -2.196,
+     -0.568,
+     -1.318,
+     -1.018,
+     -1.961,
+     -2.561,
+     -1.961,
+     -0.921,
+     -3.471,
+     -1.821,
+     -1.109,
+     -1.559,
+     -1.409,
+     -1.596,
+     -1.146,
+     -2.796
+    ],
+    "N": [
+     -7.055,
+     -5.598,
+     0.0,
+     0.0,
+     0.3,
+     2.079,
+     1.179,
+     2.229,
+     1.864,
+     1.714,
+     2.764,
+     2.7,
+     3.75,
+     4.35,
+     2.796,
+     3.396,
+     4.446,
+     4.318,
+     3.568,
+     4.018,
+     3.139,
+     4.039,
+     5.089,
+     5.014,
+     4.564,
+     5.764,
+     5.496,
+     5.946,
+     4.896,
+     6.091,
+     4.291,
+     6.841,
+     3.75,
+     6.9,
+     3.75,
+     5.405,
+     4.955,
+     6.905
+    ]
+   }
+  },
+  "palm_canopy_tests": {
+   "anti_sun_deg": 333.1,
+   "relative_to": "hard_outside_farms",
+   "stable_windows_drift_along_antisun_median_myr": 0.274,
+   "stable_windows_drift_dependence": {
+    "vegetation_fraction": {
+     "spearman_rho": 0.092,
+     "p_value": 0.02249550364683053,
+     "tercile_median_drift_myr": [
+      0.259,
+      0.283,
+      0.279
+     ],
+     "tercile_ranges": [
+      [
+       0.0,
+       0.624
+      ],
+      [
+       0.625,
+       0.75
+      ],
+      [
+       0.751,
+       0.962
+      ]
+     ]
+    },
+    "ndvi_change": {
+     "spearman_rho": 0.102,
+     "p_value": 0.011096509739027273,
+     "tercile_median_drift_myr": [
+      0.25,
+      0.293,
+      0.29
+     ],
+     "tercile_ranges": [
+      [
+       -0.099,
+       -0.027
+      ],
+      [
+       -0.027,
+       -0.014
+      ],
+      [
+       -0.014,
+       0.035
+      ]
+     ]
+    }
+   },
+   "canopy_minus_bare_trend_myr": 0.452,
+   "canopy_minus_bare_toward_deg": 348.1,
+   "illumination_shift_along_antisun_per_deg_sun_elevation": {
+    "canopy_in_farms": {
+     "m_per_deg": -0.0663,
+     "ci95": [
+      -0.0794,
+      -0.0526
+     ]
+    },
+    "bare_in_farms": {
+     "m_per_deg": -0.0056,
+     "ci95": [
+      -0.0158,
+      0.0054
+     ]
+    },
+    "stable_ground": {
+     "m_per_deg": -0.0515,
+     "ci95": [
+      -0.0658,
+      -0.0369
+     ]
+    }
+   },
+   "ndvi_change_epochs": [
+    "2013-11-07",
+    "2025-11-08"
+   ],
+   "farm_window_median_ndvi_change": -0.02
+  },
+  "reference_systematic_per_component_myr": 0.1037,
+  "transfer_check": {
+   "same_scene_sites": [
+    "sweihan",
+    "seih_al_hama"
+   ],
+   "same_scene_agreement": {
+    "stable_ground": {
+     "E": {
+      "n_dates": 14,
+      "detrended_r": 0.877,
+      "detrended_diff_rms_m": 0.278,
+      "trend_diff_myr": -0.061
+     },
+     "N": {
+      "n_dates": 14,
+      "detrended_r": 0.577,
+      "detrended_diff_rms_m": 0.407,
+      "trend_diff_myr": 0.023
+     }
+    },
+    "hard_all": {
+     "E": {
+      "n_dates": 14,
+      "detrended_r": 0.93,
+      "detrended_diff_rms_m": 0.209,
+      "trend_diff_myr": -0.037
+     },
+     "N": {
+      "n_dates": 14,
+      "detrended_r": 0.746,
+      "detrended_diff_rms_m": 0.306,
+      "trend_diff_myr": -0.064
+     }
+    }
+   },
+   "other_row": "043",
+   "row_difference_by_box": {
+    "centre_54.90E": {
+     "E": {
+      "trend_myr": -0.015,
+      "se": 0.017,
+      "detrended_rms_m": 0.21
+     },
+     "N": {
+      "trend_myr": 0.074,
+      "se": 0.039,
+      "detrended_rms_m": 0.46
+     }
+    },
+    "east_55.50E": {
+     "E": {
+      "trend_myr": 0.057,
+      "se": 0.028,
+      "detrended_rms_m": 0.34
+     },
+     "N": {
+      "trend_myr": 0.009,
+      "se": 0.05,
+      "detrended_rms_m": 0.6
+     }
+    },
+    "west_54.30E": {
+     "E": {
+      "trend_myr": -0.085,
+      "se": 0.022,
+      "detrended_rms_m": 0.27
+     },
+     "N": {
+      "trend_myr": 0.129,
+      "se": 0.04,
+      "detrended_rms_m": 0.47
+     }
+    }
+   },
+   "row_difference_trend_within_0p05": false,
+   "this_site_vs_other_site_detrended": {
+    "stable_ground": {
+     "E": {
+      "n_dates": 11,
+      "detrended_r": 0.176
+     },
+     "N": {
+      "n_dates": 11,
+      "detrended_r": -0.177
+     }
+    },
+    "hard_all": {
+     "E": {
+      "n_dates": 11,
+      "detrended_r": -0.027
+     },
+     "N": {
+      "n_dates": 11,
+      "detrended_r": -0.209
+     }
+    },
+    "hard_outside_farms": {
+     "E": {
+      "n_dates": 11,
+      "detrended_r": -0.086
+     },
+     "N": {
+      "n_dates": 11,
+      "detrended_r": -0.292
+     }
+    }
+   },
+   "transfer_trend_E_N_myr": [
+    -0.128,
+    0.17
+   ],
+   "transfer_note": "sweihan hard-surface offsets + measured row difference (west_54.30E)",
+   "passes": false
+  },
+  "dune_field_by_reference": {
+   "hard_outside_farms": {
+    "n_detected": 3566,
+    "detected_speed_median_myr": 1.502,
+    "detected_speed_p10_p90_myr": [
+     0.848,
+     2.348
+    ],
+    "field_median_velocity_E_N_myr": [
+     0.329,
+     -1.448
+    ],
+    "field_median_heading_deg": 167.2,
+    "heading_quartiles_deg": [
+     161.1,
+     167.0,
+     173.2
+    ],
+    "valid_window_speed_median_myr": 1.457
+   },
+   "bare_in_farms": {
+    "n_detected": 3464,
+    "detected_speed_median_myr": 1.327,
+    "detected_speed_p10_p90_myr": [
+     0.74,
+     2.165
+    ],
+    "field_median_velocity_E_N_myr": [
+     0.357,
+     -1.262
+    ],
+    "field_median_heading_deg": 164.2,
+    "heading_quartiles_deg": [
+     157.1,
+     164.1,
+     171.0
+    ],
+    "valid_window_speed_median_myr": 1.268
+   },
+   "stable_ground (not used)": {
+    "n_detected": 3651,
+    "detected_speed_median_myr": 1.743,
+    "detected_speed_p10_p90_myr": [
+     1.057,
+     2.601
+    ],
+    "field_median_velocity_E_N_myr": [
+     0.45,
+     -1.671
+    ],
+    "field_median_heading_deg": 164.9,
+    "heading_quartiles_deg": [
+     159.6,
+     164.7,
+     170.0
+    ],
+    "valid_window_speed_median_myr": 1.715
+   },
+   "mean_of_both (used)": {
+    "n_detected": 3521,
+    "detected_speed_median_myr": 1.411,
+    "detected_speed_p10_p90_myr": [
+     0.792,
+     2.254
+    ],
+    "field_median_velocity_E_N_myr": [
+     0.343,
+     -1.353
+    ],
+    "field_median_heading_deg": 165.8,
+    "valid_window_speed_median_myr": 1.36
+   }
+  }
+ },
  "registration_check": {
   "rule": "if >= 20 stable windows have vegetation fraction <= 0.25, their registration trend is compared with the trend of all stable windows (nothing added); otherwise the full trend of all stable windows is added as a systematic velocity uncertainty",
   "n_stable": 621,
@@ -471,7 +1602,9 @@
   "trend_all_toward_deg": 334.9,
   "anti_sun_azimuth_deg": 333.1,
   "checked": false,
-  "systematic_added_per_component_myr": 0.353
+  "applied": false,
+  "note": "registration from section 6b, not from this stable ground: its trend is a diagnostic only",
+  "systematic_added_per_component_myr": 0.0
  },
  "noise_and_detection": {
   "held_out_stable_windows": 621,
@@ -482,18 +1615,21 @@
   "held_out_stable_vN_nmad_myr": 0.118,
   "formal_error_inflation_factor": 2.93,
   "inflation_factor_nmad_only": 2.78,
-  "systematic_registration_myr": 0.3531,
-  "false_detection_rate_on_held_out_stable": 0.0,
+  "systematic_registration_myr": 0.1076,
+  "false_detection_rate_on_held_out_stable": 0.003,
   "detection_limit_definition": "speed > 2.45 x calibrated per-component sigma (95 % for a 2-D null)",
-  "detection_limit_median_myr": 0.973,
+  "detection_limit_median_myr": 0.487,
   "detection_limit_p5_p95_myr": [
-   0.917,
-   1.143
+   0.376,
+   0.753
   ],
   "closure_rms_median_m": [
    0.97,
    0.82
-  ]
+  ],
+  "registration_mode": "bracket",
+  "registration_split_halves_myr": 0.029,
+  "registration_reference_systematic_myr": 0.1037
  },
  "rejections": {
   "observations": {
@@ -510,12 +1646,12 @@
     "pct": 0.02
    },
    "network outlier": {
-    "count": 7855,
-    "pct": 3.13
+    "count": 7846,
+    "pct": 3.12
    },
    "used": {
-    "count": 240778,
-    "pct": 95.85
+    "count": 240787,
+    "pct": 95.86
    }
   },
   "windows": {
@@ -524,39 +1660,39 @@
    "inside box, > 25 % non-dune mask": 3307,
    "dune window, too few valid pairs/epochs": 24,
    "dune window, valid": 3782,
-   "  of which motion detected": 3392,
-   "  of which below detection limit": 390
+   "  of which motion detected": 3521,
+   "  of which below detection limit": 261
   },
   "pct_dune_windows_rejected": 0.63,
-  "pct_observations_rejected": 4.15
+  "pct_observations_rejected": 4.14
  },
  "linearity_aliasing": {
   "short_pairs_max_dt_yr": 3.5,
   "long_pairs_min_dt_yr": 8.0,
   "n_short_pairs": 27,
   "n_long_pairs": 12,
-  "windows_compared": 3391,
+  "windows_compared": 3520,
   "corr_short_vs_long_E_N": [
-   0.691,
-   0.751
+   0.684,
+   0.772
   ],
   "median_diff_long_minus_short_myr_E_N": [
-   -0.153,
-   0.324
+   -0.161,
+   0.336
   ],
   "nmad_diff_myr_E_N": [
-   0.19,
-   0.3
+   0.189,
+   0.301
   ],
-  "along_motion_slope_myr": 1.612,
-  "along_motion_intercept_m": 1.48,
-  "stable_ground_slope_myr": -0.0202,
+  "along_motion_slope_myr": 1.228,
+  "along_motion_intercept_m": 1.45,
+  "stable_ground_slope_myr": -0.3803,
   "dune_spacing_spectral_peak_m": 115,
   "dune_spacing_25pct_variance_below_m": 85,
-  "p99_speed_times_baseline_m": 46.4,
-  "long_pair_residual_vs_short_prediction_median_m": 4.23,
-  "long_pair_residual_p99_m": 25.52,
-  "long_pair_residual_share_gt_half_small_spacing_pct": 0.028
+  "p99_speed_times_baseline_m": 41.9,
+  "long_pair_residual_vs_short_prediction_median_m": 4.3,
+  "long_pair_residual_p99_m": 25.69,
+  "long_pair_residual_share_gt_half_small_spacing_pct": 0.029
  },
  "illumination": {
   "n_test_pairs": 24,
@@ -565,31 +1701,31 @@
    -3.74
   ],
   "field_slope_m_per_deg_E_N": [
-   0.0151,
-   0.051
+   0.0065,
+   -0.0041
   ],
   "field_slope_95ci_E": [
-   -0.0117,
-   0.0381
+   -0.0198,
+   0.0316
   ],
   "field_slope_95ci_N": [
-   0.0308,
-   0.0705
+   -0.0183,
+   0.0096
   ],
   "per_window_slope_nmad_dunes_m_per_deg": [
    0.034,
    0.026
   ],
-  "per_window_slope_nmad_stable_m_per_deg": 0.019,
+  "per_window_slope_nmad_stable_m_per_deg": 0.04,
   "oli_sun_el_trend_deg_per_yr": -0.1126,
-  "velocity_bias_field_myr": 0.006,
-  "velocity_bias_per_window_p95_myr": 0.0133,
+  "velocity_bias_field_myr": 0.0009,
+  "velocity_bias_per_window_p95_myr": 0.0098,
   "l7_minus_oli_sun_el_deg": -5.54,
   "joint_regression_oli_pairs": {
-   "dt_coef_myr": 1.7671,
-   "dt_coef_se": 0.0284,
-   "d_el_coef_m_per_deg": 0.2147,
-   "d_el_coef_se": 0.0975
+   "dt_coef_myr": 1.3837,
+   "dt_coef_se": 0.0231,
+   "d_el_coef_m_per_deg": 0.2319,
+   "d_el_coef_se": 0.0793
   },
   "table": [
    {
@@ -598,9 +1734,9 @@
     "dt_days": 16,
     "d_sun_el": -3.94,
     "d_sun_az": 1.57,
-    "dune_med_E_m": -0.466,
-    "dune_med_N_m": 0.839,
-    "dune_nmad_E_m": 1.573,
+    "dune_med_E_m": 0.477,
+    "dune_med_N_m": 0.636,
+    "dune_nmad_E_m": 1.572,
     "dune_nmad_N_m": 1.08
    },
    {
@@ -609,9 +1745,9 @@
     "dt_days": 32,
     "d_sun_el": -6.76,
     "d_sun_az": 1.25,
-    "dune_med_E_m": -0.177,
-    "dune_med_N_m": -0.04,
-    "dune_nmad_E_m": 1.072,
+    "dune_med_E_m": -0.317,
+    "dune_med_N_m": 0.343,
+    "dune_nmad_E_m": 1.08,
     "dune_nmad_N_m": 0.655
    },
    {
@@ -620,10 +1756,10 @@
     "dt_days": 32,
     "d_sun_el": -9.08,
     "d_sun_az": 9.49,
-    "dune_med_E_m": -0.19,
-    "dune_med_N_m": -0.274,
-    "dune_nmad_E_m": 1.328,
-    "dune_nmad_N_m": 0.802
+    "dune_med_E_m": -0.105,
+    "dune_med_N_m": -0.113,
+    "dune_nmad_E_m": 1.329,
+    "dune_nmad_N_m": 0.8
    },
    {
     "a": "2014-11-10",
@@ -631,8 +1767,8 @@
     "dt_days": 16,
     "d_sun_el": -3.77,
     "d_sun_az": 1.27,
-    "dune_med_E_m": 0.577,
-    "dune_med_N_m": 0.092,
+    "dune_med_E_m": 0.507,
+    "dune_med_N_m": 0.152,
     "dune_nmad_E_m": 0.653,
     "dune_nmad_N_m": 0.381
    },
@@ -642,10 +1778,10 @@
     "dt_days": 32,
     "d_sun_el": -9.0,
     "d_sun_az": 8.66,
-    "dune_med_E_m": -0.996,
-    "dune_med_N_m": -1.06,
+    "dune_med_E_m": -1.024,
+    "dune_med_N_m": -0.49,
     "dune_nmad_E_m": 1.04,
-    "dune_nmad_N_m": 0.567
+    "dune_nmad_N_m": 0.565
    },
    {
     "a": "2015-11-13",
@@ -653,8 +1789,8 @@
     "dt_days": 32,
     "d_sun_el": -5.91,
     "d_sun_az": 0.13,
-    "dune_med_E_m": 0.23,
-    "dune_med_N_m": -0.635,
+    "dune_med_E_m": 0.015,
+    "dune_med_N_m": 0.01,
     "dune_nmad_E_m": 0.912,
     "dune_nmad_N_m": 0.426
    },
@@ -664,10 +1800,10 @@
     "dt_days": 32,
     "d_sun_el": -9.08,
     "d_sun_az": 11.96,
-    "dune_med_E_m": 0.259,
-    "dune_med_N_m": 0.0,
+    "dune_med_E_m": 0.044,
+    "dune_med_N_m": 0.278,
     "dune_nmad_E_m": 1.178,
-    "dune_nmad_N_m": 0.676
+    "dune_nmad_N_m": 0.683
    },
    {
     "a": "2017-11-02",
@@ -675,10 +1811,10 @@
     "dt_days": 32,
     "d_sun_el": -7.38,
     "d_sun_az": 2.57,
-    "dune_med_E_m": 0.642,
-    "dune_med_N_m": -0.394,
+    "dune_med_E_m": 0.802,
+    "dune_med_N_m": 0.331,
     "dune_nmad_E_m": 0.83,
-    "dune_nmad_N_m": 0.45
+    "dune_nmad_N_m": 0.447
    },
    {
     "a": "2018-10-04",
@@ -686,10 +1822,10 @@
     "dt_days": 32,
     "d_sun_el": -9.08,
     "d_sun_az": 11.12,
-    "dune_med_E_m": -0.346,
-    "dune_med_N_m": -0.661,
+    "dune_med_E_m": 0.039,
+    "dune_med_N_m": 0.135,
     "dune_nmad_E_m": 0.673,
-    "dune_nmad_N_m": 0.555
+    "dune_nmad_N_m": 0.55
    },
    {
     "a": "2018-11-05",
@@ -697,10 +1833,10 @@
     "dt_days": 32,
     "d_sun_el": -7.02,
     "d_sun_az": 1.93,
-    "dune_med_E_m": -0.037,
-    "dune_med_N_m": -0.373,
-    "dune_nmad_E_m": 0.632,
-    "dune_nmad_N_m": 0.455
+    "dune_med_E_m": -0.102,
+    "dune_med_N_m": -0.102,
+    "dune_nmad_E_m": 0.635,
+    "dune_nmad_N_m": 0.454
    },
    {
     "a": "2019-10-07",
@@ -708,9 +1844,9 @@
     "dt_days": 32,
     "d_sun_el": -9.11,
     "d_sun_az": 10.19,
-    "dune_med_E_m": -0.95,
-    "dune_med_N_m": -0.333,
-    "dune_nmad_E_m": 1.133,
+    "dune_med_E_m": -0.34,
+    "dune_med_N_m": 0.237,
+    "dune_nmad_E_m": 1.132,
     "dune_nmad_N_m": 0.641
    },
    {
@@ -719,8 +1855,8 @@
     "dt_days": 16,
     "d_sun_el": -3.9,
     "d_sun_az": 1.55,
-    "dune_med_E_m": 0.27,
-    "dune_med_N_m": 0.817,
+    "dune_med_E_m": 1.025,
+    "dune_med_N_m": 0.427,
     "dune_nmad_E_m": 1.335,
     "dune_nmad_N_m": 0.7
    },
@@ -730,10 +1866,10 @@
     "dt_days": 32,
     "d_sun_el": -9.07,
     "d_sun_az": 9.33,
-    "dune_med_E_m": -0.91,
-    "dune_med_N_m": -1.166,
-    "dune_nmad_E_m": 1.356,
-    "dune_nmad_N_m": 0.807
+    "dune_med_E_m": -0.602,
+    "dune_med_N_m": -0.595,
+    "dune_nmad_E_m": 1.357,
+    "dune_nmad_N_m": 0.806
    },
    {
     "a": "2020-11-10",
@@ -741,9 +1877,9 @@
     "dt_days": 16,
     "d_sun_el": -3.74,
     "d_sun_az": 1.2,
-    "dune_med_E_m": -0.178,
-    "dune_med_N_m": -1.118,
-    "dune_nmad_E_m": 0.679,
+    "dune_med_E_m": -0.173,
+    "dune_med_N_m": -0.158,
+    "dune_nmad_E_m": 0.678,
     "dune_nmad_N_m": 0.498
    },
    {
@@ -752,10 +1888,10 @@
     "dt_days": 32,
     "d_sun_el": -9.0,
     "d_sun_az": 8.46,
-    "dune_med_E_m": 0.235,
-    "dune_med_N_m": -0.012,
-    "dune_nmad_E_m": 0.705,
-    "dune_nmad_N_m": 0.612
+    "dune_med_E_m": -0.017,
+    "dune_med_N_m": 0.071,
+    "dune_nmad_E_m": 0.703,
+    "dune_nmad_N_m": 0.605
    },
    {
     "a": "2021-11-13",
@@ -763,10 +1899,10 @@
     "dt_days": 32,
     "d_sun_el": -5.83,
     "d_sun_az": -0.0,
-    "dune_med_E_m": -0.025,
-    "dune_med_N_m": -0.86,
-    "dune_nmad_E_m": 0.861,
-    "dune_nmad_N_m": 0.506
+    "dune_med_E_m": -0.016,
+    "dune_med_N_m": -0.139,
+    "dune_nmad_E_m": 0.865,
+    "dune_nmad_N_m": 0.508
    },
    {
     "a": "2022-09-29",
@@ -774,10 +1910,10 @@
     "dt_days": 40,
     "d_sun_el": -11.28,
     "d_sun_az": 14.2,
-    "dune_med_E_m": -0.127,
-    "dune_med_N_m": -0.677,
-    "dune_nmad_E_m": 1.03,
-    "dune_nmad_N_m": 0.712
+    "dune_med_E_m": 0.335,
+    "dune_med_N_m": -0.034,
+    "dune_nmad_E_m": 1.028,
+    "dune_nmad_N_m": 0.713
    },
    {
     "a": "2022-11-08",
@@ -785,10 +1921,10 @@
     "dt_days": 24,
     "d_sun_el": -5.41,
     "d_sun_az": 1.58,
-    "dune_med_E_m": -0.046,
-    "dune_med_N_m": 0.057,
+    "dune_med_E_m": -0.339,
+    "dune_med_N_m": 0.035,
     "dune_nmad_E_m": 0.683,
-    "dune_nmad_N_m": 0.707
+    "dune_nmad_N_m": 0.702
    },
    {
     "a": "2023-10-10",
@@ -796,10 +1932,10 @@
     "dt_days": 40,
     "d_sun_el": -11.03,
     "d_sun_az": 10.1,
-    "dune_med_E_m": -0.538,
-    "dune_med_N_m": -0.8,
+    "dune_med_E_m": -1.125,
+    "dune_med_N_m": -0.162,
     "dune_nmad_E_m": 1.329,
-    "dune_nmad_N_m": 1.004
+    "dune_nmad_N_m": 1.003
    },
    {
     "a": "2023-11-19",
@@ -807,10 +1943,10 @@
     "dt_days": 24,
     "d_sun_el": -4.22,
     "d_sun_az": -0.26,
-    "dune_med_E_m": 0.451,
-    "dune_med_N_m": 0.0,
+    "dune_med_E_m": 0.758,
+    "dune_med_N_m": 0.075,
     "dune_nmad_E_m": 1.041,
-    "dune_nmad_N_m": 0.856
+    "dune_nmad_N_m": 0.832
    },
    {
     "a": "2024-10-04",
@@ -818,10 +1954,10 @@
     "dt_days": 40,
     "d_sun_el": -11.2,
     "d_sun_az": 12.13,
-    "dune_med_E_m": -0.15,
-    "dune_med_N_m": -0.387,
-    "dune_nmad_E_m": 0.947,
-    "dune_nmad_N_m": 0.622
+    "dune_med_E_m": 0.15,
+    "dune_med_N_m": 0.103,
+    "dune_nmad_E_m": 0.932,
+    "dune_nmad_N_m": 0.626
    },
    {
     "a": "2024-11-13",
@@ -829,9 +1965,9 @@
     "dt_days": 24,
     "d_sun_el": -4.85,
     "d_sun_az": 0.59,
-    "dune_med_E_m": 0.746,
-    "dune_med_N_m": -0.781,
-    "dune_nmad_E_m": 0.999,
+    "dune_med_E_m": 0.375,
+    "dune_med_N_m": -0.128,
+    "dune_nmad_E_m": 1.003,
     "dune_nmad_N_m": 0.652
    },
    {
@@ -840,10 +1976,10 @@
     "dt_days": 40,
     "d_sun_el": -11.24,
     "d_sun_az": 14.16,
-    "dune_med_E_m": -0.358,
-    "dune_med_N_m": -0.38,
+    "dune_med_E_m": -0.196,
+    "dune_med_N_m": 0.337,
     "dune_nmad_E_m": 0.845,
-    "dune_nmad_N_m": 0.783
+    "dune_nmad_N_m": 0.786
    },
    {
     "a": "2025-11-08",
@@ -851,10 +1987,10 @@
     "dt_days": 32,
     "d_sun_el": -6.58,
     "d_sun_az": 1.12,
-    "dune_med_E_m": 1.033,
-    "dune_med_N_m": -0.401,
-    "dune_nmad_E_m": 0.632,
-    "dune_nmad_N_m": 0.53
+    "dune_med_E_m": 0.666,
+    "dune_med_N_m": 0.022,
+    "dune_nmad_E_m": 0.633,
+    "dune_nmad_N_m": 0.533
    }
   ]
  },
@@ -864,133 +2000,133 @@
     "start": "2013-11-07",
     "end": "2014-11-10",
     "years": 1.01,
-    "dune_median_myr": 2.7712,
-    "stable_median_myr": -0.0534,
+    "dune_median_myr": 1.5584,
+    "stable_median_myr": -1.2149,
     "d_sun_el": -0.8903,
-    "dune_median_illum_corrected_myr": 2.7312,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.4622
+    "dune_median_illum_corrected_myr": 1.5633,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.4607
    },
    {
     "start": "2014-11-10",
     "end": "2015-11-13",
     "years": 1.01,
-    "dune_median_myr": 1.6578,
-    "stable_median_myr": 0.0108,
+    "dune_median_myr": 1.5679,
+    "stable_median_myr": -0.05,
     "d_sun_el": -0.722,
-    "dune_median_illum_corrected_myr": 1.6253,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.2726
+    "dune_median_illum_corrected_myr": 1.5719,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2707
    },
    {
     "start": "2015-11-13",
     "end": "2017-11-02",
     "years": 1.97,
-    "dune_median_myr": 1.9303,
-    "stable_median_myr": -0.0116,
+    "dune_median_myr": 1.4953,
+    "stable_median_myr": -0.4135,
     "d_sun_el": 2.8284,
-    "dune_median_illum_corrected_myr": 1.9954,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.3596
+    "dune_median_illum_corrected_myr": 1.4874,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3574
    },
    {
     "start": "2017-11-02",
     "end": "2018-11-05",
     "years": 1.01,
-    "dune_median_myr": 2.9514,
-    "stable_median_myr": 0.0451,
+    "dune_median_myr": 2.2688,
+    "stable_median_myr": -0.6062,
     "d_sun_el": -0.799,
-    "dune_median_illum_corrected_myr": 2.9155,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.4677
+    "dune_median_illum_corrected_myr": 2.2732,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.4644
    },
    {
     "start": "2018-11-05",
     "end": "2019-11-08",
     "years": 1.01,
-    "dune_median_myr": 0.9063,
-    "stable_median_myr": 0.0376,
+    "dune_median_myr": 0.6253,
+    "stable_median_myr": -0.2269,
     "d_sun_el": -0.6965,
-    "dune_median_illum_corrected_myr": 0.8751,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.3246
+    "dune_median_illum_corrected_myr": 0.6291,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.3216
    },
    {
     "start": "2019-11-08",
     "end": "2020-11-10",
     "years": 1.01,
-    "dune_median_myr": 0.7895,
-    "stable_median_myr": 0.0424,
+    "dune_median_myr": 1.4703,
+    "stable_median_myr": 0.7473,
     "d_sun_el": -0.7355,
-    "dune_median_illum_corrected_myr": 0.7565,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.2343
+    "dune_median_illum_corrected_myr": 1.4744,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2327
    },
    {
     "start": "2020-11-10",
     "end": "2021-11-13",
     "years": 1.01,
-    "dune_median_myr": 1.3146,
-    "stable_median_myr": -0.0137,
+    "dune_median_myr": 0.4271,
+    "stable_median_myr": -0.899,
     "d_sun_el": -0.7097,
-    "dune_median_illum_corrected_myr": 1.2828,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.2427
+    "dune_median_illum_corrected_myr": 0.431,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2412
    },
    {
     "start": "2021-11-13",
     "end": "2022-11-08",
     "years": 0.99,
-    "dune_median_myr": 2.4777,
-    "stable_median_myr": -0.0067,
+    "dune_median_myr": 2.0052,
+    "stable_median_myr": -0.4382,
     "d_sun_el": 1.3702,
-    "dune_median_illum_corrected_myr": 2.5405,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.5828
+    "dune_median_illum_corrected_myr": 1.9975,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.5802
    },
    {
     "start": "2022-11-08",
     "end": "2023-11-19",
     "years": 1.03,
-    "dune_median_myr": 2.3204,
-    "stable_median_myr": -0.0568,
+    "dune_median_myr": 1.1878,
+    "stable_median_myr": -1.1481,
     "d_sun_el": -2.7383,
-    "dune_median_illum_corrected_myr": 2.1998,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.5714
+    "dune_median_illum_corrected_myr": 1.2025,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.5691
    },
    {
     "start": "2023-11-19",
     "end": "2024-11-13",
     "years": 0.98,
-    "dune_median_myr": 1.3144,
-    "stable_median_myr": 0.1108,
+    "dune_median_myr": 1.7774,
+    "stable_median_myr": 0.6034,
     "d_sun_el": 1.2632,
-    "dune_median_illum_corrected_myr": 1.3728,
-    "wind_drift_along_dune_dir_VU_per_yr": 0.3003
+    "dune_median_illum_corrected_myr": 1.7703,
+    "wind_drift_along_dune_dir_VU_per_yr": 0.2982
    },
    {
     "start": "2024-11-13",
     "end": "2025-11-08",
     "years": 0.99,
-    "dune_median_myr": 2.5185,
-    "stable_median_myr": -0.0104,
+    "dune_median_myr": 1.7818,
+    "stable_median_myr": -0.6965,
     "d_sun_el": 1.3825,
-    "dune_median_illum_corrected_myr": 2.5819,
+    "dune_median_illum_corrected_myr": 1.774,
     "wind_drift_along_dune_dir_VU_per_yr": null
    }
   ],
-  "dune_sd_myr": 0.7608,
-  "stable_sd_myr": 0.0484,
-  "variance_ratio_vs_stable": 247.6,
-  "p_value_vs_stable": 0.0,
-  "dune_pair_noise_sd_m": 0.468,
-  "chi2_vs_dune_noise": 26.79,
-  "p_value_vs_dune_noise": 0.0028,
+  "dune_sd_myr": 0.5462,
+  "stable_sd_myr": 0.6388,
+  "variance_ratio_vs_stable": 0.73,
+  "p_value_vs_stable": 0.685,
+  "dune_pair_noise_sd_m": 0.223,
+  "chi2_vs_dune_noise": 61.04,
+  "p_value_vs_dune_noise": 0.0,
   "above_noise": true,
-  "field_median_velocity_common_error_myr": 0.0252,
+  "field_median_velocity_common_error_myr": 0.012,
   "decision": "judged against the dune-specific noise from the illumination-test pairs (the stable-ground spread is a lower bound)",
-  "illumination_slope_along_dune_dir_m_per_deg": -0.0454,
+  "illumination_slope_along_dune_dir_m_per_deg": 0.0055,
   "dune_interval_median_range_myr_illum_corrected": [
-   0.756,
-   2.916
+   0.431,
+   2.273
   ],
   "wind_correlation": {
-   "pearson_r": 0.804,
-   "pearson_p": 0.0051,
-   "spearman_r": 0.818,
-   "spearman_p": 0.0038,
+   "pearson_r": 0.432,
+   "pearson_p": 0.2126,
+   "spearman_r": 0.43,
+   "spearman_p": 0.2145,
    "n_intervals": 10,
    "note": "MERRA-2 hourly 10 m wind, Fryberger weighting, resultant drift per interval projected on the field-mean dune direction"
   }
@@ -1002,43 +2138,43 @@
     "n_valid_windows": 2976,
     "share_of_valid_dune_windows": 0.787,
     "n_stable_windows_for_offset": 100,
-    "offset_E_m": 12.79,
-    "offset_N_m": -6.55,
-    "median_misfit_E_m": -1.63,
-    "median_misfit_N_m": -3.38,
+    "offset_E_m": 10.42,
+    "offset_N_m": -0.03,
+    "median_misfit_E_m": -0.93,
+    "median_misfit_N_m": -6.01,
     "nmad_misfit_E_m": 5.9,
     "nmad_misfit_N_m": 6.97,
-    "misfit_p95_m": 23.25,
-    "share_misfit_gt_half_small_spacing": 0.0074,
-    "median_misfit_as_velocity_myr": 0.196
+    "misfit_p95_m": 25.14,
+    "share_misfit_gt_half_small_spacing": 0.0097,
+    "median_misfit_as_velocity_myr": 0.317
    },
    {
     "scene": "2001-11-30",
     "n_valid_windows": 3125,
     "share_of_valid_dune_windows": 0.826,
     "n_stable_windows_for_offset": 111,
-    "offset_E_m": 6.73,
-    "offset_N_m": -4.54,
-    "median_misfit_E_m": -0.91,
-    "median_misfit_N_m": -4.2,
+    "offset_E_m": 3.29,
+    "offset_N_m": 0.98,
+    "median_misfit_E_m": 0.98,
+    "median_misfit_N_m": -6.17,
     "nmad_misfit_E_m": 5.39,
     "nmad_misfit_N_m": 6.48,
-    "misfit_p95_m": 21.81,
-    "share_misfit_gt_half_small_spacing": 0.0032,
-    "median_misfit_as_velocity_myr": 0.236
+    "misfit_p95_m": 23.82,
+    "share_misfit_gt_half_small_spacing": 0.0045,
+    "median_misfit_as_velocity_myr": 0.344
    }
   ],
   "windows_with_2000_position": 2976,
-  "detected_windows_with_2000_position": 2692,
+  "detected_windows_with_2000_position": 2804,
   "corr_2000_2025_vs_2013_2025_E_N": [
-   0.615,
-   0.749
+   0.626,
+   0.775
   ],
-  "median_speed_2000_2025_detected_myr": 1.563,
-  "median_speed_2013_2025_same_windows_myr": 1.715,
+  "median_speed_2000_2025_detected_myr": 1.082,
+  "median_speed_2013_2025_same_windows_myr": 1.342,
   "median_diff_E_N_myr": [
-   0.055,
-   0.172
+   0.002,
+   0.265
   ]
  },
  "hls_second_dataset": {
@@ -1046,28 +2182,28 @@
    "years": "2016-11-15 to 2025-11-11",
    "n_scenes": 10,
    "n_windows_compared": 3630,
-   "corr_E": 0.424,
+   "corr_E": 0.423,
    "corr_N": 0.726,
-   "median_diff_E_myr": -0.331,
-   "median_diff_N_myr": 0.555,
-   "rms_diff_myr": 0.75,
+   "median_diff_E_myr": -0.3,
+   "median_diff_N_myr": 0.771,
+   "rms_diff_myr": 0.91,
    "field_median_velocity_hls_E_N": [
-    0.17,
-    -0.994
+    0.069,
+    -0.461
    ],
    "field_median_velocity_landsat_E_N": [
-    0.494,
-    -1.58
+    0.362,
+    -1.262
    ],
-   "field_median_speed_hls_myr": 1.009,
-   "field_median_speed_landsat_myr": 1.656,
-   "field_median_heading_hls_deg": 170.3,
-   "field_median_heading_landsat_deg": 162.6,
-   "heading_difference_deg": 7.7,
-   "hls_detection_limit_median_myr": 0.792,
-   "hls_pct_valid_windows_detected": 73.0,
-   "hls_stable_residual_nmad_m": 1.26,
-   "hls_stable_residual_p95_m": 5.59,
+   "field_median_speed_hls_myr": 0.466,
+   "field_median_speed_landsat_myr": 1.313,
+   "field_median_heading_hls_deg": 171.5,
+   "field_median_heading_landsat_deg": 164.0,
+   "heading_difference_deg": 7.5,
+   "hls_detection_limit_median_myr": 0.631,
+   "hls_pct_valid_windows_detected": 37.8,
+   "hls_stable_residual_nmad_m": 1.82,
+   "hls_stable_residual_p95_m": 7.38,
    "hls_peak_threshold": 0.347,
    "hls_n_stable_windows": 407,
    "hls_error_inflation": 2.74,
@@ -1076,15 +2212,16 @@
     -0.002
    ],
    "hls_registration_systematic_myr": 0.0434,
-   "landsat_detected_share_in_compared_windows": 0.966,
+   "landsat_detected_share_in_compared_windows": 0.98,
    "windows_where_landsat_speed_gt_2x_detection_limit": {
-    "n": 592,
-    "corr_E": 0.411,
-    "corr_N": 0.672,
-    "median_speed_hls": 1.484,
-    "median_speed_landsat": 2.129,
-    "median_heading_diff_deg": 7.8
+    "n": 3173,
+    "corr_E": 0.389,
+    "corr_N": 0.673,
+    "median_speed_hls": 0.556,
+    "median_speed_landsat": 1.36,
+    "median_heading_diff_deg": 15.5
    },
+   "registration": "mean of hard_outside_farms (68 windows) and bare_in_farms (1562 windows) on HLS's own 30 m grid",
    "independence": "independent satellite and sensor (Sentinel-2 MSI), independent geolocation (AROP_NCP = 0), red band at 30 m; shares place, season, masks and code"
   },
   "HLSL30": {
@@ -1093,26 +2230,26 @@
    "n_windows_compared": 3613,
    "corr_E": 0.444,
    "corr_N": 0.724,
-   "median_diff_E_myr": -0.124,
-   "median_diff_N_myr": 0.547,
-   "rms_diff_myr": 0.671,
+   "median_diff_E_myr": -0.231,
+   "median_diff_N_myr": 0.752,
+   "rms_diff_myr": 0.869,
    "field_median_velocity_hls_E_N": [
-    0.323,
-    -1.109
+    0.102,
+    -0.562
    ],
    "field_median_velocity_landsat_E_N": [
-    0.447,
-    -1.683
+    0.332,
+    -1.341
    ],
-   "field_median_speed_hls_myr": 1.155,
-   "field_median_speed_landsat_myr": 1.741,
-   "field_median_heading_hls_deg": 163.7,
-   "field_median_heading_landsat_deg": 165.1,
-   "heading_difference_deg": 1.4,
-   "hls_detection_limit_median_myr": 0.542,
-   "hls_pct_valid_windows_detected": 93.4,
-   "hls_stable_residual_nmad_m": 1.71,
-   "hls_stable_residual_p95_m": 7.63,
+   "field_median_speed_hls_myr": 0.571,
+   "field_median_speed_landsat_myr": 1.382,
+   "field_median_heading_hls_deg": 169.7,
+   "field_median_heading_landsat_deg": 166.1,
+   "heading_difference_deg": 3.6,
+   "hls_detection_limit_median_myr": 0.532,
+   "hls_pct_valid_windows_detected": 56.2,
+   "hls_stable_residual_nmad_m": 2.41,
+   "hls_stable_residual_p95_m": 9.84,
    "hls_peak_threshold": 0.345,
    "hls_n_stable_windows": 319,
    "hls_error_inflation": 2.26,
@@ -1121,15 +2258,16 @@
     -0.005
    ],
    "hls_registration_systematic_myr": 0.0206,
-   "landsat_detected_share_in_compared_windows": 0.971,
+   "landsat_detected_share_in_compared_windows": 0.981,
    "windows_where_landsat_speed_gt_2x_detection_limit": {
-    "n": 852,
-    "corr_E": 0.442,
-    "corr_N": 0.655,
-    "median_speed_hls": 1.501,
-    "median_speed_landsat": 2.1,
-    "median_heading_diff_deg": 5.3
+    "n": 3218,
+    "corr_E": 0.412,
+    "corr_N": 0.667,
+    "median_speed_hls": 0.646,
+    "median_speed_landsat": 1.423,
+    "median_heading_diff_deg": 11.6
    },
+   "registration": "mean of hard_outside_farms (58 windows) and bare_in_farms (1279 windows) on HLS's own 30 m grid",
    "independence": "NOT independent: same Landsat 8/9 OLI instruments as the primary data; tests band (red vs pan), 30 m resolution and HLS processing only"
   }
  },
@@ -1141,26 +2279,26 @@
    337.5
   ],
   "field_median_velocity_E_N_myr": [
-   0.464,
-   -1.726
+   0.343,
+   -1.353
   ],
-  "field_median_heading_deg": 165.0,
-  "speed_weighted_mean_heading_deg": 164.8,
-  "heading_circular_sd_deg": 8.2,
-  "field_heading_minus_RDD_deg": 19.7,
+  "field_median_heading_deg": 165.8,
+  "speed_weighted_mean_heading_deg": 165.5,
+  "heading_circular_sd_deg": 11.1,
+  "field_heading_minus_RDD_deg": 20.5,
   "field_heading_minus_modes_deg": [
-   7.5,
-   172.5
+   8.3,
+   171.7
   ],
-  "per_window_abs_heading_minus_RDD_median_deg": 19.5,
-  "share_within_45deg_of_RDD_pct": 99.6,
-  "detected_speed_median_myr": 1.792,
+  "per_window_abs_heading_minus_RDD_median_deg": 20.4,
+  "share_within_45deg_of_RDD_pct": 97.7,
+  "detected_speed_median_myr": 1.411,
   "detected_speed_p10_p90_myr": [
-   1.219,
-   2.623
+   0.792,
+   2.254
   ],
-  "detected_speed_max_myr": 5.764,
-  "n_detected_gt_3myr": 166,
+  "detected_speed_max_myr": 5.403,
+  "n_detected_gt_3myr": 76,
   "n_detected_gt_10myr": 0
  },
  "nasadem": {
@@ -1198,7 +2336,7 @@
   "columns_note": "x_m/y_m = window centre in the site CRS; sigma_myr = calibrated per-component 1-sigma; detected = speed > detection_limit_myr (= 2.45 sigma); speeds/headings blank where not valid"
  },
  "draa_bodies": {
-  "definition": "NASADEM crests >= 7.6 m above the DEM opened with a 1500 m disk, outline (upper half) >= 0.25 km2, DEM shading matching the image; body motion from 960 m windows on images low-passed with sigma = half the bedform spacing, 2000-2025 (Landsat 7 + 8/9), noise calibrated on held-out stable ground at the same scale",
+  "definition": "NASADEM crests >= 7.6 m above the DEM opened with a 1500 m disk, outline (upper half) >= 0.25 km2, DEM shading matching the image",
   "n_candidates": 119,
   "n_bodies": 53,
   "shading_test_highpass_m": 360,
@@ -1206,16 +2344,33 @@
   "height_note": "relief above the DEM opened with the base disk; on a regional slope or escarpment it includes part of that step",
   "lowpass_sigma_m": 57.4,
   "window_m": 960.0,
-  "match_threshold": 0.246,
-  "error_inflation": 3.52,
-  "registration_systematic_myr": 0.3535,
-  "heldout_stable_speed_median_myr": 0.065,
-  "heldout_stable_speed_p95_myr": 0.252,
-  "false_detection_rate_heldout": 0.0,
-  "n_valid": 37,
+  "body_matcher_known_shift_test": [
+   {
+    "shift_row_px": 0.3,
+    "shift_col_px": -0.4,
+    "n": 37,
+    "recovered_row_px": 0.04,
+    "recovered_col_px": -0.02
+   },
+   {
+    "shift_row_px": -0.5,
+    "shift_col_px": 0.2,
+    "n": 37,
+    "recovered_row_px": -0.08,
+    "recovered_col_px": 0.0
+   },
+   {
+    "shift_row_px": 1.0,
+    "shift_col_px": 1.0,
+    "n": 37,
+    "recovered_row_px": 0.19,
+    "recovered_col_px": 0.11
+   }
+  ],
+  "body_motion_measured": false,
+  "n_valid": 0,
   "n_detected": 0,
-  "detection_limit_median_myr": 0.951,
-  "detected_speeds_myr": [],
+  "body_motion": "not measured: on images low-passed to the body scale the matcher does not recover known shifts (it returns close to zero shift), so a body 'velocity' from it would be the registration offsets mirrored, not body motion. Body motion is below what this method can resolve; no speed is reported.",
   "table": [
    {
     "draa": "B50",
@@ -1224,20 +2379,10 @@
     "height_m": 108.6,
     "area_km2": 0.997,
     "dem_image_corr": 0.406,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.797,
-    "body_estimate_east_north_myr": [
-     0.53,
-     -0.595
-    ],
-    "body_estimate_heading_deg": 138.3,
-    "body_detection_limit_myr": 0.942,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 125,
     "bedform_share_detected": 0.96,
-    "bedform_detected_speed_median_myr": 2.174
+    "bedform_detected_speed_median_myr": 1.821
    },
    {
     "draa": "B52",
@@ -1246,20 +2391,10 @@
     "height_m": 98.1,
     "area_km2": 0.446,
     "dem_image_corr": 0.571,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.714,
-    "body_estimate_east_north_myr": [
-     0.428,
-     -0.571
-    ],
-    "body_estimate_heading_deg": 143.2,
-    "body_detection_limit_myr": 0.943,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 45,
     "bedform_share_detected": 0.933,
-    "bedform_detected_speed_median_myr": 2.007
+    "bedform_detected_speed_median_myr": 1.647
    },
    {
     "draa": "B48",
@@ -1268,20 +2403,10 @@
     "height_m": 95.9,
     "area_km2": 0.965,
     "dem_image_corr": 0.366,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.8,
-    "body_estimate_east_north_myr": [
-     0.558,
-     -0.573
-    ],
-    "body_estimate_heading_deg": 135.8,
-    "body_detection_limit_myr": 0.951,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 97,
-    "bedform_share_detected": 0.959,
-    "bedform_detected_speed_median_myr": 2.294
+    "bedform_share_detected": 0.969,
+    "bedform_detected_speed_median_myr": 1.934
    },
    {
     "draa": "B47",
@@ -1290,20 +2415,10 @@
     "height_m": 95.3,
     "area_km2": 0.613,
     "dem_image_corr": 0.54,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.762,
-    "body_estimate_east_north_myr": [
-     0.509,
-     -0.567
-    ],
-    "body_estimate_heading_deg": 138.1,
-    "body_detection_limit_myr": 0.956,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 76,
-    "bedform_share_detected": 0.961,
-    "bedform_detected_speed_median_myr": 2.553
+    "bedform_share_detected": 0.974,
+    "bedform_detected_speed_median_myr": 2.188
    },
    {
     "draa": "B51",
@@ -1312,20 +2427,10 @@
     "height_m": 91.0,
     "area_km2": 0.87,
     "dem_image_corr": 0.415,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.713,
-    "body_estimate_east_north_myr": [
-     0.509,
-     -0.499
-    ],
-    "body_estimate_heading_deg": 134.4,
-    "body_detection_limit_myr": 0.963,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 76,
     "bedform_share_detected": 0.961,
-    "bedform_detected_speed_median_myr": 2.129
+    "bedform_detected_speed_median_myr": 1.769
    },
    {
     "draa": "B20",
@@ -1334,14 +2439,7 @@
     "height_m": 90.4,
     "area_km2": 0.403,
     "dem_image_corr": 0.4,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -1353,14 +2451,7 @@
     "height_m": 87.2,
     "area_km2": 0.763,
     "dem_image_corr": 0.456,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -1372,17 +2463,10 @@
     "height_m": 76.5,
     "area_km2": 0.856,
     "dem_image_corr": 0.338,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 32,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.824
+    "bedform_detected_speed_median_myr": 1.466
    },
    {
     "draa": "B49",
@@ -1391,17 +2475,10 @@
     "height_m": 76.2,
     "area_km2": 1.049,
     "dem_image_corr": 0.345,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 8,
-    "bedform_share_detected": 0.625,
-    "bedform_detected_speed_median_myr": 1.144
+    "bedform_share_detected": 0.875,
+    "bedform_detected_speed_median_myr": 0.735
    },
    {
     "draa": "B43",
@@ -1410,20 +2487,10 @@
     "height_m": 75.0,
     "area_km2": 0.721,
     "dem_image_corr": 0.45,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.712,
-    "body_estimate_east_north_myr": [
-     0.465,
-     -0.539
-    ],
-    "body_estimate_heading_deg": 139.2,
-    "body_detection_limit_myr": 0.946,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 107,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.902
+    "bedform_detected_speed_median_myr": 1.555
    },
    {
     "draa": "B28",
@@ -1432,20 +2499,10 @@
     "height_m": 72.1,
     "area_km2": 0.466,
     "dem_image_corr": 0.295,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.729,
-    "body_estimate_east_north_myr": [
-     0.52,
-     -0.511
-    ],
-    "body_estimate_heading_deg": 134.5,
-    "body_detection_limit_myr": 0.958,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 58,
-    "bedform_share_detected": 0.914,
-    "bedform_detected_speed_median_myr": 1.858
+    "bedform_share_detected": 0.966,
+    "bedform_detected_speed_median_myr": 1.493
    },
    {
     "draa": "B38",
@@ -1454,14 +2511,7 @@
     "height_m": 69.9,
     "area_km2": 1.121,
     "dem_image_corr": 0.231,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -1473,20 +2523,10 @@
     "height_m": 69.3,
     "area_km2": 0.482,
     "dem_image_corr": 0.392,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.726,
-    "body_estimate_east_north_myr": [
-     0.451,
-     -0.568
-    ],
-    "body_estimate_heading_deg": 141.6,
-    "body_detection_limit_myr": 0.951,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 68,
-    "bedform_share_detected": 0.926,
-    "bedform_detected_speed_median_myr": 1.608
+    "bedform_share_detected": 0.956,
+    "bedform_detected_speed_median_myr": 1.248
    },
    {
     "draa": "B44",
@@ -1495,20 +2535,10 @@
     "height_m": 67.3,
     "area_km2": 0.381,
     "dem_image_corr": 0.341,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.787,
-    "body_estimate_east_north_myr": [
-     0.487,
-     -0.618
-    ],
-    "body_estimate_heading_deg": 141.8,
-    "body_detection_limit_myr": 0.939,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 57,
-    "bedform_share_detected": 0.965,
-    "bedform_detected_speed_median_myr": 1.558
+    "bedform_share_detected": 0.982,
+    "bedform_detected_speed_median_myr": 1.195
    },
    {
     "draa": "B30",
@@ -1517,20 +2547,10 @@
     "height_m": 66.5,
     "area_km2": 0.291,
     "dem_image_corr": 0.349,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.711,
-    "body_estimate_east_north_myr": [
-     0.511,
-     -0.494
-    ],
-    "body_estimate_heading_deg": 134.1,
-    "body_detection_limit_myr": 0.962,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 37,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.953
+    "bedform_detected_speed_median_myr": 1.599
    },
    {
     "draa": "B42",
@@ -1539,20 +2559,10 @@
     "height_m": 65.8,
     "area_km2": 0.33,
     "dem_image_corr": 0.402,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.788,
-    "body_estimate_east_north_myr": [
-     0.51,
-     -0.601
-    ],
-    "body_estimate_heading_deg": 139.7,
-    "body_detection_limit_myr": 0.943,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 41,
-    "bedform_share_detected": 0.951,
-    "bedform_detected_speed_median_myr": 1.592
+    "bedform_share_detected": 0.976,
+    "bedform_detected_speed_median_myr": 1.24
    },
    {
     "draa": "B39",
@@ -1561,20 +2571,10 @@
     "height_m": 64.7,
     "area_km2": 0.595,
     "dem_image_corr": 0.26,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.716,
-    "body_estimate_east_north_myr": [
-     0.505,
-     -0.508
-    ],
-    "body_estimate_heading_deg": 135.2,
-    "body_detection_limit_myr": 0.955,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 73,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 2.084
+    "bedform_detected_speed_median_myr": 1.724
    },
    {
     "draa": "B41",
@@ -1583,20 +2583,10 @@
     "height_m": 64.2,
     "area_km2": 0.355,
     "dem_image_corr": 0.382,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.713,
-    "body_estimate_east_north_myr": [
-     0.509,
-     -0.498
-    ],
-    "body_estimate_heading_deg": 134.4,
-    "body_detection_limit_myr": 0.962,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 49,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.964
+    "bedform_detected_speed_median_myr": 1.606
    },
    {
     "draa": "B26",
@@ -1605,14 +2595,7 @@
     "height_m": 62.3,
     "area_km2": 0.949,
     "dem_image_corr": 0.261,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -1624,17 +2607,10 @@
     "height_m": 62.0,
     "area_km2": 0.431,
     "dem_image_corr": 0.448,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 27,
-    "bedform_share_detected": 0.963,
-    "bedform_detected_speed_median_myr": 2.031
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.665
    },
    {
     "draa": "B37",
@@ -1643,20 +2619,10 @@
     "height_m": 61.6,
     "area_km2": 0.558,
     "dem_image_corr": 0.423,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.716,
-    "body_estimate_east_north_myr": [
-     0.511,
-     -0.501
-    ],
-    "body_estimate_heading_deg": 134.5,
-    "body_detection_limit_myr": 0.959,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 69,
-    "bedform_share_detected": 0.855,
-    "bedform_detected_speed_median_myr": 1.892
+    "bedform_share_detected": 0.899,
+    "bedform_detected_speed_median_myr": 1.515
    },
    {
     "draa": "B53",
@@ -1665,17 +2631,10 @@
     "height_m": 61.1,
     "area_km2": 0.641,
     "dem_image_corr": 0.277,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 30,
     "bedform_share_detected": 0.967,
-    "bedform_detected_speed_median_myr": 1.697
+    "bedform_detected_speed_median_myr": 1.347
    },
    {
     "draa": "B32",
@@ -1684,17 +2643,10 @@
     "height_m": 60.0,
     "area_km2": 0.658,
     "dem_image_corr": 0.237,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 8,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.656
+    "bedform_detected_speed_median_myr": 1.299
    },
    {
     "draa": "B29",
@@ -1703,20 +2655,10 @@
     "height_m": 57.8,
     "area_km2": 0.252,
     "dem_image_corr": 0.357,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.731,
-    "body_estimate_east_north_myr": [
-     0.521,
-     -0.514
-    ],
-    "body_estimate_heading_deg": 134.6,
-    "body_detection_limit_myr": 0.97,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 44,
-    "bedform_share_detected": 0.932,
-    "bedform_detected_speed_median_myr": 1.404
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.036
    },
    {
     "draa": "B06",
@@ -1725,14 +2667,7 @@
     "height_m": 56.7,
     "area_km2": 0.286,
     "dem_image_corr": 0.324,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -1744,17 +2679,10 @@
     "height_m": 56.7,
     "area_km2": 1.062,
     "dem_image_corr": 0.39,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 45,
-    "bedform_share_detected": 0.711,
-    "bedform_detected_speed_median_myr": 1.495
+    "bedform_share_detected": 0.889,
+    "bedform_detected_speed_median_myr": 0.974
    },
    {
     "draa": "B25",
@@ -1763,17 +2691,10 @@
     "height_m": 53.5,
     "area_km2": 0.899,
     "dem_image_corr": 0.297,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 43,
-    "bedform_share_detected": 0.977,
-    "bedform_detected_speed_median_myr": 1.894
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.532
    },
    {
     "draa": "B33",
@@ -1782,17 +2703,10 @@
     "height_m": 52.3,
     "area_km2": 0.982,
     "dem_image_corr": 0.306,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 7,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 3.332
+    "bedform_detected_speed_median_myr": 2.994
    },
    {
     "draa": "B14",
@@ -1801,17 +2715,10 @@
     "height_m": 49.1,
     "area_km2": 0.376,
     "dem_image_corr": 0.257,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 25,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.955
+    "bedform_detected_speed_median_myr": 1.596
    },
    {
     "draa": "B11",
@@ -1820,20 +2727,10 @@
     "height_m": 44.9,
     "area_km2": 0.401,
     "dem_image_corr": 0.274,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.779,
-    "body_estimate_east_north_myr": [
-     0.621,
-     -0.47
-    ],
-    "body_estimate_heading_deg": 127.1,
-    "body_detection_limit_myr": 0.935,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 62,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.784
+    "bedform_detected_speed_median_myr": 1.425
    },
    {
     "draa": "B13",
@@ -1842,20 +2739,10 @@
     "height_m": 44.0,
     "area_km2": 0.309,
     "dem_image_corr": 0.307,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.676,
-    "body_estimate_east_north_myr": [
-     0.5,
-     -0.455
-    ],
-    "body_estimate_heading_deg": 132.3,
-    "body_detection_limit_myr": 0.986,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 38,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 2.011
+    "bedform_detected_speed_median_myr": 1.653
    },
    {
     "draa": "B24",
@@ -1864,20 +2751,10 @@
     "height_m": 39.8,
     "area_km2": 0.399,
     "dem_image_corr": 0.49,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.761,
-    "body_estimate_east_north_myr": [
-     0.516,
-     -0.56
-    ],
-    "body_estimate_heading_deg": 137.4,
-    "body_detection_limit_myr": 0.952,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 66,
-    "bedform_share_detected": 0.97,
-    "bedform_detected_speed_median_myr": 1.806
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.435
    },
    {
     "draa": "B02",
@@ -1886,20 +2763,10 @@
     "height_m": 39.4,
     "area_km2": 0.295,
     "dem_image_corr": 0.493,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.782,
-    "body_estimate_east_north_myr": [
-     0.48,
-     -0.617
-    ],
-    "body_estimate_heading_deg": 142.1,
-    "body_detection_limit_myr": 0.959,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 43,
-    "bedform_share_detected": 0.977,
-    "bedform_detected_speed_median_myr": 1.761
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.398
    },
    {
     "draa": "B03",
@@ -1908,20 +2775,10 @@
     "height_m": 39.2,
     "area_km2": 0.502,
     "dem_image_corr": 0.435,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.713,
-    "body_estimate_east_north_myr": [
-     0.451,
-     -0.552
-    ],
-    "body_estimate_heading_deg": 140.8,
-    "body_detection_limit_myr": 0.943,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 80,
-    "bedform_share_detected": 0.988,
-    "bedform_detected_speed_median_myr": 1.711
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.339
    },
    {
     "draa": "B35",
@@ -1930,20 +2787,10 @@
     "height_m": 35.3,
     "area_km2": 0.488,
     "dem_image_corr": 0.222,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.819,
-    "body_estimate_east_north_myr": [
-     0.477,
-     -0.665
-    ],
-    "body_estimate_heading_deg": 144.3,
-    "body_detection_limit_myr": 0.956,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 70,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.929
+    "bedform_detected_speed_median_myr": 1.571
    },
    {
     "draa": "B16",
@@ -1952,20 +2799,10 @@
     "height_m": 34.7,
     "area_km2": 0.423,
     "dem_image_corr": 0.436,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.751,
-    "body_estimate_east_north_myr": [
-     0.481,
-     -0.577
-    ],
-    "body_estimate_heading_deg": 140.2,
-    "body_detection_limit_myr": 0.948,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 69,
-    "bedform_share_detected": 0.971,
-    "bedform_detected_speed_median_myr": 1.931
+    "bedform_share_detected": 0.986,
+    "bedform_detected_speed_median_myr": 1.571
    },
    {
     "draa": "B21",
@@ -1974,20 +2811,10 @@
     "height_m": 34.5,
     "area_km2": 0.528,
     "dem_image_corr": 0.432,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.806,
-    "body_estimate_east_north_myr": [
-     0.534,
-     -0.604
-    ],
-    "body_estimate_heading_deg": 138.5,
-    "body_detection_limit_myr": 0.943,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 92,
-    "bedform_share_detected": 0.902,
-    "bedform_detected_speed_median_myr": 1.557
+    "bedform_share_detected": 0.957,
+    "bedform_detected_speed_median_myr": 1.104
    },
    {
     "draa": "B01",
@@ -1996,17 +2823,10 @@
     "height_m": 34.3,
     "area_km2": 0.823,
     "dem_image_corr": 0.217,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 22,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.646
+    "bedform_detected_speed_median_myr": 1.287
    },
    {
     "draa": "B40",
@@ -2015,14 +2835,7 @@
     "height_m": 34.1,
     "area_km2": 0.533,
     "dem_image_corr": 0.324,
-    "body_valid": false,
-    "body_n_epochs": 0,
-    "body_speed_myr": null,
-    "body_estimate_east_north_myr": null,
-    "body_estimate_heading_deg": null,
-    "body_detection_limit_myr": null,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 0,
     "bedform_share_detected": null,
     "bedform_detected_speed_median_myr": null
@@ -2034,20 +2847,10 @@
     "height_m": 33.8,
     "area_km2": 0.479,
     "dem_image_corr": 0.393,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.819,
-    "body_estimate_east_north_myr": [
-     0.481,
-     -0.663
-    ],
-    "body_estimate_heading_deg": 144.0,
-    "body_detection_limit_myr": 0.947,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 70,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 2.093
+    "bedform_detected_speed_median_myr": 1.734
    },
    {
     "draa": "B10",
@@ -2056,20 +2859,10 @@
     "height_m": 31.9,
     "area_km2": 0.282,
     "dem_image_corr": 0.368,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.745,
-    "body_estimate_east_north_myr": [
-     0.46,
-     -0.586
-    ],
-    "body_estimate_heading_deg": 141.9,
-    "body_detection_limit_myr": 0.928,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 54,
-    "bedform_share_detected": 0.963,
-    "bedform_detected_speed_median_myr": 1.599
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.212
    },
    {
     "draa": "B23",
@@ -2078,20 +2871,10 @@
     "height_m": 31.4,
     "area_km2": 0.343,
     "dem_image_corr": 0.191,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.832,
-    "body_estimate_east_north_myr": [
-     0.555,
-     -0.62
-    ],
-    "body_estimate_heading_deg": 138.2,
-    "body_detection_limit_myr": 0.963,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 58,
-    "bedform_share_detected": 0.983,
-    "bedform_detected_speed_median_myr": 2.077
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.711
    },
    {
     "draa": "B27",
@@ -2100,20 +2883,10 @@
     "height_m": 30.4,
     "area_km2": 0.794,
     "dem_image_corr": 0.304,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.767,
-    "body_estimate_east_north_myr": [
-     0.475,
-     -0.602
-    ],
-    "body_estimate_heading_deg": 141.7,
-    "body_detection_limit_myr": 0.93,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 94,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.656
+    "bedform_detected_speed_median_myr": 1.298
    },
    {
     "draa": "B15",
@@ -2122,20 +2895,10 @@
     "height_m": 30.3,
     "area_km2": 0.46,
     "dem_image_corr": 0.317,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.721,
-    "body_estimate_east_north_myr": [
-     0.517,
-     -0.502
-    ],
-    "body_estimate_heading_deg": 134.2,
-    "body_detection_limit_myr": 0.964,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 53,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.667
+    "bedform_detected_speed_median_myr": 1.313
    },
    {
     "draa": "B09",
@@ -2144,20 +2907,10 @@
     "height_m": 30.2,
     "area_km2": 0.286,
     "dem_image_corr": 0.429,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.772,
-    "body_estimate_east_north_myr": [
-     0.531,
-     -0.561
-    ],
-    "body_estimate_heading_deg": 136.6,
-    "body_detection_limit_myr": 0.939,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 49,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.704
+    "bedform_detected_speed_median_myr": 1.351
    },
    {
     "draa": "B31",
@@ -2166,20 +2919,10 @@
     "height_m": 29.8,
     "area_km2": 0.472,
     "dem_image_corr": 0.346,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.725,
-    "body_estimate_east_north_myr": [
-     0.52,
-     -0.505
-    ],
-    "body_estimate_heading_deg": 134.2,
-    "body_detection_limit_myr": 0.963,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 49,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.612
+    "bedform_detected_speed_median_myr": 1.251
    },
    {
     "draa": "B12",
@@ -2188,20 +2931,10 @@
     "height_m": 29.7,
     "area_km2": 0.291,
     "dem_image_corr": 0.357,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.802,
-    "body_estimate_east_north_myr": [
-     0.543,
-     -0.59
-    ],
-    "body_estimate_heading_deg": 137.4,
-    "body_detection_limit_myr": 0.944,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 48,
     "bedform_share_detected": 0.979,
-    "bedform_detected_speed_median_myr": 1.66
+    "bedform_detected_speed_median_myr": 1.302
    },
    {
     "draa": "B19",
@@ -2210,20 +2943,10 @@
     "height_m": 28.2,
     "area_km2": 0.257,
     "dem_image_corr": 0.45,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.755,
-    "body_estimate_east_north_myr": [
-     0.506,
-     -0.561
-    ],
-    "body_estimate_heading_deg": 137.9,
-    "body_detection_limit_myr": 0.938,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 45,
-    "bedform_share_detected": 0.933,
-    "bedform_detected_speed_median_myr": 1.611
+    "bedform_share_detected": 0.978,
+    "bedform_detected_speed_median_myr": 1.215
    },
    {
     "draa": "B22",
@@ -2232,20 +2955,10 @@
     "height_m": 27.3,
     "area_km2": 0.568,
     "dem_image_corr": 0.373,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.769,
-    "body_estimate_east_north_myr": [
-     0.452,
-     -0.622
-    ],
-    "body_estimate_heading_deg": 144.0,
-    "body_detection_limit_myr": 0.946,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 71,
-    "bedform_share_detected": 0.901,
-    "bedform_detected_speed_median_myr": 1.416
+    "bedform_share_detected": 0.958,
+    "bedform_detected_speed_median_myr": 1.043
    },
    {
     "draa": "B04",
@@ -2254,20 +2967,10 @@
     "height_m": 26.9,
     "area_km2": 0.306,
     "dem_image_corr": 0.571,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.808,
-    "body_estimate_east_north_myr": [
-     0.675,
-     0.444
-    ],
-    "body_estimate_heading_deg": 56.7,
-    "body_detection_limit_myr": 1.558,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 49,
-    "bedform_share_detected": 0.918,
-    "bedform_detected_speed_median_myr": 2.003
+    "bedform_share_detected": 0.98,
+    "bedform_detected_speed_median_myr": 1.581
    },
    {
     "draa": "B08",
@@ -2276,20 +2979,10 @@
     "height_m": 25.1,
     "area_km2": 0.335,
     "dem_image_corr": 0.541,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.786,
-    "body_estimate_east_north_myr": [
-     0.508,
-     -0.6
-    ],
-    "body_estimate_heading_deg": 139.7,
-    "body_detection_limit_myr": 0.956,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 53,
-    "bedform_share_detected": 0.887,
-    "bedform_detected_speed_median_myr": 1.932
+    "bedform_share_detected": 1.0,
+    "bedform_detected_speed_median_myr": 1.478
    },
    {
     "draa": "B07",
@@ -2298,20 +2991,10 @@
     "height_m": 24.3,
     "area_km2": 0.25,
     "dem_image_corr": 0.441,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.76,
-    "body_estimate_east_north_myr": [
-     0.497,
-     -0.575
-    ],
-    "body_estimate_heading_deg": 139.1,
-    "body_detection_limit_myr": 0.935,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 54,
-    "bedform_share_detected": 0.944,
-    "bedform_detected_speed_median_myr": 1.712
+    "bedform_share_detected": 0.963,
+    "bedform_detected_speed_median_myr": 1.339
    },
    {
     "draa": "B05",
@@ -2320,20 +3003,10 @@
     "height_m": 23.6,
     "area_km2": 0.319,
     "dem_image_corr": 0.344,
-    "body_valid": true,
-    "body_n_epochs": 14,
-    "body_speed_myr": 0.776,
-    "body_estimate_east_north_myr": [
-     0.475,
-     -0.613
-    ],
-    "body_estimate_heading_deg": 142.2,
-    "body_detection_limit_myr": 0.955,
-    "body_detected": false,
-    "body_heading_deg": null,
+    "body_motion": "not measured (matcher failed its known-shift test)",
     "bedform_windows_on_outline": 48,
     "bedform_share_detected": 1.0,
-    "bedform_detected_speed_median_myr": 1.688
+    "bedform_detected_speed_median_myr": 1.329
    }
   ],
   "note": "A QC/interpretation product: these bodies are not added to dunes.geojson, whose outlines stay at the bedform scale (the same at every site)."
@@ -2354,8 +3027,8 @@
    "gcp_model": 506,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.8379,
-   "reg_offset_E_m": 12.7929,
-   "reg_offset_N_m": -6.5518
+   "reg_offset_E_m": 10.4223,
+   "reg_offset_N_m": -0.0321
   },
   {
    "scene_id": "LE07_L1TP_160044_20011130_20200917_02_T1",
@@ -2372,8 +3045,8 @@
    "gcp_model": 436,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.712,
-   "reg_offset_E_m": 6.7286,
-   "reg_offset_N_m": -4.5375
+   "reg_offset_E_m": 3.292,
+   "reg_offset_N_m": 0.9804
   },
   {
    "scene_id": "LC08_L1TP_160044_20131107_20200912_02_T1",
@@ -2408,8 +3081,8 @@
    "gcp_model": 561,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0086,
-   "reg_offset_E_m": 1.8,
-   "reg_offset_N_m": 0.15
+   "reg_offset_E_m": 0.8625,
+   "reg_offset_N_m": 0.3375
   },
   {
    "scene_id": "LC08_L1TP_160044_20131209_20200912_02_T1",
@@ -2426,8 +3099,8 @@
    "gcp_model": 602,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.6628,
-   "reg_offset_E_m": 0.15,
-   "reg_offset_N_m": 0.3
+   "reg_offset_E_m": 0.3,
+   "reg_offset_N_m": -0.1125
   },
   {
    "scene_id": "LC08_L1TP_160044_20141009_20201015_02_T1",
@@ -2444,8 +3117,8 @@
    "gcp_model": 752,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": 0.9268,
-   "reg_offset_N_m": 2.8018
+   "reg_offset_E_m": 0.7607,
+   "reg_offset_N_m": 1.7196
   },
   {
    "scene_id": "LC08_L1TP_160044_20141110_20200910_02_T1",
@@ -2462,8 +3135,8 @@
    "gcp_model": 676,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": 0.7768,
-   "reg_offset_N_m": 1.3018
+   "reg_offset_E_m": 0.5357,
+   "reg_offset_N_m": 0.0321
   },
   {
    "scene_id": "LC08_L1TP_160044_20141126_20200910_02_T1",
@@ -2480,8 +3153,8 @@
    "gcp_model": 654,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.4232,
-   "reg_offset_N_m": 2.2018
+   "reg_offset_E_m": -0.5893,
+   "reg_offset_N_m": 0.8571
   },
   {
    "scene_id": "LC08_L1TP_160044_20151012_20200908_02_T1",
@@ -2498,8 +3171,8 @@
    "gcp_model": 776,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": 0.6696,
-   "reg_offset_N_m": 1.9875
+   "reg_offset_E_m": 0.8304,
+   "reg_offset_N_m": 1.3661
   },
   {
    "scene_id": "LC08_L1TP_160044_20151113_20200908_02_T1",
@@ -2516,8 +3189,8 @@
    "gcp_model": 665,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.5304,
-   "reg_offset_N_m": 1.9875
+   "reg_offset_E_m": -0.3321,
+   "reg_offset_N_m": 0.7661
   },
   {
    "scene_id": "LC08_L1TP_160044_20151215_20200908_02_T1",
@@ -2534,8 +3207,8 @@
    "gcp_model": 664,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 1.1986,
-   "reg_offset_E_m": -0.3804,
-   "reg_offset_N_m": 3.0375
+   "reg_offset_E_m": 0.0429,
+   "reg_offset_N_m": 1.1411
   },
   {
    "scene_id": "LC08_L1TP_160044_20171001_20200903_02_T1",
@@ -2552,8 +3225,8 @@
    "gcp_model": 764,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.7786,
-   "reg_offset_N_m": 2.9732
+   "reg_offset_E_m": -1.7946,
+   "reg_offset_N_m": 1.2375
   },
   {
    "scene_id": "LC08_L1TP_160044_20171102_20200902_02_T1",
@@ -2570,8 +3243,8 @@
    "gcp_model": 684,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.4286,
-   "reg_offset_N_m": 3.8732
+   "reg_offset_E_m": -0.2196,
+   "reg_offset_N_m": 1.8375
   },
   {
    "scene_id": "LC08_L1TP_160044_20171204_20200902_02_T1",
@@ -2588,8 +3261,8 @@
    "gcp_model": 627,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": 0.3214,
-   "reg_offset_N_m": 4.3232
+   "reg_offset_E_m": 0.3804,
+   "reg_offset_N_m": 1.5375
   },
   {
    "scene_id": "LC08_L1TP_160044_20181004_20200830_02_T1",
@@ -2606,8 +3279,8 @@
    "gcp_model": 749,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.9339,
-   "reg_offset_N_m": 3.0643
+   "reg_offset_E_m": -0.9268,
+   "reg_offset_N_m": 1.2884
   },
   {
    "scene_id": "LC08_L1TP_160044_20181105_20200830_02_T1",
@@ -2624,8 +3297,8 @@
    "gcp_model": 676,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -2.2339,
-   "reg_offset_N_m": 3.6643
+   "reg_offset_E_m": -1.6018,
+   "reg_offset_N_m": 1.0634
   },
   {
    "scene_id": "LC08_L1TP_160044_20181207_20200830_02_T1",
@@ -2642,8 +3315,8 @@
    "gcp_model": 617,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.6339,
-   "reg_offset_N_m": 4.5643
+   "reg_offset_E_m": -0.9268,
+   "reg_offset_N_m": 1.6634
   },
   {
    "scene_id": "LC08_L1TP_160044_20191007_20200825_02_T1",
@@ -2660,8 +3333,8 @@
    "gcp_model": 649,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -2.3732,
-   "reg_offset_N_m": 4.5107
+   "reg_offset_E_m": -1.192,
+   "reg_offset_N_m": 2.2232
   },
   {
    "scene_id": "LC08_L1TP_160044_20191108_20200825_02_T1",
@@ -2678,8 +3351,8 @@
    "gcp_model": 622,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.3232,
-   "reg_offset_N_m": 3.7607
+   "reg_offset_E_m": -0.742,
+   "reg_offset_N_m": 0.8732
   },
   {
    "scene_id": "LC08_L1TP_160044_20191124_20200825_02_T1",
@@ -2696,8 +3369,8 @@
    "gcp_model": 620,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.98,
-   "reg_offset_E_m": 0.3268,
-   "reg_offset_N_m": 4.0607
+   "reg_offset_E_m": 0.158,
+   "reg_offset_N_m": 1.5482
   },
   {
    "scene_id": "LC08_L1TP_160044_20201009_20201016_02_T1",
@@ -2714,8 +3387,8 @@
    "gcp_model": 696,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.1143,
-   "reg_offset_N_m": 3.0911
+   "reg_offset_E_m": -0.4634,
+   "reg_offset_N_m": 1.4786
   },
   {
    "scene_id": "LC08_L1TP_160044_20201110_20210316_02_T1",
@@ -2732,8 +3405,8 @@
    "gcp_model": 613,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.2643,
-   "reg_offset_N_m": 3.9911
+   "reg_offset_E_m": -0.9134,
+   "reg_offset_N_m": 1.7786
   },
   {
    "scene_id": "LC08_L1TP_160044_20201126_20210316_02_T1",
@@ -2750,8 +3423,8 @@
    "gcp_model": 604,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0286,
-   "reg_offset_E_m": -2.1643,
-   "reg_offset_N_m": 5.4911
+   "reg_offset_E_m": -1.8134,
+   "reg_offset_N_m": 2.3036
   },
   {
    "scene_id": "LC08_L1TP_160044_20211012_20211019_02_T1",
@@ -2768,8 +3441,8 @@
    "gcp_model": 687,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.4018,
-   "reg_offset_N_m": 5.6411
+   "reg_offset_E_m": -0.1607,
+   "reg_offset_N_m": 2.6652
   },
   {
    "scene_id": "LC08_L1TP_160044_20211113_20211125_02_T1",
@@ -2786,8 +3459,8 @@
    "gcp_model": 607,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.3018,
-   "reg_offset_N_m": 4.7411
+   "reg_offset_E_m": -0.7982,
+   "reg_offset_N_m": 1.6527
   },
   {
    "scene_id": "LC08_L1TP_160044_20211215_20211223_02_T1",
@@ -2804,8 +3477,8 @@
    "gcp_model": 478,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.7018,
-   "reg_offset_N_m": 5.9411
+   "reg_offset_E_m": -0.1982,
+   "reg_offset_N_m": 2.1027
   },
   {
    "scene_id": "LC08_L1TP_160044_20220929_20221005_02_T1",
@@ -2822,8 +3495,8 @@
    "gcp_model": 714,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -2.025,
-   "reg_offset_N_m": 5.7375
+   "reg_offset_E_m": -1.125,
+   "reg_offset_N_m": 2.8714
   },
   {
    "scene_id": "LC09_L1TP_160044_20221108_20230322_02_T1",
@@ -2840,8 +3513,8 @@
    "gcp_model": 627,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -2.625,
-   "reg_offset_N_m": 6.0375
+   "reg_offset_E_m": -2.175,
+   "reg_offset_N_m": 2.4964
   },
   {
    "scene_id": "LC08_L1TP_160044_20221202_20221212_02_T1",
@@ -2858,8 +3531,8 @@
    "gcp_model": 556,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.007,
-   "reg_offset_E_m": -2.175,
-   "reg_offset_N_m": 4.6875
+   "reg_offset_E_m": -1.425,
+   "reg_offset_N_m": 1.1464
   },
   {
    "scene_id": "LC09_L1TP_160044_20231010_20231010_02_T1",
@@ -2876,8 +3549,8 @@
    "gcp_model": 696,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -0.7393,
-   "reg_offset_N_m": 6.5411
+   "reg_offset_E_m": -0.1313,
+   "reg_offset_N_m": 2.7161
   },
   {
    "scene_id": "LC08_L1TP_160044_20231119_20231122_02_T1",
@@ -2894,8 +3567,8 @@
    "gcp_model": 580,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -3.5893,
-   "reg_offset_N_m": 4.4411
+   "reg_offset_E_m": -2.3813,
+   "reg_offset_N_m": -0.0589
   },
   {
    "scene_id": "LC09_L1TP_160044_20231213_20231213_02_T1",
@@ -2912,8 +3585,8 @@
    "gcp_model": 578,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.9608,
-   "reg_offset_E_m": -1.7893,
-   "reg_offset_N_m": 7.1411
+   "reg_offset_E_m": -0.8813,
+   "reg_offset_N_m": 2.5661
   },
   {
    "scene_id": "LC08_L1TP_160044_20241004_20241008_02_T1",
@@ -2930,8 +3603,8 @@
    "gcp_model": 575,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.3018,
-   "reg_offset_N_m": 4.2643
+   "reg_offset_E_m": 0.1929,
+   "reg_offset_N_m": 0.7929
   },
   {
    "scene_id": "LC09_L1TP_160044_20241113_20241113_02_T1",
@@ -2948,8 +3621,8 @@
    "gcp_model": 587,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.6018,
-   "reg_offset_N_m": 6.9643
+   "reg_offset_E_m": -0.4071,
+   "reg_offset_N_m": 2.9679
   },
   {
    "scene_id": "LC08_L1TP_160044_20241207_20241210_02_T1",
@@ -2966,8 +3639,8 @@
    "gcp_model": 381,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0026,
-   "reg_offset_E_m": -1.6018,
-   "reg_offset_N_m": 3.8143
+   "reg_offset_E_m": -0.0321,
+   "reg_offset_N_m": -0.8571
   },
   {
    "scene_id": "LC09_L1TP_160044_20250929_20250929_02_T1",
@@ -2984,8 +3657,8 @@
    "gcp_model": 707,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.725,
-   "reg_offset_N_m": 5.8018
+   "reg_offset_E_m": -0.142,
+   "reg_offset_N_m": 1.9179
   },
   {
    "scene_id": "LC08_L1TP_160044_20251108_20251128_02_T1",
@@ -3002,8 +3675,8 @@
    "gcp_model": 589,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0,
-   "reg_offset_E_m": -1.275,
-   "reg_offset_N_m": 5.2018
+   "reg_offset_E_m": 0.158,
+   "reg_offset_N_m": 0.5679
   },
   {
    "scene_id": "LC08_L1TP_160044_20251210_20251217_02_T1",
@@ -3020,8 +3693,8 @@
    "gcp_model": 547,
    "b8_grid_phase_ok": true,
    "inbox_masked_pct": 0.0209,
-   "reg_offset_E_m": -2.925,
-   "reg_offset_N_m": 7.1518
+   "reg_offset_E_m": -1.117,
+   "reg_offset_N_m": 2.0679
   }
  ],
  "velocity_summary": {
@@ -3031,65 +3704,65 @@
   "n_windows_grid": 10403,
   "n_dune_windows": 3806,
   "n_valid_dune_windows": 3782,
-  "n_detected": 3392,
-  "pct_detected_of_valid": 89.7,
-  "detected_speed_median_myr": 1.792,
+  "n_detected": 3521,
+  "pct_detected_of_valid": 93.1,
+  "detected_speed_median_myr": 1.411,
   "detected_speed_p10_p90_myr": [
-   1.219,
-   2.623
+   0.792,
+   2.254
   ],
   "detected_speed_range_myr": [
-   0.904,
-   5.764
+   0.351,
+   5.403
   ],
   "detected_heading_quartiles_deg": [
-   159.9,
-   164.8,
-   169.9
+   159.4,
+   165.6,
+   172.2
   ],
-  "field_median_heading_deg": 165.0
+  "field_median_heading_deg": 165.8
  },
  "dunes": {
   "n_resolved_nasadem": 17,
   "n_exported": 17,
   "counts_by_class": {
-   "slow": 9,
-   "active": 8
+   "active": 10,
+   "slow": 7
   },
   "class_cutoffs_myr": {
    "stable": "below detection limit",
-   "slow": "< 1.80",
-   "active": "1.80-2.60",
-   "fast": ">= 2.60"
+   "slow": "< 1.40",
+   "active": "1.40-2.25",
+   "fast": ">= 2.25"
   },
   "height_model": {
    "n_dunes": 17,
    "used": false,
    "spearman_rho": -0.108,
    "p_value": 0.6804,
-   "k_m2_per_yr": 36.12,
+   "k_m2_per_yr": 28.95,
    "flux_equivalent_note": "k = speed x height ~ bulk sand flux per unit crest length (m^2/yr)",
    "window_level": {
     "spearman_rho": 0.266,
-    "p_value": 4.622140425229426e-62,
+    "p_value": 4.8614288353876525e-62,
     "terciles": [
      {
       "relief_m": "-0.3-12.7",
       "n": 1257,
-      "median_speed_myr": 1.578,
-      "share_detected": 0.823
+      "median_speed_myr": 1.221,
+      "share_detected": 0.877
      },
      {
       "relief_m": "12.7-17.1",
       "n": 1265,
-      "median_speed_myr": 1.703,
-      "share_detected": 0.938
+      "median_speed_myr": 1.347,
+      "share_detected": 0.96
      },
      {
       "relief_m": "17.1-45.2",
       "n": 1260,
-      "median_speed_myr": 1.926,
-      "share_detected": 0.93
+      "median_speed_myr": 1.57,
+      "share_detected": 0.955
      }
     ],
     "note": "relief = 95th percentile of (NASADEM - local base) in each 480 m window; NASADEM noise 2.5 m, so low-relief terciles are partly noise"
@@ -3104,7 +3777,7 @@
   "threat_fields": "not computed (notebook 03): threat=false, nearest_target/distance/reach years = null"
  },
  "vectors": {
-  "n_points": 848,
+  "n_points": 881,
   "spacing_m": 240.0,
   "content": "detected windows only"
  }

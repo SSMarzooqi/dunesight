@@ -224,20 +224,20 @@
    "from_date": "2025-11-08",
    "years_advected": 5.0,
    "displacement": {
-    "share_of_box_moving_pct": 56.8,
-    "median_m": 8.75,
-    "p90_m": 11.41,
-    "max_m": 18.92,
-    "median_px": 0.58,
-    "p90_px": 0.76,
-    "max_px": 1.26,
-    "share_of_box_moved_ge_1px_pct": 0.67
+    "share_of_box_moving_pct": 58.0,
+    "median_m": 6.86,
+    "p90_m": 9.53,
+    "max_m": 16.94,
+    "median_px": 0.46,
+    "p90_px": 0.64,
+    "max_px": 1.13,
+    "share_of_box_moved_ge_1px_pct": 0.23
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 3.02,
-    "share_pixels_changed_gt_10_levels_pct": 8.52
+    "mean_abs_gray_levels": 2.46,
+    "share_pixels_changed_gt_10_levels_pct": 5.74
    },
-   "bytes": 370035
+   "bytes": 370157
   },
   {
    "year": 2035,
@@ -245,20 +245,20 @@
    "from_date": "2025-11-08",
    "years_advected": 10.0,
    "displacement": {
-    "share_of_box_moving_pct": 56.9,
-    "median_m": 17.5,
-    "p90_m": 22.82,
-    "max_m": 37.85,
-    "median_px": 1.17,
-    "p90_px": 1.52,
-    "max_px": 2.52,
-    "share_of_box_moved_ge_1px_pct": 44.33
+    "share_of_box_moving_pct": 58.1,
+    "median_m": 13.71,
+    "p90_m": 19.05,
+    "max_m": 33.88,
+    "median_px": 0.91,
+    "p90_px": 1.27,
+    "max_px": 2.26,
+    "share_of_box_moved_ge_1px_pct": 20.93
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 5.49,
-    "share_pixels_changed_gt_10_levels_pct": 18.83
+    "mean_abs_gray_levels": 4.66,
+    "share_pixels_changed_gt_10_levels_pct": 15.45
    },
-   "bytes": 369739
+   "bytes": 370295
   },
   {
    "year": 2040,
@@ -266,20 +266,20 @@
    "from_date": "2025-11-08",
    "years_advected": 15.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.0,
-    "median_m": 26.25,
-    "p90_m": 34.23,
-    "max_m": 56.77,
-    "median_px": 1.75,
-    "p90_px": 2.28,
-    "max_px": 3.78,
-    "share_of_box_moved_ge_1px_pct": 51.64
+    "share_of_box_moving_pct": 58.2,
+    "median_m": 20.55,
+    "p90_m": 28.57,
+    "max_m": 50.82,
+    "median_px": 1.37,
+    "p90_px": 1.9,
+    "max_px": 3.39,
+    "share_of_box_moved_ge_1px_pct": 48.89
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 7.17,
-    "share_pixels_changed_gt_10_levels_pct": 24.45
+    "mean_abs_gray_levels": 6.29,
+    "share_pixels_changed_gt_10_levels_pct": 21.49
    },
-   "bytes": 369227
+   "bytes": 369406
   },
   {
    "year": 2045,
@@ -287,20 +287,20 @@
    "from_date": "2025-11-08",
    "years_advected": 20.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.1,
-    "median_m": 34.98,
-    "p90_m": 45.63,
-    "max_m": 75.7,
-    "median_px": 2.33,
-    "p90_px": 3.04,
-    "max_px": 5.05,
-    "share_of_box_moved_ge_1px_pct": 52.18
+    "share_of_box_moving_pct": 58.2,
+    "median_m": 27.4,
+    "p90_m": 38.08,
+    "max_m": 67.76,
+    "median_px": 1.83,
+    "p90_px": 2.54,
+    "max_px": 4.52,
+    "share_of_box_moved_ge_1px_pct": 53.16
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 8.25,
-    "share_pixels_changed_gt_10_levels_pct": 27.7
+    "mean_abs_gray_levels": 7.49,
+    "share_pixels_changed_gt_10_levels_pct": 25.34
    },
-   "bytes": 369532
+   "bytes": 369512
   },
   {
    "year": 2050,
@@ -308,20 +308,20 @@
    "from_date": "2025-11-08",
    "years_advected": 25.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.1,
-    "median_m": 43.71,
-    "p90_m": 57.03,
-    "max_m": 94.62,
-    "median_px": 2.91,
-    "p90_px": 3.8,
-    "max_px": 6.31,
-    "share_of_box_moved_ge_1px_pct": 52.57
+    "share_of_box_moving_pct": 58.3,
+    "median_m": 34.24,
+    "p90_m": 47.6,
+    "max_m": 84.7,
+    "median_px": 2.28,
+    "p90_px": 3.17,
+    "max_px": 5.65,
+    "share_of_box_moved_ge_1px_pct": 53.95
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 8.92,
-    "share_pixels_changed_gt_10_levels_pct": 29.74
+    "mean_abs_gray_levels": 8.32,
+    "share_pixels_changed_gt_10_levels_pct": 27.87
    },
-   "bytes": 369762
+   "bytes": 369531
   }
  ],
  "projected_fast": [
@@ -331,20 +331,20 @@
    "from_date": "2025-11-08",
    "years_advected": 5.0,
    "displacement": {
-    "share_of_box_moving_pct": 56.9,
-    "median_m": 10.75,
-    "p90_m": 13.49,
-    "max_m": 22.09,
-    "median_px": 0.72,
-    "p90_px": 0.9,
-    "max_px": 1.47,
-    "share_of_box_moved_ge_1px_pct": 2.39
+    "share_of_box_moving_pct": 58.1,
+    "median_m": 7.87,
+    "p90_m": 10.65,
+    "max_m": 19.88,
+    "median_px": 0.52,
+    "p90_px": 0.71,
+    "max_px": 1.33,
+    "share_of_box_moved_ge_1px_pct": 0.52
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 3.64,
-    "share_pixels_changed_gt_10_levels_pct": 11.35
+    "mean_abs_gray_levels": 2.8,
+    "share_pixels_changed_gt_10_levels_pct": 7.3
    },
-   "bytes": 370158
+   "bytes": 370052
   },
   {
    "year": 2035,
@@ -352,20 +352,20 @@
    "from_date": "2025-11-08",
    "years_advected": 10.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.0,
-    "median_m": 21.49,
-    "p90_m": 26.97,
-    "max_m": 44.18,
-    "median_px": 1.43,
-    "p90_px": 1.8,
-    "max_px": 2.95,
-    "share_of_box_moved_ge_1px_pct": 50.88
+    "share_of_box_moving_pct": 58.1,
+    "median_m": 15.73,
+    "p90_m": 21.29,
+    "max_m": 39.76,
+    "median_px": 1.05,
+    "p90_px": 1.42,
+    "max_px": 2.65,
+    "share_of_box_moved_ge_1px_pct": 33.46
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 6.33,
-    "share_pixels_changed_gt_10_levels_pct": 21.8
+    "mean_abs_gray_levels": 5.18,
+    "share_pixels_changed_gt_10_levels_pct": 17.61
    },
-   "bytes": 369078
+   "bytes": 370106
   },
   {
    "year": 2040,
@@ -373,20 +373,20 @@
    "from_date": "2025-11-08",
    "years_advected": 15.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.0,
-    "median_m": 32.23,
-    "p90_m": 40.45,
-    "max_m": 66.27,
-    "median_px": 2.15,
-    "p90_px": 2.7,
-    "max_px": 4.42,
-    "share_of_box_moved_ge_1px_pct": 52.11
+    "share_of_box_moving_pct": 58.2,
+    "median_m": 23.58,
+    "p90_m": 31.92,
+    "max_m": 59.64,
+    "median_px": 1.57,
+    "p90_px": 2.13,
+    "max_px": 3.98,
+    "share_of_box_moved_ge_1px_pct": 52.32
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 7.99,
-    "share_pixels_changed_gt_10_levels_pct": 26.92
+    "mean_abs_gray_levels": 6.88,
+    "share_pixels_changed_gt_10_levels_pct": 23.47
    },
-   "bytes": 369565
+   "bytes": 369301
   },
   {
    "year": 2045,
@@ -394,20 +394,20 @@
    "from_date": "2025-11-08",
    "years_advected": 20.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.1,
-    "median_m": 42.95,
-    "p90_m": 53.92,
-    "max_m": 88.36,
-    "median_px": 2.86,
-    "p90_px": 3.59,
-    "max_px": 5.89,
-    "share_of_box_moved_ge_1px_pct": 52.48
+    "share_of_box_moving_pct": 58.3,
+    "median_m": 31.43,
+    "p90_m": 42.56,
+    "max_m": 79.52,
+    "median_px": 2.1,
+    "p90_px": 2.84,
+    "max_px": 5.3,
+    "share_of_box_moved_ge_1px_pct": 53.86
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 8.9,
-    "share_pixels_changed_gt_10_levels_pct": 29.65
+    "mean_abs_gray_levels": 8.04,
+    "share_pixels_changed_gt_10_levels_pct": 27.09
    },
-   "bytes": 369981
+   "bytes": 369766
   },
   {
    "year": 2050,
@@ -415,20 +415,20 @@
    "from_date": "2025-11-08",
    "years_advected": 25.0,
    "displacement": {
-    "share_of_box_moving_pct": 57.2,
-    "median_m": 53.68,
-    "p90_m": 67.39,
-    "max_m": 110.45,
-    "median_px": 3.58,
-    "p90_px": 4.49,
-    "max_px": 7.36,
-    "share_of_box_moved_ge_1px_pct": 53.12
+    "share_of_box_moving_pct": 58.3,
+    "median_m": 39.28,
+    "p90_m": 53.19,
+    "max_m": 99.4,
+    "median_px": 2.62,
+    "p90_px": 3.55,
+    "max_px": 6.63,
+    "share_of_box_moved_ge_1px_pct": 54.24
    },
    "image_change_vs_latest_observed": {
-    "mean_abs_gray_levels": 9.42,
-    "share_pixels_changed_gt_10_levels_pct": 31.29
+    "mean_abs_gray_levels": 8.8,
+    "share_pixels_changed_gt_10_levels_pct": 29.36
    },
-   "bytes": 370101
+   "bytes": 369702
   }
  ],
  "crs": "EPSG:4326",
@@ -467,7 +467,7 @@
  "projected_format": "PNG, grayscale + alpha (alpha 0 = no data)",
  "masking": "Landsat QA_PIXEL fill, dilated cloud, cirrus, cloud and cloud shadow (dilated by one 15 m pixel) are no-data",
  "projection_method": "Semi-Lagrangian advection of the latest observed image along the measured 2013-2025 dune-motion field: output(x) = image(x - u(x) * years), cubic interpolation. u = velocity of windows with detected motion only (0 below the detection limit, in masked/non-dune areas and outside dune windows), 3x3-window median filter, Gaussian smoothing (sigma = 120 m), bilinear to 15 m, times a feathered free-sand mask. median case = measured velocity; fast case = same heading at speed + 1 sigma (84th percentile of the speed). Assumes the 2013-2025 motion continues unchanged; dunes do not deform, merge, grow or get removed.",
- "projection_reading_note": "These frames change very little: by 2050 the median case moves 57.1 % of the box, by a median 43.71 m (2.91 px) and at most 94.62 m; the fast case at most 110.45 m. Most of the image does not move at all because motion there is below the detection limit or the ground is not dune sand. The small change is the measurement, not a rendering problem.",
+ "projection_reading_note": "These frames change very little: by 2050 the median case moves 58.3 % of the box, by a median 34.24 m (2.28 px) and at most 84.7 m; the fast case at most 99.4 m. Most of the image does not move at all because motion there is below the detection limit or the ground is not dune sand. The small change is the measurement, not a rendering problem.",
  "warp_test": [
   {
    "vE_myr": 3.0,

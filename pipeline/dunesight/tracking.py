@@ -91,19 +91,38 @@ def _prep(stack, feather_px=2.0):
     return s * _taper(s.shape[1])
 
 
-def phase_correlate(A, B, upsample=100, lowpass=0.8, eps=1e-12, max_nan_frac=0.0):
+def phase_correlate(A, B, upsample=100, lowpass=0.8, eps=1e-12, max_nan_frac=0.0, prep=True, whiten=True):
     """Batched phase correlation of window stacks A, B (N, W, W). Returns dict of arrays (length N):
     d_row, d_col (pixels, B relative to A), peak, ratio. Windows whose share of NaN (masked) pixels exceeds
-    `max_nan_frac` in either image return NaN; below that, masked pixels are given zero (feathered) weight."""
+    `max_nan_frac` in either image return NaN; below that, masked pixels are given zero (feathered) weight.
+    prep=False: A and B are already normalised, weighted and tapered by the caller (used by reference.py, whose
+    weights differ between A and B); windows that are all NaN are returned as NaN.
+    whiten=False (only with prep=False): plain normalised cross-correlation instead of phase correlation (no division
+    by the spectrum magnitude, no low-pass weight), for very smooth images whose high frequencies hold no signal;
+    `peak` is then the normalised cross-correlation coefficient."""
     N, W, _ = A.shape
+    if not prep:
+        bad = ~np.isfinite(A).all(axis=(1, 2)) | ~np.isfinite(B).all(axis=(1, 2))
+        FA = np.fft.fft2(np.nan_to_num(A))
+        FB = np.fft.fft2(np.nan_to_num(B))
+        return _correlate_spectra(FA, FB, N, W, bad, upsample, lowpass, eps, whiten)
     bad = (np.isnan(A).mean(axis=(1, 2)) > max_nan_frac) | (np.isnan(B).mean(axis=(1, 2)) > max_nan_frac)
     if max_nan_frac > 0:
         bad |= np.isnan(A).all(axis=(1, 2)) | np.isnan(B).all(axis=(1, 2))
     FA = np.fft.fft2(_prep(A))
     FB = np.fft.fft2(_prep(B))
+    return _correlate_spectra(FA, FB, N, W, bad, upsample, lowpass, eps)
+
+
+def _correlate_spectra(FA, FB, N, W, bad, upsample, lowpass, eps, whiten=True):
+    """Phase correlation of two stacks of window spectra, with sub-pixel refinement (see phase_correlate)."""
     X = FB * np.conj(FA)
-    R = X / (np.abs(X) + eps) * _lowpass(W, lowpass)
-    wsum = _lowpass(W, lowpass).sum()
+    if whiten:
+        R = X / (np.abs(X) + eps) * _lowpass(W, lowpass)
+        wsum = _lowpass(W, lowpass).sum()
+    else:   # normalised cross-correlation: r(0) = sum(a b) / sqrt(sum a^2 sum b^2) by Parseval
+        wsum = 1.0
+        R = X / (np.sqrt((np.abs(FA) ** 2).sum(axis=(1, 2)) * (np.abs(FB) ** 2).sum(axis=(1, 2)))[:, None, None] + eps)
     r = np.fft.ifft2(R).real * (W * W) / wsum  # peak height normalised so a perfect match = 1
     flat = r.reshape(N, -1)
     k = np.argmax(flat, axis=1)

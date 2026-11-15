@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DuneSight</title>
+  </head>
+  <body>
+    <div id="globe"></div>
+    <header class="hud hud-top">
+      <span class="brand">DuneSight</span>
+      <span class="status">coming online</span>
+    </header>
+    <section class="hud hud-panel" id="data-panel">
+      <h2>Data link</h2>
+      <p id="data-status">Loading data/summary.json ...</p>
+      <dl id="data-fields"></dl>
+    </section>
+    <footer class="hud hud-bottom">
+      Supported by the Michigan Space Grant Consortium, NASA grant 80NSSC20M0124.
+      <span id="basemap-credit"></span>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

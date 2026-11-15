@@ -1,0 +1,19 @@
+# DuneSight pipeline. Installed and verified on Python 3.14.7 (macOS arm64), 2026-11-14.
+# Setup:  python3 -m venv pipeline/.venv && pipeline/.venv/bin/pip install -r pipeline/requirements.txt
+# segment-geospatial is intentionally not listed (only if the optional SAM cross-check is used).
+earthengine-api==1.7.52
+earthaccess==0.19.0
+geemap==0.39.0
+scikit-image==0.26.0
+rasterio==1.5.2
+geopandas==1.2.0
+shapely==2.2.0
+pyproj==3.8.0
+scipy==1.18.1
+numpy==2.5.4
+matplotlib==3.11.2
+requests==2.34.2
+jupyter==1.1.1
+python-dotenv==1.2.4
+nbconvert==7.17.2
+ipykernel==7.4.0

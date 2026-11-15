@@ -1,0 +1,67 @@
+[
+ {
+  "name": "Landsat 7 ETM+ Collection 2 Level-1",
+  "provider": "NASA / USGS",
+  "used_for": "dune motion (B8, 15 m) - PLACEHOLDER",
+  "dates": [
+   "2001-05-01"
+  ],
+  "place": "PLACEHOLDER AOI (unverified)",
+  "pixel": "15 m",
+  "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
+  "doi": "https://doi.org/10.5066/P9TU80IG",
+  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+ },
+ {
+  "name": "Landsat 8-9 OLI/TIRS Collection 2 Level-1",
+  "provider": "NASA / USGS",
+  "used_for": "dune motion (B8, 15 m) - PLACEHOLDER",
+  "dates": [
+   "2013-05-01",
+   "2019-05-01",
+   "2025-05-01"
+  ],
+  "place": "PLACEHOLDER AOI (unverified)",
+  "pixel": "15 m",
+  "link": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-1-data",
+  "doi": "https://doi.org/10.5066/P975CC9B",
+  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+ },
+ {
+  "name": "Harmonized Landsat Sentinel-2 (HLSL30/HLSS30) v2.0",
+  "provider": "NASA LP DAAC",
+  "used_for": "second-dataset check - PLACEHOLDER",
+  "dates": [],
+  "place": "PLACEHOLDER AOI (unverified)",
+  "pixel": "30 m",
+  "link": "https://lpdaac.usgs.gov/products/hlsl30v002/",
+  "doi": "https://doi.org/10.5067/HLS/HLSL30.002",
+  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+ },
+ {
+  "name": "MERRA-2 tavg1_2d_slv_Nx (U10M, V10M)",
+  "provider": "NASA GMAO / GES DISC",
+  "used_for": "wind drift potential - PLACEHOLDER",
+  "dates": [
+   "2000-01-01/2024-12-31"
+  ],
+  "place": "PLACEHOLDER AOI centroid",
+  "pixel": "0.5 x 0.625 deg",
+  "link": "https://disc.gsfc.nasa.gov/datasets/M2T1NXSLV_5.12.4/summary",
+  "doi": "https://doi.org/10.5067/VJAFPLI1CSIV",
+  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+ },
+ {
+  "name": "NASADEM Merged DEM Global 1 arc second",
+  "provider": "NASA JPL / LP DAAC",
+  "used_for": "dune outlines and heights - PLACEHOLDER",
+  "dates": [
+   "2000-02"
+  ],
+  "place": "PLACEHOLDER AOI (unverified)",
+  "pixel": "30 m",
+  "link": "https://lpdaac.usgs.gov/products/nasadem_hgtv001/",
+  "doi": "https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001",
+  "note": "PLACEHOLDER entry: dates are fake; dataset links to be re-checked when real data is used."
+ }
+]

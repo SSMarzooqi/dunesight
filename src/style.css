@@ -1,0 +1,94 @@
+:root {
+  --bg: #05080c;
+  --fg: #c9d6df;
+  --cyan: #39d0ff;
+  --amber: #f0b429;
+  --line: rgba(57, 208, 255, 0.35);
+  --panel: rgba(5, 12, 18, 0.78);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+#globe {
+  position: fixed;
+  inset: 0;
+}
+
+.hud {
+  position: fixed;
+  z-index: 10;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.hud-top {
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.brand {
+  color: var(--cyan);
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.status {
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status::before { content: '— '; }
+
+.hud-panel {
+  top: 64px;
+  left: 12px;
+  max-width: 340px;
+}
+
+.hud-panel h2 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hud-panel p { margin: 0 0 8px; }
+
+.hud-panel dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 0;
+}
+
+.hud-panel dt { color: #7d8c96; }
+.hud-panel dd { margin: 0; }
+
+.hud-bottom {
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  font-size: 11px;
+  color: #8fa1ad;
+}
+
+@media (max-width: 600px) {
+  .hud-top, .hud-panel { left: 8px; right: 8px; max-width: none; }
+  .hud-bottom { left: 8px; right: 8px; }
+}

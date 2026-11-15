@@ -1,0 +1,23 @@
+# secrets
+.env
+
+# node / build
+node_modules/
+dist/
+
+# python pipeline
+pipeline/.venv/
+pipeline/raw/*
+!pipeline/raw/.gitkeep
+__pycache__/
+.ipynb_checkpoints/
+
+# rasters and big science files
+*.tif
+*.tiff
+*.nc
+*.hdf
+*.h5
+
+# macOS
+.DS_Store

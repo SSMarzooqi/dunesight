@@ -80,7 +80,9 @@
   display: flex; flex-direction: column; gap: 12px; pointer-events: none;
 }
 .ds-right > .ds-panel { flex: 0 1 auto; min-height: 0; }
-.ds-right > .ds-panel--wind { flex-shrink: 0; }
+/* the legend gives way first (down to 150 px), then the wind panel scrolls (e.g. with its details open) instead of running under the timeline */
+.ds-right > .ds-panel--wind { flex-shrink: 1; }
+.ds-right > .ds-panel--legend { flex-shrink: 12; min-height: 150px; }
 
 .ds-phead { display: flex; align-items: center; gap: 8px; min-height: 28px; }
 .ds-phead h2 { flex: 1 1 auto; font-size: var(--ds-fs-body); font-weight: var(--ds-fw-strong); line-height: 1.3; }
@@ -118,7 +120,7 @@
 .ds-more { display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 2px; padding: 0; border: 0; background: none; text-decoration: underline; text-decoration-color: rgba(237, 230, 216, 0.4); text-underline-offset: 3px; }
 
 /* ---------- Speed range bar ---------- */
-.ds-range { position: relative; height: 74px; margin-top: 14px; }
+.ds-range { position: relative; height: 96px; margin-top: 14px; }
 .ds-range > * { position: absolute; }
 .ds-range__median { top: 0; transform: translateX(-50%); font-size: 12px; font-weight: 600; white-space: nowrap; }
 .ds-range__track { left: 0; right: 0; top: 20px; height: 12px; background: rgba(237, 230, 216, 0.07); border: 1px solid var(--ds-line); border-radius: 3px; }
@@ -126,8 +128,10 @@
 .ds-range__band { top: 22px; height: 8px; background: var(--ds-measured-fill); border: 1px solid var(--ds-measured); border-radius: 2px; }
 .ds-range__tick { top: 16px; width: 3px; height: 20px; transform: translateX(-50%); background: var(--ds-measured); border-radius: 1px; }
 .ds-range__lbl { top: 38px; font-size: 12px; color: var(--ds-text-3); white-space: nowrap; }
-.ds-range__key { left: 0; top: 56px; display: flex; align-items: center; gap: 6px; }
-.ds-swatch-band { display: inline-block; width: 14px; height: 8px; background: var(--ds-measured-fill); border: 1px solid var(--ds-measured); border-radius: 2px; }
+.ds-range__key { left: 0; right: 0; top: 56px; display: flex; flex-direction: column; gap: 2px; }
+.ds-range__key span { display: flex; align-items: center; gap: 6px; }
+.ds-swatch-below { display: inline-block; flex: 0 0 auto; width: 14px; height: 8px; background-image: var(--ds-below-limit); background-size: 4px 4px; border: 1px dashed var(--ds-text-3); border-radius: 2px; }
+.ds-swatch-band { display: inline-block; flex: 0 0 auto; width: 14px; height: 8px; background: var(--ds-measured-fill); border: 1px solid var(--ds-measured); border-radius: 2px; }
 
 /* ---------- Confidence ---------- */
 .ds-conf { display: flex; flex-direction: column; gap: 8px; }
@@ -154,7 +158,7 @@
 
 /* ---------- Projected marker ---------- */
 .ds-tag-projected {
-  display: inline-flex; align-items: center; height: 20px; padding: 0 6px; margin-right: 6px; vertical-align: 1px;
+  display: inline-flex; align-items: center; height: 20px; padding: 0 6px; margin-right: 2px; vertical-align: 1px;
   border: 1px dashed var(--ds-projected); border-radius: var(--ds-radius-sm); background: var(--ds-hatch-soft);
   font-size: 12px; font-weight: var(--ds-fw-strong); letter-spacing: 0.05em; color: var(--ds-text); white-space: nowrap;
 }
@@ -204,6 +208,7 @@
 .ds-track__sect--p { padding-left: 8px; }
 .ds-track__obs { top: 24px; height: 3px; background: var(--ds-measured); }
 .ds-track__gap { top: 18px; text-align: center; font-size: 12px; line-height: 14px; font-style: italic; color: var(--ds-text-3); white-space: nowrap; overflow: hidden; }
+.ds-ui .ds-track__gap--short { top: 25px; height: 0; border-top: 1px dashed var(--ds-text-3); }
 .ds-track__scene { top: 20px; width: 2px; height: 11px; transform: translateX(-50%); background: var(--ds-measured); }
 .ds-track__proj { top: 21px; height: 9px; border: 1px solid rgba(207, 198, 180, 0.55); border-left: 0; border-radius: 0 2px 2px 0; background: var(--ds-hatch); }
 .ds-track__frame { top: 17px; width: 2px; height: 17px; transform: translateX(-50%); background: var(--ds-projected); }
@@ -216,7 +221,8 @@
 .ds-head::after { content: ""; position: absolute; left: -6px; top: 19px; width: 12px; height: 12px; border-radius: 50%; background: var(--ds-text); border: 2px solid var(--ds-on-bone); }
 .ds-head span { position: absolute; top: -4px; left: 0; transform: translateX(-50%); padding: 1px 6px; border-radius: var(--ds-radius-sm); background: var(--ds-text); color: var(--ds-on-bone); font-size: 12px; line-height: 14px; font-weight: 600; }
 .ds-tl-read { display: flex; align-items: center; gap: 12px; margin-top: 2px; }
-.ds-tl-read p { flex: 1 1 auto; min-width: 0; font-size: 12px; line-height: 20px; color: var(--ds-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-tl-read p { flex: 1 1 auto; min-width: 0; font-size: 12px; line-height: 16px; color: var(--ds-text-2); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
+.ds-tl-read .ds-tag-projected, .ds-tl-read .ds-tag-measured { height: 16px; font-size: 11px; }
 .ds-tl-read p b { color: var(--ds-text); }
 .ds-hint { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ds-text-3); opacity: 0; transition: opacity var(--ds-dur) var(--ds-ease); }
 .ds-timeline:hover .ds-hint, .ds-timeline:focus-within .ds-hint { opacity: 1; }
@@ -239,8 +245,11 @@
   display: flex; align-items: center; gap: 6px; padding: 0 16px; overflow: hidden; white-space: nowrap;
   background: rgba(21, 19, 15, 0.92); border-top: 1px solid var(--ds-line); font-size: 12px; color: var(--ds-text-3);
 }
-.ds-footer span { overflow: hidden; text-overflow: ellipsis; }
-.ds-footer button { padding: 0; border: 0; background: none; font-size: 12px; color: var(--ds-text-2); text-decoration: underline; text-underline-offset: 2px; }
+.ds-footer > span { overflow: hidden; text-overflow: ellipsis; }
+.ds-credit-line { flex: 0 0 auto; color: var(--ds-text-2); }
+.ds-credit-data { flex: 1 1 auto; min-width: 0; }
+.ds-cesium-credits { flex: 0 0 auto; max-width: 28%; display: flex; }
+.ds-footer button { flex: 0 0 auto; padding: 0; border: 0; background: none; font-size: 12px; color: var(--ds-text-2); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- First-visit guide ---------- */
 .ds-guide-backdrop { position: absolute; inset: var(--ds-header-h) 0 var(--ds-footer-h) 0; background: rgba(15, 13, 10, 0.42); pointer-events: auto; }
@@ -310,11 +319,123 @@
   .ds-hint { display: none; }
   .ds-gearwrap { margin-top: 14px; }
   .ds-pop { bottom: calc(100% + 8px); left: 0; right: auto; }
-  .ds-footer { display: none; }
   .ds-guide ol { grid-template-columns: 1fr; }
   .ds-guide-dot { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ds-ui * { transition: none !important; }
+}
+
+/* ===================================================================================================
+   DuneSight additions (not in the supplied design): pieces the app needs that the design had no place
+   for, drawn in the same tokens. See docs/build-spec.md "As built".
+   =================================================================================================== */
+
+/* measured / projected tags, warnings, mono, links, source lines */
+.ds-tag-measured {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 6px; margin-right: 2px; vertical-align: 1px;
+  border: 1px solid var(--ds-measured); border-radius: var(--ds-radius-sm);
+  font-size: 12px; font-weight: var(--ds-fw-strong); letter-spacing: 0.05em; color: var(--ds-measured); white-space: nowrap;
+}
+.ds-tag-warn { flex: 0 0 auto; padding: 2px 8px; border: 1px solid var(--ds-threat-now); border-radius: var(--ds-radius-sm); font-size: 12px; color: var(--ds-text); }
+.ds-mono { font-family: var(--ds-font-mono); font-size: 11.5px; color: var(--ds-text-2); }
+.ds-ui .ds-link { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; color: var(--ds-text); text-decoration: underline; text-decoration-color: rgba(237, 230, 216, 0.4); text-underline-offset: 3px; }
+.ds-conf .ds-link { align-self: flex-start; margin-top: 2px; color: var(--ds-text-2); }
+.ds-src { margin-top: 10px !important; }
+.ds-src .ds-link { font-size: inherit; color: var(--ds-text-2); }
+
+/* header: what the map shows (measured scene or projected year), loading, Top-down state */
+.ds-when { display: flex; align-items: center; gap: 0; flex: 0 0 auto; height: 32px; padding: 0 10px; border: 1px solid var(--ds-line); border-radius: var(--ds-radius); font-size: 15px; }
+.ds-when b { font-weight: var(--ds-fw-strong); }
+.ds-seg button[aria-busy="true"] { opacity: 0.6; cursor: progress; }
+.ds-ghost[aria-pressed="true"] { background: var(--ds-text); color: var(--ds-on-bone); border-color: var(--ds-text); }
+
+/* small segmented controls (arrow scale, list filters) */
+.ds-seg--small { display: inline-flex; padding: 1px; gap: 1px; }
+.ds-seg--small button { height: 24px; padding: 0 8px; font-size: 12px; }
+
+/* legend extras */
+.ds-lsub { display: flex; align-items: center; gap: 8px; padding: 0 0 2px 54px; }
+.ds-lnote { padding: 0 0 4px 54px; }
+
+/* wind panel: station sentence */
+.ds-station { color: var(--ds-text-2); }
+
+/* threat mode: ranked list of reached places replaces the wind panel */
+.ds-ui[data-mode="threat"] .ds-panel--wind, .ds-ui:not([data-mode="threat"]) .ds-panel--reached { display: none; }
+.ds-right > [data-reached-slot] { display: contents; }
+.ds-panel--reached { flex: 1 1 0 !important; min-height: 170px !important; }
+.ds-ui[data-mode="threat"] .ds-right > .ds-panel--legend { flex: 1 1 auto; min-height: 180px; }
+.ds-panel--reached .ds-seg--small { margin: 10px 0 6px; }
+.ds-rlist { list-style: none; padding: 0; margin: 0 0 6px; }
+.ds-rlist li + li { border-top: 1px solid var(--ds-line); }
+.ds-rlist button {
+  display: grid; grid-template-columns: 10px 40px minmax(0, 1fr); column-gap: 8px; align-items: baseline; width: 100%;
+  padding: 5px 2px; border: 0; background: none; text-align: left; border-radius: var(--ds-radius-sm);
+}
+.ds-rlist button:hover { background: rgba(237, 230, 216, 0.06); }
+.ds-rlist i { width: 10px; height: 10px; border-radius: 2px; align-self: center; }
+.ds-rlist b { font-weight: var(--ds-fw-strong); }
+.ds-rname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ds-rlist small { grid-column: 3; font-size: 12px; color: var(--ds-text-3); }
+
+/* selection card: its own column next to the right-hand panels */
+.ds-panel--card {
+  position: absolute; right: calc(var(--ds-gap-edge) + var(--ds-panel-right) + 12px); top: calc(var(--ds-header-h) + 12px);
+  width: var(--ds-panel-right);
+  max-height: calc(100% - var(--ds-header-h) - var(--ds-timeline-h) - var(--ds-footer-h) - 46px);
+  padding: 10px 14px 12px 16px;
+}
+.ds-panel--card .ds-phead { align-items: flex-start; }
+.ds-panel--card .ds-phead h2 { padding-top: 4px; }
+.ds-card-tag { margin: 2px 0 4px; }
+.ds-chip { display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; padding: 1px 7px; border: 1px solid var(--ds-line-strong); border-radius: var(--ds-radius-sm); font-size: 12px; color: var(--ds-text-2); white-space: nowrap; }
+.ds-chip i { width: 10px; height: 10px; border-radius: 2px; }
+.ds-card-body { font-size: var(--ds-fs-small); }
+.ds-sheet-handle { display: none; }
+
+/* shorter or narrower desktop windows (1366 x 768) */
+@media (max-height: 860px) and (min-width: 761px) {
+  .ds-ui { --ds-fs-lead: 17px; }
+  .ds-right > .ds-panel--wind { flex-shrink: 1; }
+  .ds-compass { max-width: 230px; margin-top: 4px; }
+  .ds-panel { padding-top: 8px; padding-bottom: 10px; }
+}
+@media (max-width: 1500px) and (min-width: 761px) {
+  .ds-ui { --ds-panel-left: 330px; --ds-panel-right: 320px; }
+  .ds-header { gap: 10px; }
+  .ds-brand span { display: none; }
+  .ds-ghost { padding: 0 10px; }
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .ds-header .ds-ghost span { display: none; }
+  .ds-panel--card { right: auto; left: calc(var(--ds-gap-edge) + var(--ds-panel-left) + 12px); }
+}
+
+/* phone: the card and the reached list are tabs of the sheet; the footer stays (credit line); the sheet can be lowered */
+@media (max-width: 760px) {
+  .ds-ui { --ds-footer-h: 46px; }
+  .ds-when { position: absolute; left: 12px; top: calc(var(--ds-header-h) + 8px); height: 30px; background: var(--ds-panel); font-size: 14px; pointer-events: none; }
+  .ds-header .ds-tag-warn { order: 4; }
+  .ds-sheet { bottom: var(--ds-footer-h); height: calc(56% - var(--ds-footer-h)); }
+  .ds-sheet::before { display: none; }
+  .ds-sheet-handle { display: block; flex: 0 0 auto; width: 100%; height: 20px; padding: 0; border: 0; background: none; }
+  .ds-sheet-handle::before { content: ""; display: block; width: 36px; height: 4px; margin: 8px auto; border-radius: 2px; background: var(--ds-line-strong); }
+  .ds-ui[data-sheet="min"] .ds-sheet { height: auto; }
+  .ds-ui[data-sheet="min"] .ds-sheet > :not(.ds-tabs):not(.ds-sheet-handle) { display: none !important; }
+  .ds-tabs button { font-size: 13px; }
+  .ds-ui[data-mode="threat"] .ds-panel--wind, .ds-ui:not([data-mode="threat"]) .ds-panel--reached { display: none !important; }
+  .ds-ui:not([data-tab="reached"]) .ds-panel--reached, .ds-ui:not([data-tab="card"]) .ds-panel--card { display: none; }
+  .ds-panel--card { position: static; width: auto; max-height: none; flex: 1 1 auto; min-height: 0; overflow-y: auto; border: 0; border-radius: 0; background: transparent; padding: 14px 20px 20px; }
+  .ds-panel--card .ds-phead .ds-icon-btn { display: inline-flex; }
+  .ds-panel--reached { min-height: 0 !important; }
+  [data-card-slot] { display: contents; }
+  .ds-footer { display: flex; flex-wrap: wrap; align-content: center; gap: 0 8px; height: var(--ds-footer-h); padding: 2px 12px; font-size: 11px; line-height: 1.3; white-space: normal; }
+  .ds-credit-line { flex: 1 1 100%; white-space: normal; }
+  .ds-credit-data { display: none; }
+  .ds-cesium-credits { max-width: 50%; }
+  .ds-footer button { font-size: 11px; }
+  .ds-lsub, .ds-lnote { padding-left: 54px; }
+  .ds-range__key span { white-space: normal; }
 }

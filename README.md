@@ -4,7 +4,7 @@ A "spy satellite for sand dunes": a 3D globe app that shows where dune sand is m
 
 The measured motion is slow (around a metre per year), so the app shows it honestly: a motion-vector field on a stated time scale, "below detection limit" instead of zero, ranges instead of single numbers, and projections clearly labelled as projections. A weather-radar-style timeline plays the observed November Landsat scenes (with the 2002–2012 gap shown as a gap) and then the projected frames to 2050.
 
-![DuneSight: Seih Al Hama in Motion mode](docs/screenshots/seih-motion-1080p.png)
+![DuneSight: Seih Al Hama in Motion mode](docs/screenshots/seih-motion-1080p.jpg)
 
 **Live:** https://ssmarzooqi.github.io/dunesight/
 

@@ -56,7 +56,8 @@ export function createVectorsLayer(viewer, bundle) {
   }
 
   function haloColor(id) {
-    return C('#05080c', Math.min(0.75, colorFor(id).alpha * 0.85));
+    const a = colorFor(id).alpha;
+    return C('#05080c', Math.min(0.75, a * a * 1.1)); // fades faster than the fill, so dimmed arrows leave no dark specks
   }
 
   async function build() {

@@ -516,9 +516,18 @@ test('10 · dossier source links resolve: each DOI to its publisher page (networ
   for (const id of SITES) for (const s of siteData(id).sources) sources.set(s.name, s);
   const bad = [];
   const notes = [];
+  const get = async (u) => {
+    const opts = { timeout: 30_000, maxRedirects: 10, failOnStatusCode: false, headers: { 'User-Agent': 'Mozilla/5.0 (DuneSight link check)' } };
+    try {
+      return await request.get(u, opts);
+    } catch (err) {
+      notes.push(`retried ${u} after: ${err.message.split('\n')[0]}`); // one retry for a timeout or reset; a second failure fails the test
+      return request.get(u, opts);
+    }
+  };
   const fetchPage = async (u, expectHost) => {
     try {
-      const r = await request.get(u, { timeout: 30_000, maxRedirects: 10, failOnStatusCode: false, headers: { 'User-Agent': 'Mozilla/5.0 (DuneSight link check)' } });
+      const r = await get(u);
       const host = new URL(r.url()).host;
       if (r.status() < 400) return;
       const blocked = r.status() === 403 || r.status() === 429 || r.status() >= 500;

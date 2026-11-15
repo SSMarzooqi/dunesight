@@ -206,6 +206,17 @@ function applyLayers() {
   applyStop(state.stop);
 }
 
+// A mode change reports every layer of the new mode one by one: apply them once, after the event.
+let layersPending = false;
+function scheduleLayers() {
+  if (layersPending) return;
+  layersPending = true;
+  queueMicrotask(() => {
+    layersPending = false;
+    applyLayers();
+  });
+}
+
 function applySettings(key, value) {
   if (key === 'reachCase') {
     state.hitRule = value === 'median' ? 'med' : 'min';
@@ -571,8 +582,8 @@ function mountUI(data) {
     creditNode: $('#cesium-credits'),
     keyGuard: () => !$('#dossier').hidden,
     onSiteChange: (id) => activateSite(id),
-    onModeChange: () => applyLayers(),
-    onLayerToggle: () => applyLayers(),
+    onModeChange: scheduleLayers,
+    onLayerToggle: scheduleLayers,
     onTimeChange: (year) => applyYear(year),
     onSettingChange: applySettings,
     onHome: () => flyHome(1.4),
